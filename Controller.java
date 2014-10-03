@@ -14,7 +14,7 @@ public class Controller {
 		database = new DriverManager();
 		try
 		{
-			dbconnection = database.getConnection ("edjo.usask.ca:PROTOCOL:cmpt370_group13", "cmpt370_group13", "xzqsx6wabv");
+			dbconnection = database.getConnection ("lovett.usask.ca:PROTOCOL:cmpt370_group13", "cmpt370_group13", "1truegod");
 		}
 		catch
 		{
