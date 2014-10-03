@@ -1,9 +1,3 @@
---database Setup
---Shift Swap Database
---CMPT 370 project
---Agile Technologies
-
-
 CREATE DOMAIN employeeNumber as integer;
 
 CREATE TABLE employees (
@@ -79,18 +73,15 @@ INSERT
 ;
 
 
-
---I am with a heavy heart commenting out the views, because I think we are using the derpy server that does not like views. The views are not really necessary, just would have been nice to have
-/*
-CREATE VIEW login (
+CREATE VIEW login
 	AS SELECT
 		empNum,
-		empPassword,
+		empPassword
 	FROM
 		employees
-);
+	;
 
-CREATE VIEW full_employee_info (
+CREATE VIEW full_employee_info 
 	AS SELECT
 		empNum,
 		empFirstName,
@@ -104,7 +95,4 @@ CREATE VIEW full_employee_info (
 		BossManager
 	WHERE
 		empNum = employee
-);
-*/
-	
-	
+	;
