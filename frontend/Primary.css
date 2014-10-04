@@ -1,0 +1,44 @@
+/*
+ * Erik LaBine, ejl389, 11122765
+ * ejl389@mail.usask.ca
+ * For use in shift-swap project; CMPT 370, University of Saskatchewan
+ * 2014
+ */
+
+/* It's a good font, what can I say. */
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+/* Global values. */
+.root {
+    /* Colour values */
+    cognac: #975B3B;
+    basalt: #41373D;
+    neutral: #CFBFA1;
+    umber: #8A3324;
+    
+    /* Set background */
+    -fx-border-width: 75;
+    -fx-border-color: cognac;
+    -fx-background-color: neutral;
+}
+
+#title {
+    -fx-text-fill: basalt;
+    -fx-font-family: 'Source Sans Pro', sans-serif;
+    -fx-font-weight: lighter;
+    -fx-font-size: 35;
+}
+
+.button {
+    -fx-text-fill: neutral;
+    -fx-font-family: 'Source Sans Pro', sans-serif;
+    -fx-background-color: umber;
+    -fx-background-radius: 0, 0, 0, 0;
+}
+
+.label {
+    -fx-text-fill: basalt;
+    -fx-font-family: 'Source Sans Pro', sans-serif;
+}
+
+
