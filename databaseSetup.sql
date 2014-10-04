@@ -19,6 +19,14 @@ CREATE TABLE BossManager (
 	FOREIGN KEY (manager) REFERENCES employees (empNum)
 );
 
+CREATE TABLE employeeShifts (
+	shiftEmployeeNum employeeNumber NOT NULL,
+	shiftStartTime timestamp NOT NULL,
+	shiftEndTime timestamp NOT NULL,
+	FOREIGN KEY (shiftEmployeeNum) REFERENCES employees (empNum),
+	PRIMARY KEY (shiftEmployeeNum, shiftStartTime, shiftEndTime)
+);
+
 
 --INSERT Some demo values
 INSERT 
@@ -72,6 +80,80 @@ INSERT
 		'allHail')
 ;
 
+INSERT 
+	INTO employeeShifts (
+			shiftEmployeeNum,
+			shiftStartTime,
+			shiftEndTime)
+	VALUES (
+		12345,
+		'2014-10-13 10:15',
+		'2014-10-13 18:30')
+;
+
+INSERT 
+	INTO employeeShifts (
+			shiftEmployeeNum,
+			shiftStartTime,
+			shiftEndTime)
+	VALUES (
+		23456,
+		'2014-10-13 10:15',
+		'2014-10-13 18:30')
+;
+
+INSERT 
+	INTO employeeShifts (
+			shiftEmployeeNum,
+			shiftStartTime,
+			shiftEndTime)
+	VALUES (
+		12345,
+		'2014-10-14 10:15',
+		'2014-10-14 18:30')
+;
+
+INSERT 
+	INTO employeeShifts (
+			shiftEmployeeNum,
+			shiftStartTime,
+			shiftEndTime)
+	VALUES (
+		23456,
+		'2014-10-13 19:15',
+		'2014-10-13 21:30')
+;
+
+INSERT 
+	INTO employeeShifts (
+			shiftEmployeeNum,
+			shiftStartTime,
+			shiftEndTime)
+	VALUES (
+		12345,
+		'2014-10-20 11:15',
+		'2014-10-13 19:30')
+;
+
+-- VIEWS
+CREATE VIEW vw_sample_all_employee_week
+	AS SELECT
+		CONCAT (empLastName, ', ',empFirstName) AS "Employee",
+		shiftStartTime AS "Start Time",
+		shiftEndTime AS "End Time",
+		shiftEndTime - shiftStartTime AS "Duration"
+	FROM
+		employees,
+		employeeShifts
+	WHERE
+		empNum = shiftEmployeeNum AND
+		shiftStartTime >= '2014-10-12 00:00' AND
+		shiftStartTime < '2014-10-20 00:00'
+	ORDER BY
+		shiftStartTime,
+		empLastName
+;
+
 
 CREATE VIEW login
 	AS SELECT
@@ -79,7 +161,7 @@ CREATE VIEW login
 		empPassword
 	FROM
 		employees
-	;
+;
 
 CREATE VIEW full_employee_info 
 	AS SELECT
@@ -95,4 +177,4 @@ CREATE VIEW full_employee_info
 		BossManager
 	WHERE
 		empNum = employee
-	;
+;
