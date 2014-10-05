@@ -9,6 +9,7 @@ package frontend;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import controller.*;
 
 /**
  * The class of static functions to help handle input.
@@ -31,10 +32,19 @@ public class Input
      * @return true if they can log in
      */
     public static boolean authenticate(String username, String password) {
-	byte[] usrHash = DummyController.getHash(username);
 	byte[] pwHash = Input.createHash(password);
 	
-	return MessageDigest.isEqual(usrHash, pwHash);
+	Request loginRequest = new Request(username, null, pwHash.toString(), Request.RequestType.LOGIN);
+	
+	long startTime = System.currentTimeMillis();
+	
+	while((System.currentTimeMillis() - startTime) < 5000) {
+	    if(loginRequest.isApproved()) {
+		return true;
+	    }
+	}
+	
+	return false;
     }
     
     private static byte[] createHash(String password) {
