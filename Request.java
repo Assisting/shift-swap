@@ -12,7 +12,7 @@ public class Request
 
 	private String sender;
 	private String approver;
-	private bool approved;
+	private boolean approved;
 	private String recipient;
 	//private Shift shifts;
 	private String message;
@@ -35,7 +35,7 @@ public class Request
 		approver = name;
 	}
 
-	public void setApproved(bool value)
+	public void setApproved(boolean value)
 	{
 		approved = value;
 	}
@@ -59,7 +59,7 @@ public class Request
 		return approver;
 	}
 
-	public bool isApproved()
+	public boolean isApproved()
 	{
 		return approved;
 	}
