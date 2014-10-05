@@ -40,7 +40,7 @@ public class Controller {
 			}
 			case Request.RequestType.LOGIN:
 			{
-				boolean validated;
+				booleanean validated;
 				Statement loginRequest = dbconnection.createStatement();
 				ResultSet results = loginRequest.executeQuery("select * from employees where employeeID = " + request.getSender());
 				while (results.next() && !validated)
