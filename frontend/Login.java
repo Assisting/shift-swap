@@ -97,7 +97,7 @@ public class Login extends Application
 	// The scene contains the working parts of the stage
 	Scene scene = new Scene(grid, 800, 500);
 	primaryStage.setScene(scene);
-	
+	//is line below seems to give me troubles, get null pointer exception, works if i comment it out - Andrew
 	scene.getStylesheets().add(Login.class.getResource("Primary.css").toExternalForm());
 	
 	primaryStage.show();
