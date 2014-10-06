@@ -19,6 +19,14 @@ public class Controller {
 	private Connection dbconnection;
 
 	public Controller() {
+            System.out.print("connection");
+            try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("fail");
+		}
 		try
 		{
 			dbconnection = DriverManager.getConnection ("jdbc:postgresql://lovett.usask.ca:5432/", "cmpt370_group13", "1truegod");
@@ -35,6 +43,7 @@ public class Controller {
 	*  @param request - a Request object which contains information to be parsed by the controller.
 	*/
 	public void sendRequest (Request request) throws SQLException {
+            System.out.print("testing");
 		switch (request.getMode()) {
 			case TAKE:
 			{
@@ -49,15 +58,21 @@ public class Controller {
 			{
 				boolean validated = false;
 				Statement loginRequest = dbconnection.createStatement();
-				ResultSet results = loginRequest.executeQuery("select * from employees where employeeID = " + request.getSender());
+				ResultSet results = loginRequest.executeQuery("select * from employees where empnum = " + request.getSender());
 				while (results.next() && !validated)
 				{
-					validated = request.getMessage().equals(results.getNString("empPassword"));
+                                    System.out.print(request.getSender());
+                                    System.out.print(request.getMessage());
+                                    validated = request.getMessage().equals(results.getString("emppassword"));
+                                    System.out.print(request.getMessage());
 				}
-				if (validated)
-					request.setApproved(true);
-				else
-					request.setApproved(false);
+                                System.out.print("true");
+				if (validated){
+                                        System.out.print("true2");
+					request.setApproved(true);}
+                                else{
+                                        System.out.print("false");
+					request.setApproved(false);}
 			}
 		}
 	}
