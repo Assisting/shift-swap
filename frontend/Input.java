@@ -16,6 +16,9 @@ import controller.*;
  */
 public class Input
 {
+    
+    
+    
     /**
      * Attempts to clean up input. Currently a do-nothing function, really.
      * 
@@ -52,13 +55,12 @@ public class Input
 	
 	try {
 	    MessageDigest md = MessageDigest.getInstance("SHA-256");
-	     md.update(password.getBytes());
-	     returnHash = md.digest();
+	    md.update(password.getBytes());
+	    returnHash = md.digest();
 	     
-	     if(returnHash == null) {
-		 throw new RuntimeException(
-			 "ReturnHash null in DummyController");
-	     }
+	    if(returnHash == null) {
+		throw new RuntimeException("ReturnHash null in DummyController");
+	    }
 	} catch (NoSuchAlgorithmException nsae) {
 	    System.out.println("Exception: " + nsae);
 	}
