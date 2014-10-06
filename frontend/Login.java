@@ -68,14 +68,35 @@ public class Login extends Application
 	final PasswordField pwBox = new PasswordField();
 	grid.add(pwBox, 1, 2);
 	
+	final Text actiontarget = new Text();
+    grid.add(actiontarget, 1, 6);
+	
+    // probably make this into one function, its a straight copy from below
+    // but sick of having to tab and space bar or click login. Should be able to hit enter ;)
+    // -ken
+	pwBox.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+	        public void handle(ActionEvent e) {
+		String username = userTextField.getText();
+		String password = pwBox.getText();
+		if(Input.authenticate(username, password)) {
+		    actiontarget.setFill(Color.GREEN);
+		    actiontarget.setText("Successfully logged in");
+		} else {
+		    actiontarget.setFill(Color.FIREBRICK);
+		    actiontarget.setText("Login failed");
+		}
+	        }
+	
+		});
+	
 	Button btn = new Button("Enter");
 	HBox hbBtn = new HBox(10);
 	hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 	hbBtn.getChildren().add(btn);
 	grid.add(hbBtn, 1, 4);
 	
-	final Text actiontarget = new Text();
-        grid.add(actiontarget, 1, 6);
+	
 
         btn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -93,6 +114,9 @@ public class Login extends Application
 		}
             }
         });
+        
+        
+        
 	
 	// The scene contains the working parts of the stage
 	Scene scene = new Scene(grid, 800, 500);
@@ -103,6 +127,8 @@ public class Login extends Application
 	primaryStage.show();
     }
 
+    
+    
     /**
      * main() is essentially just a fallback if JavaFX fails to launch.
      *
