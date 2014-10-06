@@ -1,4 +1,4 @@
-// kts192 - temp pass hasher, made from erik's code
+package temp_passwordbastard;// kts192 - temp pass hasher, made from erik's code
 
 
 import java.security.MessageDigest;
