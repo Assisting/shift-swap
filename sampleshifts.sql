@@ -7,111 +7,13 @@ INSERT
 		empPassword,
 		empEmail,
 		empWage)
-	VALUES (
-		'Damon',
-		'L',
-		1,
-		'tdamon',
-		'hashthis',
-		'damon@telus.com',
-		10)
-;
-
-INSERT 
-	INTO employees (
-		empFirstName,
-		empLastName,
-		empAccessLevel,
-		empLogin,
-		empPassword,
-		empEmail,
-		empWage)
-	VALUES (
-		'Tori',
-		'M',
-		1,
-		'ttori',
-		'hashthis',
-		'tori@telus.com',
-		10)
-;
-
-INSERT 
-	INTO employees (
-		empFirstName,
-		empLastName,
-		empAccessLevel,
-		empLogin,
-		empPassword,
-		empEmail,
-		empWage)
-	VALUES (
-		'Dorian',
-		'R',
-		1,
-		'tdorian',
-		'hashthis',
-		'dorian@telus.com',
-		10)
-;
-
-
-INSERT 
-	INTO employees (
-		empFirstName,
-		empLastName,
-		empAccessLevel,
-		empLogin,
-		empPassword,
-		empEmail,
-		empWage)
-	VALUES (
-		'Mike',
-		'S',
-		2,
-		'tmike',
-		'cantscheduleforshit',
-		'mike@telus.com',
-		999999)
-;
-
-INSERT 
-	INTO employees (
-		empFirstName,
-		empLastName,
-		empAccessLevel,
-		empLogin,
-		empPassword,
-		empEmail,
-		empWage)
-	VALUES (
-		'Ken',
-		'Slawinski',
-		1,
-		't884027',
-		'thisismyrealpasswordimnotkidding#imkidding',
-		'ken.slawinski@telus.com',
-		1)
-;
-
-INSERT 
-	INTO employees (
-		empFirstName,
-		empLastName,
-		empAccessLevel,
-		empLogin,
-		empPassword,
-		empEmail,
-		empWage)
-	VALUES (
-		'Sanjay',
-		'S',
-		1,
-		'tsanjay',
-		'learningisgreat',
-		'sanjay@telus.com',
-		25)
-;
+	VALUES ('Damon', 'L', 1, 'tdamon', 'hashthis', 'damon@telus.com', 10), 
+		('Tori', 'M', 1, 'ttori', 'hashthis', 'tori@telus.com', 10),
+		('Dorian', 'R', 1, 'tdorian', 'hashthis', 'dorian@telus.com', 10),
+		('Mike', 'S', 2, 'tmike', 'cantscheduleforshit', 'mike@telus.com', 999999),
+		('Ken', 'Slawinski', 1, 't884027', 'thisismyrealpasswordimnotkidding#imkidding', 'ken.slawinski@telus.com', 1),
+		('Sanjay', 'S', 1, 'tsanjay', 'learningisgreat', 'sanjay@telus.com', 25)
+	;
 
 INSERT 
 	INTO employeeShifts (
@@ -165,4 +67,4 @@ INSERT
 		('tsanjay', '2014-10-29 10:00', '2014-10-29 18:00'),
 		('tsanjay', '2014-10-30 10:00', '2014-10-30 18:00'),
 		('tsanjay', '2014-10-31 13:00', '2014-10-31 21:30');
-;
+	;
