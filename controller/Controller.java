@@ -60,7 +60,7 @@ public class Controller {
 
 				boolean validated = false;
 				Statement loginRequest = dbconnection.createStatement();
-				ResultSet results = loginRequest.executeQuery("select * from employees where empLogin = " + request.getSender());
+				ResultSet results = loginRequest.executeQuery(this.loginQuery(request.getSender()));
 				while (results.next() && !validated)
 				{
                                     System.out.print(request.getSender());
@@ -87,4 +87,10 @@ public class Controller {
 	private String getMessages() {
 	    return null;
 	}
+        
+        //Generate a query to select the login (username and password) information from the database so that it can be checked for authentication
+        private String loginQuery(String LoginID){
+            return "SELECT empLogin, empPassword FROM login WHERE empLogin = '" + LoginID + "'" ;
+        }
+        
 }
