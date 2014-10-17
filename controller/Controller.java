@@ -60,7 +60,7 @@ public class Controller {
 
 				boolean validated = false;
 				Statement loginRequest = dbconnection.createStatement();
-				ResultSet results = loginRequest.executeQuery("select * from employees where empnum = " + request.getSender());
+				ResultSet results = loginRequest.executeQuery("select * from employees where empLogin = " + request.getSender());
 				while (results.next() && !validated)
 				{
                                     System.out.print(request.getSender());

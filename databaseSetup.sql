@@ -1,136 +1,152 @@
-CREATE DOMAIN employeeNumber as integer;
+DROP DOMAIN employeeLogin;
+DROP DOMAIN employeeName;
+
+DROP TABLE employees CASCADE;
+DROP TABLE BossManager CASCADE;
+DROP TABLE employeeShifts CASCADE;
+
+CREATE DOMAIN employeeLogin as varchar(25);
+CREATE DOMAIN employeeName as varchar(30);
+
 
 CREATE TABLE employees (
-	empNum employeeNumber NOT NULL, --employees unique identifier number
-	empFirstName varchar(30) NOT NULL,
-	empLastName varchar(30) NOT NULL,
+	empFirstName employeeName NOT NULL,
+	empLastName employeeName NOT NULL,
 	empAccessLevel smallint NOT NULL, -- will make a check but something like 1 is normal employees, 2 is managers, 3 is owner/admin
-	empUserName varchar(30) NOT NULL, -- depends on how you want to do login, either by empNum or a username
-	empPassword varchar(30) NOT NULL,  -- I think this will be an hash or some sort, IM FILLING WITH PLAIN TEXT to start
-	PRIMARY KEY (empNum)
+	empLogin employeeLogin NOT NULL, -- depends on how you want to do login, either by empNum or a username
+	empPassword bytea NOT NULL,  -- I think this will be an hash or some sort, IM FILLING WITH PLAIN TEXT to start
+	empEmail varchar(60) NOT NULL,
+	empWage decimal NOT NULL,
+	PRIMARY KEY (empLogin)
 );
 
 --this table links two employees together by who is that persons boss, or their manager. it is assumed that workers will have a boss whos empAccessLevel is >1 and managers will have a boss that is empAccessLev\del is >2
 CREATE TABLE BossManager (
-	employee employeeNumber NOT NULL,
-	manager employeeNumber NOT NULL,
+	employee employeeLogin NOT NULL,
+	manager employeeLogin NOT NULL,
 	PRIMARY KEY (employee, manager),
-	FOREIGN KEY (employee) REFERENCES employees (empNum),
-	FOREIGN KEY (manager) REFERENCES employees (empNum)
+	FOREIGN KEY (employee) REFERENCES employees (empLogin),
+	FOREIGN KEY (manager) REFERENCES employees (empLogin)
 );
 
 CREATE TABLE employeeShifts (
-	shiftEmployeeNum employeeNumber NOT NULL,
+	shiftEmployeeLogin employeeLogin NOT NULL,
 	shiftStartTime timestamp NOT NULL,
 	shiftEndTime timestamp NOT NULL,
-	FOREIGN KEY (shiftEmployeeNum) REFERENCES employees (empNum),
-	PRIMARY KEY (shiftEmployeeNum, shiftStartTime, shiftEndTime)
+	FOREIGN KEY (shiftEmployeeLogin) REFERENCES employees (empLogin),
+	PRIMARY KEY (shiftEmployeeLogin, shiftStartTime, shiftEndTime)
 );
 
 
 --INSERT Some demo values
 INSERT 
 	INTO employees (
-		empNum,
 		empFirstName,
 		empLastName,
 		empAccessLevel,
-		empUserName,
-		empPassword)
+		empLogin,
+		empPassword,
+		empEmail,
+		empWage)
 	VALUES (
-		12345,
 		'Andrew',
 		'Magnus',
 		1,
 		'magnusandy',
-		'doge')
+		'[B@677327b6',
+		'testemail@test.com',
+		10)
 ;
 
 INSERT 
 	INTO employees (
-		empNum,
 		empFirstName,
 		empLastName,
 		empAccessLevel,
-		empUserName,
-		empPassword)
+		empLogin,
+		empPassword,
+		empEmail,
+		empWage)
 	VALUES (
-		23456,
 		'Rick',
 		'James',
 		2,
-		'IamRickJames',
-		'RICKJAMES')
+		'rickjames',
+		'[B@14ae5a5',
+		'rickjames@email.com',
+		10)
 ;
 
 INSERT 
 	INTO employees (
-		empNum,
 		empFirstName,
 		empLastName,
 		empAccessLevel,
-		empUserName,
-		empPassword)
+		empLogin,
+		empPassword,
+		empEmail,
+		empWage)
 	VALUES (
-		34567,
 		'Nic',
 		'Cage',
 		3,
 		'oneTrueGod',
-		'allHail')
+		'[B@7f31245a',
+		'nicCage@email.com',
+		10)
 ;
 
 INSERT 
 	INTO employeeShifts (
-			shiftEmployeeNum,
+			shiftEmployeeLogin,
 			shiftStartTime,
 			shiftEndTime)
 	VALUES (
-		12345,
+		'magnusandy',
 		'2014-10-13 10:15',
 		'2014-10-13 18:30')
 ;
 
 INSERT 
 	INTO employeeShifts (
-			shiftEmployeeNum,
+			shiftEmployeeLogin,
 			shiftStartTime,
 			shiftEndTime)
 	VALUES (
-		23456,
+		'rickjames',
 		'2014-10-13 10:15',
 		'2014-10-13 18:30')
 ;
 
 INSERT 
 	INTO employeeShifts (
-			shiftEmployeeNum,
+			shiftEmployeeLogin,
 			shiftStartTime,
 			shiftEndTime)
 	VALUES (
-		12345,
+		'magnusandy',
 		'2014-10-14 10:15',
 		'2014-10-14 18:30')
 ;
 
 INSERT 
 	INTO employeeShifts (
-			shiftEmployeeNum,
+			shiftEmployeeLogin,
 			shiftStartTime,
 			shiftEndTime)
 	VALUES (
-		23456,
+		'rickjames',
 		'2014-10-13 19:15',
 		'2014-10-13 21:30')
 ;
 
 INSERT 
 	INTO employeeShifts (
-			shiftEmployeeNum,
+			shiftEmployeeLogin,
 			shiftStartTime,
 			shiftEndTime)
 	VALUES (
-		12345,
+		'magnusandy',
 		'2014-10-20 11:15',
 		'2014-10-13 19:30')
 ;
@@ -146,7 +162,7 @@ CREATE VIEW vw_sample_all_employee_week
 		employees,
 		employeeShifts
 	WHERE
-		empNum = shiftEmployeeNum AND
+		empLogin = shiftEmployeeLogin AND
 		shiftStartTime >= '2014-10-12 00:00' AND
 		shiftStartTime < '2014-10-20 00:00'
 	ORDER BY
@@ -157,7 +173,7 @@ CREATE VIEW vw_sample_all_employee_week
 
 CREATE VIEW login
 	AS SELECT
-		empNum,
+		empLogin,
 		empPassword
 	FROM
 		employees
@@ -165,16 +181,20 @@ CREATE VIEW login
 
 CREATE VIEW full_employee_info 
 	AS SELECT
-		empNum,
 		empFirstName,
 		empLastName,
 		empAccessLevel,
-		empUserName,
+		empLogin,
 		empPassword,
+		empEmail,
 		manager AS empManager
 	FROM
 		employees,
 		BossManager
 	WHERE
-		empNum = employee
+		empLogin = employee
 ;
+
+
+
+

@@ -37,7 +37,7 @@ public class Input
     public static boolean authenticate(String username, String password) {
 	byte[] pwHash = Input.createHash(password);
 	Controller cont = new Controller();
-	Request loginRequest = new Request(username, null, password, Request.RequestType.LOGIN);
+	Request loginRequest = new Request(username, null, pwHash.toString(), Request.RequestType.LOGIN);
 	
         try{
         cont.sendRequest(loginRequest);
