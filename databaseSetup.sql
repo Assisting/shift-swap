@@ -1,5 +1,5 @@
-DROP DOMAIN employeeLogin;
-DROP DOMAIN employeeName;
+DROP DOMAIN employeeLogin CASCADE;
+DROP DOMAIN employeeName CASCADE;
 
 DROP TABLE employees CASCADE;
 DROP TABLE BossManager CASCADE;
@@ -39,6 +39,7 @@ CREATE TABLE employeeShifts (
 
 
 --INSERT Some demo values
+/*--Commenting these Inserts out because we have better sample stuff now
 INSERT 
 	INTO employees (
 		empFirstName,
@@ -150,7 +151,7 @@ INSERT
 		'2014-10-20 11:15',
 		'2014-10-13 19:30')
 ;
-
+*/
 -- VIEWS
 CREATE VIEW vw_sample_all_employee_week
 	AS SELECT
