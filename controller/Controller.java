@@ -19,7 +19,7 @@ public class Controller {
 	private Connection dbconnection;
 
 	public Controller() {
-            System.out.print("connection");
+            //System.out.print("connection");
             try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e) {
@@ -44,7 +44,7 @@ public class Controller {
         * @throws SQLException
 	*/
 	public void sendRequest (Request request) throws SQLException {
-            System.out.print("testing");
+           // System.out.print("testing");
 		switch (request.getMode()) {
 			case TAKE:
 			{
@@ -60,7 +60,7 @@ public class Controller {
 
 				boolean validated = false;
 				Statement loginRequest = dbconnection.createStatement();
-				ResultSet results = loginRequest.executeQuery(this.loginQuery(request.getSender()));
+				ResultSet results = loginRequest.executeQuery(this.getloginQuery(request.getSender()));
 				while (results.next() && !validated)
 				{
                                     System.out.print(request.getSender());
@@ -89,8 +89,129 @@ public class Controller {
 	}
         
         //Generate a query to select the login (username and password) information from the database so that it can be checked for authentication
-        private String loginQuery(String LoginID){
+        private String getloginQuery(String LoginID){
             return "SELECT empLogin, empPassword FROM login WHERE empLogin = '" + LoginID + "'" ;
         }
         
+        /**
+         * generate a query to get all important non shift information from
+         * the database for a given loginID, First Name, Last Name, access level, login, password,
+         * email and who their manager is.
+         */
+        private String getWorkerInfoQuery(String LoginID)
+        {
+            
+            return "SELECT empfirstname, emplastname, empaccesslevel,"
+                    + " emplogin, emppassword, empemail, empmanager "
+                    + "FROM full_employee_info"
+                    + " WHERE emplogin = '" + LoginID + "'";
+        }
+        
+        /**
+         * Generate a query to get ALL the shift info for a particular person denoted by LoginID
+         * @param LoginID ID of the person you want to get the shifts of
+         * @return String of the Query needed
+         */
+        private String getEmployeeShiftInfo(String LoginID)
+        {
+        return "SELECT shiftemployeelogin, shiftstarttime, shiftendtime"
+                + " FROM employeeshifts"
+                + " WHERE shiftemployeelogin = '" + LoginID + "'"
+                + " ORDER BY shiftstarttime" ;
+        }
+        
+        private String newEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, String password, String email, float wage)
+        {
+            return "INSERT INTO employees (empfirstname, emplastname, empaccesslevel,"
+                    + " emplogin, emppassword, empemail, empwage)"
+                    + " VALUES ('" + firstName + "', "
+                    + "'" + lastName + "', "
+                    + "'" + accesslevel + "', "
+                    + "'" + loginID + "', "
+                    + "'" + password + "', "
+                    + "'" + email + "', "
+                    + "'" + wage + "')";
+        }
+        /**
+         *generate a query to update any or all employee info, it is assumed that the empLogin cannot be changed
+         * @param firstName can be null
+         * @param lastName can be null
+         * @param accesslevel must be set to -1 if not specified
+         * @param loginID CANNOT be null
+         * @param password can be null
+         * @param email can be null
+         * @param wage set to -1 if not specified
+         * @return a custom string for the update query given the parameters 
+         */
+        private String updateEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, String password, String email, float wage)
+        {
+            boolean needComma = false;
+            String ret = "UPDATE employees SET ";
+            if(firstName != null)
+            {
+                ret = ret+ "empfirstname = '"+ firstName+"'";
+                needComma = true;
+            }
+            if(lastName != null)
+            {
+                if(needComma == true)
+                {
+                        ret = ret + ", ";
+                }
+                ret = ret+ "emplastname = '"+ lastName+"' ";
+                needComma = true;
+            }
+            if(accesslevel != -1)
+            {
+                if(needComma == true)
+                {
+                        ret = ret + ", ";
+                }
+                ret = ret+ "empaccesslevel = '"+ accesslevel+"' ";
+                needComma = true;
+            }
+            if(password != null)
+            {
+                if(needComma == true)
+                {
+                        ret = ret + ", ";
+                }
+                ret = ret+ "emppassword = '"+ password+"' ";
+                needComma = true;
+            }
+            if(email != null)
+            {
+                if(needComma == true)
+                {
+                        ret = ret + ", ";
+                }
+                ret = ret+ "empemail = '"+ email+"' ";
+                needComma = true;
+            }
+            if(wage != -1)
+            {
+                if(needComma == true)
+                {
+                        ret = ret + ", ";
+                }
+                ret = ret+ "empwage = '"+ wage+"' ";
+                needComma = true;
+            }
+            
+            ret = ret + " WHERE emplogin = '" + loginID +"'";
+            
+            
+            return ret;
+        }
+     
+        
+        public static void main (String[] args) {
+            
+            Controller c = new Controller();
+            System.out.println(c.getloginQuery("testUsername"));
+	    System.out.println(c.getWorkerInfoQuery("testUsername"));
+            System.out.println(c.getEmployeeShiftInfo("testUsername"));
+            System.out.println(c.newEmployeeQuery("Elmer", "Fudd", 1, "eFudd", "wabbit", "Fudd@mail.com", (float) 53.232));
+            System.out.println(c.updateEmployeeQuery(null, "buster", 2, "eFudd", "jack", null, -1));
+	    }  
 }
