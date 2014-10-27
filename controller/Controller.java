@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * @author Connor Lavoy
+ */
 public class Controller {
 
 	private DriverManager database;
