@@ -8,12 +8,13 @@
 package controller;
 
 /**
+ * An object passed to the controller class in order to execute all functionality of Shift Swap
  * @author Connor Lavoy
  */
 public class Request
 {
 
-    public enum RequestType { TAKE, GIVE, TRADE, LOGIN }
+    public enum RequestType { TAKE, GIVE, TRADE, LOGIN, CREATE, REMOVE }
 
     final private String sender;
     private String approver;
