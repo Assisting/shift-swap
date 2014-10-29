@@ -7,6 +7,8 @@
 
 package controller;
 
+import java.sql.Timestamp;
+
 /**
  * An object passed to the controller class in order to execute all functionality of Shift Swap
  * @author Connor Lavoy
@@ -14,7 +16,7 @@ package controller;
 public class Request
 {
 
-    public enum RequestType { TAKE, GIVE, TRADE, LOGIN, CREATE, REMOVE }
+    public enum RequestType { TAKE, GIVE, TRADE, LOGIN, CREATE, REMOVE, SCHEDULE }
 
     final private String sender;
     private String approver;
@@ -107,21 +109,20 @@ public class Request
     {
         return mode;
     }
-
-    /**
-     * @return the main data load of the request, usually parsed by the controller
-     */
-    public Message getMessage()
-    {
-            return message;
+    
+    public String getNotification() {
+        return message.getNotification();
     }
-
-    /**
-     * changes the data load of the request to a specified instance of the 'Message' class
-     * @param message the instance to store in the request
-     */
-    public void setMessage(Message message)
-    {
-            this.message = message;
+    
+    public byte[] getPassword() {
+        return message.getPassword();
+    }
+    
+    public Timestamp[] getShifts() {
+        return message.getShifts();
+    }
+    
+    public Employee getEmployee() {
+        return message.getEmployee();
     }
 }

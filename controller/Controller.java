@@ -18,7 +18,6 @@ import java.sql.Statement;
  */
 public class Controller {
 
-	private DriverManager database;
 	private Connection dbconnection;
 
 	public Controller() {
@@ -26,7 +25,6 @@ public class Controller {
             try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("fail");
 		}
@@ -66,17 +64,16 @@ public class Controller {
 				ResultSet results = loginRequest.executeQuery(this.getloginQuery(request.getSender()));
 				while (results.next() && !validated)
 				{
-                                    System.out.print(request.getSender());
-                                    System.out.print(request.getMessage());
-                                    validated = request.getMessage().equals(results.getString("emppassword"));
-                                    System.out.print(request.getMessage());
+                                    byte[] query = request.getPassword();
+                                    byte[] result = results.getBytes("emppassword");
+                                    validated = true;
+                                    for (int i = 0; validated && i < 32; i ++) {
+                                        validated = query[i] != result[i];
+                                    }
 				}
-                                System.out.print("true");
 				if (validated){
-                                        System.out.print("true2");
 					request.setApproved(true);}
                                 else{
-                                        System.out.print("false");
 					request.setApproved(false);}
 
 			}

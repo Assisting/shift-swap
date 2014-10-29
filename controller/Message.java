@@ -31,4 +31,20 @@ public class Message {
         this.employee = employee;
     }
     
+    public String getNotification() {
+        return notification;
+    }
+    
+    public byte[] getPassword() {
+        return password;
+    }
+    
+    public Timestamp[] getShifts() {
+        return shift;
+    }
+    
+    public Employee getEmployee() {
+        return employee;
+    }
+    
 }
