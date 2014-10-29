@@ -43,35 +43,35 @@ public class Request
  
 //-----Custom Requests------------------------------------------
  
-public Request LoginRequest(String sender, byte[] password) {
+public static Request LoginRequest(String sender, byte[] password) {
         Message message = new Message(null, password, null, null);
         return new Request(sender, null, message, RequestType.LOGIN);
 }
  
-public Request ShiftRequest(String sender) {
+public static Request ShiftRequest(String sender) {
         return new Request(sender, null, null, RequestType.SCHEDULE);
 }
  
-public Request CreateRequest(String sender, Employee employee) {
+public static Request CreateRequest(String sender, Employee employee) {
         Message message = new Message(null, null, null, employee);
         return new Request(sender, null, message, RequestType.CREATE);
 }
  
-public Request RemoveRequest(String sender, String toBeRemoved) {
+public static Request RemoveRequest(String sender, String toBeRemoved) {
         return new Request(sender, toBeRemoved, null, RequestType.REMOVE);
 }
 
-public Request TakeRequest(String sender, Timestamp[] times) {
+public static Request TakeRequest(String sender, Timestamp[] times) {
     Message message = new Message(null, null, times, null);
     return new Request(sender, null, message, RequestType.TAKE);
 }
 
-public Request GiveRequest(String sender, Timestamp[] times) {
+public static Request GiveRequest(String sender, Timestamp[] times) {
     Message message = new Message(null, null, times, null);
     return new Request(sender, null, message, RequestType.GIVE);
 }
 
-public Request TradeRequest(String sender, String recipient, Timestamp[] shifts) {
+public static Request TradeRequest(String sender, String recipient, Timestamp[] shifts) {
     Message message = new Message(null, null, shifts, null);
     return new Request(sender, recipient, message, RequestType.TRADE);
 }
