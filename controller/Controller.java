@@ -32,9 +32,7 @@ public class Controller {
 		}
 		try
 		{
-                    System.out.println("trying");
                     dbconnection = DriverManager.getConnection ("jdbc:postgresql://lovett.usask.ca:5432/", "cmpt370_group13", "1truegod");
-                    System.out.println("got connection");
 		}
 		catch(SQLException sqle)
 		{
@@ -65,32 +63,21 @@ public class Controller {
 			{
 
                             boolean validated = false;
-                            System.out.println("trying");
                             Statement loginRequest = dbconnection.createStatement();
                             ResultSet results = loginRequest.executeQuery(this.getloginQuery(request.getSender()));
-                            System.out.println("got Passwords");
                             while (results.next() && !validated)
                             {
-                                System.out.println("looping");
                                 byte[] query = request.getPassword();
                                 byte[] result = results.getBytes("emppassword");
-                                if (result.length != 32) System.out.println("not as we expected");
-                                else System.out.println("just as planned");
                                 validated = true;
-                                for (int i = 0; validated && i < 32; i ++) {
+                                for (int i = 0; validated && i < result.length; i ++) {
                                     validated = query[i] != result[i];
-                                    if (!validated)
-                                        System.out.println("Character failed");
-                                    else
-                                        System.out.println("validated character");
                                 }
                             }
-                            if (validated){
-                                    System.out.println("validated");
-                                    request.setApproved(true);}
-                            else {
-                                     System.out.println("incorrect");
-                                    request.setApproved(false);}
+                            if (validated)
+                                    request.setApproved(true);
+                            else
+                                    request.setApproved(false);
                             break;
 			}
                         case CREATE:
