@@ -59,24 +59,38 @@ public class Controller {
 			case LOGIN:
 			{
 
-				boolean validated = false;
-				Statement loginRequest = dbconnection.createStatement();
-				ResultSet results = loginRequest.executeQuery(this.getloginQuery(request.getSender()));
-				while (results.next() && !validated)
-				{
-                                    byte[] query = request.getPassword();
-                                    byte[] result = results.getBytes("emppassword");
-                                    validated = true;
-                                    for (int i = 0; validated && i < 32; i ++) {
-                                        validated = query[i] != result[i];
-                                    }
-				}
-				if (validated){
-					request.setApproved(true);}
-                                else{
-					request.setApproved(false);}
-
+                            boolean validated = false;
+                            Statement loginRequest = dbconnection.createStatement();
+                            ResultSet results = loginRequest.executeQuery(this.getloginQuery(request.getSender()));
+                            while (results.next() && !validated)
+                            {
+                                byte[] query = request.getPassword();
+                                byte[] result = results.getBytes("emppassword");
+                                validated = true;
+                                for (int i = 0; validated && i < 32; i ++) {
+                                    validated = query[i] != result[i];
+                                }
+                            }
+                            if (validated)
+                                    request.setApproved(true);
+                            else
+                                    request.setApproved(false);
+                            break;
 			}
+                        case CREATE:
+                        {
+                            
+                        }
+                        case REMOVE:
+                        {
+                            
+                        }
+                        case SCHEDULE:
+                        {
+                            Statement shiftPullRequest = dbconnection.createStatement();
+                            ResultSet results = shiftPullRequest.executeQuery(this.getEmployeeShiftInfo(request.getSender()));
+                            
+                        }
 		}
 	}
 
