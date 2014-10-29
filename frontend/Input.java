@@ -44,13 +44,17 @@ public class Input
         }
         catch(Exception e)
         {}
+
+        try {
+            Thread.sleep(10000);
+        } catch(InterruptedException ex) {
+         Thread.currentThread().interrupt();
+        }
         
-	
-	    if(loginRequest.isApproved()) {
-		return true;
-	    }
-	
-	
+        if(loginRequest.isApproved()) {
+            return true;
+        }
+
 	return false;
     }
     
