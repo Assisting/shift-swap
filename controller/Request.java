@@ -60,6 +60,21 @@ public Request CreateRequest(String sender, Employee employee) {
 public Request RemoveRequest(String sender, String toBeRemoved) {
         return new Request(sender, toBeRemoved, null, RequestType.REMOVE);
 }
+
+public Request TakeRequest(String sender, Timestamp[] times) {
+    Message message = new Message(null, null, times, null);
+    return new Request(sender, null, message, RequestType.TAKE);
+}
+
+public Request GiveRequest(String sender, Timestamp[] times) {
+    Message message = new Message(null, null, times, null);
+    return new Request(sender, null, message, RequestType.GIVE);
+}
+
+public Request TradeRequest(String sender, String recipient, Timestamp[] shifts) {
+    Message message = new Message(null, null, shifts, null);
+    return new Request(sender, recipient, message, RequestType.TRADE);
+}
  
  
 //-----Getters and Setters----------------------------------------
