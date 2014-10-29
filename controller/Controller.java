@@ -74,6 +74,8 @@ public class Controller {
                                 System.out.println("looping");
                                 byte[] query = request.getPassword();
                                 byte[] result = results.getBytes("emppassword");
+                                if (result.length != 32) System.out.println("not as we expected");
+                                else System.out.println("just as planned");
                                 validated = true;
                                 for (int i = 0; validated && i < 32; i ++) {
                                     validated = query[i] != result[i];
@@ -279,7 +281,7 @@ public class Controller {
         }
      
         
-        public static void main (String[] args) {
+/*        public static void main (String[] args) {
             
             Controller c = new Controller();
             System.out.println(c.getloginQuery("testUsername"));
@@ -291,5 +293,5 @@ public class Controller {
             System.out.println(c.updateManagerQuery("magnusandy", "oneTrueGod"));
             System.out.println(c.newInboxQuery("magnusandy", "oneTrueGod", "Yoooo dawg lets do this"));
             System.out.println(c.getEmployeeInbox("oneTrueGod"));
-        }  
+        }  */
 }
