@@ -7,6 +7,7 @@
 
 package controller;
 
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -69,6 +70,7 @@ public class Controller {
                             {
                                 byte[] query = request.getPassword();
                                 byte[] result = results.getBytes("emppassword");
+                                //validated = MessageDigest.isEqual(query, result);
                                 validated = true;
                                 for (int i = 0; validated && i < result.length; i ++) {
                                     validated = query[i] != result[i];

@@ -46,9 +46,10 @@ public class Input
         {}
 
         try {
-            Thread.sleep(10000);
-        } catch(InterruptedException ex) {
-         Thread.currentThread().interrupt();
+            Thread.sleep(2000); //wait for connection and login
+        }
+        catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
         }
         
         if(loginRequest.isApproved()) {
