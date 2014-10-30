@@ -7,15 +7,20 @@
 
 package controller;
 
+import java.security.MessageDigest;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
+/**
+ * @author Connor Lavoy
+ */
 public class Controller {
 
-	private DriverManager database;
 	private Connection dbconnection;
 
 	public Controller() {
@@ -23,7 +28,6 @@ public class Controller {
             try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("fail");
 		}
@@ -39,12 +43,13 @@ public class Controller {
 	}
 
 	/**
-	*  Called by other pieces of the system to make requests to the database/managers
-	*  @param request - a Request object which contains information to be parsed by the controller.
+	* Called by other pieces of the system to make requests to the database/managers
+	* @param request - a Request object which contains information to be parsed by the controller.
+        * @return a container of any results sought from the request
         * @throws SQLException
 	*/
-	public void sendRequest (Request request) throws SQLException {
-           // System.out.print("testing");
+	public RequestResults sendRequest (Request request) throws SQLException {
+           RequestResults returnResults = null;
 		switch (request.getMode()) {
 			case TAKE:
 			{
@@ -58,31 +63,54 @@ public class Controller {
 			case LOGIN:
 			{
 
-				boolean validated = false;
-				Statement loginRequest = dbconnection.createStatement();
-				ResultSet results = loginRequest.executeQuery(this.getloginQuery(request.getSender()));
-				while (results.next() && !validated)
-				{
-                                    System.out.print(request.getSender());
-                                    System.out.print(request.getMessage());
-                                    validated = request.getMessage().equals(results.getString("emppassword"));
-                                    System.out.print(request.getMessage());
-				}
-                                System.out.print("true");
-				if (validated){
-                                        System.out.print("true2");
-					request.setApproved(true);}
-                                else{
-                                        System.out.print("false");
-					request.setApproved(false);}
-
+                            boolean validated = false;
+                            Statement loginRequest = dbconnection.createStatement();
+                            ResultSet results = loginRequest.executeQuery(this.getloginQuery(request.getSender()));
+                            while (results.next() && !validated)
+                            {
+                                byte[] query = request.getPassword();
+                                byte[] result = results.getBytes("emppassword");
+                                //validated = MessageDigest.isEqual(query, result);
+                                validated = true;
+                                for (int i = 0; validated && i < result.length; i ++) {
+                                    validated = query[i] != result[i];
+                                }
+                            }
+                            if (validated)
+                                    request.setApproved(true);
+                            else
+                                    request.setApproved(false);
+                            break;
 			}
+                        case CREATE:
+                        {
+                            
+                        }
+                        case REMOVE:
+                        {
+                            
+                        }
+                        case SCHEDULE:
+                        {
+                            Statement shiftPullRequest = dbconnection.createStatement();
+                            ResultSet results = shiftPullRequest.executeQuery(this.getEmployeeShiftInfo(request.getSender()));
+                            Date[] resultsList = new Date[results.getFetchSize()*2];
+                            for (int i = 0; results.next(); i = i + 2)
+                            {
+                                resultsList[i] = results.getDate("shiftstarttime");
+                                resultsList[i+1] = results.getDate("shiftendtime");
+                            }
+                            returnResults = new RequestResults();
+                            returnResults.setShifts(resultsList);
+                            return returnResults;
+                        }
 		}
+                return returnResults;
 	}
 
 	/**
-	*  pulls the messages that are waiting for a user and returns them as a delimited string
-	*  @returns a ready-to-print string of the messages awaiting a user.
+	* pulls the messages that are waiting for a user and returns them as a delimited string
+	* @returns a ready-to-print string of the messages awaiting a user.
 	*/
 	private String getMessages() {
 	    return null;
@@ -242,7 +270,7 @@ public class Controller {
         }
      
         
-        public static void main (String[] args) {
+/*        public static void main (String[] args) {
             
             Controller c = new Controller();
             System.out.println(c.getloginQuery("testUsername"));
@@ -254,5 +282,5 @@ public class Controller {
             System.out.println(c.updateManagerQuery("magnusandy", "oneTrueGod"));
             System.out.println(c.newInboxQuery("magnusandy", "oneTrueGod", "Yoooo dawg lets do this"));
             System.out.println(c.getEmployeeInbox("oneTrueGod"));
-        }  
+        }  */
 }
