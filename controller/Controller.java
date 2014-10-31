@@ -70,11 +70,8 @@ public class Controller {
                             {
                                 byte[] query = request.getPassword();
                                 byte[] result = results.getBytes("emppassword");
-                                //validated = MessageDigest.isEqual(query, result);
-                                validated = true;
-                                for (int i = 0; validated && i < result.length; i ++) {
-                                    validated = query[i] != result[i];
-                                }
+                                validated = MessageDigest.isEqual(query, result);
+
                             }
                             if (validated)
                                     request.setApproved(true);
@@ -171,7 +168,7 @@ public class Controller {
          * @param wage set to -1 if not specified
          * @return a custom string for the update query given the parameters 
          */
-        private String updateEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, String password, String email, float wage){
+        private String updateEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, Byte[] password, String email, float wage){
             boolean needComma = false;
             String ret = "UPDATE employees SET ";
             if(firstName != null){

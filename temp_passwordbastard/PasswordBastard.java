@@ -69,7 +69,7 @@ public class PasswordBastard
 	    	Controller();
 	    	
 	    	
-	    	byte[] pass = createHash("100%");
+	    	byte[] pass = createHash("doge");
 	    	System.out.println("do you believe in miracles?");
 	    	
 	    	PreparedStatement loginRequest = null;
