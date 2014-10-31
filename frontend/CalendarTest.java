@@ -6,14 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/*
- * @author Warren Fehr, wwf594
+
+/**
+ * @author Warren Fehr wwf594
  */
-public class SSTest2 extends Application {
+public class CalendarTest extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLProntPage.fxml"));
+    public void start(Stage stage) throws Exception
+    {
+        Parent root = FXMLLoader.load(getClass().getResource("CalendarPage.fxml"));
         
         Scene scene = new Scene(root);
         
