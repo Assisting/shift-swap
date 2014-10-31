@@ -6,7 +6,7 @@
  */
 
 /* It's a good font, what can I say. */
-@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
 
 /* Global values. */
 .root {
@@ -17,27 +17,37 @@
     umber: #8A3324;
     
     /* Set background */
-    -fx-border-width: 75;
-    -fx-border-color: cognac;
-    -fx-background-color: neutral;
+    /* Commented for now since it's temporarily easier
+    	  to do all this stuff manually */
+    /*-fx-border-width: 75;
+    -fx-border-color: #975B3B;
+    -fx-background-color: #CFBFA1;*/
 }
 
 #title {
-    -fx-text-fill: basalt;
+    -fx-text-fill: #41373D;
     -fx-font-family: 'Source Sans Pro', sans-serif;
     -fx-font-weight: lighter;
     -fx-font-size: 35;
 }
 
-.button {
-    -fx-text-fill: neutral;
+.border {
+    -fx-background-color: #975B3B;
+}
+
+.background-standard {
+    -fx-background-color: #CFBFA1;
+}
+
+.button-standard {
+    -fx-text-fill: #CFBFA1;
     -fx-font-family: 'Source Sans Pro', sans-serif;
-    -fx-background-color: umber;
+    -fx-background-color: #8A3324;
     -fx-background-radius: 0, 0, 0, 0;
 }
 
-.label {
-    -fx-text-fill: basalt;
+.label-standard {
+    -fx-text-fill: #41373D;
     -fx-font-family: 'Source Sans Pro', sans-serif;
 }
 
