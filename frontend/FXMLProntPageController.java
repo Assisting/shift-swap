@@ -29,13 +29,6 @@ public class FXMLProntPageController implements Initializable {
     @FXML
     private TextArea satSchedule;
     
-    @FXML
-    protected void onSundayClick(ActionEvent event)
-    {
-        //System.out.println("You clicked me!");
-        //sunSchedule.appendText("Testing,Testing,1,2,3");
-        
-    }
     
     @FXML
     protected void onMonthlySchedulePress(ActionEvent event) {
