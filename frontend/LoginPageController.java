@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package frontend;
 
 import javafx.event.ActionEvent;
@@ -11,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+//Warren Fehr, wwf594
 public class LoginPageController {
 
     @FXML
@@ -28,6 +25,17 @@ public class LoginPageController {
     @FXML
     void onLoginButtonPress(ActionEvent event) 
     {
+        String username = usernameField.getText();
+	String password = passwordField.getText();
+		
+	if(Input.authenticate(username, password)) 
+        {
+            resultLabel.setText("Successfully logged in");
+        } 
+        else 
+        {
+            resultLabel.setText("Login failed");
+	}
         System.out.println("You clicked it!");
     }
 
