@@ -68,7 +68,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="sunSchedule" editable="false" onMouseClicked="#onSundayClick" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                              <TextArea fx:id="sunSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
                               <TextArea fx:id="monSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextArea fx:id="tueSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <TextArea fx:id="wedSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
