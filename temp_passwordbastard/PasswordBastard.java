@@ -6,13 +6,10 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.postgresql.util.PSQLException;
 
-import controller.Controller;
 
 /**
  * The class of static functions to help handle input.
@@ -35,9 +32,7 @@ public class PasswordBastard
 	
 		try {
 		    MessageDigest md = MessageDigest.getInstance("SHA-256");
-		    System.out.println("md original: " + md);
 		     md.update(password.getBytes());
-		     System.out.println("md post update: " + md);
 		     returnHash = md.digest();
 		     
 		     if(returnHash == null) {
@@ -47,8 +42,7 @@ public class PasswordBastard
 		} catch (NoSuchAlgorithmException nsae) {
 		    System.out.println("Exception: " + nsae);
 		}
-		
-		System.out.println("md post digest: " +returnHash);
+
 		return returnHash;
     }
     
@@ -72,6 +66,7 @@ public class PasswordBastard
 
 	    public static void main (String[] args) throws PSQLException {
 
+	    	Controller();
 	    	
 	    	
 	    	byte[] pass = createHash("100%");
@@ -79,9 +74,9 @@ public class PasswordBastard
 	    	
 	    	PreparedStatement loginRequest = null;
 			try {
-				loginRequest = dbconnection.prepareStatement("UPDATE employees set emppassword = ?, empwage = 99999 WHERE emplogin = 'marker'");
+				loginRequest = dbconnection.prepareStatement("UPDATE employees set emppassword = ?, empwage = 1 WHERE emplogin = 'magnusandy'");
 				loginRequest.setBytes(1,pass);
-				loginRequest.executeQuery();
+				loginRequest.execute();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
