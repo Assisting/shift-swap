@@ -31,6 +31,7 @@ public class View extends Application
 	try {
 	    curStage = primaryStage;
 	    beginLogin();
+            primaryStage.show();
 	}
 	catch (Exception e) {
 	    System.out.println(e.getMessage());
@@ -45,7 +46,7 @@ public class View extends Application
 	try {
             FXMLProntPageController homescreen = 
 		    (FXMLProntPageController) sceneTransition("FXMLProntPage.fxml");
-            homescreen.setApp(this);
+            homescreen.setApp(instance);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -54,7 +55,7 @@ public class View extends Application
     private void beginLogin() {
         try {
             LoginPageController login = (LoginPageController) sceneTransition("LoginPage.fxml");
-            login.setApp(this);
+            login.setApp(instance);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
