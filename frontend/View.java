@@ -8,8 +8,10 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import java.sql.Date;
+import java.time.LocalDate;
+
 
 /**
  *
@@ -20,6 +22,7 @@ public class View extends Application
     private Stage curStage;
     private static View instance;
     private static String userID;
+    private static LocalDate currentDate;
     
     public View() {
 	this.instance = this;
@@ -31,6 +34,7 @@ public class View extends Application
 	try {
 	    curStage = primaryStage;
 	    beginLogin();
+            setDate();
             primaryStage.show();
 	}
 	catch (Exception e) {
@@ -56,6 +60,15 @@ public class View extends Application
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    /* Grabs the current date and puts it into our program. Usually we would grab the current date,
+    *  but because the shifts are fixed and not being added to right now, we are using October 10th,
+    * 2014.
+    */
+    private void setDate(){
+        currentDate=LocalDate.of(2014,10,18);
+        System.out.println(currentDate.toString());
     }
     
     private void beginLogin() {
@@ -92,6 +105,12 @@ public class View extends Application
     protected void swapToProntPage()
     {
         beginHomescreen();
+    }
+    
+    protected void grabScheduleWeekly()
+    {
+        Date[] schedule=Input.getSchedule(userID);
+        
     }
     
     private Initializable sceneTransition(String fxml) throws Exception {

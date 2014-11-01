@@ -10,6 +10,7 @@ package frontend;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import controller.*;
+import java.sql.Date;
 
 /**
  * The class of static functions to help handle input.
@@ -57,6 +58,19 @@ public class Input
         }
 
 	return false;
+    }
+    
+    public static Date[] getSchedule(String userID)
+    {
+        Request request = Request.ShiftRequest(userID);
+        Controller cont= new Controller();
+        RequestResults schedule = new RequestResults();
+        try{
+            schedule=cont.sendRequest(request);
+        }
+        catch(Exception e)
+        {}
+        return schedule.getShifts();
     }
     
     private static byte[] createHash(String password) {
