@@ -41,9 +41,8 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     
     @FXML
     protected void onMonthlySchedulePress(ActionEvent event) {
+        instance.swapToCalendar();
         System.out.println("You clicked me!");
-        sunSchedule.appendText("Testing,Testing,1,2,3");
-        //label.setText("Hello World!");
     }
     
     @Override

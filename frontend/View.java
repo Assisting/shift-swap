@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author erik
+ * @author erik & Warren
  */
 public class View extends Application
 {
@@ -39,7 +39,13 @@ public class View extends Application
     }
     
     private void beginCalendar() {
-	// I'm currently useless!
+	try {
+            FXMLCalendarController calendar = 
+		    (FXMLCalendarController) sceneTransition("CalendarPage.fxml");
+            calendar.setApp(instance);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     private void beginHomescreen() {
@@ -61,6 +67,9 @@ public class View extends Application
         }
     }
     
+    /*Checks if the login credentials are true, and if they are, changes to the main page.
+    * Otherwise, it returns false, and passes the result back to the login screen.
+    */
     public boolean logIn(String username, String password) {
 	if(Input.authenticate(username, password)) 
         {
@@ -72,6 +81,17 @@ public class View extends Application
         {
 	    return false;
 	}
+    }
+    
+    //These are all just ways for Controllers to use swap screen functions.
+    protected void swapToCalendar()
+    {
+        beginCalendar();
+    }
+    
+    protected void swapToProntPage()
+    {
+        beginHomescreen();
     }
     
     private Initializable sceneTransition(String fxml) throws Exception {
