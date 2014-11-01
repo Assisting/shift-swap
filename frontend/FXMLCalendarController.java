@@ -24,8 +24,10 @@ public class FXMLCalendarController extends AnchorPane implements Initializable
     }
 
     @FXML
-    void onStuffButtonClicked(ActionEvent event) {
-
+    void onStuffButtonClicked(ActionEvent event) 
+    {
+        String stuff=instance.grabScheduleWeekly();
+        System.out.println(stuff);
     }
 
     @FXML
