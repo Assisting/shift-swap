@@ -69,8 +69,8 @@ public class View extends Application
     * 2014.
     */
     private void setDate(){
-        currentDate=LocalDate.of(2014,10,18);
-        System.out.println(currentDate.toString());
+        currentDate=LocalDate.of(2014,10,25);
+        System.out.println("Current internal date is: "+currentDate.toString());
     }
     
     private void beginLogin() {
@@ -135,8 +135,14 @@ public class View extends Application
             parser=schedule[i].toString();
             parser=parser.substring(0, 10);
             temp= LocalDate.parse(parser);
+            int temp2=compare.compareTo(temp);
             
-            if(compare.compareTo(temp)!=0)//Is it in the day?
+            //Is it in the day?
+            if(compare.compareTo(temp)>0)
+            {
+                i=i+2;
+            }
+            else if(compare.compareTo(temp)<0)
             {
                 dateChecker=dateChecker+1;
                 if(dateChecker==7)//Past end of week?

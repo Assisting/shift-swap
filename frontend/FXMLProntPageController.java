@@ -80,7 +80,7 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     
     public void populateSchedule(LinkedList<LinkedList<Timestamp>> weeklySchedule,int index,TextArea day)
     {
-       
+       day.clear();
        while(weeklySchedule.get(index).size()>0)
        {
            Timestamp temp=weeklySchedule.get(index).remove();
