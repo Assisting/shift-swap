@@ -6,7 +6,7 @@
  */
 
 /* It's a good font, what can I say. */
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
+@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 /* Global values. */
 .root {
