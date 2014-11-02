@@ -14,7 +14,7 @@ import java.sql.Date;
  */
 public class RequestResults {
     
-    Date[] shifts;
+    Date[] shifts = null;
     
     public RequestResults() {
         
