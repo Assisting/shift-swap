@@ -107,12 +107,9 @@ public class View extends Application
         beginHomescreen();
     }
     
-    protected String grabScheduleWeekly()
+    protected void grabScheduleWeekly()
     {
         Date[] schedule=Input.getSchedule(userID);
-       
-        return "Hello";//This works
-        //return schedule[0].toString();//This does not, gives null.
         
     }
     
