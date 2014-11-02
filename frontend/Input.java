@@ -15,6 +15,8 @@ import java.sql.Date;
 /**
  * The class of static functions to help handle input.
  */
+
+
 public class Input
 {
     
@@ -35,9 +37,9 @@ public class Input
      * @param password the password provided
      * @return true if they can log in
      */
-    public static boolean authenticate(String username, String password) {
+    public static boolean authenticate(String username, String password, Controller cont) {
 	byte[] pwHash = Input.createHash(password);
-	Controller cont = new Controller();
+	
 	Request loginRequest = Request.LoginRequest(username, pwHash);
 	
         try{
@@ -60,10 +62,10 @@ public class Input
 	return false;
     }
     
-    public static Date[] getSchedule(String userID)
+    public static Date[] getSchedule(String userID, Controller cont)
     {
         Request request = Request.ShiftRequest(userID);
-        Controller cont= new Controller();
+       
         RequestResults schedule = new RequestResults();
         try{
             schedule=cont.sendRequest(request);

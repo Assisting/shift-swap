@@ -73,10 +73,16 @@ public class Controller {
                                 validated = MessageDigest.isEqual(query, result);
 
                             }
-                            if (validated)
+                            if (validated){
                                     request.setApproved(true);
-                            else
+                                    loginRequest.close();
+                                    results.close();
+                            }
+                            else{
                                     request.setApproved(false);
+                                    loginRequest.close();
+                                    results.close();
+                            }
                             break;
 			}
                         case CREATE:
@@ -90,10 +96,12 @@ public class Controller {
                         case SCHEDULE:
                         {
                             Statement shiftPullRequest = dbconnection.createStatement();
-                            ResultSet results = shiftPullRequest.executeQuery(this.getEmployeeShiftInfo(request.getSender()));
+                            ResultSet results = shiftPullRequest.executeQuery("SELECT * from employeeshifts WHERE shiftemployeelogin = 'tmike'");
+                            System.out.println(results.getFetchSize());
                             Date[] resultsList = new Date[results.getFetchSize()*2];
                             for (int i = 0; results.next(); i = i + 2)
                             {
+                                System.out.println(i);
                                 resultsList[i] = results.getDate("shiftstarttime");
                                 resultsList[i+1] = results.getDate("shiftendtime");
                             }

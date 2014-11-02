@@ -1,5 +1,6 @@
 package frontend;
 
+import controller.Controller;
 import java.io.InputStream;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,12 +18,15 @@ import java.time.LocalDate;
  *
  * @author erik & Warren
  */
+
+
 public class View extends Application
 {
     private Stage curStage;
     private static View instance;
     private static String userID;
     private static LocalDate currentDate;
+    public Controller controller;
     
     public View() {
 	this.instance = this;
@@ -84,7 +88,8 @@ public class View extends Application
     * Otherwise, it returns false, and passes the result back to the login screen.
     */
     public boolean logIn(String username, String password) {
-	if(Input.authenticate(username, password)) 
+        controller = new Controller();
+	if(Input.authenticate(username, password, controller)) 
         {
             userID = username;
 	    beginHomescreen();
@@ -109,7 +114,7 @@ public class View extends Application
     
     protected String grabScheduleWeekly()
     {
-        Date[] schedule=Input.getSchedule(userID);
+        Date[] schedule=Input.getSchedule(userID, controller);
        
         return "Hello";//This works
         //return schedule[0].toString();//This does not, gives null.
