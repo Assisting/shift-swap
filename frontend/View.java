@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 
@@ -109,7 +110,8 @@ public class View extends Application
     
     protected void grabScheduleWeekly()
     {
-        Date[] schedule=Input.getSchedule(userID);
+        Timestamp[] schedule=Input.getSchedule(userID);
+        System.out.println(schedule[1].toString());
         
     }
     

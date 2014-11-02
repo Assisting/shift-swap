@@ -11,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import controller.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * The class of static functions to help handle input.
@@ -60,7 +61,7 @@ public class Input
 	return false;
     }
     
-    public static Date[] getSchedule(String userID)
+    public static Timestamp[] getSchedule(String userID)
     {
         Request request = Request.ShiftRequest(userID);
         Controller cont= new Controller();

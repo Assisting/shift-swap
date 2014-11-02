@@ -93,7 +93,7 @@ public class Controller {
                             ResultSet results = shiftPullRequest.executeQuery(this.getEmployeeShiftInfo(request.getSender()));
                             Timestamp[] resultsList;
                             if (results.last())
-                                resultsList = new Timestamp[results.getRow()];
+                                resultsList = new Timestamp[results.getRow()*2];
                             else
                                 return new RequestResults();
                             results.beforeFirst();
