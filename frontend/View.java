@@ -9,9 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.LinkedList;
+
 
 
 /**
@@ -108,11 +109,59 @@ public class View extends Application
         beginHomescreen();
     }
     
-    protected void grabScheduleWeekly()
+    protected LinkedList<LinkedList<Timestamp>> grabScheduleWeekly()
     {
         Timestamp[] schedule=Input.getSchedule(userID);
-        System.out.println(schedule[1].toString());
+        //This will hold the weekly schedule, which is made up of 7 day schedules.
+        //Can't do List of Arrays in java, so this will have to do.
+        LinkedList<LinkedList<Timestamp>> weeklySchedule= new LinkedList<LinkedList<Timestamp>>();
+        int i=0;
         
+        //Populate base LinkedList with day schedules.
+        while(i<7)
+        {
+            weeklySchedule.add(new LinkedList<Timestamp>());
+            i=i+1;
+        }
+        
+        int arrLength= schedule.length;
+        LocalDate compare=currentDate;
+        LocalDate temp;
+        String parser;
+        int dateChecker=0; //Which day are we looking at putting schedules in?
+        i=0;
+        while(i<arrLength)//Do we still have shifts to check?
+        {
+            parser=schedule[i].toString();
+            parser=parser.substring(0, 10);
+            temp= LocalDate.parse(parser);
+            
+            if(compare.compareTo(temp)!=0)//Is it in the day?
+            {
+                dateChecker=dateChecker+1;
+                if(dateChecker==7)//Past end of week?
+                {
+                    i=arrLength; //Break loop
+                }
+                else
+                {
+                    compare=compare.plusDays(1);
+                }   
+            }
+            
+            
+            else
+            {
+                //Add start and end times to that days schedule.
+                weeklySchedule.get(dateChecker).add(schedule[i]);
+                weeklySchedule.get(dateChecker).add(schedule[i+1]);
+                i=i+2;
+            }
+        }
+        
+        
+        
+        return weeklySchedule;
     }
     
     private Initializable sceneTransition(String fxml) throws Exception {

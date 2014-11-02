@@ -30,7 +30,7 @@
                             <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label styleClass="label-standard" text="Sunday" textAlignment="CENTER">
+                              <Label fx:id="day0Label" styleClass="label-standard" text="Sunday" textAlignment="CENTER">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -38,46 +38,47 @@
                                     <Insets />
                                  </GridPane.margin>
                               </Label>
-                              <Label styleClass="label-standard" text="Monday" GridPane.columnIndex="1">
+                              <Label fx:id="day1Label" styleClass="label-standard" text="Monday" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label styleClass="label-standard" text="Tuesday" GridPane.columnIndex="2">
+                              <Label fx:id="day2Label" styleClass="label-standard" text="Tuesday" GridPane.columnIndex="2">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label styleClass="label-standard" text="Wednesday" GridPane.columnIndex="3">
+                              <Label fx:id="day3Label" styleClass="label-standard" text="Wednesday" GridPane.columnIndex="3">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label styleClass="label-standard" text="Thursday" GridPane.columnIndex="4">
+                              <Label fx:id="day4Label" styleClass="label-standard" text="Thursday" GridPane.columnIndex="4">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label styleClass="label-standard" text="Friday" GridPane.columnIndex="5">
+                              <Label fx:id="day5Label" styleClass="label-standard" text="Friday" GridPane.columnIndex="5">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label styleClass="label-standard" text="Saturday" GridPane.columnIndex="6">
+                              <Label fx:id="day6Label" styleClass="label-standard" text="Saturday" GridPane.columnIndex="6">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="sunSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-                              <TextArea fx:id="monSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextArea fx:id="tueSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <TextArea fx:id="wedSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <TextArea fx:id="thuSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                              <TextArea fx:id="friSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                              <TextArea fx:id="satSchedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                              <TextArea fx:id="day0Schedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                              <TextArea fx:id="day1Schedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextArea fx:id="day2Schedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <TextArea fx:id="day3Schedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <TextArea fx:id="day4Schedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <TextArea fx:id="day5Schedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                              <TextArea fx:id="day6Schedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                         <Button layoutX="232.0" layoutY="160.0" mnemonicParsing="false" onAction="#onMonthlySchedulePress" styleClass="button-standard" text="View Monthly Schedule" />
+                        <Button layoutX="416.0" layoutY="161.0" mnemonicParsing="false" onAction="#onScheduleUpdateButtonPress" text="Check Schedule" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
