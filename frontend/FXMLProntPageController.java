@@ -78,92 +78,33 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
         System.out.println("You clicked me!");
     }
     
-    public void populateSchedule()
+    public void populateSchedule(LinkedList<LinkedList<Timestamp>> weeklySchedule,int index,TextArea day)
     {
-       LinkedList<LinkedList<Timestamp>> weeklySchedule=instance.grabScheduleWeekly();
-       while(weeklySchedule.get(0).size()>0)
+       
+       while(weeklySchedule.get(index).size()>0)
        {
-           Timestamp temp=weeklySchedule.get(0).remove();
+           Timestamp temp=weeklySchedule.get(index).remove();
            String parse=temp.toString();
            parse=parse.substring(11, 16);
-           day0Schedule.appendText(parse+"-");
-           temp=weeklySchedule.get(0).remove();
+           day.appendText(parse+"-");
+           temp=weeklySchedule.get(index).remove();
            parse=temp.toString();
            parse=parse.substring(11, 16);
-           day0Schedule.appendText(parse+"\n");
-       }
-       while(weeklySchedule.get(1).size()>0)
-       {
-           Timestamp temp=weeklySchedule.get(1).remove();
-           String parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day1Schedule.appendText(parse+"-");
-           temp=weeklySchedule.get(1).remove();
-           parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day1Schedule.appendText(parse+"\n");
-       }
-       while(weeklySchedule.get(2).size()>0)
-       {
-           Timestamp temp=weeklySchedule.get(2).remove();
-           String parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day2Schedule.appendText(parse+"-");
-           temp=weeklySchedule.get(2).remove();
-           parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day2Schedule.appendText(parse+"\n");
-       }
-       while(weeklySchedule.get(3).size()>0)
-       {
-           Timestamp temp=weeklySchedule.get(3).remove();
-           String parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day3Schedule.appendText(parse+"-");
-           temp=weeklySchedule.get(3).remove();
-           parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day3Schedule.appendText(parse+"\n");
-       }
-       while(weeklySchedule.get(4).size()>0)
-       {
-           Timestamp temp=weeklySchedule.get(4).remove();
-           String parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day4Schedule.appendText(parse+"-");
-           temp=weeklySchedule.get(4).remove();
-           parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day4Schedule.appendText(parse+"\n");
-       }
-       while(weeklySchedule.get(5).size()>0)
-       {
-           Timestamp temp=weeklySchedule.get(5).remove();
-           String parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day5Schedule.appendText(parse+"-");
-           temp=weeklySchedule.get(5).remove();
-           parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day5Schedule.appendText(parse+"\n");
-       }
-       while(weeklySchedule.get(6).size()>0)
-       {
-           Timestamp temp=weeklySchedule.get(6).remove();
-           String parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day6Schedule.appendText(parse+"-");
-           temp=weeklySchedule.get(6).remove();
-           parse=temp.toString();
-           parse=parse.substring(11, 16);
-           day6Schedule.appendText(parse+"\n");
+           day.appendText(parse+"\n");
        }
     }
     
     @FXML
     void onScheduleUpdateButtonPress(ActionEvent event) 
     {
-        populateSchedule();
+        LinkedList<LinkedList<Timestamp>> weeklySchedule=instance.grabScheduleWeekly();
+        populateSchedule(weeklySchedule,0, day0Schedule);
+        populateSchedule(weeklySchedule,1, day1Schedule);
+        populateSchedule(weeklySchedule,2, day2Schedule);
+        populateSchedule(weeklySchedule,3, day3Schedule);
+        populateSchedule(weeklySchedule,4, day4Schedule);
+        populateSchedule(weeklySchedule,5, day5Schedule);
+        populateSchedule(weeklySchedule,6, day6Schedule);
     }
     
     @Override
