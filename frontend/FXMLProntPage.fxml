@@ -30,7 +30,7 @@
                             <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="day0Label" styleClass="label-standard" text="Sunday" textAlignment="CENTER">
+                              <Label fx:id="day0Label" styleClass="label-standard" textAlignment="CENTER">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -38,32 +38,32 @@
                                     <Insets />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="day1Label" styleClass="label-standard" text="Monday" GridPane.columnIndex="1">
+                              <Label fx:id="day1Label" styleClass="label-standard" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="day2Label" styleClass="label-standard" text="Tuesday" GridPane.columnIndex="2">
+                              <Label fx:id="day2Label" styleClass="label-standard" GridPane.columnIndex="2">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="day3Label" styleClass="label-standard" text="Wednesday" GridPane.columnIndex="3">
+                              <Label fx:id="day3Label" styleClass="label-standard" GridPane.columnIndex="3">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="day4Label" styleClass="label-standard" text="Thursday" GridPane.columnIndex="4">
+                              <Label fx:id="day4Label" styleClass="label-standard" GridPane.columnIndex="4">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="day5Label" styleClass="label-standard" text="Friday" GridPane.columnIndex="5">
+                              <Label fx:id="day5Label" styleClass="label-standard" GridPane.columnIndex="5">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="day6Label" styleClass="label-standard" text="Saturday" GridPane.columnIndex="6">
+                              <Label fx:id="day6Label" styleClass="label-standard" GridPane.columnIndex="6">
                                  <font>
                                     <Font size="16.0" />
                                  </font>

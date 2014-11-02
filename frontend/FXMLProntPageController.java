@@ -11,6 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 /**
  * @author Warren Fehr, wwf594
@@ -78,7 +82,7 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
         System.out.println("You clicked me!");
     }
     
-    public void populateSchedule(LinkedList<LinkedList<Timestamp>> weeklySchedule,int index,TextArea day)
+    private void populateSchedule(LinkedList<LinkedList<Timestamp>> weeklySchedule,int index,TextArea day)
     {
        day.clear();
        while(weeklySchedule.get(index).size()>0)
@@ -94,10 +98,33 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
        }
     }
     
+    private void updateDayHeaders(DayOfWeek day, Label header)
+    {
+        String temp=day.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+        header.setText(temp);
+    }
+    
     @FXML
     void onScheduleUpdateButtonPress(ActionEvent event) 
     {
         LinkedList<LinkedList<Timestamp>> weeklySchedule=instance.grabScheduleWeekly();
+        //First, we need to figure out what the first day of the week is.
+        LocalDate temp=instance.getCurrentDate(); 
+        DayOfWeek weekday=temp.getDayOfWeek();
+        updateDayHeaders(weekday,day0Label);
+        weekday=weekday.plus(1);
+        updateDayHeaders(weekday,day1Label);
+        weekday=weekday.plus(1);
+        updateDayHeaders(weekday,day2Label);
+        weekday=weekday.plus(1);
+        updateDayHeaders(weekday,day3Label);
+        weekday=weekday.plus(1);
+        updateDayHeaders(weekday,day4Label);
+        weekday=weekday.plus(1);
+        updateDayHeaders(weekday,day5Label);
+        weekday=weekday.plus(1);
+        updateDayHeaders(weekday,day6Label);
+        
         populateSchedule(weeklySchedule,0, day0Schedule);
         populateSchedule(weeklySchedule,1, day1Schedule);
         populateSchedule(weeklySchedule,2, day2Schedule);

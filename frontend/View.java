@@ -65,7 +65,7 @@ public class View extends Application
     }
     
     /* Grabs the current date and puts it into our program. Usually we would grab the current date,
-    *  but because the shifts are fixed and not being added to right now, we are using October 10th,
+    *  but because the shifts are fixed and not being added to right now, we are using October 25th,
     * 2014.
     */
     private void setDate(){
@@ -107,6 +107,11 @@ public class View extends Application
     protected void swapToProntPage()
     {
         beginHomescreen();
+    }
+    
+    protected LocalDate getCurrentDate()
+    {
+        return currentDate;
     }
     
     protected LinkedList<LinkedList<Timestamp>> grabScheduleWeekly()
