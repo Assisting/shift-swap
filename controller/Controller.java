@@ -91,16 +91,16 @@ public class Controller {
                         {
                             Statement shiftPullRequest = dbconnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                             ResultSet results = shiftPullRequest.executeQuery(this.getEmployeeShiftInfo(request.getSender()));
-                            Date[] resultsList;
+                            Timestamp[] resultsList;
                             if (results.last())
-                                resultsList = new Date[results.getRow()];
+                                resultsList = new Timestamp[results.getRow()];
                             else
                                 return new RequestResults();
                             results.beforeFirst();
                             for (int i = 0; results.next(); i = i + 2)
                             {
-                                resultsList[i] = results.getDate("shiftstarttime");
-                                resultsList[i+1] = results.getDate("shiftendtime");
+                                resultsList[i] = results.getTimestamp("shiftstarttime");
+                                resultsList[i+1] = results.getTimestamp("shiftendtime");
                             }
                             returnResults = new RequestResults();
                             returnResults.setShifts(resultsList);

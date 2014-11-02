@@ -7,6 +7,7 @@
 package controller;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Container to store any returned values of system requests
@@ -14,7 +15,7 @@ import java.sql.Date;
  */
 public class RequestResults {
     
-    Date[] shifts = null;
+    Timestamp[] shifts = null;
     
     public RequestResults() {
         
@@ -24,11 +25,11 @@ public class RequestResults {
      * set the container to hold a list of shifts
      * @param shifts the list of shift start and end times to assign
      */
-    void setShifts(Date[] shifts) {
+    void setShifts(Timestamp[] shifts) {
         this.shifts = shifts;
     }
     
-    public Date[] getShifts() {
+    public Timestamp[] getShifts() {
         return shifts;
     }
     
