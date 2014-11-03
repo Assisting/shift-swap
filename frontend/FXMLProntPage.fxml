@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.*?>
 
-<AnchorPane prefHeight="565.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.FXMLProntPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.FXMLProntPageController">
    <children>
       <BorderPane layoutX="37.0" layoutY="32.0" prefHeight="450.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -77,8 +77,8 @@
                               <TextArea fx:id="day6Schedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <Button layoutX="232.0" layoutY="160.0" mnemonicParsing="false" onAction="#onMonthlySchedulePress" styleClass="button-standard" text="View Monthly Schedule" />
-                        <Button layoutX="416.0" layoutY="161.0" mnemonicParsing="false" onAction="#onScheduleUpdateButtonPress" text="Check Schedule" />
+                        <Button layoutX="218.0" layoutY="174.0" mnemonicParsing="false" onAction="#onMonthlySchedulePress" styleClass="button-standard" text="View Monthly Schedule" />
+                        <Button layoutX="376.0" layoutY="174.0" mnemonicParsing="false" onAction="#onScheduleUpdateButtonPress" text="Check Schedule" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
