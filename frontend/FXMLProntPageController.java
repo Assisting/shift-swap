@@ -1,7 +1,6 @@
 package frontend;
 
 import java.net.URL;
-import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -79,7 +78,6 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     @FXML
     protected void onMonthlySchedulePress(ActionEvent event) {
         instance.swapToCalendar();
-        System.out.println("You clicked me!");
     }
     
     private void populateSchedule(LinkedList<LinkedList<Timestamp>> weeklySchedule,int index,TextArea day)

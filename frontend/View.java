@@ -175,6 +175,94 @@ public class View extends Application
         return weeklySchedule;
     }
     
+        protected LinkedList<LinkedList<Timestamp>> grabScheduleMonthly()
+    {
+        Timestamp[] schedule=Input.getSchedule(userID);
+        //This will hold the weekly schedule, which is made up of 7 day schedules.
+        //Can't do List of Arrays in java, so this will have to do.
+        LinkedList<LinkedList<Timestamp>> monthlySchedule= new LinkedList<LinkedList<Timestamp>>();
+        int arrLength= schedule.length;
+        LocalDate compare=currentDate;
+        LocalDate temp;
+        String parser;
+        int dateChecker=0; //Which day are we looking at putting schedules in?
+        int month=compare.getMonthValue();
+        int monthLimit=0; //How many days are in this month?
+        int i=0;
+         //We need to determine how many days are in this month.
+        if(month==2)//If it is February..
+        {
+            if(compare.isLeapYear())
+            {
+                monthLimit=29;
+            }
+            else
+            {
+                monthLimit=28;
+            }
+        }
+        else if(month==4 || month==6 || month==9 || month==11)
+        {
+            monthLimit=30;
+        }
+        else
+        {
+            monthLimit=31;//All other months have 31.
+        }
+        
+        //Populate base LinkedList with day schedules.
+        while(i<monthLimit)
+        {
+            monthlySchedule.add(new LinkedList<Timestamp>());
+            i=i+1;
+        }
+        
+        
+        i=0;
+        while(i<arrLength)//Do we still have shifts to check?
+        {
+            parser=schedule[i].toString();
+            parser=parser.substring(0, 10);
+            temp= LocalDate.parse(parser);
+            int test=temp.getDayOfMonth();
+            //Is it in the current month?
+            if((temp.getMonthValue())<month)
+            {
+                i=i+2;
+            }
+            else if((temp.getMonthValue())>month)
+            {
+                //Break, because all shifts after this will be too far into the future as well.
+                i=arrLength;
+            }
+            
+            
+            //Is it in the current day?
+            else if((temp.getDayOfMonth()-1)>dateChecker)
+            {
+                dateChecker=dateChecker+1;
+                if(dateChecker==monthLimit)//Past end of month? 
+                {
+                    /*This is technically redundant, though, because it should roll into next month.*/
+                    i=arrLength; //Break loop
+                }
+            }
+            
+            
+            else
+            {
+                //Add start and end times to that days schedule.
+                monthlySchedule.get(dateChecker).add(schedule[i]);
+                monthlySchedule.get(dateChecker).add(schedule[i+1]);
+                i=i+2;
+            }
+        }
+        
+        
+        
+        return monthlySchedule;
+    }
+    
     private Initializable sceneTransition(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader();
         InputStream in = View.class.getResourceAsStream(fxml);
