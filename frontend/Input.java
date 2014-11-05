@@ -74,6 +74,18 @@ public class Input
         return schedule.getShifts();
     }
     
+    /**
+     * Given a username string, this function sends a request to the database to see
+     * if the given username is already found in the database
+     * @param username proposed username to get checked
+     * @return true if username is not in the database, false if it is.
+     */
+    public static boolean isUsernameUnique(String username)
+    {
+        //TODO make a call to the controller to query the database to see if the username is already in the data
+        return false;
+    }
+    
     private static byte[] createHash(String password) {
 	byte[] returnHash = null;
 	
