@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -100,8 +101,15 @@ public class AddEmployeePageController implements Initializable {
     @FXML
     void onCancelButtonClick(ActionEvent event) 
     {
+        firstNameText.setText(null);
+        lastNameText.setText(null);
+        usernameText.setText(null);
+        passwordText.setText(null);
+        emailText.setText(null);
+        startingWageText.setText(null);
         
-        System.out.println("You clicked me!");
+        System.out.println("CANCEL BUTTON PRESSED");
+       //TODO code to move back to the last view or whatever 
     }
     
     /**

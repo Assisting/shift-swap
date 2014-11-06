@@ -150,6 +150,18 @@ public class Controller {
                 + " ORDER BY shiftstarttime" ;
         }
         
+        /**
+         * Create a query to insert a new employee into the database
+         * @param firstName
+         * @param lastName
+         * @param accesslevel
+         * @param loginID
+         * @param password
+         * @param email
+         * @param wage
+         * @return 
+         */
+        //TODO make the byte array work or get rid of it in this query
         private String newEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, String password, String email, float wage)
         {
             return "INSERT INTO employees (empfirstname, emplastname, empaccesslevel,"
@@ -173,46 +185,47 @@ public class Controller {
          * @param wage set to -1 if not specified
          * @return a custom string for the update query given the parameters 
          */
+        //TODO make the byte array work or get rid of it in this query
         private String updateEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, Byte[] password, String email, float wage){
             boolean needComma = false;
             String ret = "UPDATE employees SET ";
             if(firstName != null){
-                ret = ret+ "empfirstname = '"+ firstName+"'";
+                ret = ret+ "empfirstname = '"+ firstName +"'";
                 needComma = true;
             }
             if(lastName != null){
                 if(needComma == true){
                         ret = ret + ", ";
                 }
-                ret = ret+ "emplastname = '"+ lastName+"' ";
+                ret = ret+ "emplastname = '"+ lastName +"' ";
                 needComma = true;
             }
             if(accesslevel != -1){
                 if(needComma == true){
                         ret = ret + ", ";
                 }
-                ret = ret+ "empaccesslevel = '"+ accesslevel+"' ";
+                ret = ret+ "empaccesslevel = '"+ accesslevel +"' ";
                 needComma = true;
             }
             if(password != null){
                 if(needComma == true){
                         ret = ret + ", ";
                 }
-                ret = ret+ "emppassword = '"+ password+"' ";
+                ret = ret+ "emppassword = '"+ password +"' ";
                 needComma = true;
             }
             if(email != null){
                 if(needComma == true) {
                         ret = ret + ", ";
                 }
-                ret = ret+ "empemail = '"+ email+"' ";
+                ret = ret+ "empemail = '"+ email +"' ";
                 needComma = true;
             }
             if(wage != -1){
                 if(needComma == true){
                         ret = ret + ", ";
                 }
-                ret = ret+ "empwage = '"+ wage+"' ";
+                ret = ret+ "empwage = '"+ wage +"' ";
                 needComma = true;
             }        
             ret = ret + " WHERE emplogin = '" + loginID +"'";
@@ -263,6 +276,11 @@ public class Controller {
                     + ")";
         }
         
+        /**
+         * Generate a query to get all the messages in a employees inbox
+         * @param LoginID
+         * @return the query
+         */
         private String getEmployeeInbox(String LoginID)
         {
             return "SELECT mssgreciever, mssgsender, mssgtext, mssgsendtime "
@@ -270,19 +288,35 @@ public class Controller {
                     + "WHERE mssgreciever = '" + LoginID + "' "
                     + "ORDER BY mssgsendtime";
         }
+        
+        /**
+         * Generate a query that returns a single entry under the column name "isfound"
+         * that is either "t" if the given username is found in the database
+         * or "f" if the username is not found in the database.
+         * @return 
+         */
+        private String usernameValidityQuery(String username)
+        {
+            return "SELECT exists("
+                    + "SELECT emplogin "
+                    + "FROM employees "
+                    + "WHERE emplogin = '" + username + "') "
+                    + "as isfound";
+        }
      
         
-/*        public static void main (String[] args) {
+     /* public static void main (String[] args) {
             
             Controller c = new Controller();
-            System.out.println(c.getloginQuery("testUsername"));
+           /* System.out.println(c.getloginQuery("testUsername"));
 	    System.out.println(c.getWorkerInfoQuery("testUsername"));
             System.out.println(c.getEmployeeShiftInfo("testUsername"));
             System.out.println(c.newEmployeeQuery("Elmer", "Fudd", 1, "eFudd", "wabbit", "Fudd@mail.com", (float) 53.232));
-            System.out.println(c.updateEmployeeQuery(null, "buster", 2, "eFudd", "jack", null, -1));
+           // System.out.println(c.updateEmployeeQuery(null, "buster", 2, "eFudd", "jack", null, -1));
             System.out.println(c.newManagerQuery("testUsername", "testManager"));
             System.out.println(c.updateManagerQuery("magnusandy", "oneTrueGod"));
             System.out.println(c.newInboxQuery("magnusandy", "oneTrueGod", "Yoooo dawg lets do this"));
             System.out.println(c.getEmployeeInbox("oneTrueGod"));
+            System.out.println(c.usernameValidityQuery("magnusandy"));
         }  */
 }
