@@ -28,13 +28,12 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="cancel" layoutX="283.0" layoutY="365.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
-                  <Button fx:id="addEmployee" layoutX="416.0" layoutY="365.0" mnemonicParsing="false" onAction="#onAddEmployeeButtonClick" text="Add Employee" />
+                  <Button fx:id="cancel" layoutX="457.0" layoutY="371.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
+                  <Button fx:id="addEmployee" layoutX="360.0" layoutY="371.0" mnemonicParsing="false" onAction="#onAddEmployeeButtonClick" text="Add Employee" />
                   <ChoiceBox fx:id="accessLevelBox" layoutX="360.0" layoutY="255.0" prefWidth="150.0" />
                   <TextField fx:id="firstNameText" layoutX="360.0" layoutY="80.0" />
                   <TextField fx:id="lastNameText" layoutX="360.0" layoutY="116.0" />
                   <TextField fx:id="usernameText" layoutX="360.0" layoutY="153.0" />
-                  <TextField fx:id="passwordText" layoutX="360.0" layoutY="187.0" />
                   <TextField fx:id="emailText" layoutX="360.0" layoutY="223.0" />
                   <TextField fx:id="startingWageText" layoutX="360.0" layoutY="286.0" />
                   <Label layoutX="279.0" layoutY="84.0" text="First Name" />
@@ -51,7 +50,8 @@
                   <Label fx:id="usernameLabel" layoutX="516.0" layoutY="157.0" text="*" textFill="RED" />
                   <Label fx:id="passwordLabel" layoutX="516.0" layoutY="191.0" text="*" textFill="RED" />
                   <Label fx:id="startingWageLabel" layoutX="516.0" layoutY="290.0" text="*" textFill="RED" />
-                  <Label fx:id="errorLabel" layoutX="284.0" layoutY="337.0" prefHeight="17.0" prefWidth="226.0" text="Please fill all fields marked by a *" textAlignment="CENTER" textFill="RED" />
+                  <Label fx:id="errorLabel" layoutX="347.0" layoutY="339.0" prefHeight="17.0" prefWidth="186.0" text="Please fill all fields marked by a *" textAlignment="CENTER" textFill="RED" />
+                  <PasswordField fx:id="passwordText" layoutX="360.0" layoutY="187.0" />
                </children>
             </AnchorPane>
          </center>

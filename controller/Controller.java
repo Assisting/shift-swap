@@ -234,16 +234,16 @@ public class Controller {
         
         /**
          * Generate Query to insert into the bossmanager table, employee is the LoginID
-         * of the employee and manager is the loginID of that persons manager
+         * of the employee and the manager will be set to null.
+         * this function is meant to be used at the same time a new employee is created
+         * and the updateManagerQuery is to be used when actually assigning a person a manager
          * @param employee LoginID of the employee
-         * @param manager LoginID of the employees manager
          * @return Query
          */
-        private String newManagerQuery(String employee, String manager)
+        private String newManagerQuery(String employee)
         {
-             return "INSERT INTO bossmanager (employee, manager)"
-                    + " VALUES ('" + employee + "', "
-                    + "'" + manager + "')";
+             return "INSERT INTO bossmanager (employee)"
+                    + " VALUES ('" + employee + "')";
         }
         
         /**
@@ -266,7 +266,7 @@ public class Controller {
          * @param message  textual part of the message
          * @return the query
          */
-        private String newInboxQuery(String sender, String reciever, String message )
+        private String newMessageQuery(String sender, String reciever, String message )
         {
             return "INSERT INTO employeeinbox (mssgsender, mssgreciever, mssgtext)"
                     + "VALUES("
@@ -281,7 +281,7 @@ public class Controller {
          * @param LoginID
          * @return the query
          */
-        private String getEmployeeInbox(String LoginID)
+        private String getEmployeeMessages(String LoginID)
         {
             return "SELECT mssgreciever, mssgsender, mssgtext, mssgsendtime "
                     + "FROM employeeinbox "
@@ -331,22 +331,36 @@ public class Controller {
             return ret;
         }
         
+        /**
+         * Generate a query to get the loginID of all the managers in the database 
+         * @return said query
+         */
+        private String managerListQuery()
+        {
+            return "SELECT emplogin "
+                    + "FROM employees "
+                    + "WHERE empaccesslevel = '2' ";
+        }
+        
       public static void main (String[] args) {
             
             Controller c = new Controller();
-           /* System.out.println(c.getloginQuery("testUsername"));
+            System.out.println(c.getloginQuery("testUsername"));
 	    System.out.println(c.getWorkerInfoQuery("testUsername"));
             System.out.println(c.getEmployeeShiftInfo("testUsername"));
             System.out.println(c.newEmployeeQuery("Elmer", "Fudd", 1, "eFudd", "wabbit", "Fudd@mail.com", (float) 53.232));
            // System.out.println(c.updateEmployeeQuery(null, "buster", 2, "eFudd", "jack", null, -1));
-            System.out.println(c.newManagerQuery("testUsername", "testManager"));
+            System.out.println(c.newManagerQuery("testUsername"));
             System.out.println(c.updateManagerQuery("magnusandy", "oneTrueGod"));
-            System.out.println(c.newInboxQuery("magnusandy", "oneTrueGod", "Yoooo dawg lets do this"));
-            System.out.println(c.getEmployeeInbox("oneTrueGod"));
+            System.out.println(c.newMessageQuery("magnusandy", "oneTrueGod", "Yoooo dawg lets do this"));
+            System.out.println(c.getEmployeeMessages("oneTrueGod"));
             System.out.println(c.usernameValidityQuery("magnusandy"));
             Timestamp x = Timestamp.valueOf("2014-10-22 09:00:00");
             Timestamp y = Timestamp.valueOf("2014-10-27 09:00:00");
             System.out.println(c.dateRangeShiftQuery(x,y,"tmike"));
-            System.out.println(c.dateRangeShiftQuery(x,y,null));*/
+            System.out.println(c.dateRangeShiftQuery(x,y,null));
+            System.out.println(c.managerListQuery());
+                    
+                   
         }  
 }

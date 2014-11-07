@@ -134,6 +134,7 @@ public class AddEmployeePageController implements Initializable {
                     break;
             }
           //TODO make a call to the database to add an employee to the system now that all the information is verified
+            //TODO also create a new record in the bossmanager table with the manager set to null
             // some kind of confirmation or message saying it worked to the user, then back off to the main menu!
             
         }
