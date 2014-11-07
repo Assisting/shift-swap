@@ -303,9 +303,35 @@ public class Controller {
                     + "WHERE emplogin = '" + username + "') "
                     + "as isfound";
         }
-     
         
-     /* public static void main (String[] args) {
+        /**
+         * Generate a query  to select a range of shifts by date for a specifc user,
+         * or if the LoginID is null, for all users
+         *
+         * @param startDate start time of the date range
+         * @param endDate end time of the date range
+         * @param LoginID username 
+         * @return 
+         */
+        private String dateRangeShiftQuery( Timestamp startDate, Timestamp endDate, String LoginID) 
+        {
+            String ret = "SELECT shiftemployeelogin, shiftstarttime, shiftendtime "
+                    + "FROM employeeshifts "
+                    + "WHERE shiftstarttime >= '" + startDate.toString() + "' "
+                    + "AND shiftstarttime <= '" + endDate.toString() + "' "
+                    + "AND shiftendtime <= '" + endDate.toString() + "' "
+                    + "AND shiftendtime >= '" + startDate.toString() + "' ";
+            
+            if(LoginID != null)
+            {
+                ret = ret + "AND shiftemployeelogin = '" + LoginID + "' ";
+            }
+            // will just generalize  the query if the loginID is null to get all shifts for all people in the range
+            ret = ret + "ORDER BY shiftstarttime";
+            return ret;
+        }
+        
+      public static void main (String[] args) {
             
             Controller c = new Controller();
            /* System.out.println(c.getloginQuery("testUsername"));
@@ -318,5 +344,9 @@ public class Controller {
             System.out.println(c.newInboxQuery("magnusandy", "oneTrueGod", "Yoooo dawg lets do this"));
             System.out.println(c.getEmployeeInbox("oneTrueGod"));
             System.out.println(c.usernameValidityQuery("magnusandy"));
-        }  */
+            Timestamp x = Timestamp.valueOf("2014-10-22 09:00:00");
+            Timestamp y = Timestamp.valueOf("2014-10-27 09:00:00");
+            System.out.println(c.dateRangeShiftQuery(x,y,"tmike"));
+            System.out.println(c.dateRangeShiftQuery(x,y,null));*/
+        }  
 }
