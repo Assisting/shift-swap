@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 public class Request
 {
  
-    public enum RequestType { TAKE, GIVE, TRADE, LOGIN, CREATE, REMOVE, SCHEDULE, VALIDATE }
+    public enum RequestType { TAKE, GIVE, TRADE, LOGIN, CREATE, REMOVE, SCHEDULE, VALIDATE, SHIFT_RANGE }
  
     final private String sender;
     private String approver;
@@ -43,13 +43,13 @@ public class Request
  
 //-----Custom Requests------------------------------------------
  
-public static Request LoginRequest(String sender, byte[] password) {
+public static Request LoginRequest(String username, byte[] password) {
         Message message = new Message(null, password, null, null);
-        return new Request(sender, null, message, RequestType.LOGIN);
+        return new Request(username, null, message, RequestType.LOGIN);
 }
  
-public static Request ShiftRequest(String sender) {
-        return new Request(sender, null, null, RequestType.SCHEDULE);
+public static Request ShiftRequest(String username) {
+        return new Request(username, null, null, RequestType.SCHEDULE);
 }
  
 public static Request CreateRequest(String sender, Employee employee) {
@@ -79,6 +79,13 @@ public static Request TradeRequest(String sender, String recipient, Timestamp[] 
 public static Request UsernameValidateRequest(String username)
 {
     return new Request(username, null, null, RequestType.VALIDATE);
+}
+
+public static Request ShiftRangeRequest(String username, Timestamp start, Timestamp end)
+{
+    Timestamp[] shifts  = {start, end};
+    Message message = new Message(null, null, shifts, null);
+    return new Request(username, null, message, RequestType.SHIFT_RANGE);
 }
  
  

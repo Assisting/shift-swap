@@ -91,17 +91,7 @@ public class Controller {
                         {
                             Statement shiftPullRequest = dbconnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                             ResultSet results = shiftPullRequest.executeQuery(this.getEmployeeShiftInfo(request.getSender()));
-                            Timestamp[] resultsList;
-                            if (results.last())
-                                resultsList = new Timestamp[results.getRow()*2];
-                            else
-                                return new RequestResults();
-                            results.beforeFirst();
-                            for (int i = 0; results.next(); i = i + 2)
-                            {
-                                resultsList[i] = results.getTimestamp("shiftstarttime");
-                                resultsList[i+1] = results.getTimestamp("shiftendtime");
-                            }
+                            Timestamp[] resultsList = tabulateShifts(results);
                             returnResults = new RequestResults();
                             returnResults.setShifts(resultsList);
                             return returnResults;
@@ -113,10 +103,41 @@ public class Controller {
                             results.next();
                             request.setApproved(results.getBoolean("isfound"));
                         }
+                        case SHIFT_RANGE:
+                        {
+                            Statement ShiftRangeRequest = dbconnection.createStatement();
+                            ResultSet results = ShiftRangeRequest.executeQuery(this.dateRangeShiftQuery(request.getShifts()[0], request.getShifts()[1], request.getSender()));
+                            Timestamp[] resultsList = tabulateShifts(results);
+                            returnResults = new RequestResults();
+                            returnResults.setShifts(resultsList);
+                            return returnResults;
+                        }
 		}
                 return returnResults;
 	}
 
+        /**
+         * takes a set of shift start and end times and puts them back-to-back in a single array
+         * @param results the ResultSet received from the database asking for shifts
+         * @return an array of Timestamps containing starttime, endtime, starttime, endtime etc.
+         * @throws SQLException
+         */
+        private Timestamp[] tabulateShifts(ResultSet results) throws SQLException
+        {
+            Timestamp[] resultsList;
+            if (results.last())
+                resultsList = new Timestamp[results.getRow()*2];
+            else
+                return null;
+            results.beforeFirst();
+            for (int i = 0; results.next(); i = i + 2)
+            {
+                resultsList[i] = results.getTimestamp("shiftstarttime");
+                resultsList[i+1] = results.getTimestamp("shiftendtime");
+            }
+            return resultsList;
+        }
+        
 	/**
 	* pulls the messages that are waiting for a user and returns them as a delimited string
 	* @returns a ready-to-print string of the messages awaiting a user.
