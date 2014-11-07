@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 public class Request
 {
  
-    public enum RequestType { TAKE, GIVE, TRADE, LOGIN, CREATE, REMOVE, SCHEDULE }
+    public enum RequestType { TAKE, GIVE, TRADE, LOGIN, CREATE, REMOVE, SCHEDULE, VALIDATE }
  
     final private String sender;
     private String approver;
@@ -74,6 +74,11 @@ public static Request GiveRequest(String sender, Timestamp[] times) {
 public static Request TradeRequest(String sender, String recipient, Timestamp[] shifts) {
     Message message = new Message(null, null, shifts, null);
     return new Request(sender, recipient, message, RequestType.TRADE);
+}
+
+public static Request UsernameValidateRequest(String username)
+{
+    return new Request(username, null, null, RequestType.VALIDATE);
 }
  
  

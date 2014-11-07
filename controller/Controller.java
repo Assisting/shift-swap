@@ -106,6 +106,13 @@ public class Controller {
                             returnResults.setShifts(resultsList);
                             return returnResults;
                         }
+                        case VALIDATE:
+                        {
+                            Statement UserValidateRequest= dbconnection.createStatement();
+                            ResultSet results = UserValidateRequest.executeQuery(this.usernameValidityQuery(request.getSender()));
+                            results.next();
+                            request.setApproved(results.getBoolean("isfound"));
+                        }
 		}
                 return returnResults;
 	}
