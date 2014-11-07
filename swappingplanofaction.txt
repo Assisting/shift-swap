@@ -1,0 +1,42 @@
+
+
+
+To Process
+	Shift 1 	<-> Shift 2  	trade
+	null 		<-	Shift		take
+	Shift 1		-> 	null		give
+
+	Left side signs off immediately
+
+	Right side signs off when they agree/disagree
+
+TRADE
+	if right side = approve
+		if manager = wants notify
+			notify manager
+			wait for approve/decline
+			if approve
+				swap shifts
+				delete all requests containing shift
+			else
+				message employees "no"
+				delete only this request containig shift
+		else
+			swap shifts
+			delete all requests containing shift
+	else // disprove
+		notify 1st user "nope"
+		delete only this request containig shift
+
+TAKE
+	Check give table for available shifts
+	Select shift, create trade request
+	taker gives nothing
+	giver gives shift
+	go to TRADE process, except giver already approve, and taker now approves.
+
+GIVE
+	post shift available i GIVE table
+	notify other users
+
+	
