@@ -9,8 +9,8 @@ package controller;
 
 import java.security.MessageDigest;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -81,7 +81,18 @@ public class Controller {
 			}
                         case CREATE:
                         {
-                            
+                            PreparedStatement AddUserRequest = dbconnection.prepareStatement(
+                                    "INSERT INTO employees (empfirstname, emplastname, empaccesslevel, emplogin, emppassword, empemail, empwage)"
+                                    + " VALUES (?, ?, ?, ?, ?, ?, ?)");
+                            Employee newEmployee = request.getEmployee();
+                            AddUserRequest.setString(0, newEmployee.getFirstName());
+                            AddUserRequest.setString(1, newEmployee.getLastName());
+                            AddUserRequest.setInt(2, newEmployee.getAccessLevel());
+                            AddUserRequest.setString(3, newEmployee.getId());
+                            AddUserRequest.setBytes(4, newEmployee.getPassword());
+                            AddUserRequest.setString(5, newEmployee.getEmail());
+                            AddUserRequest.setFloat(5, newEmployee.getWage());
+                            AddUserRequest.execute();
                         }
                         case REMOVE:
                         {

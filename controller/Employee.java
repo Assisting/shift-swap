@@ -27,7 +27,7 @@ public class Employee {
         if (firstName == null || firstName.equals("")) throw new IllegalArgumentException("Invalid First Name");
         if (lastName == null || lastName.equals("")) throw new IllegalArgumentException("Invalid Last Name");
         if (accessLevel > 3) throw new IllegalArgumentException("accessLevel is out of range");
-        if (password.length != 32) throw new IllegalArgumentException("Password array must be 32-byte array");
+        if (wage < 0) throw new IllegalArgumentException("Wage must be a positive number");
         
         this.Id = Id;
         this.firstName = firstName;
