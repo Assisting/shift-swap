@@ -15,16 +15,9 @@
     basalt: #41373D;
     neutral: #CFBFA1;
     umber: #8A3324;
-    
-    /* Set background */
-    /* Commented for now since it's temporarily easier
-    	  to do all this stuff manually */
-    /*-fx-border-width: 75;
-    -fx-border-color: #975B3B;
-    -fx-background-color: #CFBFA1;*/
 }
 
-#title {
+.title {
     -fx-text-fill: #41373D;
     -fx-font-family: 'Source Sans Pro', sans-serif;
     -fx-font-weight: lighter;

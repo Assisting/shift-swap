@@ -7,21 +7,22 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.LoginPageController">
    <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="480.0" prefWidth="680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background-standard" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background-standard" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="usernameField" layoutX="226.0" layoutY="114.0" />
                   <Label layoutX="154.0" layoutY="118.0" styleClass="label-standard" text="Username" />
                   <Label layoutX="154.0" layoutY="158.0" styleClass="label-standard" text="Password" />
                   <Label fx:id="resultLabel" layoutX="286.0" layoutY="200.0" />
-                  <Button fx:id="loginButton" layoutX="417.0" layoutY="153.0" mnemonicParsing="false" onAction="#onLoginButtonPress" styleClass="button-standard" text="Login" />
+                  <Button fx:id="loginButton" layoutX="417.0" layoutY="153.0" mnemonicParsing="false" onAction="#onLoginButtonPress" styleClass="button-standard" text="Enter" />
                   <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="153.0" />
+                  <Label layoutX="154.0" layoutY="44.0" styleClass="title" text="Log In" />
                </children>
             </AnchorPane>
          </center>
          <top>
-            <Pane prefHeight="40.0" prefWidth="840.0" styleClass="border" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="40.0" prefWidth="680.0" styleClass="border" BorderPane.alignment="CENTER" />
          </top>
          <left>
             <Pane prefHeight="400.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
@@ -30,7 +31,7 @@
             <Pane prefHeight="400.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <Pane prefHeight="40.0" prefWidth="1000.0" styleClass="border" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="40.0" prefWidth="680.0" styleClass="border" BorderPane.alignment="CENTER" />
          </bottom>
       </BorderPane>
    </children>
