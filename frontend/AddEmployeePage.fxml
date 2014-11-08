@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
@@ -14,22 +15,22 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="800.0">
          <top>
-            <Pane prefHeight="40.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
          </top>
          <left>
-            <Pane prefHeight="518.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="518.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="518.0" prefWidth="40.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="518.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <Pane prefHeight="42.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="42.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
          </bottom>
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background-standard" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="cancel" layoutX="457.0" layoutY="371.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
-                  <Button fx:id="addEmployee" layoutX="360.0" layoutY="371.0" mnemonicParsing="false" onAction="#onAddEmployeeButtonClick" text="Add Employee" />
+                  <Button fx:id="cancel" layoutX="479.0" layoutY="371.0" mnemonicParsing="false" onAction="#onCancelButtonClick" styleClass="button-standard" text="Cancel" />
+                  <Button fx:id="addEmployee" layoutX="360.0" layoutY="371.0" mnemonicParsing="false" onAction="#onAddEmployeeButtonClick" styleClass="button-standard" text="Add Employee" />
                   <ChoiceBox fx:id="accessLevelBox" layoutX="360.0" layoutY="255.0" prefWidth="150.0" />
                   <TextField fx:id="firstNameText" layoutX="360.0" layoutY="80.0" />
                   <TextField fx:id="lastNameText" layoutX="360.0" layoutY="116.0" />
@@ -37,13 +38,16 @@
                   <TextField fx:id="emailText" layoutX="360.0" layoutY="223.0" />
                   <TextField fx:id="startingWageText" layoutX="360.0" layoutY="286.0" />
                   <Label layoutX="279.0" layoutY="84.0" text="First Name" />
-                  <Label layoutX="280.0" layoutY="120.0" text="Last Name" />
-                  <Label layoutX="276.0" layoutY="259.0" text="Access Level" />
-                  <Label layoutX="282.0" layoutY="157.0" text="Username" />
-                  <Label layoutX="284.0" layoutY="191.0" text="Password" />
-                  <Label layoutX="294.0" layoutY="227.0" text="Email" />
-                  <Label layoutX="271.0" layoutY="290.0" text="Starting Wage" />
-                  <Label layoutX="35.0" layoutY="23.0" text="Add New Employee" />
+                  <Label layoutX="280.0" layoutY="120.0" styleClass="label-standard" text="Last Name" />
+                  <Label layoutX="276.0" layoutY="259.0" styleClass="label-standard" text="Access Level" />
+                  <Label layoutX="282.0" layoutY="157.0" styleClass="label-standard" text="Username" />
+                  <Label layoutX="284.0" layoutY="191.0" styleClass="label-standard" text="Password" />
+                  <Label layoutX="294.0" layoutY="227.0" styleClass="label-standard" text="Email" />
+                  <Label layoutX="265.0" layoutY="290.0" styleClass="label-standard" text="Starting Wage" />
+                  <Label layoutX="89.0" layoutY="59.0" styleClass="label-standard" text="Add New Employee">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                   <Label fx:id="emailLabel" layoutX="516.0" layoutY="227.0" text="*" textFill="RED" />
                   <Label fx:id="firstNameLabel" layoutX="516.0" layoutY="84.0" text="*" textFill="RED" />
                   <Label fx:id="lastNameLabel" layoutX="516.0" layoutY="120.0" text="*" textFill="RED" />
