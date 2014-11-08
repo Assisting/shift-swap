@@ -59,10 +59,11 @@ public class Controller {
 			}
 			case TRADE:
 			{
+                            Statement tradeRequest = dbconnection.createStatement();
+                            tradeRequest.executeQuery(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: "));
 			}
 			case LOGIN:
 			{
-
                             boolean validated = false;
                             Statement loginRequest = dbconnection.createStatement();
                             ResultSet results = loginRequest.executeQuery(this.getloginQuery(request.getSender()));
@@ -73,10 +74,7 @@ public class Controller {
                                 validated = MessageDigest.isEqual(query, result);
 
                             }
-                            if (validated)
-                                    request.setApproved(true);
-                            else
-                                    request.setApproved(false);
+                            request.setApproved(validated);
                             break;
 			}
                         case CREATE:
@@ -93,6 +91,7 @@ public class Controller {
                             AddUserRequest.setString(5, newEmployee.getEmail());
                             AddUserRequest.setFloat(5, newEmployee.getWage());
                             AddUserRequest.execute();
+                            break;
                         }
                         case REMOVE:
                         {
@@ -105,7 +104,7 @@ public class Controller {
                             Timestamp[] resultsList = tabulateShifts(results);
                             returnResults = new RequestResults();
                             returnResults.setShifts(resultsList);
-                            return returnResults;
+                            break;
                         }
                         case VALIDATE:
                         {
@@ -113,6 +112,7 @@ public class Controller {
                             ResultSet results = UserValidateRequest.executeQuery(this.usernameValidityQuery(request.getSender()));
                             results.next();
                             request.setApproved(results.getBoolean("isfound"));
+                            break;
                         }
                         case SHIFT_RANGE:
                         {
@@ -121,7 +121,7 @@ public class Controller {
                             Timestamp[] resultsList = tabulateShifts(results);
                             returnResults = new RequestResults();
                             returnResults.setShifts(resultsList);
-                            return returnResults;
+                            break;
                         }
 		}
                 return returnResults;
