@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import javafx.scene.control.Hyperlink;
 
 /**
  * @author Warren Fehr, wwf594
@@ -62,6 +63,9 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
 
     @FXML
     private Label day0Label;
+    
+    @FXML
+    private Hyperlink addEmployeeButton;
   
     
     /**
@@ -100,6 +104,11 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     {
         String temp=day.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
         header.setText(temp);
+    }
+    
+    @FXML
+    void onAddEmployeeButtonPress(ActionEvent event) {
+	instance.swapToManagerSettings();
     }
     
     @FXML

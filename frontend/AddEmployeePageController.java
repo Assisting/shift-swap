@@ -72,7 +72,14 @@ public class AddEmployeePageController implements Initializable {
     @FXML
     private Label errorLabel;
     
+    /**
+     * We can use this instance to pass data back to the top level.
+     */
+    private View instance;
     
+    public void setApp(View application){
+        this.instance = application;
+    }
     
     /**
      * Initializes the controller class.
@@ -110,7 +117,7 @@ public class AddEmployeePageController implements Initializable {
         startingWageText.setText(null);
         
         System.out.println("CANCEL BUTTON PRESSED");
-       //TODO code to move back to the last view or whatever 
+        instance.swapToProntPage();
     }
     
     /**
