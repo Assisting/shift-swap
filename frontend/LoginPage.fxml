@@ -11,13 +11,13 @@
          <center>
             <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background-standard" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="usernameField" layoutX="226.0" layoutY="114.0" />
-                  <Label layoutX="154.0" layoutY="118.0" styleClass="label-standard" text="Username" />
-                  <Label layoutX="154.0" layoutY="158.0" styleClass="label-standard" text="Password" />
-                  <Label fx:id="resultLabel" layoutX="286.0" layoutY="200.0" />
-                  <Button fx:id="loginButton" layoutX="417.0" layoutY="153.0" mnemonicParsing="false" onAction="#onLoginButtonPress" styleClass="button-standard" text="Enter" />
-                  <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="153.0" />
-                  <Label layoutX="154.0" layoutY="44.0" styleClass="title" text="Log In" />
+                  <TextField fx:id="usernameField" layoutX="234.0" layoutY="165.0" />
+                  <Label layoutX="162.0" layoutY="169.0" styleClass="label-standard" text="Username" />
+                  <Label layoutX="162.0" layoutY="209.0" styleClass="label-standard" text="Password" />
+                  <Label fx:id="resultLabel" layoutX="294.0" layoutY="251.0" />
+                  <Button fx:id="loginButton" layoutX="425.0" layoutY="204.0" mnemonicParsing="false" onAction="#onLoginButtonPress" styleClass="button-standard" text="Enter" />
+                  <PasswordField fx:id="passwordField" layoutX="234.0" layoutY="204.0" />
+                  <Label layoutX="162.0" layoutY="95.0" styleClass="title" text="Log In" />
                </children>
             </AnchorPane>
          </center>
