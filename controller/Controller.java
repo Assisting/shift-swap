@@ -161,7 +161,9 @@ public class Controller {
 	* pulls the messages that are waiting for a user and returns them as a delimited string
 	* @returns a ready-to-print string of the messages awaiting a user.
 	*/
-	private String getMessages() {
+	private String getMessages()
+        {
+            //THERE IS A FUNCTION CALLED getEmployeeMessages to query for employee messages
 	    return null;
 	}
         
@@ -197,32 +199,10 @@ public class Controller {
                 + " ORDER BY shiftstarttime" ;
         }
         
+        
         /**
-         * Create a query to insert a new employee into the database
-         * @param firstName
-         * @param lastName
-         * @param accesslevel
-         * @param loginID
-         * @param password
-         * @param email
-         * @param wage
-         * @return 
-         */
-        //TODO make the byte array work or get rid of it in this query
-        private String newEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, String password, String email, float wage)
-        {
-            return "INSERT INTO employees (empfirstname, emplastname, empaccesslevel,"
-                    + " emplogin, emppassword, empemail, empwage)"
-                    + " VALUES ('" + firstName + "', "
-                    + "'" + lastName + "', "
-                    + "'" + accesslevel + "', "
-                    + "'" + loginID + "', "
-                    + "'" + password + "', "
-                    + "'" + email + "', "
-                    + "'" + wage + "')";
-        }
-        /**
-         *generate a query to update any or all employee info, it is assumed that the empLogin cannot be changed
+         *generate a query to update any or all employee info, it is assumed that the loginID cannot be changed
+         * because of the need for prepared statements to change the password, i am removing password from this query
          * @param firstName can be null
          * @param lastName can be null
          * @param accesslevel must be set to -1 if not specified
@@ -233,7 +213,7 @@ public class Controller {
          * @return a custom string for the update query given the parameters 
          */
         //TODO make the byte array work or get rid of it in this query
-        private String updateEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, Byte[] password, String email, float wage){
+        private String updateEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, String email, float wage){
             boolean needComma = false;
             String ret = "UPDATE employees SET ";
             if(firstName != null){
@@ -254,13 +234,6 @@ public class Controller {
                 ret = ret+ "empaccesslevel = '"+ accesslevel +"' ";
                 needComma = true;
             }
-            if(password != null){
-                if(needComma == true){
-                        ret = ret + ", ";
-                }
-                ret = ret+ "emppassword = '"+ password +"' ";
-                needComma = true;
-            }
             if(email != null){
                 if(needComma == true) {
                         ret = ret + ", ";
@@ -268,7 +241,7 @@ public class Controller {
                 ret = ret+ "empemail = '"+ email +"' ";
                 needComma = true;
             }
-            if(wage != -1){
+            if(wage < 0){
                 if(needComma == true){
                         ret = ret + ", ";
                 }
@@ -389,14 +362,46 @@ public class Controller {
                     + "WHERE empaccesslevel = '2' ";
         }
         
+        /**
+         * Actually a fairly complex query, this will remove all record of an employee in the system
+         * @param employeeLoginID employee to be scrubbed from the system
+         * @return 
+         */
+        private String removeEmployeeQuery(String employeeLoginID)
+        {
+            //start by removing their record in the bossmanager table
+            String step1 = "DELETE FROM bossmanager WHERE employee = '" + employeeLoginID + "'; ";
+            
+            //if the employee was anyones manager in the bossmanager table, set those records to null
+            String step2 = "UPDATE bossmanager SET manager = NULL WHERE manager = '" + employeeLoginID + "'; ";
+            
+            //remove all records associated with the user in the giveshifts table
+            String step3 = "DELETE FROM giveshifts WHERE giverlogin = '" + employeeLoginID + "'; ";
+            
+            //remove all records in the shifttransaction table where either the initiator or finalizer is employeeLoginID
+            String step4a = "DELETE FROM shifttransaction WHERE initlogin = '" + employeeLoginID + "'; ";
+            String step4b = "DELETE FROM shifttransaction WHERE finallogin = '" + employeeLoginID + "'; ";
+            
+            //remove all shifts in the employeeshifts table associated with the user
+            String step5 = "DELETE FROM employeeshifts WHERE shiftemployeelogin = '" + employeeLoginID + "'; ";
+            
+            //remove all messages that were recieved by the user (messages sent from the user can stay)
+            String step6 = "DELETE FROM employeeinbox WHERE mssgreciever = '" + employeeLoginID + "'; ";
+            
+            //finally delete the actual user record from the employees table
+            String step7 = "DELETE FROM employees WHERE emplogin = '" + employeeLoginID + "' ";
+
+            return step1 + step2 + step3 + step4a + step4b + step5 + step6 + step7; 
+        }
+        
       public static void main (String[] args) {
             
             Controller c = new Controller();
             System.out.println(c.getloginQuery("testUsername"));
 	    System.out.println(c.getWorkerInfoQuery("testUsername"));
             System.out.println(c.getEmployeeShiftInfo("testUsername"));
-            System.out.println(c.newEmployeeQuery("Elmer", "Fudd", 1, "eFudd", "wabbit", "Fudd@mail.com", (float) 53.232));
-           // System.out.println(c.updateEmployeeQuery(null, "buster", 2, "eFudd", "jack", null, -1));
+           
+            System.out.println(c.updateEmployeeQuery(null, "buster", 2, "magnusandy", null, -1));
             System.out.println(c.newManagerQuery("testUsername"));
             System.out.println(c.updateManagerQuery("magnusandy", "oneTrueGod"));
             System.out.println(c.newMessageQuery("magnusandy", "oneTrueGod", "Yoooo dawg lets do this"));
@@ -407,6 +412,7 @@ public class Controller {
             System.out.println(c.dateRangeShiftQuery(x,y,"tmike"));
             System.out.println(c.dateRangeShiftQuery(x,y,null));
             System.out.println(c.managerListQuery());
+            System.out.println(c.removeEmployeeQuery("tmike"));
                     
                    
         }  

@@ -94,7 +94,64 @@ public static Request ShiftRangeRequest(String username, Timestamp start, Timest
     Message message = new Message(null, null, shifts, null);
     return new Request(username, null, message, RequestType.SHIFT_RANGE);
 }
+
+/**
+ * Generate a request to the controller to change the password of a employee
+ * @param username of the employee 
+ * @param password new password
+ * @return the request that can be sent to the controller
+ */
+public static Request ChangePasswordRequest(String username, byte[] newPassword)
+{
+    //TODO
+    return null;
+}
+
+
+/**
+ * General Request for updating/ changing user information
+ * @param userToBeChanged the loginID of  the user to be changed CANNOT be null
+ * @param newFirstName can be null
+ * @param newLastName can be null
+ * @param newEmail can be null
+ * @param newAccessLevel -1 if not specified
+ * @param newWage -1 if not specified
+ * @return 
+ */
+public static Request ModifyEmployeeInfoRequest(String userToBeChanged, String newFirstName, String newLastName, String newEmail, int newAccessLevel, float newWage)
+{
+    //TODO
+    return null;
+}
  
+
+/**
+ * Generate a request for the controller to change the access level of a 
+ * employee in the database
+ * Used for Promotions and demotions
+ * @param username emplogin of the user to be changed
+ * @param newAccesslevel new access level for employee with username
+ * @return 
+ */
+public static Request ChangeAccessLevelRequest(String username, int newAccesslevel)
+{
+    //TODO not sure if this will work or not, should if modify is done propertly
+    return Request.ModifyEmployeeInfoRequest(username, null, null, null, newAccesslevel, -1);
+}
+
+/**
+ * Create a request to assign an employee a new/different manager
+ * @param employeeLoginID loginid of the employee
+ * @param managerLoginID loginid of the manager
+ * @return 
+ */
+public static Request changeEmployeesManagerRequest(String employeeLoginID, String managerLoginID)
+{
+    //TODO
+    return null;
+}
+
+
  
 //-----Getters and Setters----------------------------------------
  

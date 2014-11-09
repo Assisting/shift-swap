@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* Created by:
+* Andrew Magnus, amm215
+* For use within the shift-swap project
+*/
 package frontend;
 
 import controller.Employee;

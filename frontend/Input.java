@@ -81,19 +81,18 @@ public class Input
      * Given a username string, this function sends a request to the database to see
      * if the given username is already found in the database
      * @param username proposed username to get checked
-     * @return true if username is not in the database, false if it is.
+     * @return true if username is NOT in the database, false if it is.
      */
     public static boolean isUsernameUnique(String username)
     {
         Request validateRequest = Request.UsernameValidateRequest(username);
-        Controller cont= new Controller();
-        RequestResults results = new RequestResults();
-         try{
-            results = cont.sendRequest(validateRequest);
+        Controller controller = new Controller();
+        try{
+            controller.sendRequest(validateRequest);
         }
-        catch(Exception e)
+        catch(SQLException exception)
         {
-            System.out.println("something horrible has  happrened while trying to validate username");
+            System.out.println("Exception in inUsernameUnique with message: " + exception.getMessage());
         }
         return !validateRequest.isApproved(); //there is a ! here because the database actually passes back true if the given username is found, so thus it is NOT unique 
     }
@@ -103,19 +102,124 @@ public class Input
      * @param newEmployee employee data to be used for the insert
      */
     public static void addNewEmployee(Employee newEmployee)
-    {
-        Request addNewEmployeeRequest = Request.CreateRequest("doge", newEmployee);
-        Controller cont = new Controller();
+    {  
+        Request addNewEmployeeRequest = Request.CreateRequest("PLACEHOLDER", newEmployee);
+        Controller controller = new Controller();
         RequestResults results = new RequestResults();
-         try{
-            results = cont.sendRequest(addNewEmployeeRequest);
+        try
+        {
+            results = controller.sendRequest(addNewEmployeeRequest);
         }
         catch(SQLException exception)
         {
-            exception.getMessage();
-            System.out.println("something horrible has  happrened in addNewEmployee() in Input \n " + exception.getMessage());
+            System.out.println("Exception in addNewEmployee with message: " + exception.getMessage());
         }
     }
+   
+    /**
+     * Send a request to the controller to change the access level of a employee to newAccessLevel
+     * @param username of employee getting promoted/demoted
+     * @param newAccessLevel new access level of the employee
+     */
+    public static void changeEmployeeAccessLevel(String username, int newAccessLevel)
+    {
+        Request changeAccessLevelRequest = Request.ChangeAccessLevelRequest(username, newAccessLevel);
+        Controller controller = new Controller();
+        try
+        {
+            controller.sendRequest(changeAccessLevelRequest);
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("Exception in changeEmployeeAccessLevel with message: " + exception.getMessage());
+        }    
+    }
+    
+    /**
+     * Removes all traces of an employee from the database
+     * @param username of employee to be removed
+     */
+    public static void removeEmployee(String username)
+    {
+        Request removeEmployeeRequest = Request.RemoveRequest("PLACEHOLDER", username);
+        Controller controller = new Controller();
+        try
+        {
+            controller.sendRequest(removeEmployeeRequest);
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("Exception in removeEmployee with message: " + exception.getMessage());
+        }    
+    }
+    
+    /**
+     * modify basic information of a employee in the database
+     * @param userToBeChanged CANNOT be null
+     * @param newFirstName can be null
+     * @param newLastName can be null
+     * @param newEmail can be null
+     * @param newAccessLevel set to -1 if not specified
+     * @param newWage set to -1 of not specified
+     */
+    public static void modifyEmployeeInfo(String userToBeChanged, String newFirstName, String newLastName, String newEmail, int newAccessLevel, float newWage)
+    {
+        if(userToBeChanged == null)
+        {
+            throw new RuntimeException();
+        }
+        Request modifyEmployeeRequest = Request.ModifyEmployeeInfoRequest(userToBeChanged, newFirstName, newLastName, newEmail, newAccessLevel, newWage);
+        Controller controller = new Controller();
+        try
+        {
+            controller.sendRequest(modifyEmployeeRequest);
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("Exception in modifyEmployeeInfo with message: " + exception.getMessage());
+        } 
+    }
+    
+    /**
+     * Given a user and a string for the new password, create a hashed version 
+     * of the new password and put it into the database.
+     * @param username of employee that password is being changed for
+     * @param newPassword string that will be hashed and passed to the database
+     */
+    public static void changeEmployeePassword(String username, String newPassword)
+    {
+        byte[] newHashedPassword = Input.createHash(newPassword);
+        Request changePasswordRequest = Request.ChangePasswordRequest(username, newHashedPassword);
+        Controller controller = new Controller();
+        try
+        {
+            controller.sendRequest(changePasswordRequest);
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("Exception in changeEmployeePassword with message: " + exception.getMessage());
+        } 
+    }
+    
+    /**
+     * Change or set who is the employees manager
+     * @param employee  manager is being changed
+     * @param newManager login id of the new manager
+     */
+    public static void changeEmployeesManager(String employee, String newManager)
+    {
+        Request changeEmployeesManagerRequest = Request.changeEmployeesManagerRequest(employee, newManager);
+        Controller controller = new Controller();
+        try
+        {
+            controller.sendRequest(changeEmployeesManagerRequest);
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("Exception in changeEmployeesManager with message: " + exception.getMessage());
+        } 
+    }
+    
     
     //made this function public so that adding a new employee can create a hash too
     public static byte[] createHash(String password) {
