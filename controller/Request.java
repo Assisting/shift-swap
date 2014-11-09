@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 public class Request
 {
  
-    public enum RequestType { TAKE, GIVE, TRADE, LOGIN, CREATE, REMOVE, SCHEDULE, VALIDATE, SHIFT_RANGE }
+    public enum RequestType { TAKE, GIVE, TRADE, LOGIN, CREATE, REMOVE, SCHEDULE, VALIDATE, SHIFT_RANGE, PASSWORD_CHANGE, UPDATE_EMPLOYEE }
  
     final private String sender;
     private String approver;
@@ -103,8 +103,8 @@ public static Request ShiftRangeRequest(String username, Timestamp start, Timest
  */
 public static Request ChangePasswordRequest(String username, byte[] newPassword)
 {
-    //TODO
-    return null;
+    Message message = new Message(null, newPassword, null, null);
+    return new Request(username, null, message, RequestType.PASSWORD_CHANGE);
 }
 
 
@@ -120,8 +120,9 @@ public static Request ChangePasswordRequest(String username, byte[] newPassword)
  */
 public static Request ModifyEmployeeInfoRequest(String userToBeChanged, String newFirstName, String newLastName, String newEmail, int newAccessLevel, float newWage)
 {
-    //TODO
-    return null;
+    Employee employee = new Employee(userToBeChanged, newFirstName, newLastName, newAccessLevel, null, newEmail, newWage);
+    Message message = new Message(null, null, null, employee);
+    return new Request(null, null, message, RequestType.UPDATE_EMPLOYEE);
 }
  
 
@@ -136,7 +137,8 @@ public static Request ModifyEmployeeInfoRequest(String userToBeChanged, String n
 public static Request ChangeAccessLevelRequest(String username, int newAccesslevel)
 {
     //TODO not sure if this will work or not, should if modify is done propertly
-    return Request.ModifyEmployeeInfoRequest(username, null, null, null, newAccesslevel, -1);
+    //return Request.ModifyEmployeeInfoRequest(username, null, null, null, newAccesslevel, -1);
+    return null;
 }
 
 /**

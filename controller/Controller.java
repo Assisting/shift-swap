@@ -131,6 +131,14 @@ public class Controller {
                             returnResults.setShifts(resultsList);
                             break;
                         }
+                        case PASSWORD_CHANGE:
+                        {
+                            //TODO this statement needs an SQL query in it
+                            PreparedStatement passwordChange = dbconnection.prepareStatement(null);
+                            passwordChange.setString(1, request.getSender());
+                            passwordChange.setBytes(2, request.getPassword());
+                            passwordChange.execute();
+                        }
 		}
                 return returnResults;
 	}
