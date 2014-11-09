@@ -241,7 +241,7 @@ public class Controller {
                 ret = ret+ "empemail = '"+ email +"' ";
                 needComma = true;
             }
-            if(wage < 0){
+            if(wage >= 0){
                 if(needComma == true){
                         ret = ret + ", ";
                 }
