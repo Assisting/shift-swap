@@ -79,18 +79,26 @@ public class Controller {
 			}
                         case CREATE:
                         {
+                           
                             PreparedStatement AddUserRequest = dbconnection.prepareStatement(
                                     "INSERT INTO employees (empfirstname, emplastname, empaccesslevel, emplogin, emppassword, empemail, empwage)"
                                     + " VALUES (?, ?, ?, ?, ?, ?, ?)");
                             Employee newEmployee = request.getEmployee();
-                            AddUserRequest.setString(0, newEmployee.getFirstName());
-                            AddUserRequest.setString(1, newEmployee.getLastName());
-                            AddUserRequest.setInt(2, newEmployee.getAccessLevel());
-                            AddUserRequest.setString(3, newEmployee.getId());
-                            AddUserRequest.setBytes(4, newEmployee.getPassword());
-                            AddUserRequest.setString(5, newEmployee.getEmail());
-                            AddUserRequest.setFloat(5, newEmployee.getWage());
+                            AddUserRequest.setString(1, newEmployee.getFirstName());                           
+                            AddUserRequest.setString(2, newEmployee.getLastName());                           
+                            AddUserRequest.setInt(3, newEmployee.getAccessLevel()); 
+                            AddUserRequest.setString(4, newEmployee.getId());
+                            AddUserRequest.setBytes(5, newEmployee.getPassword());
+                            AddUserRequest.setString(6, newEmployee.getEmail());
+                            AddUserRequest.setFloat(7, newEmployee.getWage());
                             AddUserRequest.execute();
+                            
+                            //When a new record is created for an employee a new record also should be created in
+                            //the boss manager table (which tells who is that employees mananger) with a null value
+                            Statement addUserBossmanagerRecord = dbconnection.createStatement();
+                            //executeUpdate is used rather than executeQuery because executeUpdate doesnt throw exceptions when nothing is returned by the query
+                            addUserBossmanagerRecord.executeUpdate(this.newManagerQuery(newEmployee.getId()));
+                            
                             break;
                         }
                         case REMOVE:

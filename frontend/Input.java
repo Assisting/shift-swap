@@ -11,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import controller.*;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 /**
@@ -95,7 +96,27 @@ public class Input
         return !validateRequest.isApproved(); //there is a ! here because the database actually passes back true if the given username is found, so thus it is NOT unique 
     }
     
-    private static byte[] createHash(String password) {
+    /**
+     * Given a Employee object, this function will ask the controller to insert a new employee into the database
+     * @param newEmployee employee data to be used for the insert
+     */
+    public static void addNewEmployee(Employee newEmployee)
+    {
+        Request addNewEmployeeRequest = Request.CreateRequest("doge", newEmployee);
+        Controller cont = new Controller();
+        RequestResults results = new RequestResults();
+         try{
+            results = cont.sendRequest(addNewEmployeeRequest);
+        }
+        catch(SQLException exception)
+        {
+            exception.getMessage();
+            System.out.println("something horrible has  happrened in addNewEmployee() in Input \n " + exception.getMessage());
+        }
+    }
+    
+    //made this function public so that adding a new employee can create a hash too
+    public static byte[] createHash(String password) {
 	byte[] returnHash = null;
 	
 	try {

@@ -5,6 +5,7 @@
  */
 package frontend;
 
+import controller.Employee;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -109,15 +110,9 @@ public class AddEmployeePageController implements Initializable {
     @FXML
     void onCancelButtonClick(ActionEvent event) 
     {
-        firstNameText.setText(null);
-        lastNameText.setText(null);
-        usernameText.setText(null);
-        passwordText.setText(null);
-        emailText.setText(null);
-        startingWageText.setText(null);
-        
-        System.out.println("CANCEL BUTTON PRESSED");
-        instance.swapToProntPage();
+  
+        this.prepAndMoveBack();
+       // System.out.println("CANCEL BUTTON PRESSED");
     }
     
     /**
@@ -132,7 +127,8 @@ public class AddEmployeePageController implements Initializable {
         if(this.validateFields())
         {
             int accessLevel = 1;
-            switch (accessLevelBox.getValue().toString()) {
+            switch (accessLevelBox.getValue().toString())
+            {
                 case "Manager":
                     accessLevel = 2;
                     break;
@@ -140,17 +136,36 @@ public class AddEmployeePageController implements Initializable {
                     accessLevel = 3;
                     break;
             }
-          //TODO make a call to the database to add an employee to the system now that all the information is verified
-            //TODO also create a new record in the bossmanager table with the manager set to null
-            // some kind of confirmation or message saying it worked to the user, then back off to the main menu!
+            float wage = Float.parseFloat(startingWageText.getText());
+            byte[] password = Input.createHash(passwordText.getText());
+            Employee newEmp = new Employee(usernameText.getText(), firstNameText.getText(), lastNameText.getText(), accessLevel, password, emailText.getText(), wage);
+            Input.addNewEmployee(newEmp);
             
+            //now that the new employee is added, move back to the previous screen
+            this.prepAndMoveBack();
         }
         else
         {
-             System.out.println("BADD");
+             //nothing really happens here because the error messages are generated in the validate fields function
         }
     }
     
+    
+    /**
+     * Helper function for both the cancel and the add employee button presses
+     * this function clears all the text fields and moves the program back to 
+     * the previous scene.
+     */
+    private void prepAndMoveBack()
+    {
+        firstNameText.setText(null);
+        lastNameText.setText(null);
+        usernameText.setText(null);
+        passwordText.setText(null);
+        emailText.setText(null);
+        startingWageText.setText(null);
+        instance.swapToProntPage();
+    }
     /**
      * private function used by the onAddEmployeeButtonClick function to check if 
      * the data found in all the text fields is valid, if a text fields is not valid
