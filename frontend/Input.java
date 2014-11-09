@@ -82,8 +82,17 @@ public class Input
      */
     public static boolean isUsernameUnique(String username)
     {
-        //TODO make a call to the controller to query the database to see if the username is already in the data
-        return false;
+        Request validateRequest = Request.UsernameValidateRequest(username);
+        Controller cont= new Controller();
+        RequestResults results = new RequestResults();
+         try{
+            results = cont.sendRequest(validateRequest);
+        }
+        catch(Exception e)
+        {
+            System.out.println("something horrible has  happrened while trying to validate username");
+        }
+        return !validateRequest.isApproved(); //there is a ! here because the database actually passes back true if the given username is found, so thus it is NOT unique 
     }
     
     private static byte[] createHash(String password) {
