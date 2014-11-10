@@ -16,7 +16,10 @@ import java.sql.Timestamp;
 public class Request
 {
  
-    public enum RequestType { TAKE, GIVE, TRADE, LOGIN, CREATE, REMOVE, SCHEDULE, VALIDATE, SHIFT_RANGE, PASSWORD_CHANGE, UPDATE_EMPLOYEE }
+    public enum RequestType { TAKE, GIVE, TRADE, ACCEPT, APPROVE,
+                              CREATE, REMOVE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE,
+                              LOGIN,
+                              SCHEDULE, SHIFT_RANGE }
  
     final private String sender;
     private String approver;
@@ -44,7 +47,7 @@ public class Request
 //-----Custom Requests------------------------------------------
  
 public static Request LoginRequest(String username, byte[] password) {
-        Message message = new Message(null, password, null, null);
+        Message message = new Message(null, password, null, null, false, 0);
         return new Request(username, null, message, RequestType.LOGIN);
 }
  
@@ -53,7 +56,7 @@ public static Request ShiftRequest(String username) {
 }
  
 public static Request CreateRequest(String sender, Employee employee) {
-        Message message = new Message(null, null, null, employee);
+        Message message = new Message(null, null, null, employee, false, 0);
         return new Request(sender, null, message, RequestType.CREATE);
 }
  
@@ -62,12 +65,12 @@ public static Request RemoveRequest(String sender, String toBeRemoved) {
 }
 
 public static Request TakeRequest(String sender, Timestamp[] times) {
-    Message message = new Message(null, null, times, null);
+    Message message = new Message(null, null, times, null, false, 0);
     return new Request(sender, null, message, RequestType.TAKE);
 }
 
 public static Request GiveRequest(String sender, Timestamp[] times) {
-    Message message = new Message(null, null, times, null);
+    Message message = new Message(null, null, times, null, false, 0);
     return new Request(sender, null, message, RequestType.GIVE);
 }
 
@@ -75,8 +78,20 @@ public static Request GiveRequest(String sender, Timestamp[] times) {
 //TODO need to add finalSign 
 //TODO need to add managerSign
 public static Request TradeRequest(String sender, String recipient, Timestamp[] shifts, String transactionType, Boolean finalSign, Boolean managerSign) {
-    Message message = new Message(null, null, shifts, null);
+    Message message = new Message(null, null, shifts, null, false, 0);
     return new Request(sender, recipient, message, RequestType.TRADE);
+}
+
+public static Request AcceptRequest(int requestID, boolean accepted)
+{
+    Message message = new Message(null, null, null, null, accepted, requestID);
+    return new Request(null, null, message, RequestType.ACCEPT);
+}
+
+public static Request ApproveRequest(int requestID, boolean approved)
+{
+    Message message = new Message(null, null, null, null, approved, requestID);
+    return new Request(null, null, message, RequestType.APPROVE);
 }
 
 //TODO need a request that returns master managerapproval (either TRUE or FALSE).
@@ -96,7 +111,7 @@ public static Request UsernameValidateRequest(String username)
 public static Request ShiftRangeRequest(String username, Timestamp start, Timestamp end)
 {
     Timestamp[] shifts  = {start, end};
-    Message message = new Message(null, null, shifts, null);
+    Message message = new Message(null, null, shifts, null, false, 0);
     return new Request(username, null, message, RequestType.SHIFT_RANGE);
 }
 
@@ -108,7 +123,7 @@ public static Request ShiftRangeRequest(String username, Timestamp start, Timest
  */
 public static Request ChangePasswordRequest(String username, byte[] newPassword)
 {
-    Message message = new Message(null, newPassword, null, null);
+    Message message = new Message(null, newPassword, null, null, false, 0);
     return new Request(username, null, message, RequestType.PASSWORD_CHANGE);
 }
 
@@ -126,7 +141,7 @@ public static Request ChangePasswordRequest(String username, byte[] newPassword)
 public static Request ModifyEmployeeInfoRequest(String userToBeChanged, String newFirstName, String newLastName, String newEmail, int newAccessLevel, float newWage)
 {
     Employee employee = new Employee(userToBeChanged, newFirstName, newLastName, newAccessLevel, null, newEmail, newWage);
-    Message message = new Message(null, null, null, employee);
+    Message message = new Message(null, null, null, employee, false, 0);
     return new Request(null, null, message, RequestType.UPDATE_EMPLOYEE);
 }
  
@@ -157,8 +172,6 @@ public static Request changeEmployeesManagerRequest(String employeeLoginID, Stri
     //TODO
     return null;
 }
-
-
  
 //-----Getters and Setters----------------------------------------
  

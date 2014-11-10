@@ -53,15 +53,46 @@ public class Controller {
 		switch (request.getMode()) {
 			case TAKE:
 			{
+                            break;
 			}
 			case GIVE:
 			{
+                            break;
 			}
 			case TRADE:
 			{
                             Statement tradeRequest = dbconnection.createStatement();
                             tradeRequest.executeQuery(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: "));
+                            tradeRequest.close();
+                            break;
 			}
+                        case ACCEPT:
+                        {
+                            if (request.isApproved())
+                            {
+                                
+                            }
+                            else
+                            {
+                                //TODO delete record and notify users of failure
+                            }
+                            break;
+                        }
+                        case APPROVE:
+                        {
+                            Statement approveRequest = dbconnection.createStatement();
+                            if (request.isApproved())
+                            {
+                                //TODO need sql to change managers "approved" field to true
+                                approveRequest.executeQuery(null);
+                            }
+                            else
+                            {
+                                //TODO delete record and notify users of failure
+                            }
+                            approveRequest.close();
+                            break;
+                        }
 			case LOGIN:
 			{
                             boolean validated = false;
@@ -75,6 +106,7 @@ public class Controller {
 
                             }
                             request.setApproved(validated);
+                            loginRequest.close();
                             break;
 			}
                         case CREATE:
@@ -92,6 +124,7 @@ public class Controller {
                             AddUserRequest.setString(6, newEmployee.getEmail());
                             AddUserRequest.setFloat(7, newEmployee.getWage());
                             AddUserRequest.execute();
+                            AddUserRequest.close();
                             
                             //When a new record is created for an employee a new record also should be created in
                             //the boss manager table (which tells who is that employees mananger) with a null value
@@ -103,7 +136,7 @@ public class Controller {
                         }
                         case REMOVE:
                         {
-                            
+                            break;
                         }
                         case SCHEDULE:
                         {
@@ -112,23 +145,26 @@ public class Controller {
                             Timestamp[] resultsList = tabulateShifts(results);
                             returnResults = new RequestResults();
                             returnResults.setShifts(resultsList);
+                            shiftPullRequest.close();
                             break;
                         }
                         case VALIDATE:
                         {
-                            Statement UserValidateRequest= dbconnection.createStatement();
-                            ResultSet results = UserValidateRequest.executeQuery(this.usernameValidityQuery(request.getSender()));
+                            Statement userValidateRequest= dbconnection.createStatement();
+                            ResultSet results = userValidateRequest.executeQuery(this.usernameValidityQuery(request.getSender()));
                             results.next();
                             request.setApproved(results.getBoolean("isfound"));
+                            userValidateRequest.close();
                             break;
                         }
                         case SHIFT_RANGE:
                         {
-                            Statement ShiftRangeRequest = dbconnection.createStatement();
-                            ResultSet results = ShiftRangeRequest.executeQuery(this.dateRangeShiftQuery(request.getShifts()[0], request.getShifts()[1], request.getSender()));
+                            Statement shiftRangeRequest = dbconnection.createStatement();
+                            ResultSet results = shiftRangeRequest.executeQuery(this.dateRangeShiftQuery(request.getShifts()[0], request.getShifts()[1], request.getSender()));
                             Timestamp[] resultsList = tabulateShifts(results);
                             returnResults = new RequestResults();
                             returnResults.setShifts(resultsList);
+                            shiftRangeRequest.close();
                             break;
                         }
                         case PASSWORD_CHANGE:
@@ -138,6 +174,8 @@ public class Controller {
                             passwordChange.setBytes(1, request.getPassword());
                             passwordChange.setString(2, request.getSender());
                             passwordChange.execute();
+                            passwordChange.close();
+                            break;
                         }
 		}
                 return returnResults;
