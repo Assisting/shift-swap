@@ -274,6 +274,7 @@ public class Input
      * @return true or false depending on whether the manager needs to sign off or not 
      * */
     private static boolean ManagerApprovalRequired(){
+    	//TODO
     	Boolean leboolean = true;
     	Controller cont = new Controller();
     	//Request request = Request.ManagerApproval; //TODOwaiting on connor to implementw
@@ -296,7 +297,7 @@ public class Input
      * @param transcationType the type of transaction (values take and swap, no give as it is processed as a take).
      */
     public static void createTradeRequest(String initLogin, Timestamp[] shiftStartEnd, String finalLogin, Timestamp[] finalshiftStartEnd, 
-    										Boolean finalSign, Boolean managerSign, String transactionType){ //TODO should I include managerSign? can probably set it after the fact or via default
+    										Boolean finalSign, String transactionType){ 
     	Controller cont = new Controller();
     	Request request = null;
     	
@@ -306,26 +307,45 @@ public class Input
     		//initLogin is the person giving the shift
     		// finalLogin is the person taking the shift, he thus offers null shifts
     		Timestamp[] takeShift = {null, null};
-        	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, takeShift), transactionType, true);
-        	try {
-    			cont.sendRequest(request);
-    		} catch (SQLException e) {
-    			// TODO Auto-generated catch block
-    			System.out.println("createTradeRequest just got smoked");
-    			e.printStackTrace();
-    		}
-        	
         	if (ManagerApprovalRequired()){
-            	//TODO send message to shift giver "finalLogin has accepted your shift, waiting for manager to sign off"
-            	//		done, wait for manager to process
+            	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, takeShift), transactionType, true, false);
+            	try {
+        			cont.sendRequest(request);
+        		} catch (SQLException e) {
+        			// TODO Auto-generated catch block
+        			System.out.println("createTradeRequest just got smoked");
+        			e.printStackTrace();
+        		}
+        		/** Sample SQL for creating a take traderequest 
+            	 * INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, finalsign, managersign, transactiontype),
+            	 * 	VALUES (initLogin, shiftStartEnd[0], shiftStartEnd[1], finalLogin, finalshiftStartEnd[0], finalshiftStartEnd[1], TRUE, FALSE, "TAKE"); */
+        		//TODO do above transaction creatio
+        		//TODO send message to shift giver "finalLogin has accepted your shift, waiting for manager to sign off"
+        		// done, wait for manager to process
         	}
         	else{
-        		//TODO process
-        		//TODO send message to shift giver, "finalLogin has accepted your shift, trade is complete".
+            	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, takeShift), transactionType, true, true);
+            	try {
+        			cont.sendRequest(request);
+        		} catch (SQLException e) {
+        			// TODO Auto-generated catch block
+        			System.out.println("createTradeRequest just got smoked");
+        			e.printStackTrace();
+        		}
+        		/** Sample SQL for creating a take traderequest 
+            	 * INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, finalsign, managersign, transactiontype),
+            	 * 	VALUES (initLogin, shiftStartEnd[0], shiftStartEnd[1], finalLogin, finalshiftStartEnd[0], finalshiftStartEnd[1], TRUE, TRUE, "TAKE"); */
+        		//TODO do above transaction creation
+        		processShiftTransaction(initLogin, shiftStartEnd, finalLogin);      		
         	}
+        	
     		break;
     	case "swap":
-        	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, finalshiftStartEnd), transactionType, managerSign);
+    		Boolean managerapproval = ManagerApprovalRequired();
+    		
+        	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, finalshiftStartEnd), 
+        				transactionType, finalSign, !managerapproval); // !ManagerApprovalRequired() because If it's required, default FALSE.
+        																		// if it's not required, default TRUE.
         	try {
     			cont.sendRequest(request);
     		} catch (SQLException e) {
@@ -333,15 +353,143 @@ public class Input
     			System.out.println("createTRadeRequest just got smoked");
     			e.printStackTrace();
     		}
-        	//TODO send message to finalLogin "initLogin has requested a shift swap with you!"
+        	if (managerapproval){
+        		//TODO send message to finalLogin "initLogin has requested a shift swap with you, your manager must also sign off if you accept!"
+        	}
+        	else{
+        		//TODO send message to finalLogin "initLogin has requested a shift swap with you, accept to complete transaction"
+        	}
         	
-        	/** Sample SQL for creating a give request TODO decide on managerapproval, default instead of include blah blah
+        	/** Sample SQL for creating a give request 
         	 * INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, finalsign, managersign, transactiontype),
         	 * 	VALUES (initLogin, shiftStartEnd[0], shiftStartEnd[1], finalLogin, finalshiftStartEnd[0], finalshiftStartEnd[1], finalSign, managerSign, transactionType); */
         	
     		break;
     	}
+    }
+    
+    // setManagerApproval and setEmployeeApproval are seperate because employees can trade shifts with the manager, thus no reason to
+    // check whether its employee or manager approval based on permission level, rather use 2 functions.
+    
+    
+    /** Sets the managers approval
+     * @param approval manager approves or declines to shut down transaction */
+    public static void setManagerApproval(String initLogin, Timestamp[] shiftStartEnd, String finalLogin, Boolean approval){
+    	Controller cont = new Controller();
+    	//TODO new request for updates
+    	if (approval){
+    		//TODO send message to parties "manager approves of this transaction"
+    		processShiftTransaction(initLogin, shiftStartEnd, finalLogin);
+    	}
+    	else{
+    		deleteShiftTransaction(initLogin, shiftStartEnd, finalLogin);
+    		
+    	}
+    	/** Sample SQL for updating approval. The left side is table, right side is method fields
+    	 * UPDATE shifttransaction 
+    	 * 	SET managerSign = approval
+    	 * WHERE 
+    	 * 		initLogin = initLogin AND
+    	 * 		initshiftStart = Timestamp[0] AND
+    	 * 		initshiftEnd = Timestamp[1] AND
+    	 * 		finalLogin = finalLogin
+    	 * ;
+    	 *  */
+    	
+    }
+    
+    /** Sets the employees approval
+     * @param approval employee approves or declines */
+    public static void setEmployeeApproval(String initLogin, Timestamp[] shiftStartEnd, String finalLogin, Boolean approval){
+    	Controller cont = new Controller();
+    	//TODO new request for updates
+    	if (approval){
+    		//TODO send message to parties "such and such shift has been accepted by empoloyee ___"
+    		processShiftTransaction(initLogin, shiftStartEnd, finalLogin);
+    	}
+    	else{
+    		deleteShiftTransaction(initLogin, shiftStartEnd, finalLogin);
+    	}
+    	/** Sample SQL for updating approval. The left side is table, right side is method fields
+    	 * UPDATE shifttransaction 
+    	 * 	SET employeeSign = approval
+    	 * WHERE 
+    	 * 		initLogin = initLogin AND
+    	 * 		initshiftStart = Timestamp[0] AND
+    	 * 		initshiftEnd = Timestamp[1] AND
+    	 * 		finalLogin = finalLogin
+    	 * ;
+    	 *  */
+    }
+    
+    /** deletes a shift transaction
+     * @param primary key of shift transaction 
+     * @postcond both users have been notified*/
+    public static void deleteShiftTransaction(String initLogin, Timestamp[] shiftStartEnd, String finalLogin){
+    	Controller cont = new Controller();
+    	//Request request = Request.
+    	//TODO new request to delete a shift transaction
+    	//TODO message both parties "Shift x has been declined, transaction removed" // message manager too? y/n
+    	/** Sample SQL for deleting a shift transaction
+    	 * DELETE FROM shifttransaction
+    	 * WHERE
+    	 *     	initLogin = initLogin AND
+    	 * 		initshiftStart = Timestamp[0] AND
+    	 * 		initshiftEnd = Timestamp[1] AND
+    	 * 		finalLogin = finalLogin
+    	 * ;
+    	 * 		*/	
+    }
+    
+    /** process a shift transaction
+     * @param primary key of shift transaction 
+     * postcond shift(s) have been swapped*/
+    public static void processShiftTransaction(String initLogin, Timestamp[] shiftStartEnd, String finalLogin){
+    	Controller cont = new Controller();
+    	
+    	//if (managerSign and finalSign)
+    	//      process
+    	//		check type: 
+    	//			if take, create takee shift, delete giver shift
+    	//			if swap, copy shifts to employees, delete originals
+    	//else
+    	//     message "still waiting on whichever is false"
+    	
+    	
+    	//TODO Request request = Request.
+    	//TODO message both parties and manager that a shift transaction has been processed.
+    	
+    	/** Sample SQL for a shift exchange
+    	 * TAKE
+    	 * 		INSERT INTO employeeshifts VALUES (finalLogin, shiftStartEnd[0], shiftStartEnd[1]);
+    	 * 		DELETE FROM employeeshifts
+    	 * 		WHERE
+    	 * 			shiftemployeelogin = initLogin AND
+    	 * 			shiftstarttime = shiftStartEnd[0] AND
+    	 * 			shitendtime = shiftStartEnd[1]
+    	 *		;
+    	 *
+    	 * SWAP
+    	 * 		INSERT INTO employeeshifts VALUES (initLogin, shiftStartEnd[2], shiftStartEnd[3]);
+    	 * 		INSERT INTO employeeshifts VALUES (finalLogin, shiftStartEnd[0], shiftStartEnd[1]);
+    	 * 		
+    	 * 		DELETE FROM employeeshifts
+    	 * 		WHERE
+    	 * 			shiftemployeelogin = initLogin AND
+    	 * 			shiftstarttime = shiftStartEnd[0] AND
+    	 * 			shitendtime = shiftStartEnd[1]
+    	 *		;
+    	 *		DELETE FROM employeeshifts
+    	 * 		WHERE
+    	 * 			shiftemployeelogin = finalLogin AND
+    	 * 			shiftstarttime = shiftStartEnd[2] AND
+    	 * 			shitendtime = shiftStartEnd[3]
+    	 *		;
+    	 *  */
+    	
     	
     	
     }
+    
+    
 }
