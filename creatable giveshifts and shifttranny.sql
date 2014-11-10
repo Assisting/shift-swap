@@ -29,6 +29,7 @@ CREATE TABLE shifttransaction (
 	transactiontype trantype NOT NULL,
 	finalsign signoff DEFAULT FALSE,
 	managersign signoff DEFAULT FALSE
+--added primary and foreign key manually because we derped the first time.
 	);
 
 	

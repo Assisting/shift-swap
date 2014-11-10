@@ -133,10 +133,10 @@ public class Controller {
                         }
                         case PASSWORD_CHANGE:
                         {
-                            //TODO this statement needs an SQL query in it
-                            PreparedStatement passwordChange = dbconnection.prepareStatement(null);
-                            passwordChange.setString(1, request.getSender());
-                            passwordChange.setBytes(2, request.getPassword());
+                            
+                            PreparedStatement passwordChange = dbconnection.prepareStatement("UPDATE employees SET emppassword = ? WHERE emplogin = ? ");
+                            passwordChange.setBytes(1, request.getPassword());
+                            passwordChange.setString(2, request.getSender());
                             passwordChange.execute();
                         }
 		}
@@ -402,6 +402,71 @@ public class Controller {
             return step1 + step2 + step3 + step4a + step4b + step5 + step6 + step7; 
         }
         
+        /**
+         * Generate a query to insert into the giveshifts table
+         * @param giver person that wants to give away a shift
+         * @param starttime start time of the shift
+         * @param endtime end time of the shift
+         * @return 
+         */
+        private String insertGiveRecordQuery(String giver, Timestamp starttime, Timestamp endtime )
+        {
+            return "INSERT INTO giveshifts(giverlogin, givershiftstart, givershiftend)"
+                    + " VALUES("
+                    + "'" + giver + "', "
+                    + "'" + starttime.toString() + "', "
+                    + "'" + endtime.toString() + "' "
+                    + ")";
+        }
+        
+        /**
+         * Generate a query to delete a specific shift from the give table
+         * @param giver
+         * @param starttime
+         * @param endtime
+         * @return 
+         */
+        private String deleteGiveRecordQuery(String giver, Timestamp starttime, Timestamp endtime )
+        {
+            return "DELETE FROM giveshifts WHERE "
+                    + "giverlogin = '" + giver + "' AND "
+                    + "givershiftstart = '" + starttime.toString() + "' AND "
+                    + "givershiftend = '" + endtime.toString() + "' ";
+        }
+        
+        /**
+         * Generate a query that returns a single value under the column, requiremanagerapproval which is 
+         * TRUE if trades require a managers signoff/permission and false in its not required
+        */
+        private String getManagerApprovalStatus()
+        {
+            return "SELECT requiremanagerapproval FROM managerapproval";
+        }
+        
+        /**
+         * Generate a query to insert into the transactions table
+         * @param initiatorLoginID login of the person who sent/created the trade
+         * @param finalizerLoginID login of the reciever/ secondary actor of the transaction
+         * @param shiftTimes shiftTimes[0], shiftTimes[1] are the start and end times respectivly of the initiators shift
+         * 
+         * @param transactionType
+         * @return 
+         */
+        //TODO check if this function works property
+        private String insertShiftTransactionQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType )
+        {
+            return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, transactiontype) "
+                    + "VALUES ( "
+                    + "'" + initiatorLoginID + "', "
+                    + "'" + shiftTimes[0].toString() + "', "
+                    + "'" + shiftTimes[1].toString() + "', "
+                    + "'" + finalizerLoginID + "', "
+                    + "'" + shiftTimes[2].toString() + "', "
+                    + "'" + shiftTimes[3].toString() + "', "
+                    + "'" + transactionType + "') ";
+            
+        }
+        
       public static void main (String[] args) {
             
             Controller c = new Controller();
@@ -421,7 +486,9 @@ public class Controller {
             System.out.println(c.dateRangeShiftQuery(x,y,null));
             System.out.println(c.managerListQuery());
             System.out.println(c.removeEmployeeQuery("tmike"));
-                    
+            System.out.println(c.insertGiveRecordQuery("tmike", x, y));
+            System.out.println(c.deleteGiveRecordQuery("tmike", x, y));     
+            
                    
         }  
 }
