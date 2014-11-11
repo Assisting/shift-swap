@@ -63,7 +63,7 @@ public class Controller {
 			{
                             Statement tradeRequest = dbconnection.createStatement();
                             //TODO need a way to generate and use requestIds (see error below)
-                            tradeRequest.executeQuery(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE " + requestNum + ": " + request.getShifts()[0] + " for " + request.getShifts()[2]));
+                            //tradeRequest.executeQuery(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE " + requestNum + ": " + request.getShifts()[0] + " for " + request.getShifts()[2]));
                             tradeRequest.close();
                             break;
 			}
@@ -85,7 +85,7 @@ public class Controller {
                             else
                             {
                                acceptStatement.addBatch(null); //remove record
-                               acceptStatement.addBatch(newMessageQuery("Server", sender, "TRADE " + requestNum + ": " + "was rejected by the recipient")); //notifiy sender
+                              // acceptStatement.addBatch(newMessageQuery("Server", sender, "TRADE " + requestNum + ": " + "was rejected by the recipient")); //notifiy sender
                                acceptStatement.executeBatch();
                             }
                             break;
@@ -109,7 +109,7 @@ public class Controller {
                             else
                             {
                                approveRequest.addBatch(null); //remove record
-                               approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE " + requestNum + ": " + "was rejected by a mmanagert")); //notifiy sender
+                               //approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE " + requestNum + ": " + "was rejected by a mmanagert")); //notifiy sender
                                approveRequest.executeBatch();
                             }
                             approveRequest.close();
@@ -508,22 +508,36 @@ public class Controller {
          * @param initiatorLoginID login of the person who sent/created the trade
          * @param finalizerLoginID login of the reciever/ secondary actor of the transaction
          * @param shiftTimes shiftTimes[0], shiftTimes[1] are the start and end times respectivly of the initiators shift
-         * 
+         * THE TRANSACTIONID IS AUTOMATICALLY GENERATED HERE
          * @param transactionType
          * @return 
          */
         //TODO check if this function works property
         private String insertShiftTransactionQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType )
         {
-            return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, transactiontype) "
-                    + "VALUES ( "
-                    + "'" + initiatorLoginID + "', "
-                    + "'" + shiftTimes[0].toString() + "', "
-                    + "'" + shiftTimes[1].toString() + "', "
-                    + "'" + finalizerLoginID + "', "
-                    + "'" + shiftTimes[2].toString() + "', "
-                    + "'" + shiftTimes[3].toString() + "', "
-                    + "'" + transactionType + "') ";
+            
+            if(shiftTimes[2] != null)
+            {
+                return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, transactiontype) "
+                        + "VALUES ( "
+                        + "'" + initiatorLoginID + "', "
+                        + "'" + shiftTimes[0].toString() + "', "
+                        + "'" + shiftTimes[1].toString() + "', "
+                        + "'" + finalizerLoginID + "', "
+                        + "'" + shiftTimes[2].toString() + "', "
+                        + "'" + shiftTimes[3].toString() + "', "
+                        + "'" + transactionType + "') ";
+            }
+            else //finalizer shifts are null
+            {
+               return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, transactiontype) "
+                        + "VALUES ( "
+                        + "'" + initiatorLoginID + "', "
+                        + "'" + shiftTimes[0].toString() + "', "
+                        + "'" + shiftTimes[1].toString() + "', "
+                        + "'" + finalizerLoginID + "', "
+                        + "'" + transactionType + "') ";
+            }
             
         }
         
@@ -534,13 +548,10 @@ public class Controller {
          * @param shiftTimes shiftTimes[0] and shiftTimes[1] are used for start and end time of the initiator shifts
          * @return String query
          */
-        private String deleteShiftTransactionQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes)
+        private String deleteShiftTransactionQuery(int transactionID)
         {
             return "DELETE FROM shifttransaction WHERE "
-                    + "initlogin = '" + initiatorLoginID + "' AND "
-                    + "finallogin = '" + finalizerLoginID + "' AND "
-                    + "initshoftstart = '" + shiftTimes[0].toString() + "' AND "
-                    + "initshiftend = '" + shiftTimes[1].toString() + "' ";
+                    + "transactionid = '" + transactionID + "'";
         }
         
         /**
@@ -551,14 +562,11 @@ public class Controller {
          * @param managerApproval true or false depending on what you wana set the approval status to (i get this will probs be true, i can change it to just set it to true if you want)
          * @return the query
          */
-        private String updateManagerApprovalTransactionsQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, boolean managerApproval)
+        private String updateManagerApprovalTransactionsQuery(int transactionID, boolean managerApproval)
         {
             return "UPDATE shifttransaction "
                     + "SET managersign = " + managerApproval + ""
-                    + " WHERE initlogin = '" + initiatorLoginID + "' AND "
-                    + "finallogin = '" + finalizerLoginID + "' AND "
-                    + "initshoftstart = '" + shiftTimes[0].toString() + "' AND "
-                    + "initshiftend = '" + shiftTimes[1].toString() + "' ";
+                    + " WHERE transactionid = '" + transactionID + "' ";
         }
         
       public static void main (String[] args) {
@@ -581,8 +589,11 @@ public class Controller {
             System.out.println(c.managerListQuery());
             System.out.println(c.removeEmployeeQuery("tmike"));
             System.out.println(c.insertGiveRecordQuery("tmike", x, y));
-            System.out.println(c.deleteGiveRecordQuery("tmike", x, y));     
-            
+            System.out.println(c.deleteGiveRecordQuery("tmike", x, y));
+            Timestamp[] b = new Timestamp[4];
+            b[0] = Timestamp.valueOf( "2014-10-20 08:45:00" );
+             b[1] = Timestamp.valueOf( "2014-10-20 18:30:00" );
+            System.out.println(c.insertShiftTransactionQuery("tmike", "tsanjay", b, "swap"));
                    
         }  
 }

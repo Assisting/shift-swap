@@ -20,7 +20,8 @@ CREATE TABLE giveshifts (
 
 
 CREATE TABLE shifttransaction (
-    Initlogin employeelogin NOT NULL,
+	transactionID serial NOT NULL,
+	Initlogin employeelogin NOT NULL,
 	Initshiftstart timestamp NOT NULL,
 	Initshiftend  timestamp NOT NULL,
 	Finallogin employeelogin NOT NULL,
@@ -28,9 +29,10 @@ CREATE TABLE shifttransaction (
 	finalshiftend timestamp,
 	transactiontype trantype NOT NULL,
 	finalsign signoff DEFAULT FALSE,
-	managersign signoff DEFAULT FALSE
---added primary and foreign key manually because we derped the first time.
-	);
+	managersign signoff DEFAULT FALSE,
+	PRIMARY KEY (transactionID),
+	FOREIGN KEY (initlogin, initshiftstart, initshiftend) REFERENCES employeeshifts(shiftemployeelogin, shiftstarttime, shiftendtime)
+);
 
 	
 
