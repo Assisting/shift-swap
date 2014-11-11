@@ -74,10 +74,14 @@ public static Request GiveRequest(String sender, Timestamp[] times) {
     return new Request(sender, null, message, RequestType.GIVE);
 }
 
-//TODO need to add a field to accept transactionType to send that to the DB
-//TODO need to add finalSign 
-//TODO need to add managerSign
-public static Request TradeRequest(String sender, String recipient, Timestamp[] shifts, String transactionType, Boolean finalSign, Boolean managerSign) {
+/**
+ * create a new request to trade shifts with another employee
+ * @param sender the person initiating the trade
+ * @param recipient the person meant to receive the trade
+ * @param shifts an array of shifts [senderStart, senderEnd, recipientStart, recipientEnd]
+ * @return 
+ */
+public static Request TradeRequest(String sender, String recipient, Timestamp[] shifts) {
     Message message = new Message(null, null, shifts, null, false, 0);
     return new Request(sender, recipient, message, RequestType.TRADE);
 }
@@ -93,15 +97,6 @@ public static Request ApproveRequest(int requestID, boolean approved)
     Message message = new Message(null, null, null, null, approved, requestID);
     return new Request(null, null, message, RequestType.APPROVE);
 }
-
-//TODO need a request that returns master managerapproval (either TRUE or FALSE).
-/** Get the boolean from TABLE: managerapproval
- * 						COLUMN: requiremanagerapproval
- *  */
-
-//TODO need a request that returns the finalSign (employee approval) boolean
-
-//TODO needa request that returns the managerSign (manager approval) boolean
 
 public static Request UsernameValidateRequest(String username)
 {

@@ -62,24 +62,44 @@ public class Controller {
 			case TRADE:
 			{
                             Statement tradeRequest = dbconnection.createStatement();
-                            tradeRequest.executeQuery(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: "));
+                            //TODO need a way to generate and use requestIds (see error below)
+                            tradeRequest.executeQuery(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE " + requestNum + ": " + request.getShifts()[0] + " for " + request.getShifts()[2]));
                             tradeRequest.close();
                             break;
 			}
                         case ACCEPT:
                         {
+                            String sender;
+                            String recipient;
+                            int requestID;
+                            Statement dataPull = dbconnection.createStatement();
+                            //TODO populate sender and recipient from database using requestID (below)
+                            dataPull.execute(null);
+                            //results processing
+                            dataPull.close();
+                            Statement acceptStatement = dbconnection.createStatement();
                             if (request.isApproved())
                             {
                                 
                             }
                             else
                             {
-                                //TODO delete record and notify users of failure
+                               acceptStatement.addBatch(null); //remove record
+                               acceptStatement.addBatch(newMessageQuery("Server", sender, "TRADE " + requestNum + ": " + "was rejected by the recipient")); //notifiy sender
+                               acceptStatement.executeBatch();
                             }
                             break;
                         }
                         case APPROVE:
                         {
+                            String sender;
+                            String recipient;
+                            int requestID;
+                            Statement dataPull = dbconnection.createStatement();
+                            //TODO populate sender and recipient from database using requestID (below)
+                            dataPull.execute(null);
+                            //results processing
+                            dataPull.close();
                             Statement approveRequest = dbconnection.createStatement();
                             if (request.isApproved())
                             {
@@ -88,7 +108,9 @@ public class Controller {
                             }
                             else
                             {
-                                //TODO delete record and notify users of failure
+                               approveRequest.addBatch(null); //remove record
+                               approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE " + requestNum + ": " + "was rejected by a mmanagert")); //notifiy sender
+                               approveRequest.executeBatch();
                             }
                             approveRequest.close();
                             break;
