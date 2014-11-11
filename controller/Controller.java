@@ -103,7 +103,7 @@ public class Controller {
                             Statement approveRequest = dbconnection.createStatement();
                             if (request.isApproved())
                             {
-                                //TODO need sql to change managers "approved" field to true
+                                //USE updateManagerApprovalTransactionsQuery
                                 approveRequest.executeQuery(null);
                             }
                             else
@@ -525,6 +525,40 @@ public class Controller {
                     + "'" + shiftTimes[3].toString() + "', "
                     + "'" + transactionType + "') ";
             
+        }
+        
+                /**
+         * Generate a query to delete from the shift transactions table
+         * @param initiatorLoginID login of the person who created the trade
+         * @param finalizerLoginID login of the person who was sent the trade
+         * @param shiftTimes shiftTimes[0] and shiftTimes[1] are used for start and end time of the initiator shifts
+         * @return String query
+         */
+        private String deleteShiftTransactionQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes)
+        {
+            return "DELETE FROM shifttransaction WHERE "
+                    + "initlogin = '" + initiatorLoginID + "' AND "
+                    + "finallogin = '" + finalizerLoginID + "' AND "
+                    + "initshoftstart = '" + shiftTimes[0].toString() + "' AND "
+                    + "initshiftend = '" + shiftTimes[1].toString() + "' ";
+        }
+        
+        /**
+         * Generate a query to update a record in the shift transactions table with a new manager approval status
+         * @param initiatorLoginID login of the person who created the trade
+         * @param finalizerLoginID login of the person who was sent the trade
+         * @param shiftTimes shiftTimes[0] and shiftTimes[1] are used for start and end time of the initiator shifts
+         * @param managerApproval true or false depending on what you wana set the approval status to (i get this will probs be true, i can change it to just set it to true if you want)
+         * @return the query
+         */
+        private String updateManagerApprovalTransactionsQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, boolean managerApproval)
+        {
+            return "UPDATE shifttransaction "
+                    + "SET managersign = " + managerApproval + ""
+                    + " WHERE initlogin = '" + initiatorLoginID + "' AND "
+                    + "finallogin = '" + finalizerLoginID + "' AND "
+                    + "initshoftstart = '" + shiftTimes[0].toString() + "' AND "
+                    + "initshiftend = '" + shiftTimes[1].toString() + "' ";
         }
         
       public static void main (String[] args) {
