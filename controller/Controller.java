@@ -513,12 +513,12 @@ public class Controller {
          * @return 
          */
         //TODO check if this function works property
-        private String insertShiftTransactionQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType )
+        private String insertShiftTransactionQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType, String initiatorManager, String finalizerManager )
         {
             
             if(shiftTimes[2] != null)
             {
-                return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, transactiontype) "
+                return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagersign, finalmanagersign, transactiontype,) "
                         + "VALUES ( "
                         + "'" + initiatorLoginID + "', "
                         + "'" + shiftTimes[0].toString() + "', "
@@ -526,16 +526,20 @@ public class Controller {
                         + "'" + finalizerLoginID + "', "
                         + "'" + shiftTimes[2].toString() + "', "
                         + "'" + shiftTimes[3].toString() + "', "
+                        + "'" + initiatorManager + "', "
+                        + "'" + finalizerManager + "', "
                         + "'" + transactionType + "') ";
             }
             else //finalizer shifts are null
             {
-               return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, transactiontype) "
+               return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, initmanagersign, finalmanagersign, transactiontype) "
                         + "VALUES ( "
                         + "'" + initiatorLoginID + "', "
                         + "'" + shiftTimes[0].toString() + "', "
                         + "'" + shiftTimes[1].toString() + "', "
                         + "'" + finalizerLoginID + "', "
+                        + "'" + initiatorManager + "', "
+                        + "'" + finalizerManager + "', "
                         + "'" + transactionType + "') ";
             }
             
@@ -554,19 +558,27 @@ public class Controller {
                     + "transactionid = '" + transactionID + "'";
         }
         
-        /**
-         * Generate a query to update a record in the shift transactions table with a new manager approval status
-         * @param initiatorLoginID login of the person who created the trade
-         * @param finalizerLoginID login of the person who was sent the trade
-         * @param shiftTimes shiftTimes[0] and shiftTimes[1] are used for start and end time of the initiator shifts
-         * @param managerApproval true or false depending on what you wana set the approval status to (i get this will probs be true, i can change it to just set it to true if you want)
-         * @return the query
-         */
-        private String updateManagerApprovalTransactionsQuery(int transactionID, boolean managerApproval)
+       /**
+        * Generates query that updates one or both manager approval fields to true
+        * if the manager is the initiators manager, that one will be updated
+        * if the manager is the finalizers manager, that one will be updated
+        * OR BOTH IF BOTH WOO
+        * @param transactionID
+        * @param managerLoginID
+        * @return 
+        */
+        //TODO testing if this works
+        private String updateManagerApprovalTransactionsQuery(int transactionID, String managerLoginID )
         {
-            return "UPDATE shifttransaction "
-                    + "SET managersign = " + managerApproval + ""
-                    + " WHERE transactionid = '" + transactionID + "' ";
+            String initiatorlogin = "UPDATE shifttransaction "
+                    + "SET initmanagersign = TRUE "
+                    + "WHERE transactionid = '" + transactionID + "' AND "
+                    + "initmanagerlogin = '" + managerLoginID + "'; "
+                    +"UPDATE shifttransaction "
+                    + "SET finalmanagersign = TRUE "
+                    + "WHERE transactionid = '" + transactionID + "' AND "
+                    + "finalmanagerlogin = '" + managerLoginID + "' ";
+            return initiatorlogin;
         }
         
       public static void main (String[] args) {
@@ -593,7 +605,7 @@ public class Controller {
             Timestamp[] b = new Timestamp[4];
             b[0] = Timestamp.valueOf( "2014-10-20 08:45:00" );
              b[1] = Timestamp.valueOf( "2014-10-20 18:30:00" );
-            System.out.println(c.insertShiftTransactionQuery("tmike", "tsanjay", b, "swap"));
+           // System.out.println(c.insertShiftTransactionQuery("tmike", "tsanjay", b, "swap"));
                    
         }  
 }
