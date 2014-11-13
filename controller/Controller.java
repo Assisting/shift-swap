@@ -63,20 +63,13 @@ public class Controller {
 			{
                             Statement tradeRequest = dbconnection.createStatement();
                             //TODO need a way to generate and use requestIds (see error below)
+                            //tradeRequest.addBatch(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts()));
                             //tradeRequest.executeQuery(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE " + requestNum + ": " + request.getShifts()[0] + " for " + request.getShifts()[2]));
                             tradeRequest.close();
                             break;
 			}
                         case ACCEPT:
                         {
-                            String sender;
-                            String recipient;
-                            int requestID;
-                            Statement dataPull = dbconnection.createStatement();
-                            //TODO populate sender and recipient from database using requestID (below)
-                            dataPull.execute(null);
-                            //results processing
-                            dataPull.close();
                             Statement acceptStatement = dbconnection.createStatement();
                             if (request.isApproved())
                             {
@@ -84,33 +77,33 @@ public class Controller {
                             }
                             else
                             {
-                               acceptStatement.addBatch(null); //remove record
-                              // acceptStatement.addBatch(newMessageQuery("Server", sender, "TRADE " + requestNum + ": " + "was rejected by the recipient")); //notifiy sender
-                               acceptStatement.executeBatch();
+                                ResultSet originatorName = acceptStatement.executeQuery("get the ID of the orginial sender");
+                                String sender = originatorName.getString("ID");
+                                acceptStatement.addBatch(deleteShiftTransactionQuery(request.getRequestID())); //remove record
+                                acceptStatement.addBatch(newMessageQuery("Server", sender, "TRADE " + request.getRequestID() + ": " + "was rejected by the recipient")); //notifiy sender
+                                acceptStatement.executeBatch();
                             }
                             break;
                         }
                         case APPROVE:
                         {
-                            String sender;
-                            String recipient;
-                            int requestID;
-                            Statement dataPull = dbconnection.createStatement();
-                            //TODO populate sender and recipient from database using requestID (below)
-                            dataPull.execute(null);
-                            //results processing
-                            dataPull.close();
                             Statement approveRequest = dbconnection.createStatement();
                             if (request.isApproved())
                             {
-                                //USE updateManagerApprovalTransactionsQuery
-                                approveRequest.executeQuery(null);
+                                approveRequest.executeQuery(updateManagerApprovalTransactionsQuery(request.getRequestID(), request.getSender()));
                             }
                             else
                             {
-                               approveRequest.addBatch(null); //remove record
-                               //approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE " + requestNum + ": " + "was rejected by a mmanagert")); //notifiy sender
-                               approveRequest.executeBatch();
+                                ResultSet originatorName = approveRequest.executeQuery("get the ID of the orginial sender");
+                                String sender = originatorName.getString("ID");
+                                approveRequest.addBatch(deleteShiftTransactionQuery(request.getRequestID())); //remove record
+                                approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE " + request.getRequestID() + ": " + "was rejected by a manager")); //notifiy sender
+                                approveRequest.executeBatch();
+                            }
+                            ResultSet managersApproved = approveRequest.executeQuery("have both managers accepted?");
+                            if (managersApproved.getBoolean("Result"))
+                            {
+                                //TODO make swap
                             }
                             approveRequest.close();
                             break;
@@ -127,7 +120,8 @@ public class Controller {
                                 validated = MessageDigest.isEqual(query, result);
 
                             }
-                            request.setApproved(validated);
+                            returnResults = new RequestResults();
+                            returnResults.setApproved(validated);
                             loginRequest.close();
                             break;
 			}
@@ -175,7 +169,8 @@ public class Controller {
                             Statement userValidateRequest= dbconnection.createStatement();
                             ResultSet results = userValidateRequest.executeQuery(this.usernameValidityQuery(request.getSender()));
                             results.next();
-                            request.setApproved(results.getBoolean("isfound"));
+                            returnResults = new RequestResults();
+                            returnResults.setApproved(results.getBoolean("isfound"));
                             userValidateRequest.close();
                             break;
                         }
@@ -513,7 +508,7 @@ public class Controller {
          * @return 
          */
         //TODO check if this function works property
-        private String insertShiftTransactionQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType, String initiatorManager, String finalizerManager )
+        private String insertTradeQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType, String initiatorManager, String finalizerManager )
         {
             
             if(shiftTimes[2] != null)

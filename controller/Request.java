@@ -23,7 +23,6 @@ public class Request
  
     final private String sender;
     private String approver;
-    private boolean approved;
     private String recipient;
     private Message message;
  
@@ -62,11 +61,6 @@ public static Request CreateRequest(String sender, Employee employee) {
  
 public static Request RemoveRequest(String sender, String toBeRemoved) {
         return new Request(sender, toBeRemoved, null, RequestType.REMOVE);
-}
-
-public static Request TakeRequest(String sender, Timestamp[] times) {
-    Message message = new Message(null, null, times, null, false, 0);
-    return new Request(sender, null, message, RequestType.TAKE);
 }
 
 public static Request GiveRequest(String sender, Timestamp[] times) {
@@ -180,15 +174,6 @@ public static Request changeEmployeesManagerRequest(String employeeLoginID, Stri
     }
  
     /**
-     * sets the approved value, designating whether or not this request has been approved by the appropriate manager
-     * @param value the value to which the variable should be set
-     */
-    public void setApproved(boolean value)
-    {
-        approved = value;
-    }
- 
-    /**
      * set the recipient of the request
      * @param name the employee id of the request's recipient
      */
@@ -211,14 +196,6 @@ public static Request changeEmployeesManagerRequest(String employeeLoginID, Stri
     public String getApprover()
     {
         return approver;
-    }
- 
-    /**
-     * @return whether or not the request has been approved
-     */
-    public boolean isApproved()
-    {
-        return approved;
     }
  
     /**
@@ -251,5 +228,13 @@ public static Request changeEmployeesManagerRequest(String employeeLoginID, Stri
    
     public Employee getEmployee() {
         return message.getEmployee();
+    }
+    
+    public boolean isApproved() {
+        return message.isApproved();
+    }
+    
+    public int getRequestID() {
+        return message.getRequestID();
     }
 }

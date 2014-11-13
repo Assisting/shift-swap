@@ -16,6 +16,7 @@ import java.sql.Timestamp;
 public class RequestResults {
     
     Timestamp[] shifts = null;
+    private boolean approved = false;
     
     public RequestResults() {
         
@@ -31,6 +32,20 @@ public class RequestResults {
     
     public Timestamp[] getShifts() {
         return shifts;
+    }
+
+    /**
+     * @return the approved
+     */
+    public boolean isApproved() {
+        return approved;
+    }
+
+    /**
+     * @param approved the approved to set
+     */
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
     
 }

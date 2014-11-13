@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 public class Input
 {
     
-    
+    static Controller controller = new Controller();
     
     /**
      * Attempts to clean up input. Currently a do-nothing function, really.
@@ -41,36 +41,33 @@ public class Input
      */
     public static boolean authenticate(String username, String password) {
 	byte[] pwHash = Input.createHash(password);
-	Controller cont = new Controller();
 	Request loginRequest = Request.LoginRequest(username, pwHash);
-	
+	RequestResults results = null;
         try{
-        cont.sendRequest(loginRequest);
+            results = controller.sendRequest(loginRequest);
         }
         catch(Exception e)
-        {}
+        {
+            System.out.println("LOGIN ERROR! ABORTING...");
+            return false;
+        }
 
         try {
-            Thread.sleep(2000); //wait for connection and login
+            Thread.sleep(1000); //wait for connection and login
         }
         catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
         
-        if(loginRequest.isApproved()) {
-            return true;
-        }
-
-	return false;
+        return results.isApproved();
     }
     
     public static Timestamp[] getSchedule(String userID)
     {
         Request request = Request.ShiftRequest(userID);
-        Controller cont= new Controller();
         RequestResults schedule = new RequestResults();
         try{
-            schedule=cont.sendRequest(request);
+            schedule=controller.sendRequest(request);
         }
         catch(Exception e)
         {}
@@ -86,15 +83,16 @@ public class Input
     public static boolean isUsernameUnique(String username)
     {
         Request validateRequest = Request.UsernameValidateRequest(username);
-        Controller controller = new Controller();
+        RequestResults results = null;
         try{
-            controller.sendRequest(validateRequest);
+            results = controller.sendRequest(validateRequest);
         }
         catch(SQLException exception)
         {
             System.out.println("Exception in inUsernameUnique with message: " + exception.getMessage());
+            return false;
         }
-        return !validateRequest.isApproved(); //there is a ! here because the database actually passes back true if the given username is found, so thus it is NOT unique 
+        return results.isApproved(); //there is a ! here because the database actually passes back true if the given username is found, so thus it is NOT unique 
     }
     
     /**
@@ -104,7 +102,6 @@ public class Input
     public static void addNewEmployee(Employee newEmployee)
     {  
         Request addNewEmployeeRequest = Request.CreateRequest("PLACEHOLDER", newEmployee);
-        Controller controller = new Controller();
         RequestResults results = new RequestResults();
         try
         {
@@ -124,7 +121,6 @@ public class Input
     public static void changeEmployeeAccessLevel(String username, int newAccessLevel)
     {
         Request changeAccessLevelRequest = Request.ChangeAccessLevelRequest(username, newAccessLevel);
-        Controller controller = new Controller();
         try
         {
             controller.sendRequest(changeAccessLevelRequest);
@@ -142,7 +138,6 @@ public class Input
     public static void removeEmployee(String username)
     {
         Request removeEmployeeRequest = Request.RemoveRequest("PLACEHOLDER", username);
-        Controller controller = new Controller();
         try
         {
             controller.sendRequest(removeEmployeeRequest);
@@ -169,7 +164,6 @@ public class Input
             throw new RuntimeException();
         }
         Request modifyEmployeeRequest = Request.ModifyEmployeeInfoRequest(userToBeChanged, newFirstName, newLastName, newEmail, newAccessLevel, newWage);
-        Controller controller = new Controller();
         try
         {
             controller.sendRequest(modifyEmployeeRequest);
@@ -190,7 +184,6 @@ public class Input
     {
         byte[] newHashedPassword = Input.createHash(newPassword);
         Request changePasswordRequest = Request.ChangePasswordRequest(username, newHashedPassword);
-        Controller controller = new Controller();
         try
         {
             controller.sendRequest(changePasswordRequest);
@@ -209,7 +202,6 @@ public class Input
     public static void changeEmployeesManager(String employee, String newManager)
     {
         Request changeEmployeesManagerRequest = Request.changeEmployeesManagerRequest(employee, newManager);
-        Controller controller = new Controller();
         try
         {
             controller.sendRequest(changeEmployeesManagerRequest);
@@ -246,10 +238,9 @@ public class Input
      * @param shiftStartEnd an array containing the shifts Start time and shifts End time (0,1 respectively)
      */
     public static void createGiveRequest(String empName, Timestamp[] shiftStartEnd) {
-    	Controller cont= new Controller();
     	Request request = Request.GiveRequest(empName, shiftStartEnd);
     	try {
-			cont.sendRequest(request);
+			controller.sendRequest(request);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("createGiveRequest bombed hard");
@@ -276,7 +267,6 @@ public class Input
     private static boolean ManagerApprovalRequired(){
     	//TODO
     	Boolean leboolean = true;
-    	Controller cont = new Controller();
     	//Request request = Request.ManagerApproval; //TODOwaiting on connor to implementw
     	/* 
     	 * if (request = true)
@@ -297,8 +287,7 @@ public class Input
      * @param transcationType the type of transaction (values take and swap, no give as it is processed as a take).
      */
     public static void createTradeRequest(String initLogin, Timestamp[] shiftStartEnd, String finalLogin, Timestamp[] finalshiftStartEnd, 
-    										Boolean finalSign, String transactionType){ 
-    	Controller cont = new Controller();
+    										Boolean finalSign, String transactionType){
     	Request request = null;
     	
     	switch(transactionType){
@@ -308,9 +297,9 @@ public class Input
     		// finalLogin is the person taking the shift, he thus offers null shifts
     		Timestamp[] takeShift = {null, null};
         	if (ManagerApprovalRequired()){
-            	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, takeShift), transactionType, true, false);
+            	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, takeShift));
             	try {
-        			cont.sendRequest(request);
+        			controller.sendRequest(request);
         		} catch (SQLException e) {
         			// TODO Auto-generated catch block
         			System.out.println("createTradeRequest just got smoked");
@@ -324,9 +313,9 @@ public class Input
         		// done, wait for manager to process
         	}
         	else{
-            	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, takeShift), transactionType, true, true);
+            	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, takeShift));
             	try {
-        			cont.sendRequest(request);
+        			controller.sendRequest(request);
         		} catch (SQLException e) {
         			// TODO Auto-generated catch block
         			System.out.println("createTradeRequest just got smoked");
@@ -343,11 +332,9 @@ public class Input
     	case "swap":
     		Boolean managerapproval = ManagerApprovalRequired();
     		
-        	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, finalshiftStartEnd), 
-        				transactionType, finalSign, !managerapproval); // !ManagerApprovalRequired() because If it's required, default FALSE.
-        																		// if it's not required, default TRUE.
+        	request = Request.TradeRequest(initLogin, finalLogin, supermegaultrashiftmergerextraordinare(shiftStartEnd, finalshiftStartEnd));
         	try {
-    			cont.sendRequest(request);
+    			controller.sendRequest(request);
     		} catch (SQLException e) {
     			// TODO Auto-generated catch block
     			System.out.println("createTRadeRequest just got smoked");
@@ -375,7 +362,6 @@ public class Input
     /** Sets the managers approval
      * @param approval manager approves or declines to shut down transaction */
     public static void setManagerApproval(String initLogin, Timestamp[] shiftStartEnd, String finalLogin, Boolean approval){
-    	Controller cont = new Controller();
     	//TODO new request for updates
     	if (approval){
     		//TODO send message to parties "manager approves of this transaction"
@@ -401,7 +387,6 @@ public class Input
     /** Sets the employees approval
      * @param approval employee approves or declines */
     public static void setEmployeeApproval(String initLogin, Timestamp[] shiftStartEnd, String finalLogin, Boolean approval){
-    	Controller cont = new Controller();
     	//TODO new request for updates
     	if (approval){
     		//TODO send message to parties "such and such shift has been accepted by empoloyee ___"
@@ -426,7 +411,6 @@ public class Input
      * @param primary key of shift transaction 
      * @postcond both users have been notified*/
     public static void deleteShiftTransaction(String initLogin, Timestamp[] shiftStartEnd, String finalLogin){
-    	Controller cont = new Controller();
     	//Request request = Request.
     	//TODO new request to delete a shift transaction
     	//TODO message both parties "Shift x has been declined, transaction removed" // message manager too? y/n
@@ -445,7 +429,6 @@ public class Input
      * @param primary key of shift transaction 
      * postcond shift(s) have been swapped*/
     public static void processShiftTransaction(String initLogin, Timestamp[] shiftStartEnd, String finalLogin){
-    	Controller cont = new Controller();
     	
     	//if (managerSign and finalSign)
     	//      process
