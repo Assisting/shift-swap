@@ -266,8 +266,7 @@ public class Input
      * @param finalLogin the employee taking a shift
      * @param finalshiftStartEnd the employee taking a shift's start and end time
      */
-    public static void createTradeRequest(String initLogin, Timestamp[] shiftStartEnd, String finalLogin, Timestamp[] finalshiftStartEnd, 
-    										Boolean finalSign){
+    public static void createTradeRequest(String initLogin, Timestamp[] shiftStartEnd, String finalLogin, Timestamp[] finalshiftStartEnd){
     	Request request = null;
     	request = Request.TradeRequest(initLogin, finalLogin, timestampArrayMerge(shiftStartEnd, finalshiftStartEnd));
     	try {
