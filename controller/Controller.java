@@ -604,3 +604,33 @@ public class Controller {
                    
         }  
 }
+
+
+
+/** Sample SQL for a shift exchange
+ * TAKE
+ * 		INSERT INTO employeeshifts VALUES (persontaking, shiftStartEnd[0], shiftStartEnd[1]);
+ * 		DELETE FROM employeeshifts
+ * 		WHERE
+ * 			shiftemployeelogin = persongiving AND
+ * 			shiftstarttime = shiftStartEnd[0] AND
+ * 			shitendtime = shiftStartEnd[1]
+ *		;
+ *
+ * SWAP
+ * 		INSERT INTO employeeshifts VALUES (person1, shiftStartEnd[2], shiftStartEnd[3]); //person 2s shifts
+ * 		INSERT INTO employeeshifts VALUES (person2, shiftStartEnd[0], shiftStartEnd[1]); //person 1s shifts
+ * 		
+ * 		DELETE FROM employeeshifts
+ * 		WHERE
+ * 			shiftemployeelogin = person1 AND	// remove person 1s shifts he traded away
+ * 			shiftstarttime = shiftStartEnd[0] AND
+ * 			shitendtime = shiftStartEnd[1]
+ *		;
+ *		DELETE FROM employeeshifts
+ * 		WHERE
+ * 			shiftemployeelogin = person2 AND	// remove person 2s shifts he gave away
+ * 			shiftstarttime = shiftStartEnd[2] AND
+ * 			shitendtime = shiftStartEnd[3]
+ *		;
+ *  */
