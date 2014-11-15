@@ -92,7 +92,7 @@ public class Input
             System.out.println("Exception in inUsernameUnique with message: " + exception.getMessage());
             return false;
         }
-        return results.isApproved(); //there is a ! here because the database actually passes back true if the given username is found, so thus it is NOT unique 
+        return !results.isApproved(); //there is a ! here because the database actually passes back true if the given username is found, so thus it is NOT unique 
     }
     
     /**
