@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 public class Request
 {
  
-    public enum RequestType { TAKE, GIVE, TRADE, ACCEPT, APPROVE,
+    public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE,
                               CREATE, REMOVE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE,
                               LOGIN,
                               SCHEDULE, SHIFT_RANGE }
