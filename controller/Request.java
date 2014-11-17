@@ -46,7 +46,7 @@ public class Request
 //-----Custom Requests------------------------------------------
  
 public static Request LoginRequest(String username, byte[] password) {
-        Message message = new Message(null, password, null, null, false, 0);
+        Message message = new Message(null, password, null, null, null, false);
         return new Request(username, null, message, RequestType.LOGIN);
 }
  
@@ -55,7 +55,7 @@ public static Request ShiftRequest(String username) {
 }
  
 public static Request CreateRequest(String sender, Employee employee) {
-        Message message = new Message(null, null, null, employee, false, 0);
+        Message message = new Message(null, null, null, employee, null, false);
         return new Request(sender, null, message, RequestType.CREATE);
 }
  
@@ -64,7 +64,7 @@ public static Request RemoveRequest(String sender, String toBeRemoved) {
 }
 
 public static Request GiveRequest(String sender, Timestamp[] times) {
-    Message message = new Message(null, null, times, null, false, 0);
+    Message message = new Message(null, null, times, null, null, false);
     return new Request(sender, null, message, RequestType.GIVE);
 }
 
@@ -76,19 +76,19 @@ public static Request GiveRequest(String sender, Timestamp[] times) {
  * @return 
  */
 public static Request TradeRequest(String sender, String recipient, Timestamp[] shifts) {
-    Message message = new Message(null, null, shifts, null, false, 0);
+    Message message = new Message(null, null, shifts, null, null, false);
     return new Request(sender, recipient, message, RequestType.TRADE);
 }
 
-public static Request AcceptRequest(int requestID, boolean accepted)
+public static Request AcceptRequest(String asker, String accepter, Timestamp[] shifts, boolean accepted)
 {
-    Message message = new Message(null, null, null, null, accepted, requestID);
+    Message message = new Message(null, null, null, null, null, accepted);
     return new Request(null, null, message, RequestType.ACCEPT);
 }
 
-public static Request ApproveRequest(int requestID, boolean approved)
+public static Request ApproveRequest(String asker, String accepter, String approver, Timestamp[] shifts, boolean approved)
 {
-    Message message = new Message(null, null, null, null, approved, requestID);
+    Message message = new Message(null, null, shifts, null, approver, approved);
     return new Request(null, null, message, RequestType.APPROVE);
 }
 
@@ -100,7 +100,7 @@ public static Request UsernameValidateRequest(String username)
 public static Request ShiftRangeRequest(String username, Timestamp start, Timestamp end)
 {
     Timestamp[] shifts  = {start, end};
-    Message message = new Message(null, null, shifts, null, false, 0);
+    Message message = new Message(null, null, shifts, null, null, false);
     return new Request(username, null, message, RequestType.SHIFT_RANGE);
 }
 
@@ -112,7 +112,7 @@ public static Request ShiftRangeRequest(String username, Timestamp start, Timest
  */
 public static Request ChangePasswordRequest(String username, byte[] newPassword)
 {
-    Message message = new Message(null, newPassword, null, null, false, 0);
+    Message message = new Message(null, newPassword, null, null, null, false);
     return new Request(username, null, message, RequestType.PASSWORD_CHANGE);
 }
 
@@ -130,7 +130,7 @@ public static Request ChangePasswordRequest(String username, byte[] newPassword)
 public static Request ModifyEmployeeInfoRequest(String userToBeChanged, String newFirstName, String newLastName, String newEmail, int newAccessLevel, float newWage)
 {
     Employee employee = new Employee(userToBeChanged, newFirstName, newLastName, newAccessLevel, null, newEmail, newWage);
-    Message message = new Message(null, null, null, employee, false, 0);
+    Message message = new Message(null, null, null, employee, null, false);
     return new Request(null, null, message, RequestType.UPDATE_EMPLOYEE);
 }
  
@@ -232,9 +232,5 @@ public static Request changeEmployeesManagerRequest(String employeeLoginID, Stri
     
     public boolean isApproved() {
         return message.isApproved();
-    }
-    
-    public int getRequestID() {
-        return message.getRequestID();
     }
 }

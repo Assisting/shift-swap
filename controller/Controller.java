@@ -64,13 +64,12 @@ public class Controller {
                         (see lines with errors)
                         */
                         Statement tradeRequest = dbconnection.createStatement();
-                        ResultSet results;
                         String manager1 = tradeRequest.executeQuery(getWorkerInfoQuery(request.getSender())).getString("empmanager");
                         boolean manager1reqd = tradeRequest.executeQuery(getManagerApprovalStatus(manager1)).getBoolean("required");
                         String manager2 = tradeRequest.executeQuery(getWorkerInfoQuery(request.getRecipient())).getString("empmanager");
                         boolean manager2reqd = tradeRequest.executeQuery(getManagerApprovalStatus(manager1)).getBoolean("required");
                         tradeRequest.addBatch(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "TRADE", manager1, manager1reqd, manager2, manager2reqd));
-                        tradeRequest.addBatch(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE " + requestNum + ": " + request.getShifts()[0] + " for " + request.getShifts()[2]));
+                        tradeRequest.addBatch(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2]));
                         tradeRequest.executeBatch();
                         tradeRequest.close();
                         break;
@@ -82,7 +81,7 @@ public class Controller {
                     */
                     {
                         Statement acceptStatement = dbconnection.createStatement();
-                        ResultSet transactionFields = acceptStatement.executeQuery(getTransactionData(request.getRequestID()));
+                        ResultSet transactionFields = acceptStatement.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
                         if (request.isApproved())
                         {
                             boolean manager1Approved = transactionFields.getBoolean("manager1Approval");
@@ -92,24 +91,24 @@ public class Controller {
                                 if (!manager1Approved)
                                 {
                                     String manager = transactionFields.getString("initiatorManager");
-                                    acceptStatement.executeQuery(newMessageQuery("Server", manager, "APPROVAL " + request.getRequestID() + ": This request requires your approval"));
+                                    acceptStatement.executeQuery(newMessageQuery("Server", manager, "APPROVAL: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2] + "This request requires your approval"));
                                 }
                                 if (!manager2Approved)
                                 {
                                     String manager = transactionFields.getString("finalizerManager");
-                                    acceptStatement.executeQuery(newMessageQuery("Server", manager, "APPROVAL " + request.getRequestID() + ": This request requires your approval"));
+                                    acceptStatement.executeQuery(newMessageQuery("Server", manager, "APPROVAL: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2] + "This request requires your approval"));
                                 }
                             }
                             else
                             {
-                                makeTrade(request.getRequestID());
+                                makeTrade(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]);
                             }
                         }
                         else
                         {
                             String sender = transactionFields.getString("sender");
-                            acceptStatement.addBatch(deleteShiftTransactionQuery(request.getRequestID())); //remove record
-                            acceptStatement.addBatch(newMessageQuery("Server", sender, "TRADE " + request.getRequestID() + ": was rejected by the recipient")); //notifiy sender
+                            acceptStatement.addBatch(deleteShiftTransactionQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1])); //remove record
+                            acceptStatement.addBatch(newMessageQuery("Server", sender, "TRADE: trading " + request.getShifts()[0] + " was rejected by the recipient")); //notifiy sender
                             acceptStatement.executeBatch();
                         }
                         acceptStatement.close();
@@ -121,22 +120,22 @@ public class Controller {
                             (transactionFields are here too)
                         */
                         Statement approveRequest = dbconnection.createStatement();
-                        ResultSet transactionFields = approveRequest.executeQuery(getTransactionData(request.getRequestID()));
+                        ResultSet transactionFields = approveRequest.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
                         if (request.isApproved())
                         {
-                            approveRequest.executeQuery(updateManagerApprovalTransactionsQuery(request.getRequestID(), request.getSender()));
+                            approveRequest.executeQuery(updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover()));
                             boolean manager1Approved = transactionFields.getBoolean("manager1Approval");
                             boolean manager2Approved = transactionFields.getBoolean("manager2Approval");
                             if (manager1Approved && manager2Approved)
-                                makeTrade(request.getRequestID());
+                                makeTrade(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]);
                         }
                         else
                         {
                             String sender = transactionFields.getString("sender");
                             String recipient = transactionFields.getString("recipient");
-                            approveRequest.addBatch(deleteShiftTransactionQuery(request.getRequestID())); //remove record
-                            approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE " + request.getRequestID() + ": " + "was rejected by a manager")); //notifiy sender
-                            approveRequest.addBatch(newMessageQuery("Server", recipient, "TRADE " + request.getRequestID() + ": " + "was rejected by a manager")); //notifiy recipient
+                            approveRequest.addBatch(deleteShiftTransactionQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1])); //remove record
+                            approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE: trading " + request.getShifts()[0] + " was rejected by a manager")); //notifiy sender
+                            approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE: trading " + request.getShifts()[1] + " was rejected by a manager")); //notifiy recipient
                             approveRequest.executeBatch();
                         }
                         approveRequest.close();
@@ -254,9 +253,14 @@ public class Controller {
         return resultsList;
     }
     
-    private void makeTrade(int requestID)
+    private void makeTrade(String sender, String recipient, Timestamp start, Timestamp end)
     {
         
+    }
+    
+    private String getTransactionData(String sender, String recipient, Timestamp start, Timestamp end)
+    {
+        //TODO SQL from Ken
     }
 
     /**

@@ -20,18 +20,19 @@ public class Message {
     byte[] password;
     Timestamp[] shift;
     Employee employee;
+    private String manager;
     private boolean approval;
-    private int requestID;
+
     
-    public Message(String notification, byte[] password, Timestamp shift[], Employee employee, boolean approval, int requestID) {
+    public Message(String notification, byte[] password, Timestamp shift[], Employee employee, String manager, boolean approval) {
         if (shift != null && shift.length%2 != 0) throw new IllegalArgumentException("Shift must contain an even number of elements");
         
         this.password = password;
         this.notification = notification;
         this.shift = shift;
         this.employee = employee;
+        this.manager = manager;
         this.approval = approval;
-        this.requestID = requestID;
     }
     
     public String getNotification() {
@@ -56,12 +57,4 @@ public class Message {
     public boolean isApproved() {
         return approval;
     }
-
-    /**
-     * @return the requestID
-     */
-    public int getRequestID() {
-        return requestID;
-    }
-    
 }
