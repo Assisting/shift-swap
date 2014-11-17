@@ -531,10 +531,11 @@ public class Controller {
     /**
      * Generate a query that returns a single value under the column, requiremanagerapproval which is 
      * TRUE if trades require a managers signoff/permission and false in its not required
+     * @param managerlogin 
     */
-    private String getManagerApprovalStatus()
+    private String getManagerApprovalStatus(String managerlogin)
     {
-        return "SELECT requiremanagerapproval FROM managerapproval";
+        return "SELECT ma_approval FROM managerapproval WHERE ma_manager = " + managerlogin;
     }
 
     /**
@@ -544,15 +545,17 @@ public class Controller {
      * @param shiftTimes shiftTimes[0], shiftTimes[1] are the start and end times respectivly of the initiators shift
      * THE TRANSACTIONID IS AUTOMATICALLY GENERATED HERE
      * @param transactionType
+     * @param manager2reqd 
+     * @param manager1reqd 
      * @return 
      */
     //TODO check if this function works property
-    private String insertTradeQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType, String initiatorManager, String finalizerManager )
+    private String insertTradeQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType, String initiatorManager, boolean initManagerSign, String finalizerManager, boolean finalManagerSign )
     {
 
         if(shiftTimes[2] != null)
         {
-            return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagersign, finalmanagersign, transactiontype,) "
+            return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finalmanagerlogin, initmanagersign, finalmanagersign, transactiontype,) "
                     + "VALUES ( "
                     + "'" + initiatorLoginID + "', "
                     + "'" + shiftTimes[0].toString() + "', "
@@ -562,16 +565,20 @@ public class Controller {
                     + "'" + shiftTimes[3].toString() + "', "
                     + "'" + initiatorManager + "', "
                     + "'" + finalizerManager + "', "
+                    + "'" + initManagerSign + "', "
+                    + "'" + finalManagerSign + "', "
                     + "'" + transactionType + "') ";
         }
         else //finalizer shifts are null
         {
-           return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, initmanagersign, finalmanagersign, transactiontype) "
+           return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, initmanagerlogin, finalmanagerlogin, initmanagersign, finalmanagersign, transactiontype) "
                     + "VALUES ( "
                     + "'" + initiatorLoginID + "', "
                     + "'" + shiftTimes[0].toString() + "', "
                     + "'" + shiftTimes[1].toString() + "', "
                     + "'" + finalizerLoginID + "', "
+                    + "'" + initiatorManager + "', "
+                    + "'" + finalizerManager + "', "
                     + "'" + initiatorManager + "', "
                     + "'" + finalizerManager + "', "
                     + "'" + transactionType + "') ";
