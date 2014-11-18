@@ -643,20 +643,24 @@ public class Controller {
     * if the manager is the initiators manager, that one will be updated
     * if the manager is the finalizers manager, that one will be updated
     * OR BOTH IF BOTH WOO
- * @param string3 
- * @param timestamp2 
- * @param timestamp 
- * @param string2 
- * @param string 
-    * @param transactionID
-    * @param managerLoginID
-    * @return 
+	* @param sender the person sending request
+	* @param recipient person receiving request
+	* @param shiftstart/shiftend the start/end time of the shift
+    * @param managerLoginID the id of the manager
+    * @return the sQL to update approval 
+    * @throws SQLException 
     */
     //TODO testing if this works
     //updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover())
-    private String updateManagerApprovalTransactionsQuery(String sender, String recipient, Timestamp shiftstart, Timestamp shiftend, String managerLoginID )
+    private String updateManagerApprovalTransactionsQuery(String sender, String recipient, Timestamp shiftstart, Timestamp shiftend, String managerLoginID ) throws SQLException
     {
-    	Statement getTrannyID = dbconnection.createStatement();
+    	Statement getTrannyID = null;
+		try {
+			getTrannyID = dbconnection.createStatement();
+		} catch (SQLException e) {
+			System.out.println("updateManagerApprovalTransactionsQuery died");
+			e.printStackTrace();
+		}
     	ResultSet results = getTrannyID.executeQuery(this.getTransactionID(sender, recipient, shiftstart, shiftend));
     	int transactionID = results.getInt("Column name here"); // how do I pull the int out?    	
         String initiatorlogin = "UPDATE shifttransaction "
