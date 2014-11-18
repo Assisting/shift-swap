@@ -231,7 +231,21 @@ public class Controller {
             return returnResults;
     }
 
-    /**
+    /** deletes a shift transaction
+     * @param sender the person initiating the shfit chagne
+     * @param shiftstart/shiftend the start and end of the shift.
+     * @return the string query */
+    private String deleteShiftTransactionQuery(String sender, String recipient,
+			Timestamp shiftstart, Timestamp shiftend) {
+		return ("DELETE FROM shifttransaction"
+				+ " WHERE "
+				+ "initlogin = '" + sender
+				+ "' AND initshiftstart = '" + shiftstart
+				+ "' AND intshiftend = '" + shiftend
+				+ "';");
+	}
+
+	/**
      * takes a set of shift start and end times and puts them back-to-back in a single array
      * @param results the ResultSet received from the database asking for shifts
      * @return an array of Timestamps containing starttime, endtime, starttime, endtime etc.
@@ -258,10 +272,31 @@ public class Controller {
         
     }
     
+    
+    /** returns the entire row of a transaction
+     * @param sender the login of the person starting transaction
+     * @param start/end the start and end time of the sender
+     * @parma return the sql to gather this info**/
     private String getTransactionData(String sender, String recipient, Timestamp start, Timestamp end)
     {
-        //TODO SQL from Ken
+        return ("Select * from shifttransaction WHERE "
+        		+ "initlogin ='" + sender +"' AND "
+        		+ "initshiftstart = '" + start + "' AND "
+        		+ "initshiftend = '" + end + "';");
     }
+    
+    /** returns the entire row of a transaction
+     * @param sender the login of the person starting transaction
+     * @param start/end the start and end time of the sender
+     * @parma return the sql to gather this info**/
+    private String getTransactionID(String sender, String recipient, Timestamp start, Timestamp end)
+    {
+        return ("Select transactionid from shifttransaction WHERE "
+        		+ "initlogin ='" + sender +"' AND "
+        		+ "initshiftstart = '" + start + "' AND "
+        		+ "initshiftend = '" + end + "';");
+    }
+    
 
     /**
     * pulls the messages that are waiting for a user and returns them as a delimited string
@@ -608,16 +643,25 @@ public class Controller {
     * if the manager is the initiators manager, that one will be updated
     * if the manager is the finalizers manager, that one will be updated
     * OR BOTH IF BOTH WOO
+ * @param string3 
+ * @param timestamp2 
+ * @param timestamp 
+ * @param string2 
+ * @param string 
     * @param transactionID
     * @param managerLoginID
     * @return 
     */
     //TODO testing if this works
-    private String updateManagerApprovalTransactionsQuery(int transactionID, String managerLoginID )
+    //updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover())
+    private String updateManagerApprovalTransactionsQuery(String sender, String recipient, Timestamp shiftstart, Timestamp shiftend, String managerLoginID )
     {
+    	Statement getTrannyID = dbconnection.createStatement();
+    	ResultSet results =WHATDOIPUTHERE.executeQuery(this.getTransactionID(sender, recipient, shiftstart, shiftend));
+    	int transactionID = results; // how do I pull the int out?    	
         String initiatorlogin = "UPDATE shifttransaction "
                 + "SET initmanagersign = TRUE "
-                + "WHERE transactionid = '" + transactionID + "' AND "
+                + "WHERE initlogin = '" + transactionID + "' AND "
                 + "initmanagerlogin = '" + managerLoginID + "'; "
                 +"UPDATE shifttransaction "
                 + "SET finalmanagersign = TRUE "
@@ -625,6 +669,15 @@ public class Controller {
                 + "finalmanagerlogin = '" + managerLoginID + "' ";
         return initiatorlogin;
     }
+    
+    /**
+    tatement shiftRangeRequest = dbconnection.createStatement();
+    ResultSet results = shiftRangeRequest.executeQuery(this.dateRangeShiftQuery(request.getShifts()[0], request.getShifts()[1], request.getSender()));
+    Timestamp[] resultsList = tabulateShifts(results);
+    returnResults = new RequestResults();
+    returnResults.setShifts(resultsList);
+    shiftRangeRequest.close();
+    break;*/
 
   public static void main (String[] args) {
 
