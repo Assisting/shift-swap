@@ -657,8 +657,8 @@ public class Controller {
     private String updateManagerApprovalTransactionsQuery(String sender, String recipient, Timestamp shiftstart, Timestamp shiftend, String managerLoginID )
     {
     	Statement getTrannyID = dbconnection.createStatement();
-    	ResultSet results =WHATDOIPUTHERE.executeQuery(this.getTransactionID(sender, recipient, shiftstart, shiftend));
-    	int transactionID = results; // how do I pull the int out?    	
+    	ResultSet results = getTrannyID.executeQuery(this.getTransactionID(sender, recipient, shiftstart, shiftend));
+    	int transactionID = results.getInt("Column name here"); // how do I pull the int out?    	
         String initiatorlogin = "UPDATE shifttransaction "
                 + "SET initmanagersign = TRUE "
                 + "WHERE initlogin = '" + transactionID + "' AND "
