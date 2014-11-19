@@ -480,6 +480,14 @@ public class Controller {
                 + "WHERE mssgreciever = '" + LoginID + "' "
                 + "ORDER BY mssgsendtime";
     }
+    
+    private String deleteEmployeeMessage(String sender, String reciever, Timestamp sendtime)
+    {
+        return "DELETE FROM employeeinbox WHERE "
+                + "mssgsender = '" + sender + "' AND "
+                + "mssgreciever = '" + reciever + "' AND "
+                + "mssgsendtime = '" + sendtime + "' ";
+    }
 
     /**
      * Generate a query that returns a single entry under the column name "isfound"
@@ -522,6 +530,7 @@ public class Controller {
         ret = ret + "ORDER BY shiftstarttime";
         return ret;
     }
+    
 
     /**
      * Generate a query to get the loginID of all the managers in the database 
@@ -785,6 +794,7 @@ public class Controller {
          System.out.println(c.insertShiftQuery("rickjames", b[0], b[1]));
          System.out.println(c.deleteShiftQuery("rickjames", b[0], b[1]));
          System.out.println(c.getAllGiveRecords());
+         System.out.println(c.deleteEmployeeMessage("tmike", "rickjames", b[0]));
 
     }  
 }

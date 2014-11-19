@@ -260,6 +260,8 @@ public class Input
     	return combinedShifts;
     }
     
+    
+    
     /** creates a trade request, the basis for give/take/trade.
      * @param initLogin the employee giving up a shift
      * @param shiftStartEnd the employee giving up a shift's start and end time
@@ -278,6 +280,52 @@ public class Input
 		/** Sample SQL for creating a take traderequest 
     	 * INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, finalsign, managersign, transactiontype),
     	 * 	VALUES (initLogin, shiftStartEnd[0], shiftStartEnd[1], finalLogin, finalshiftStartEnd[0], finalshiftStartEnd[1], TRUE, TRUE, "TAKE"); */
+    }
+    
+    /**
+     * Fetches all the messages for a user in an array of strings, ordered by
+     * their start time
+     * @param username employee whose messages you want to get
+     * @return Array of messages 
+     */
+    public static String[] getEmployeeMessages(String username)
+    {
+        //TODO dont know if this is the best way, a class for the presonal messages would be better i think
+        return null;
+    }
+    
+    /**
+     * Fetch the list of all shifts that people are giving away
+     * returns null if there is nothing passed back to the database
+     * @return array of shifts
+     */
+    public static Shift[] getGiveList()
+    {
+        Request getGiveListRequest = Request.GetGivesListRequest();
+        RequestResults results = null;
+        try
+        {
+             results = controller.sendRequest(getGiveListRequest);
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("Exception in removeEmployee with message: " + exception.getMessage());
+        } 
+        if(results != null)
+        {
+            Shift[] shifts = new Shift[results.getNames().length];
+            String[] names = results.getNames();
+            Timestamp[] times = results.getShifts();
+            for(int i = 0; i < results.getNames().length; i++)
+            {
+                shifts[i] = new Shift(names[i], times[i*2], times[(i*2)+1]);
+            }
+             return shifts;
+        }
+        else
+        {
+            return null;
+        }
     }
     
     
