@@ -53,32 +53,36 @@ public class Controller {
             switch (request.getMode()) {
                     case GIVE:
                     {
+                        Statement giveRequest = dbconnection.createStatement();
+                        giveRequest.execute(insertGiveRecordQuery(request.getSender(), request.getShifts()[0], request.getShifts()[1]));
                         break;
                     }
                     case TRADE:
                     {
-                       /*
-                        need getManagerApprovalStatus to take username (it's not a global setting)
-                        insertTradeQuery needs to be modified to work with your new approved boolean columns
-                        we need a way to retreive the requestID of the transaction once generated
-                        (see lines with errors)
-                        */
                         Statement tradeRequest = dbconnection.createStatement();
                         String manager1 = tradeRequest.executeQuery(getWorkerInfoQuery(request.getSender())).getString("empmanager");
                         boolean manager1reqd = tradeRequest.executeQuery(getManagerApprovalStatus(manager1)).getBoolean("required");
                         String manager2 = tradeRequest.executeQuery(getWorkerInfoQuery(request.getRecipient())).getString("empmanager");
                         boolean manager2reqd = tradeRequest.executeQuery(getManagerApprovalStatus(manager1)).getBoolean("required");
-                        tradeRequest.addBatch(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "TRADE", manager1, manager1reqd, manager2, manager2reqd));
-                        tradeRequest.addBatch(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2]));
-                        tradeRequest.executeBatch();
-                        tradeRequest.close();
+                        
+
+                        if (request.getShifts()[0] == null) //Take request
+                        {
+                            tradeRequest.execute(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "TAKE", manager1, manager1reqd, manager2, manager2reqd));
+                            tradeRequest.close();
+                            Request giveAccept = Request.AcceptRequest(request.getSender(), request.getRecipient(), new Timestamp[] {request.getShifts()[0], request.getShifts()[2]}, true);
+                            sendRequest(giveAccept);
+                        }
+                        else //trade
+                        {
+                            tradeRequest.addBatch(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "TRADE", manager1, manager1reqd, manager2, manager2reqd));
+                            tradeRequest.addBatch(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2]));
+                            tradeRequest.executeBatch();
+                            tradeRequest.close();
+                        }
                         break;
                     }
                     case ACCEPT:
-                    /*
-                        need a way to query transaction id's for their info
-                        (see all the "transactionFields" lines)
-                    */
                     {
                         Statement acceptStatement = dbconnection.createStatement();
                         ResultSet transactionFields = acceptStatement.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
@@ -88,15 +92,20 @@ public class Controller {
                             boolean manager2Approved = transactionFields.getBoolean("manager2Approval");
                             if (!manager1Approved || !manager2Approved)
                             {
+                                String giveTime = "nothing";
+                                if (transactionFields.getTimestamp("initshiftstart") != null)
+                                {
+                                    giveTime = transactionFields.getTimestamp("initshiftstart").toString();
+                                }
                                 if (!manager1Approved)
                                 {
                                     String manager = transactionFields.getString("initiatorManager");
-                                    acceptStatement.executeQuery(newMessageQuery("Server", manager, "APPROVAL: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2] + "This request requires your approval"));
+                                    acceptStatement.executeQuery(newMessageQuery("Server", manager, "APPROVAL: " + transactionFields.getString("initlogin") + " wants to trade "+ giveTime + " for " + transactionFields.getString("finalshiftstart") + ". This request requires your approval"));
                                 }
                                 if (!manager2Approved)
                                 {
                                     String manager = transactionFields.getString("finalizerManager");
-                                    acceptStatement.executeQuery(newMessageQuery("Server", manager, "APPROVAL: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2] + "This request requires your approval"));
+                                    acceptStatement.executeQuery(newMessageQuery("Server", manager, "APPROVAL: " +  transactionFields.getString("finallogin") + " wants to trade "+ transactionFields.getString("finalshiftstart") + " for " + giveTime + ". This request requires your approval"));
                                 }
                             }
                             else
@@ -116,9 +125,6 @@ public class Controller {
                     }
                     case APPROVE:
                     {
-                        /*
-                            (transactionFields are here too)
-                        */
                         Statement approveRequest = dbconnection.createStatement();
                         ResultSet transactionFields = approveRequest.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
                         if (request.isApproved())
