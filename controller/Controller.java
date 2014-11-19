@@ -110,7 +110,7 @@ public class Controller {
                             }
                             else
                             {
-                                makeTrade(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]);
+                                makeTrade(transactionFields);
                             }
                         }
                         else
@@ -133,7 +133,7 @@ public class Controller {
                             boolean manager1Approved = transactionFields.getBoolean("manager1Approval");
                             boolean manager2Approved = transactionFields.getBoolean("manager2Approval");
                             if (manager1Approved && manager2Approved)
-                                makeTrade(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]);
+                                makeTrade(transactionFields);
                         }
                         else
                         {
@@ -273,9 +273,17 @@ public class Controller {
         return resultsList;
     }
     
-    private void makeTrade(String sender, String recipient, Timestamp start, Timestamp end)
+    private void makeTrade(ResultSet transactionFields) throws SQLException
     {
-        
+        Statement transaction = dbconnection.createStatement();
+        if (transactionFields.getString("transactiontype").equals("TRADE"))
+        {
+            transaction.addBatch(deleteShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
+            transaction.addBatch(deleteShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
+        }
+        transaction.addBatch(deleteShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
+        transaction.addBatch(insertShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
+        transaction.executeBatch();
     }
     
     
