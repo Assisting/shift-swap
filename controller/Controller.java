@@ -566,6 +566,15 @@ public class Controller {
                 + "givershiftstart = '" + starttime.toString() + "' AND "
                 + "givershiftend = '" + endtime.toString() + "' ";
     }
+    
+    /**
+     * Generate a query to return all rows in the giveshifts table
+     * @return String version of the query necessary
+     */
+    private String getAllGiveRecords()
+    {
+        return "SELECT giverlogin, givershiftstart, givershiftend FROM giveshifts";
+    }
 
     /**
      * Generate a query that returns a single value under the column, requiremanagerapproval which is 
@@ -675,6 +684,40 @@ public class Controller {
     }
     
     /**
+     * Query to Insert a shift into the employeeshifts table
+     * @param loginID = login of the employee assiciated with the shift
+     * @param startTime = start time of the shift
+     * @param endTime = end time of the shift
+     * @return String version of  the query
+     */
+    private String insertShiftQuery(String loginID, Timestamp startTime, Timestamp endTime)
+    {
+        return "INSERT INTO employeeshifts (shiftemployeelogin, shiftstarttime, shiftendtime) "
+                + "VALUES ("
+                + "'" + loginID + "', "
+                + "'" + startTime.toString() + "', "
+                + "'" + endTime.toString() + "' "
+                + ")";
+    }
+    
+    /**
+     * Query to DELETE a shift into the employeeshifts table
+     * @param loginID = login of the employee assiciated with the shift
+     * @param startTime = start time of the shift
+     * @param endTime = end time of the shift
+     * @return String version of  the query
+     */
+    private String deleteShiftQuery(String loginID, Timestamp startTime, Timestamp endTime)
+    {
+        return "DELETE FROM employeeshifts WHERE "
+                + "shiftemployeelogin = '" + loginID + "' AND "
+                + "shiftstarttime = '" + startTime.toString() + "' AND "
+                + "shiftendtime = '" + endTime.toString() + "'";
+    }
+    
+    
+    
+    /**
     tatement shiftRangeRequest = dbconnection.createStatement();
     ResultSet results = shiftRangeRequest.executeQuery(this.dateRangeShiftQuery(request.getShifts()[0], request.getShifts()[1], request.getSender()));
     Timestamp[] resultsList = tabulateShifts(results);
@@ -708,6 +751,9 @@ public class Controller {
         b[0] = Timestamp.valueOf( "2014-10-20 08:45:00" );
          b[1] = Timestamp.valueOf( "2014-10-20 18:30:00" );
        // System.out.println(c.insertShiftTransactionQuery("tmike", "tsanjay", b, "swap"));
+         System.out.println(c.insertShiftQuery("rickjames", b[0], b[1]));
+         System.out.println(c.deleteShiftQuery("rickjames", b[0], b[1]));
+         System.out.println(c.getAllGiveRecords());
 
     }  
 }
