@@ -18,7 +18,7 @@ public class Request
  
     public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE,
                               CREATE, REMOVE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE,
-                              LOGIN,
+                              LOGIN, GIVELIST,
                               SCHEDULE, SHIFT_RANGE }
  
     final private String sender;
@@ -48,6 +48,11 @@ public class Request
 public static Request LoginRequest(String username, byte[] password) {
         Message message = new Message(null, password, null, null, null, false);
         return new Request(username, null, message, RequestType.LOGIN);
+}
+
+public static Request GetGivesListRequest()
+{
+    return new Request(null, null, null, RequestType.GIVELIST);
 }
  
 public static Request ShiftRequest(String username) {

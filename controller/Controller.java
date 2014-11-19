@@ -233,6 +233,23 @@ public class Controller {
                         passwordChange.close();
                         break;
                     }
+                    case GIVELIST:
+                    {
+                        Statement getGives = dbconnection.createStatement();
+                        ResultSet gives = getGives.executeQuery(getAllGiveRecords());
+                        String[] names = new String[gives.getRow()];
+                        Timestamp[] timePairs = new Timestamp[gives.getRow()*2];
+                        int i = 0;
+                        while (gives.next())
+                        {
+                            names[i] = gives.getString("giverlogin");
+                            timePairs[i*2] = gives.getTimestamp("givershiftstart");
+                            timePairs[i*2+1] = gives.getTimestamp("givershiftend");
+                        }
+                        returnResults = new RequestResults();
+                        returnResults.setNames(names);
+                        returnResults.setShifts(timePairs);
+                    }
             }
             return returnResults;
     }

@@ -17,6 +17,7 @@ public class RequestResults {
     
     Timestamp[] shifts = null;
     private boolean approved = false;
+    private String[] names;
     
     public RequestResults() {
         
@@ -46,6 +47,20 @@ public class RequestResults {
      */
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    /**
+     * @return the names
+     */
+    public String[] getNames() {
+        return names;
+    }
+
+    /**
+     * @param names the names to set
+     */
+    public void setNames(String[] names) {
+        this.names = names;
     }
     
 }
