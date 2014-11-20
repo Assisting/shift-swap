@@ -137,7 +137,7 @@ public class Input
      */
     public static void removeEmployee(String username)
     {
-        Request removeEmployeeRequest = Request.RemoveRequest("PLACEHOLDER", username);
+        Request removeEmployeeRequest = Request.DeleteRequest("PLACEHOLDER", username);
         try
         {
             controller.sendRequest(removeEmployeeRequest);
