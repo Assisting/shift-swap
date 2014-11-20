@@ -379,12 +379,11 @@ public class Controller {
      * @param lastName can be null
      * @param accesslevel must be set to -1 if not specified
      * @param loginID CANNOT be null
-     * @param password can be null
      * @param email can be null
      * @param wage set to -1 if not specified
      * @return a custom string for the update query given the parameters 
      */
-    //TODO make the byte array work or get rid of it in this query
+    
     private String updateEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, String email, float wage){
         boolean needComma = false;
         String ret = "UPDATE employees SET ";

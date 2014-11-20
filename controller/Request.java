@@ -166,6 +166,27 @@ public static Request changeEmployeesManagerRequest(String employeeLoginID, Stri
     //TODO
     return null;
 }
+
+/**
+ * Create a request to assign shifts to an employee in the database.
+ * @param shift
+ * @return 
+ */
+public static Request assignShiftsRequest(Shift shift)
+{
+    return null; //TODO
+}
+
+/**
+ * Generate a request to change the manager approval status in the database
+ * @param manager, login of the manager who wants to change status
+ * @param wantToApprove true if the manager wants to approve and false if they do not
+ * @return Request, ready to be sent
+ */
+public static Request changeManagerApprovalStatusRequest(String manager, boolean wantToApprove)
+{
+    return null; //TODO
+}
  
 //-----Getters and Setters----------------------------------------
  

@@ -327,6 +327,27 @@ public class Input
             return null;
         }
     }
+   
+    /**
+     * pass in a shift and create it in the database.
+     * @param shift the shift you would like to assign
+     */
+    public static void assignShifts(Shift shift)
+    {
+         //TODO
+    }
+    
+    /**
+     * Change the need for a manager to be sought for approval
+     * @param managerlogin manager who wants to change
+     * @param wantToApprove value they want to change to, true for they want to be sought, and false if not.
+     */
+    public static void changeApprovalStatus(String managerlogin, boolean wantToApprove)
+    {
+        //TODO
+    }
+    
+    
     
     
 
