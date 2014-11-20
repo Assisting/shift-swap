@@ -18,6 +18,7 @@ public class RequestResults {
     Timestamp[] shifts = null;
     private boolean approved = false;
     private String[] names;
+    private String messages;
     
     public RequestResults() {
         
@@ -61,6 +62,20 @@ public class RequestResults {
      */
     public void setNames(String[] names) {
         this.names = names;
+    }
+
+    /**
+     * @return the messages
+     */
+    public String getMessages() {
+        return messages;
+    }
+
+    /**
+     * @param messages the messages to set
+     */
+    public void setMessages(String messages) {
+        this.messages = messages;
     }
     
 }

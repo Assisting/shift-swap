@@ -86,6 +86,8 @@ public class Controller {
                     {
                         Statement acceptStatement = dbconnection.createStatement();
                         ResultSet transactionFields = acceptStatement.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
+                        if (!transactionFields.next())
+                            throw new SQLException("Data nor found");
                         if (request.isApproved())
                         {
                             boolean manager1Approved = transactionFields.getBoolean("manager1Approval");
@@ -127,6 +129,8 @@ public class Controller {
                     {
                         Statement approveRequest = dbconnection.createStatement();
                         ResultSet transactionFields = approveRequest.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
+                        if (!transactionFields.next())
+                            throw new SQLException("Data not found");
                         if (request.isApproved())
                         {
                             approveRequest.executeQuery(updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover()));
@@ -246,9 +250,21 @@ public class Controller {
                             timePairs[i*2] = gives.getTimestamp("givershiftstart");
                             timePairs[i*2+1] = gives.getTimestamp("givershiftend");
                         }
+                        gives.close();
                         returnResults = new RequestResults();
                         returnResults.setNames(names);
                         returnResults.setShifts(timePairs);
+                    }
+                    case MESSAGES:
+                    {
+                        Statement getMessages = dbconnection.createStatement();
+                        ResultSet messages = getMessages.executeQuery(getEmployeeMessages(request.getSender()));
+                        returnResults = new RequestResults();
+                        String message = "";
+                        while (messages.next())
+                        {
+                            message += "From: " + messages.getString("msgsender") + " To: " + messages.getString("msgreceiver") + " -> " + messages.getString("msgtext") + "\n";
+                        }
                     }
             }
             return returnResults;
