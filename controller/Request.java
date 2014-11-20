@@ -17,9 +17,10 @@ public class Request
 {
  
     public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE,
-                              CREATE, REMOVE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE,
+                              CREATE, DELETE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE,
                               LOGIN, GIVELIST, MESSAGES,
-                              SCHEDULE, SHIFT_RANGE }
+                              APPROVAL_STATUS,
+                              SCHEDULE, SHIFT_RANGE, ADD, REMOVE }
  
     final private String sender;
     private String approver;
@@ -69,8 +70,8 @@ public static Request CreateRequest(String sender, Employee employee) {
         return new Request(sender, null, message, RequestType.CREATE);
 }
  
-public static Request RemoveRequest(String sender, String toBeRemoved) {
-        return new Request(sender, toBeRemoved, null, RequestType.REMOVE);
+public static Request DeleteRequest(String sender, String toBeRemoved) {
+        return new Request(sender, toBeRemoved, null, RequestType.DELETE);
 }
 
 public static Request GiveRequest(String sender, Timestamp[] times) {
@@ -155,9 +156,9 @@ public static Request ModifyEmployeeInfoRequest(String userToBeChanged, String n
  */
 public static Request ChangeAccessLevelRequest(String username, int newAccesslevel)
 {
-    //TODO not sure if this will work or not, should if modify is done propertly
-    //return Request.ModifyEmployeeInfoRequest(username, null, null, null, newAccesslevel, -1);
-    return null;
+    Employee employee = new Employee(username, " ", " ", newAccesslevel, null, null, 0);
+    Message message = new Message(null, null, null, employee, null, false);
+    return new Request(username, null, message, RequestType.ACCESS_UPDATE);
 }
 
 /**
@@ -168,8 +169,8 @@ public static Request ChangeAccessLevelRequest(String username, int newAccesslev
  */
 public static Request changeEmployeesManagerRequest(String employeeLoginID, String managerLoginID)
 {
-    //TODO
-    return null;
+    Message message = new Message(null, null, null, null, managerLoginID, false);
+    return new Request(employeeLoginID, null, message, RequestType.MANAGER_CHANGE);
 }
 
 /**
@@ -179,7 +180,11 @@ public static Request changeEmployeesManagerRequest(String employeeLoginID, Stri
  */
 public static Request assignShiftsRequest(Shift shift)
 {
-    return null; //TODO
+    Timestamp[] shifts = new Timestamp[2];
+    shifts[0] =  shift.getShiftStartTime();
+    shifts[1] = shift.getShiftEndTime();
+    Message message = new Message(null, null, shifts, null, null, false);
+    return new Request(shift.getEmployeeLogin(), null, message, RequestType.ADD);
 }
 
 /**
@@ -190,7 +195,8 @@ public static Request assignShiftsRequest(Shift shift)
  */
 public static Request changeManagerApprovalStatusRequest(String manager, boolean wantToApprove)
 {
-    return null; //TODO
+    Message message = new Message(null, null, null, null, manager, wantToApprove);
+    return new Request(null, null, message, RequestType.APPROVAL_STATUS);
 }
  
 //-----Getters and Setters----------------------------------------
@@ -263,5 +269,9 @@ public static Request changeManagerApprovalStatusRequest(String manager, boolean
     
     public boolean isApproved() {
         return message.isApproved();
+    }
+    
+    public String getManager() {
+        return message.getManager();
     }
 }

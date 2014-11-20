@@ -151,6 +151,12 @@ public class Controller {
                         approveRequest.close();
                         break;
                     }
+                    case ADD:
+                    {
+                        Statement addShift = dbconnection.createStatement();
+                        addShift.execute(insertShiftQuery(request.getSender(), request.getShifts()[0], request.getShifts()[1]));
+                        addShift.close();
+                    }
                     case LOGIN:
                     {
                         boolean validated = false;
@@ -193,7 +199,7 @@ public class Controller {
 
                         break;
                     }
-                    case REMOVE:
+                    case DELETE:
                     {
                         break;
                     }
@@ -265,6 +271,24 @@ public class Controller {
                         {
                             message += "From: " + messages.getString("msgsender") + " To: " + messages.getString("msgreceiver") + " -> " + messages.getString("msgtext") + "\n";
                         }
+                    }
+                    case MANAGER_CHANGE:
+                    {
+                        Statement managerChange = dbconnection.createStatement();
+                        managerChange.execute( updateManagerQuery(request.getSender(), request.getManager()) );
+                        managerChange.close();
+                    }
+                    case APPROVAL_STATUS:
+                    {
+                        Statement approvalStatus = dbconnection.createStatement();
+                        approvalStatus.execute(approvalStatusChangeQuery(request.getManager(), request.isApproved()));
+                        approvalStatus.close();
+                    }
+                    case ACCESS_UPDATE:
+                    {
+                        Statement accessUpdate = dbconnection.createStatement();
+                        accessUpdate.execute(updateEmployeeQuery(null, null, request.getEmployee().getAccessLevel(), request.getSender(), null, -1));
+                        accessUpdate.close();
                     }
             }
             return returnResults;
@@ -342,17 +366,6 @@ public class Controller {
         		+ "initlogin ='" + sender +"' AND "
         		+ "initshiftstart = '" + start + "' AND "
         		+ "initshiftend = '" + end + "';");
-    }
-    
-
-    /**
-    * pulls the messages that are waiting for a user and returns them as a delimited string
-    * @returns a ready-to-print string of the messages awaiting a user.
-    */
-    private String getMessages()
-    {
-        //THERE IS A FUNCTION CALLED getEmployeeMessages to query for employee messages
-        return null;
     }
 
     //Generate a query to select the login (username and password) information from the database so that it can be checked for authentication

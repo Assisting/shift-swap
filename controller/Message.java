@@ -57,4 +57,11 @@ public class Message {
     public boolean isApproved() {
         return approval;
     }
+
+    /**
+     * @return the manager
+     */
+    public String getManager() {
+        return manager;
+    }
 }
