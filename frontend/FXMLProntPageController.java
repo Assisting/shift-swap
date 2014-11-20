@@ -67,6 +67,7 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     @FXML
     private Hyperlink addEmployeeButton;
   
+  
     
     /**
      * We can use this instance to pass data back to the top level.
@@ -98,6 +99,16 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
            parse=parse.substring(11, 16);
            day.appendText(parse+"\n");
        }
+    }
+    
+    private void onCheckMessageButtonPress()
+    {
+        
+    }
+    
+    private void onSwapShiftButtonPress()
+    {
+        
     }
     
     private void updateDayHeaders(DayOfWeek day, Label header)

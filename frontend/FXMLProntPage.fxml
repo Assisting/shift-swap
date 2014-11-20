@@ -87,7 +87,8 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <TextArea editable="false" layoutX="48.0" layoutY="14.0" prefHeight="237.0" prefWidth="295.0" styleClass="label-standard" text="Message and Request Buttons go here" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button layoutX="126.0" layoutY="48.0" mnemonicParsing="false" onAction="#onCheckMessageButtonPress" text="Check Messages" />
+                                    <Button layoutX="139.0" layoutY="156.0" mnemonicParsing="false" onAction="#onSwapShiftButtonPress" text="Swap Shifts" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
