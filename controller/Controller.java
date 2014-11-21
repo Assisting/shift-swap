@@ -255,14 +255,24 @@ public class Controller {
                     {
                         Statement getGives = dbconnection.createStatement();
                         ResultSet gives = getGives.executeQuery(getAllGiveRecords());
-                        String[] names = new String[gives.getRow()];
-                        Timestamp[] timePairs = new Timestamp[gives.getRow()*2];
+                        String[] names;
+                        Timestamp[] timePairs;
+                        if (gives.last())
+                        {
+                            names = new String[gives.getRow()];
+                            timePairs = new Timestamp[gives.getRow()*2];
+                        }
+                        else
+                            return null;
+                        gives.beforeFirst();
+                        
                         int i = 0;
                         while (gives.next())
                         {
                             names[i] = gives.getString("giverlogin");
                             timePairs[i*2] = gives.getTimestamp("givershiftstart");
                             timePairs[i*2+1] = gives.getTimestamp("givershiftend");
+                            i++;
                         }
                         gives.close();
                         returnResults = new RequestResults();
