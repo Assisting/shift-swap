@@ -1,0 +1,16 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="gettingstarted">
+<info>
+  <link type="guide" xref="index"/>
+  <link type="guide" xref="trades"/>
+</info>
+<title>Getting Started</title>
+<p>When you first boot up Shift Swap, you are greeted by the Log In screen. Enter the username and password provided to you by your employer.</p>
+<media type="image" src="loginscreen.png" width="450" height="326"/>
+<p>Once you've enetered your login information, press Enter to proceed. Next, you will see the main page of Shift Swap, from where all other functionality is accessed.</p>
+<media type="image" src="frontpage.png" width="450" height="3260"/>
+<p>In the top half of the window, you can view your current <link xref="schedule"/> by either clicking the "Check Schedule" button to view this week's schedule, or click on "View Monthly Schedule" to see all of your currently assigned shifts for the current calendar month.</p>
+<p>The messaging system and trades are accessed via the lower left-hand corner.</p>
+<p>Various settings pages can be accessed via the lower right-hand corner.</p>
+</page>

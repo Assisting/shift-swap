@@ -1,0 +1,10 @@
+<page xmlns="http://projectmallard.org/1.0/"
+	type="guide"
+	id="index">
+<title>Shift Swap User Guide</title>
+<p>Welcome to Shift Swap, the employee communication and management tool from Agile Technologies.</p>
+<p>If you are new to Shift Swap, please check <link xref="gettingstarted"/>. Other pages currently available include a run-down of most major features, <link xref="installing"/>, and <link xref="managersettings"/>.</p>
+<section id="marker">
+	<title>For the Marker</title>
+</section>
+</page>
