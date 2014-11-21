@@ -19,6 +19,7 @@ public class RequestResults {
     private boolean approved = false;
     private String[] names;
     private String messages;
+    private int accessLevel;
     
     public RequestResults() {
         
@@ -76,6 +77,20 @@ public class RequestResults {
      */
     public void setMessages(String messages) {
         this.messages = messages;
+    }
+
+    /**
+     * @return the accessLevel
+     */
+    public int getAccessLevel() {
+        return accessLevel;
+    }
+
+    /**
+     * @param accessLevel the accessLevel to set
+     */
+    public void setAccessLevel(int accessLevel) {
+        this.accessLevel = accessLevel;
     }
     
 }

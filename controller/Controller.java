@@ -260,6 +260,7 @@ public class Controller {
                         returnResults = new RequestResults();
                         returnResults.setNames(names);
                         returnResults.setShifts(timePairs);
+                        break;
                     }
                     case MESSAGES:
                     {
@@ -271,24 +272,37 @@ public class Controller {
                         {
                             message += "From: " + messages.getString("msgsender") + " To: " + messages.getString("msgreceiver") + " -> " + messages.getString("msgtext") + "\n";
                         }
+                        break;
                     }
                     case MANAGER_CHANGE:
                     {
                         Statement managerChange = dbconnection.createStatement();
                         managerChange.execute( updateManagerQuery(request.getSender(), request.getManager()) );
                         managerChange.close();
+                        break;
                     }
                     case APPROVAL_STATUS:
                     {
                         Statement approvalStatus = dbconnection.createStatement();
                         approvalStatus.execute(approvalStatusChangeQuery(request.getManager(), request.isApproved()));
                         approvalStatus.close();
+                        break;
                     }
                     case ACCESS_UPDATE:
                     {
                         Statement accessUpdate = dbconnection.createStatement();
                         accessUpdate.execute(updateEmployeeQuery(null, null, request.getEmployee().getAccessLevel(), request.getSender(), null, -1));
                         accessUpdate.close();
+                        break;
+                    }
+                    case ACCESS_LEVEL:
+                    {
+                        returnResults = new RequestResults();
+                        Statement accessLevel = dbconnection.createStatement();
+                        ResultSet results = accessLevel.executeQuery(getAccessLevelQuery(request.getSender()));
+                        accessLevel.close();
+                        returnResults.setAccessLevel(results.getInt("empaccesslevel"));
+                        break;
                     }
             }
             return returnResults;
@@ -788,6 +802,11 @@ public class Controller {
         return "UPDATE managerapproval SET ma_approval = "
                 + "'" + isApproved +"' "
                 + "WHERE ma_manager = '" + manager + "' ";
+    }
+      
+    private String getAccessLevelQuery(String empName)
+    {
+        return "SELECT empaccesslevel FROM employees WHERE emplogin = " + empName;
     }
     
     
