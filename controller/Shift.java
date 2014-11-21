@@ -19,7 +19,7 @@ public class Shift{
 
     
     /**
-     * Create A shift with the given values
+     * Create a Shift which involves a person, and a start time and end time
      * @param empLogin username of the employee of the shift
      * @param start start time of the shift
      * @param end end time of the shift

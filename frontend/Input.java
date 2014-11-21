@@ -356,6 +356,19 @@ public class Input
         //TODO
     }
     
+    /**
+     * When a manager wants to be able to approve trades, this function is invoked
+     * when the manager approves or denys a trade, 
+     * @param manager manager in question who is approving the trade
+     * @param initShift first shift in the trade
+     * @param finalShift second shift in the trade
+     * @param isApproved weather or not the shift is approved
+     */
+    public static void approveTrade(String manager, Shift initShift, Shift finalShift, boolean isApproved)
+    {
+        //TODO
+    }
+    
     
     
     
