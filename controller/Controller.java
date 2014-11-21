@@ -783,6 +783,12 @@ public class Controller {
                 + "shiftendtime = '" + endTime.toString() + "'";
     }
     
+      private String approvalStatusChangeQuery(String manager, boolean isApproved)
+    {
+        return "UPDATE managerapproval SET ma_approval = "
+                + "'" + isApproved +"' "
+                + "WHERE ma_manager = '" + manager + "' ";
+    }
     
     
     /**
