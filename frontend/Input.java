@@ -390,7 +390,7 @@ public class Input
      */
    public static void getWorkerInfo (String login){
 	   //TODO need request for this
-       Request getInfo = Request.GetUserInfo(login);
+       Request getInfo = Request.GetUserInfoRequest(login);
        try
        {
            controller.sendRequest(getInfo);
@@ -406,7 +406,7 @@ public class Input
     * @param lastName the last name of the emploee */
    public static void getWorkerLogin (String firstName, String lastName){
 	   //TODO need request for this
-	   Request getLogin = Request.GetWorkerLogin(firstName, lastName);
+	   Request getLogin = Request.GetUserLoginRequest(firstName, lastName);
        try
        {
            controller.sendRequest(getLogin);
