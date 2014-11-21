@@ -420,11 +420,19 @@ public class Controller {
      */
     private String getWorkerInfoQuery(String LoginID)
     {
-
         return "SELECT empfirstname, emplastname, empaccesslevel,"
-                + " emplogin, emppassword, empemail, empmanager "
+                + " emplogin, emppassword, empemail, empmanager, empwage"
                 + "FROM full_employee_info"
                 + " WHERE emplogin = '" + LoginID + "'";
+    }
+    
+    /** return the employee login(s) based on first and lastname
+     * @param firstName the first name of the employee
+     * @param lastName the last name of the employee
+     * @return emplogin(s, if multiple). */
+    private String getEmployeeLogin(String firstName, String lastName){
+    	return "SELECT emplogin from full_employee_info where empfirstname = '" 
+    			+ firstName + "' AND emplastname = '" + lastName + "';";
     }
 
     /**
