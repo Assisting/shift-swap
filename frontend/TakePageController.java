@@ -27,6 +27,9 @@ public class TakePageController extends AnchorPane implements Initializable
     private View instance;
     
     LinkedList<Shift> shiftList;
+    
+    LinkedList<Shift> selfList;
+    
     private int  currentIndex;
     
     @FXML
@@ -37,6 +40,9 @@ public class TakePageController extends AnchorPane implements Initializable
     
     @FXML
     private Button takeButton;
+    
+    @FXML
+    private Button giveButton;
     
     public void setApp(View application){
         this.instance = application;
@@ -54,6 +60,11 @@ public class TakePageController extends AnchorPane implements Initializable
     
     @FXML
     void onTakeButtonPress() {
+
+    }
+    
+    @FXML
+    void onGiveButtonPress() {
 
     }
     

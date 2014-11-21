@@ -85,6 +85,12 @@ public static Request GiveRequest(String sender, Timestamp[] times) {
     return new Request(sender, null, message, RequestType.GIVE);
 }
 
+/*public static Request TakeRequest(String sender, String recipient, Timestamp[] shifts)
+{
+    Message message = new Message(null, null, shifts, null, null, false);
+    return new Request(sender, recipient, message, RequestType.TRADE);
+}*///Halp
+
 /**
  * create a new request to trade shifts with another employee
  * @param sender the person initiating the trade
