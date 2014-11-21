@@ -4,120 +4,130 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="680.0" stylesheets="@../../../shiftswapfrontend/src/frontend/Primary.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.ManagerSettingsController">
-   <top>
-      <Pane prefHeight="40.0" prefWidth="680.0" styleClass="border" BorderPane.alignment="CENTER" />
-   </top>
-   <left>
-      <Pane prefHeight="400.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
-   </left>
-   <right>
-      <Pane prefHeight="400.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
-   </right>
-   <bottom>
-      <Pane prefHeight="40.0" prefWidth="680.0" styleClass="border" BorderPane.alignment="CENTER" />
-   </bottom>
-   <center>
-      <Accordion BorderPane.alignment="CENTER">
-        <panes>
-          <TitledPane animated="false" text="Add Employee">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
-                     <children>
-                        <Label layoutX="185.0" layoutY="35.0" styleClass="label-standard" text="Employee ID" />
-                        <TextField fx:id="newEmpID" layoutX="276.0" layoutY="30.0" />
-                        <TextField fx:id="newEmpFirstName" layoutX="276.0" layoutY="56.0" />
-                        <Label layoutX="197.0" layoutY="61.0" styleClass="label-standard" text="First Name" />
-                        <TextField fx:id="newEmpLastName" layoutX="276.0" layoutY="82.0" />
-                        <Label layoutX="198.0" layoutY="87.0" styleClass="label-standard" text="Last Name" />
-                        <Label layoutX="208.0" layoutY="113.0" styleClass="label-standard" text="Password" />
-                        <TextField fx:id="newEmpEmail" layoutX="276.0" layoutY="134.0" />
-                        <Label layoutX="228.0" layoutY="139.0" styleClass="label-standard" text="E-mail" />
-                        <PasswordField fx:id="newEmpPass" layoutX="276.0" layoutY="108.0" />
-                        <Label layoutX="230.0" layoutY="165.0" styleClass="label-standard" text="Wage" />
-                        <TextField fx:id="newEmpWage" layoutX="276.0" layoutY="160.0" />
-                        <Button fx:id="newEmpSubmit" layoutX="382.0" layoutY="196.0" mnemonicParsing="false" onAction="#processNewEmployee" styleClass="button-standard" text="Submit" />
-                     </children></AnchorPane>
-            </content>
-          </TitledPane>
-            <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Modify Employee">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
-                     <children>
-                        <Label layoutX="185.0" layoutY="48.0" styleClass="label-standard" text="Employee ID" />
-                        <TextField fx:id="modEmpID" layoutX="276.0" layoutY="43.0" />
-                        <TextField fx:id="modEmpFirstName" layoutX="276.0" layoutY="69.0" />
-                        <Label layoutX="197.0" layoutY="74.0" styleClass="label-standard" text="First Name" />
-                        <TextField fx:id="modEmpLastName" layoutX="276.0" layoutY="95.0" />
-                        <Label layoutX="198.0" layoutY="100.0" styleClass="label-standard" text="Last Name" />
-                        <TextField fx:id="modEmpEmail" layoutX="276.0" layoutY="121.0" />
-                        <Label layoutX="228.0" layoutY="126.0" styleClass="label-standard" text="E-mail" />
-                        <Label layoutX="230.0" layoutY="152.0" styleClass="label-standard" text="Wage" />
-                        <TextField fx:id="modEmpWage" layoutX="276.0" layoutY="147.0" />
-                        <Button fx:id="modEmpSubmit" layoutX="382.0" layoutY="183.0" mnemonicParsing="false" onAction="#modifyEmployee" styleClass="button-standard" text="Submit" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </TitledPane>
-          <TitledPane animated="false" text="Modify Employee Access Level">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
-                     <children>
-                        <Label layoutX="171.0" layoutY="56.0" styleClass="label-standard" text="Employee ID" />
-                        <TextField fx:id="modAccessID" layoutX="299.0" layoutY="51.0" />
-                        <Label layoutX="138.0" layoutY="96.0" styleClass="label-standard" text="New Access Level:" />
-                        <Button fx:id="modAccessSubmit" layoutX="408.0" layoutY="180.0" mnemonicParsing="false" onAction="#modifyAccessLevel" styleClass="button-standard" text="Submit" />
-                        <RadioButton fx:id="modAccessWorker" layoutX="344.0" layoutY="95.0" mnemonicParsing="false" selected="true" text="Worker">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="modAccess" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="modAccessManager" layoutX="344.0" layoutY="122.0" mnemonicParsing="false" text="Manager" toggleGroup="$modAccess" />
-                        <RadioButton fx:id="modAccessOwner" layoutX="344.0" layoutY="149.0" mnemonicParsing="false" text="Owner" toggleGroup="$modAccess" />
-                     </children></AnchorPane>
-            </content>
-          </TitledPane>
-            <TitledPane animated="false" text="Set Employee Manager">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
-                     <children>
-                        <Label layoutX="178.0" layoutY="69.0" styleClass="label-standard" text="Employee ID" />
-                        <Label layoutX="153.0" layoutY="100.0" styleClass="label-standard" text="New Manager ID" />
-                        <TextField fx:id="setManagerEmployee" layoutX="299.0" layoutY="64.0" />
-                        <TextField fx:id="setManagerManager" layoutX="299.0" layoutY="95.0" />
-                        <Button layoutX="405.0" layoutY="141.0" mnemonicParsing="false" onAction="#setEmployeeManager" styleClass="button-standard" text="Submit" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </TitledPane>
-            <TitledPane animated="false" text="Set Employee Password">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
-                     <children>
-                        <Label layoutX="172.0" layoutY="49.0" styleClass="label-standard" text="Employee ID" />
-                        <TextField fx:id="setPasswordID" layoutX="280.0" layoutY="44.0" />
-                        <Label layoutX="160.0" layoutY="100.0" styleClass="label-standard" text="New Password" />
-                        <PasswordField fx:id="setPasswordNew" layoutX="280.0" layoutY="95.0" />
-                        <PasswordField fx:id="setPasswordConfirm" layoutX="280.0" layoutY="131.0" />
-                        <Label layoutX="137.0" layoutY="136.0" styleClass="label-standard" text="Confirm Password" />
-                        <Button fx:id="setPasswordSubmit" layoutX="386.0" layoutY="179.0" mnemonicParsing="false" onAction="#changeEmployeePassword" styleClass="button-standard" text="Submit" />
-                        <Label fx:id="setPasswordConfirmation" layoutX="178.0" layoutY="172.0" text="Label" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </TitledPane>
-            <TitledPane animated="false" text="Remove Employee">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
-                     <children>
-                        <TextField fx:id="removeEmployeeID" layoutX="253.0" layoutY="77.0" />
-                        <Label layoutX="147.0" layoutY="82.0" styleClass="label-standard" text="Employee ID" />
-                        <Button fx:id="removeEmployeeSubmit" layoutX="359.0" layoutY="125.0" mnemonicParsing="false" onAction="#removeEmployee" styleClass="button-standard" text="Submit" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </TitledPane>
-        </panes>
-      </Accordion>
-   </center>
-</BorderPane>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.ManagerSettingsController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="680.0">
+         <top>
+            <Pane prefHeight="40.0" prefWidth="680.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </top>
+         <left>
+            <Pane prefHeight="400.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="400.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Pane prefHeight="40.0" prefWidth="680.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <Accordion BorderPane.alignment="CENTER">
+              <panes>
+                <TitledPane animated="false" text="Add Employee">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
+                           <children>
+                              <Label layoutX="185.0" layoutY="35.0" styleClass="label-standard" text="Employee ID" />
+                              <TextField fx:id="newEmpID" layoutX="276.0" layoutY="30.0" />
+                              <TextField fx:id="newEmpFirstName" layoutX="276.0" layoutY="56.0" />
+                              <Label layoutX="197.0" layoutY="61.0" styleClass="label-standard" text="First Name" />
+                              <TextField fx:id="newEmpLastName" layoutX="276.0" layoutY="82.0" />
+                              <Label layoutX="198.0" layoutY="87.0" styleClass="label-standard" text="Last Name" />
+                              <Label layoutX="208.0" layoutY="113.0" styleClass="label-standard" text="Password" />
+                              <TextField fx:id="newEmpEmail" layoutX="276.0" layoutY="134.0" />
+                              <Label layoutX="228.0" layoutY="139.0" styleClass="label-standard" text="E-mail" />
+                              <PasswordField fx:id="newEmpPass" layoutX="276.0" layoutY="108.0" />
+                              <Label layoutX="230.0" layoutY="165.0" styleClass="label-standard" text="Wage" />
+                              <TextField fx:id="newEmpWage" layoutX="276.0" layoutY="160.0" />
+                              <Button fx:id="newEmpSubmit" layoutX="382.0" layoutY="196.0" mnemonicParsing="false" onAction="#processNewEmployee" styleClass="button-standard" text="Submit" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                  <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Modify Employee">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
+                           <children>
+                              <Label layoutX="185.0" layoutY="48.0" styleClass="label-standard" text="Employee ID" />
+                              <TextField fx:id="modEmpID" layoutX="276.0" layoutY="43.0" />
+                              <TextField fx:id="modEmpFirstName" layoutX="276.0" layoutY="69.0" />
+                              <Label layoutX="197.0" layoutY="74.0" styleClass="label-standard" text="First Name" />
+                              <TextField fx:id="modEmpLastName" layoutX="276.0" layoutY="95.0" />
+                              <Label layoutX="198.0" layoutY="100.0" styleClass="label-standard" text="Last Name" />
+                              <TextField fx:id="modEmpEmail" layoutX="276.0" layoutY="121.0" />
+                              <Label layoutX="228.0" layoutY="126.0" styleClass="label-standard" text="E-mail" />
+                              <Label layoutX="230.0" layoutY="152.0" styleClass="label-standard" text="Wage" />
+                              <TextField fx:id="modEmpWage" layoutX="276.0" layoutY="147.0" />
+                              <Button fx:id="modEmpSubmit" layoutX="382.0" layoutY="183.0" mnemonicParsing="false" onAction="#modifyEmployee" styleClass="button-standard" text="Submit" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+                <TitledPane animated="false" text="Modify Employee Access Level">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
+                           <children>
+                              <Label layoutX="171.0" layoutY="56.0" styleClass="label-standard" text="Employee ID" />
+                              <TextField fx:id="modAccessID" layoutX="299.0" layoutY="51.0" />
+                              <Label layoutX="138.0" layoutY="96.0" styleClass="label-standard" text="New Access Level:" />
+                              <Button fx:id="modAccessSubmit" layoutX="408.0" layoutY="180.0" mnemonicParsing="false" onAction="#modifyAccessLevel" styleClass="button-standard" text="Submit" />
+                              <RadioButton fx:id="modAccessWorker" layoutX="344.0" layoutY="95.0" mnemonicParsing="false" selected="true" text="Worker">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="modAccess" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="modAccessManager" layoutX="344.0" layoutY="122.0" mnemonicParsing="false" text="Manager" toggleGroup="$modAccess" />
+                              <RadioButton fx:id="modAccessOwner" layoutX="344.0" layoutY="149.0" mnemonicParsing="false" text="Owner" toggleGroup="$modAccess" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                  <TitledPane animated="false" text="Set Employee Manager">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
+                           <children>
+                              <Label layoutX="178.0" layoutY="69.0" styleClass="label-standard" text="Employee ID" />
+                              <Label layoutX="153.0" layoutY="100.0" styleClass="label-standard" text="New Manager ID" />
+                              <TextField fx:id="setManagerEmployee" layoutX="299.0" layoutY="64.0" />
+                              <TextField fx:id="setManagerManager" layoutX="299.0" layoutY="95.0" />
+                              <Button layoutX="405.0" layoutY="141.0" mnemonicParsing="false" onAction="#setEmployeeManager" styleClass="button-standard" text="Submit" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" text="Set Employee Password">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
+                           <children>
+                              <Label layoutX="172.0" layoutY="49.0" styleClass="label-standard" text="Employee ID" />
+                              <TextField fx:id="setPasswordID" layoutX="280.0" layoutY="44.0" />
+                              <Label layoutX="160.0" layoutY="100.0" styleClass="label-standard" text="New Password" />
+                              <PasswordField fx:id="setPasswordNew" layoutX="280.0" layoutY="95.0" />
+                              <PasswordField fx:id="setPasswordConfirm" layoutX="280.0" layoutY="131.0" />
+                              <Label layoutX="137.0" layoutY="136.0" styleClass="label-standard" text="Confirm Password" />
+                              <Button fx:id="setPasswordSubmit" layoutX="386.0" layoutY="179.0" mnemonicParsing="false" onAction="#changeEmployeePassword" styleClass="button-standard" text="Submit" />
+                              <Label fx:id="setPasswordConfirmation" layoutX="175.0" layoutY="172.0" textFill="FIREBRICK" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" text="Remove Employee">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background-standard">
+                           <children>
+                              <TextField fx:id="removeEmployeeID" layoutX="253.0" layoutY="77.0" />
+                              <Label layoutX="147.0" layoutY="82.0" styleClass="label-standard" text="Employee ID" />
+                              <Button fx:id="removeEmployeeSubmit" layoutX="359.0" layoutY="125.0" mnemonicParsing="false" onAction="#removeEmployee" styleClass="button-standard" text="Submit" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+              </panes>
+            </Accordion>
+         </center>
+      </BorderPane>
+   </children>
+   <stylesheets>
+        <URL value="@Primary.css" />
+   </stylesheets>
+</AnchorPane>

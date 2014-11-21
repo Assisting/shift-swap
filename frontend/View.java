@@ -77,8 +77,8 @@ public class View extends Application
     
     private void beginManagerSettings() {
 	try {
-            AddEmployeePageController managerSettings = 
-		    (AddEmployeePageController) sceneTransition("AddEmployeePage.fxml");
+            ManagerSettingsController managerSettings = 
+		    (ManagerSettingsController) sceneTransition("ManagerSettings.fxml");
 	    managerSettings.setApp(instance);
         } catch (Exception e) {
             System.out.println(e.getMessage());
