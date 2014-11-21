@@ -50,8 +50,9 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
                     </items>
                   </SplitPane>
-                  <Button layoutX="297.0" layoutY="515.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" text="Update Inbox" />
-                  <Button layoutX="418.0" layoutY="515.0" mnemonicParsing="false" onAction="#onBackButtonPress" text="Send Tori Message" />
+                  <Button layoutX="197.0" layoutY="515.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" text="Update Inbox" />
+                  <Button layoutX="592.0" layoutY="515.0" mnemonicParsing="false" onAction="#onBackButtonPress" text="Back" />
+                  <Button layoutX="382.0" layoutY="515.0" mnemonicParsing="false" onAction="#onCreateNewMessageButtonPress" text="Create New Message" />
                </children>
             </AnchorPane>
         </items>

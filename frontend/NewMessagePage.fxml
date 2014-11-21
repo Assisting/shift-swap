@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.NewMessagePageController">
+   <children>
+      <TextArea layoutX="82.0" layoutY="47.0" maxHeight="20.0" prefHeight="20.0" prefWidth="466.0" />
+      <Label layoutX="348.0" layoutY="14.0" text="New Message">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" layoutY="49.0" text="Recipient" />
+      <Label fx:id="recipientDoesntExist" layoutX="599.0" layoutY="49.0" text="Recipient doesn't exist" textFill="RED" visible="false" />
+      <TextArea layoutX="18.0" layoutY="81.0" prefHeight="361.0" prefWidth="771.0" />
+      <Label fx:id="charcterLimit" layoutX="160.0" layoutY="296.0" text="Over message limit, must be less then 255 characters" textFill="RED" visible="false" />
+      <Button layoutX="305.0" layoutY="459.0" mnemonicParsing="false" onAction="#onSendButtonPress" text="Send" />
+      <Button layoutX="459.0" layoutY="459.0" mnemonicParsing="false" onAction="#onBackButtonPress" text="Back" />
+   </children>
+</AnchorPane>

@@ -279,6 +279,7 @@ public class Controller {
                         {
                             message += "From: " + messages.getString("mssgsender") + " To: " + messages.getString("mssgreciever") + " -> " + messages.getString("mssgtext") + "\n";
                         }
+                        returnResults.setMessages(message);
                         break;
                     }
                     case MANAGER_CHANGE:

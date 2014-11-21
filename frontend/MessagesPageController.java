@@ -33,8 +33,16 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     @FXML
     void onBackButtonPress() 
     {
-        instance.sendMessage("Hello, Tori!","ttori");
+        //instance.sendMessage("Hello, Tori!","ttori");
+        instance.swapToProntPage();
     }
+    
+    @FXML
+    void onCreateNewMessageButtonPress() 
+    {
+        instance.swapToNewMessage();
+    }
+
     
     @Override
     public void initialize(URL location, ResourceBundle resources) 
