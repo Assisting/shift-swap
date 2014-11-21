@@ -288,10 +288,19 @@ public class Input
      * @param username employee whose messages you want to get
      * @return Array of messages 
      */
-    public static String[] getEmployeeMessages(String username)
+    public static String getEmployeeMessages(String username)
     {
-        //TODO dont know if this is the best way, a class for the presonal messages would be better i think
-        return null;
+        Request messageRequest = Request.GetMessagesRequest(username);
+        RequestResults results = null;
+        try
+        {
+            results = controller.sendRequest(messageRequest);
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("Messages couldn't be found, error is: " + exception.getMessage());
+        }
+        return results.getMessages();
     }
     
     /**

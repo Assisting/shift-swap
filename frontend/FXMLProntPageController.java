@@ -101,20 +101,22 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
        }
     }
     
-    private void onCheckMessageButtonPress()
-    {
-        
-    }
-    
-    private void onSwapShiftButtonPress()
-    {
-        
-    }
-    
     private void updateDayHeaders(DayOfWeek day, Label header)
     {
         String temp=day.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
         header.setText(temp);
+    }
+    
+    @FXML
+    private void onCheckMessageButtonPress()
+    {
+        instance.swapToMessages();
+    }
+    
+    @FXML
+    private void onSwapShiftButtonPress()
+    {
+        
     }
     
     @FXML

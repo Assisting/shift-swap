@@ -73,6 +73,17 @@ public class View extends Application
         System.out.println("Current internal date is: "+currentDate.toString());
     }
     
+    
+    //All ways to swap between screens
+    private void beginMessages(){
+        try {
+            LoginPageController login = (LoginPageController) sceneTransition("MessagesPage.fxml");
+            login.setApp(instance);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     private void beginLogin() {
         try {
             LoginPageController login = (LoginPageController) sceneTransition("LoginPage.fxml");
@@ -121,6 +132,10 @@ public class View extends Application
     
     protected void swapToManagerSettings() {
 	beginManagerSettings();
+    }
+    
+    protected void swapToMessages(){
+        beginMessages();
     }
     
     protected LocalDate getCurrentDate()
