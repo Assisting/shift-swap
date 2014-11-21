@@ -21,6 +21,8 @@ import javafx.scene.control.TextField;
  */
 public class SwapShiftController implements Initializable
 {
+    //TODO Add back button
+    
     @FXML
     private ListView<?> yourShiftsList;
     @FXML
@@ -29,6 +31,17 @@ public class SwapShiftController implements Initializable
     private TextField daySearch;
     @FXML
     private TextField userSearch;
+    
+    /**
+     * We can use this instance to pass data back to the top level.
+     */
+    private View instance;
+    
+    public void setApp(View application){
+ 
+       
+        this.instance = application;
+    }
 
     /**
      * Initializes the controller class.
@@ -51,7 +64,12 @@ public class SwapShiftController implements Initializable
     @FXML
     private void onSearchButtonPressed(ActionEvent event)
     {
-	//
+	// Check if they are searching by day or by user
+	// If they are trying to search by both, default to by day
+	
+	// Query the database to find the shifts in question
+	
+	// Display these shifts in the available shifts list
     }
     
 }

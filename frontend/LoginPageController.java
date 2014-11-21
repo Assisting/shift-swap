@@ -40,17 +40,6 @@ public class LoginPageController extends AnchorPane implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         resultLabel.setText("Welcome to Shift Swap");
     }
-    
-    @FXML
-    public void handleEnterPressed(KeyEvent event){
-        if (event.getCode() == KeyCode.ENTER) {
-            if(instance.logIn(usernameField.getText(), passwordField.getText()) == false) 
-            {
-    	    resultLabel.setTextFill(Color.FIREBRICK);
-                resultLabel.setText("Login failed");
-    	}
-        }
-    }
 
     @FXML
     void onLoginButtonPress(ActionEvent event) 
