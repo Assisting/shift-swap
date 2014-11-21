@@ -262,6 +262,13 @@ public class Controller {
                         returnResults.setShifts(timePairs);
                         break;
                     }
+                    case SEND_MESSAGE:
+                    {
+                        Statement sendMessage = dbconnection.createStatement();
+                        sendMessage.execute(newMessageQuery(request.getSender(), request.getRecipient(), "MESSAGE: " + request.getNotification()));
+                        sendMessage.close();
+                        break;
+                    }
                     case MESSAGES:
                     {
                         Statement getMessages = dbconnection.createStatement();

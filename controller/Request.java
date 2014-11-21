@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 public class Request
 {
  
-    public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE,
+    public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE, SEND_MESSAGE,
                               CREATE, DELETE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL,
                               LOGIN, GIVELIST, MESSAGES,
                               APPROVAL_STATUS,
@@ -59,6 +59,12 @@ public static Request GetGivesListRequest()
 public static Request GetMessagesRequest(String sender)
 {
     return new Request(sender, null, null, RequestType.MESSAGES);
+}
+
+public static Request SendMessageRequest(String sender, String recipient, String message)
+{
+    Message newMessage = new Message(message, null, null, null, null, false);
+    return new Request(sender, recipient, newMessage, RequestType.SEND_MESSAGE);
 }
  
 public static Request ShiftRequest(String username) {
