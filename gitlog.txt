@@ -1,0 +1,1197 @@
+commit 1829e63e715b30b4c3f8ee23c2c472e1aa4eef88
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Nov 21 01:08:24 2014 -0600
+
+    Started on TakePage
+    
+    I'm done for the night, hope I can get more done tomorrow.
+
+commit 3863a457d3a3b035c05646d79fb4ad1ffab3a49a
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Nov 21 00:33:58 2014 -0600
+
+    Inbox mostly done
+    
+    Function in view parses messages, and sends them in a linkedList to the
+    MessagesPage, which then stuffs them into slots on the side. Need to
+    figure out how to get information on click.
+
+commit 465f41bc7d0cc386e2e6e8a24add6a95161bdf11
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Nov 20 22:54:30 2014 -0600
+
+    Can successfully send messages!
+    
+    The Compose new message page works successfully!
+
+commit 34eaaec48f4034fd5484f14f653320742abff81f
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Nov 20 22:21:22 2014 -0600
+
+    Inbox, p4
+    
+    Compose message functionality started up, transitions are working.
+
+commit fd6238179f7190098d6f8275c1ca598bb63ed57d
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Nov 20 21:17:49 2014 -0600
+
+    Inbox, p3
+    
+    Adding to ProntPage, mssgreciever :+1:
+
+commit d44da556d6c2d21e3d8d92a08d5e75d7bde02dd6
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Nov 20 21:08:48 2014 -0600
+
+    Inbox, p2
+
+commit e18c3f424d37552e41df242f78924f6dde3a9588
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Nov 20 20:43:04 2014 -0600
+
+    Inbox, p1
+    
+    In progress work on Inbox.
+
+commit 64e5768ea20caa5d7d8d1e4ec716ba72e5b4dae3
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Thu Nov 20 20:18:41 2014 -0600
+
+    Stubs
+    
+    Stubs created while doing the report
+
+commit aa0d4fceae310581eaa571e3c6865710af8c41d8
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Thu Nov 20 20:03:47 2014 -0600
+
+    Message sending functionality
+    
+    You can now send texts to people
+
+commit 19da8cb68853474f4849a0941dcc085c8951f129
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Thu Nov 20 19:49:02 2014 -0600
+
+    get AccessLevel functions for Wern
+
+commit 4e4b416cbd4299f6612c924326b4f4d1bc210461
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Thu Nov 20 18:48:02 2014 -0600
+
+    No more errors in  controller
+    
+    Please dont commit into the master with errors
+
+commit a416b6644364d65f61cc4e14b93e7c16cea9fab3
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Nov 20 18:24:51 2014 -0600
+
+    Created outline for new Messages/Inbox page
+    
+    Basic Inbox page created, can transition to it by pressing a button on
+    the FrontPage. Also built a function in Input to grab the messages using
+    the controller.
+
+commit 4553a14208e517b0300e1590524d44e55b75d195
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Nov 20 17:51:36 2014 -0600
+
+    Added buttons for our 2 new pages.
+    
+    One button to go into the shifts, another to go into the messages. Next
+    up: messages page.
+
+commit 1f5f2a454e419606346a879845808b0f7bd0e84a
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Nov 20 17:35:54 2014 -0600
+
+    Just a minor bug-fix off of Andrew's changes.
+
+commit 076ff569b45a73bb854d5c9738716e135bd9e8c6
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Nov 19 21:48:31 2014 -0600
+
+    Andrew's TODO's implemented
+    
+    mostly basic/manager functions
+
+commit 2893b6072f2ddde7605d6effa3cb82a8e78a72ff
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Nov 19 21:05:26 2014 -0600
+
+    Get Messages implemented
+    
+    Thou cans't now get thine clients messages formatted for pretty-printing
+    (though that won't actually be very useful if that's all you do with it)
+
+commit 4a29af2dededdd3d0d6119e39e215a7a9c13a60e
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Wed Nov 19 20:43:53 2014 -0600
+
+    TODO's
+    
+    Added some TODO's in requests and input while working on the Report
+
+commit 7e264cc2c05e03aa2c23e564dd44f5e617461522
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Wed Nov 19 15:54:23 2014 -0600
+
+    Get gives input function
+
+commit e1d700c16fc89111cf3f37023e2563b9520dd675
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Tue Nov 18 20:34:13 2014 -0600
+
+    getGiveList done
+    
+    such give, much list
+
+commit 0a5f4d8156ebec544b97672534d13d63c8df10a7
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Tue Nov 18 20:21:37 2014 -0600
+
+    ALL Functionality implemented
+    
+    testing required
+
+commit 4c91cf1c68e02761b314f510f8dbeae9007aa722
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Tue Nov 18 20:04:33 2014 -0600
+
+    Accept works for GIVE, GIVE implemented
+    
+    makeTrade just needs to be finished
+
+commit 540ad5c43a9d96d82685f2aab0fd3a98242d0bd0
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Tue Nov 18 19:35:34 2014 -0600
+
+    Querys
+    
+    Insert and Delete from shifts table, get data from give table
+
+commit ca49d20e29387feff209d9c94d3105e3263f73fb
+Author: knames <okenso@gmail.com>
+Date:   Mon Nov 17 18:19:06 2014 -0600
+
+    approval stuff
+    
+    added try catch and spruced up comments
+
+commit 2b49316e57a15f7a4b6c2ac5843289515fd626f5
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Mon Nov 17 18:12:58 2014 -0600
+
+    Ken help
+
+commit 415ebb51535a296a98dd6c635d0d750828875bb1
+Author: knames <okenso@gmail.com>
+Date:   Mon Nov 17 18:10:32 2014 -0600
+
+    added getshiftDAta and get shift TRanny ID
+    
+    Just need connor to fix my request because I don’t know what’s going on
+
+commit 7f3f0cf1a3cfd722bfc6ad3eafda8d0f8c1df4ab
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Mon Nov 17 16:41:32 2014 -0600
+
+    No more request ID's
+    
+    they are impossible to implement (Some work remains for Ken)
+
+commit bc01474a3cb93c4f156280d6c8f0e95ca1178429
+Author: knames <okenso@gmail.com>
+Date:   Mon Nov 17 15:44:43 2014 -0600
+
+    changes for approval sign
+    
+    changed getmanagerapproval to take the manager login
+
+commit 2e70c9ac8a58040952338b4e24600804a7c9a263
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Sun Nov 16 15:04:16 2014 -0600
+
+    Controller ready for Trade and Approve/Accept queries
+    
+    Andrew needs to add some SQL
+
+commit bed5a63a0c685cae4b9c7b52470320bf0fda39fa
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sat Nov 15 01:17:03 2014 -0600
+
+    !
+    
+    !!!!!
+
+commit 6f986cfe61aa665c9802d853784e1f14315ff724
+Author: knames <okenso@gmail.com>
+Date:   Wed Nov 12 20:49:50 2014 -0600
+
+    remove finalsign
+    
+    forgot to remove this field
+
+commit 2c437114b4c6613d0bb2f5a6628d0b2758eb4fc1
+Author: knames <okenso@gmail.com>
+Date:   Wed Nov 12 20:47:37 2014 -0600
+
+    removed stuff
+    
+    since all of the heavy lifting is done in the controller, i removed
+    redundant methods
+
+commit 5dcddad368e3be01ebb6997d46c540aeeaa56a00
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Nov 12 19:04:08 2014 -0600
+
+    Fixed runtime and more acceptance work
+
+commit 32a203565d9bc8caefd89b92f7486b5e95d16fc4
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Tue Nov 11 19:44:03 2014 -0600
+
+    Changed the transaction table and changed the update approval function
+    
+    should be what connor wanted now
+
+commit 3f598459fd031faeca89f533c204381fb2415dbc
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Tue Nov 11 15:20:45 2014 -0600
+
+    Changed database with new field called transactionID
+    
+    update DB and queries accordingly
+
+commit ee07fc2084d795f1e569a5689a6d9718cc82f8d5
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Tue Nov 11 14:13:29 2014 -0600
+
+    Added some query
+    
+    Connor, your wildest dreams have been answered (as long as they
+    were
+    very specific about getting the querys you asked for)
+
+commit b0616ef683351ec2d63762ba4621cf3684358395
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Tue Nov 11 12:50:44 2014 -0600
+
+    trade, accept, and approve work
+    
+    need sql implementations
+
+commit c551873982a411f16bd3ae2aa92501712a1d9e7b
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Mon Nov 10 12:17:47 2014 -0600
+
+    Beginning of Accept and Approve functions
+    
+    some sql needed, as well as logic
+
+commit 12b8d71086eda7b0dd2e9ea1620955740dd28d3e
+Author: knames <okenso@gmail.com>
+Date:   Sun Nov 9 21:54:15 2014 -0600
+
+    give/trade/swap
+    
+    mostly finished these functions, just require some additional requests
+
+commit 1de90f7a8ffa09007665a7373bb0e22803db1506
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sun Nov 9 21:08:54 2014 -0600
+
+    Queries, So.Many.Querys
+
+commit 27eace3e22d011e2e796ca16e23cb7a459a711dc
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Sun Nov 9 16:29:27 2014 -0600
+
+    "password change" and "update employee" implemented
+
+commit 6d63006e309417fdb72c4db1e7caf9d08f4f7408
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sun Nov 9 14:28:08 2014 -0600
+
+    MASSIVE URGENT EROOR FIXXX
+    
+    oops.
+
+commit 419b9aebf09b3df87382ca05000c307e2e97600b
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sun Nov 9 14:25:08 2014 -0600
+
+    Stubs, Querys, and Input Functions
+    
+    added a bunch of backend functions that Erik and Warren will want for
+    View work, also added some querys to the Controller and some stubs that
+    need implementing to the Request Class
+
+commit 61437ee8bf6d0f8262c0dec37273304c7a877d75
+Author: knames <okenso@gmail.com>
+Date:   Sun Nov 9 00:54:52 2014 -0600
+
+    give/trade/swap
+    
+    partially started give/trade/swap. have some TODOs for connor. Will
+    finish tomorrow and make prettier and more coherent.
+
+commit ed5eeadaf0cd712945dace4c12bca698d3bb609a
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sat Nov 8 23:30:13 2014 -0700
+
+    Finished adding new employees
+    
+    adding new employees is now working, so i am deleting the test file. I
+    had to do some messing about with the controller to get it to work, also
+    added a little bit to the CREATE case in the controller
+
+commit 4877760bfa03b3db6e7732a8e48676e5dbabef2f
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sat Nov 8 22:06:22 2014 -0600
+
+    dang it, i forgot to commit yesterday
+    
+    added a call to the controller to validate a username to create a new
+    user
+
+commit b32e9e153850eb4d8fbc602829a2b59b48e2da9d
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Sat Nov 8 12:25:30 2014 -0600
+
+    Cleaned up sendRequest()
+    
+    beginnings of trade functionality in mind
+
+commit 2ebe68d80f3dcb51906b1095c5042d26e7a94371
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Sat Nov 8 10:48:54 2014 -0600
+
+    AddEmploee functionality
+    
+    using the CreateRequest constructor
+
+commit a93f55adf0d1df323da52b228d7c1c47ee7c1f58
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 7 21:53:58 2014 -0600
+
+    Making the changes Andy requested
+
+commit 6b98b047b721e7102186051f77bf75f7f0f485e2
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 7 19:26:34 2014 -0600
+
+    It's recentred now
+
+commit fa936235de83697de63a15eefec238e911d90c41
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 7 19:21:46 2014 -0600
+
+    Sort of fixed the mysterious white border on the login page, though there is an alignment glitch now
+
+commit 3890d76d99dbec534e7345c3c0c180d7d0d046e9
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 7 18:40:20 2014 -0600
+
+    Now with 100% more relevant changes
+
+commit 22f2c64b56dcef850d7df0a9e4c2602f6de4461f
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 7 18:35:07 2014 -0600
+
+    That should be rhe CSS working fine, Andrew did a pretty bang-up job. I can't test it locally ATM due to Java 8 weirdness so let me know how it works
+
+commit 48d979e2b399554b7904d723118123955d4208bb
+Author: knames <okenso@gmail.com>
+Date:   Fri Nov 7 16:25:28 2014 -0600
+
+    Ken's plan of action for shift swapping
+    
+    contains some table info and the general process for give/take/trade.
+
+commit eac4e01cea64dd13a294ce743c829a1c1cca3a0e
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Fri Nov 7 16:08:13 2014 -0600
+
+    Shift Range query added
+
+commit b46dd41207fe7fa53c5e0f45b36b4ed62a92265e
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Fri Nov 7 15:46:42 2014 -0600
+
+    Username Validate functionality
+
+commit 7cc827b1b4eeebb722bc674fc9421474e05765ea
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Fri Nov 7 15:18:49 2014 -0600
+
+    More queries
+    
+    added a query to get the list of all the mannagers
+    (people with access level of 2)
+
+commit 7b9927b5d6c98bb78b90260e429e54c5000cad65
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Fri Nov 7 13:58:43 2014 -0600
+
+    daterange query for the controller
+
+commit e29c82042990f31a0c8beba4b167f1ac3769bade
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Wed Nov 5 20:56:17 2014 -0700
+
+    More Controller functions and etc
+    
+    added a validation query to the controller, also some tweaks to the new
+    window
+
+commit 6e61eb56e5417eb6346bdfef4e4005decc8d37b4
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Wed Nov 5 16:16:19 2014 -0700
+
+    Add New Employee Window
+    
+    Partially finished window (idk how to css and color) that is used for
+    adding a new employee to the system. Need some controller functionality
+    to finish.
+
+commit 7fa57916b811635f525a4a56a1e2d50d0230f3ac
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sun Nov 2 20:57:10 2014 -0600
+
+    Final Cleanup changes
+    
+    The Windows now look clean and slightly more professional.
+
+commit f5668e69aa4ac6847c499f8c71d1bc87aa217969
+Author: Assisting <ejl389@mail.usask.ca>
+Date:   Sun Nov 2 20:12:25 2014 -0600
+
+    Adding CSS to Calendar page
+    
+    I have no way to actually test this project since I'm in Windows right
+    now so honestly I'm just kind of hoping this works.
+
+commit 65a78f5d477c69df850a4cdd26900fb5ed9de666
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sun Nov 2 19:53:04 2014 -0600
+
+    Monthly Schedule up and running!
+    
+    Monthly Schedule now displays.
+
+commit d904d3b50dba4a5b3b12c53844cd5e1e4c68fa86
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sun Nov 2 17:57:38 2014 -0600
+
+    Weekly Headers now change according to date.
+    
+    For example, if it is currently Friday, the headers will go Fri, Sat,
+    Sun. If it is Monday, the headers will go Mon,Tue,Wed.
+
+commit 3e5f0689b21ec56f34dc8f06904f16c0339f2000
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sun Nov 2 15:31:49 2014 -0600
+
+    Minor bug fixes for Schedule grabbing.
+
+commit cba138cb81c4dea21fb330fe8599e7d6402a21e5
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sat Nov 1 23:24:17 2014 -0600
+
+    Cleaned up schedule code
+
+commit 386de4765f229782cd6ebcb6aa72deb4485c989c
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sat Nov 1 22:45:51 2014 -0600
+
+    HALLELUJAH!
+    
+    Weekly Schedule now displays, V1. I have some immediate changes to
+    populateSchedule that I want to do, but I wanted to get this up.
+
+commit 4230fb8fe7b921d200d37b819866ac3a4773e4a6
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sat Nov 1 20:04:15 2014 -0600
+
+    Fixed Controller Error
+    
+    Huzzah
+
+commit 7ca56a59ba8e616d1727333c5b352ca8159491e0
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Sat Nov 1 19:36:57 2014 -0600
+
+    Apparently timestamps
+    
+    because time of day is important!
+
+commit 91000d7821745fcb1f023f94578f997822cd6d81
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Sat Nov 1 19:34:52 2014 -0600
+
+    Dem der controller fixes
+    
+    Give 'em a try
+
+commit b8dca35796b75b2170d5f9f5a6e646f8388d1017
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sat Nov 1 19:31:58 2014 -0600
+
+    Revert "Getting schedules breaks look in View comments."
+    
+    This reverts commit a748ae00ac890faca0e9ef8a0daafdff8984f867.
+
+commit 98df5a6cb68240e0c3e607921e55f07902a4b128
+Author: knames <okenso@gmail.com>
+Date:   Sat Nov 1 18:18:10 2014 -0600
+
+    silly error
+    
+    fixed the angry error, just keep the ‘’s
+
+commit a748ae00ac890faca0e9ef8a0daafdff8984f867
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sat Nov 1 17:56:32 2014 -0600
+
+    Getting schedules breaks look in View comments.
+
+commit b4274e815201fc58a5909f508e781c528d509035
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sat Nov 1 14:47:44 2014 -0600
+
+    View date and Schedule grabbing functionality.
+    
+    Took a while to finagle with Dates, but I've got all the information
+    ready to deal with making schedules. LocalDates allow us to easily find
+    the day of week, month, and year, so they'll be easier to work with.
+
+commit f1f1677e8b1e21f9f7d1cb0b38334f5c7077fc5d
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sat Nov 1 13:04:00 2014 -0600
+
+    Cleaned out old testing files.
+    
+    Unneeded now that we have the full version of View working.
+
+commit ee3968541eee428463895430afb80b7d61ac2d54
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Sat Nov 1 13:00:17 2014 -0600
+
+    Full transitions completed.
+    
+    Program can now swap between
+    Login->ProntPage<->CalendarPage
+    with ease. Buttons are in odd positions for some reason, but they all
+    work.
+
+commit 84dc53dbb031cd0fe97e9f114da6ae22b7cfd07e
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Oct 31 20:24:59 2014 -0600
+
+    The tragedy of a missing line of code.
+    
+    No one every saw the main Stage until now.
+
+commit cad8b18cbefac4dab35d35b461ad55deac7f400a
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Oct 31 19:57:07 2014 -0600
+
+    Repatching for 2nd time
+    
+    .....
+
+commit 75d550bced42ed71afea7ead616a8eb07e06aae2
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Oct 31 19:41:02 2014 -0600
+
+    I'm an idiot
+
+commit b4933f98fcdb6c38c7f5cc6f950dcd75429d54d1
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Oct 31 19:37:09 2014 -0600
+
+    I can't make heads or tails of this particular problem in View.java
+
+commit b91ae6a27272d22f70bbfbff1f28bf3ff8a5bd66
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Oct 31 16:26:53 2014 -0600
+
+    Minor patch job to FXML file
+    
+    A merge bug repopped back up. Just needed to repatch it
+
+commit 7b8db3810cf15f2c726331904b75602ad5f7978c
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Oct 31 16:06:08 2014 -0600
+
+    Updated Pront Page
+
+commit d761b1131982a7d433affc923dbdb80d9a1384a1
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Oct 31 15:51:43 2014 -0600
+
+    Login System now fully migrated over to FXML
+
+commit 94ee5ac7bf7701c95b6a634721c5e2dae8ef8bd5
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Oct 31 15:41:01 2014 -0600
+
+    Added simple FXML page for Login screen
+    
+    Will be adding login functionality shortly.
+
+commit fe718cad71b14c564f668480c508640a9c1db53e
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Oct 30 21:38:51 2014 -0600
+
+    Cleaned up more stuff.
+    
+    Next up: linking stuff together!
+
+commit e6904e337466332368e6800b4f30c10e9c80dbac
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Oct 30 21:35:07 2014 -0600
+
+    Finally builds on my comp, maybe this did it?
+    
+    *crosses fingers*
+
+commit 3c2f1d0124adccf0c0a67ab75ab4b6a0cf227a6b
+Author: knames <okenso@gmail.com>
+Date:   Thu Oct 30 20:41:39 2014 -0600
+
+    Cured several diseases
+    
+    this error was making me mad
+
+commit e89e6c97d21df305100e04ddee324382df34d512
+Author: knames <okenso@gmail.com>
+Date:   Thu Oct 30 20:38:23 2014 -0600
+
+    clean up
+    
+    removed test connex, and non code files
+
+commit 3f41728a1a85d969e6d3a6118b709aaa9be8f0a3
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Oct 30 20:02:08 2014 -0600
+
+    Calendar page up
+    
+    Got a basic Calendar window designed. Cleaned up a few things in code
+
+commit 0c45f604e3473fb7de9deae1184713235d35c380
+Author: knames <okenso@gmail.com>
+Date:   Thu Oct 30 19:28:00 2014 -0600
+
+    pass is fixed
+    
+    I need to refactor update employee
+
+commit 06e7b081881f01a40946dcab9bfc1662ef281e2e
+Author: knames <okenso@gmail.com>
+Date:   Thu Oct 30 18:33:09 2014 -0600
+
+    more pass fix
+    
+    fix
+
+commit 8cce62a039304a80be9d87736ab98e867435b75c
+Author: knames <okenso@gmail.com>
+Date:   Thu Oct 30 18:19:58 2014 -0600
+
+    fix passwords
+    
+    fixed passbastard
+
+commit 6598c7134a8798260d5d3c44c2094e45fe5a7fe5
+Author: Assisting <erik@applied-logistics.org>
+Date:   Thu Oct 30 16:37:29 2014 -0600
+
+    Adding some of Warren's files, now begins the integration work
+
+commit bb77c095e343de1fbd713200f17baee75d70d82f
+Merge: 6ab72c5 18dfca7
+Author: Assisting <erik@applied-logistics.org>
+Date:   Thu Oct 30 15:57:21 2014 -0600
+
+    Merge branch 'master' of https://github.com/knames/shift-swap
+
+commit 18dfca782b993270c7590f294db355764634f159
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Thu Oct 30 13:11:32 2014 -0600
+
+    Added a basic mainpage.
+    
+    Haven't implemented it in our code yet, but I've rigged up a fairly
+    basic main page in fxml.
+
+commit e9fbf454ad40fae7640db07bc6cf7372aea6c1d1
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Oct 29 16:17:05 2014 -0600
+
+    Commented Byte compare
+    
+    for when we figure that shit out
+
+commit fe3a2e840bf2072a9ea5a1c4e988cd27a0557517
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Oct 29 16:09:35 2014 -0600
+
+    Login fixed
+    
+    Should be good to go for successful implement
+
+commit c2af87a9f27f72c60c4e65e8e965ce80fdbd4be6
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Oct 29 15:57:40 2014 -0600
+
+    do I have to commit before testing...?
+
+commit 22aa62ca785ef4a422414a954beb136f0d4a03ed
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Oct 29 15:49:03 2014 -0600
+
+    login testing and bugfix
+
+commit ca1a08b5ed26338c474f9d30b870ae4923f0dd4a
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Oct 29 15:19:45 2014 -0600
+
+    login fixed?
+    
+    used custom Requst functionality for login
+
+commit 35fe7cd1a524b55f27856d3b3c219b93f5baa379
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Oct 29 15:17:28 2014 -0600
+
+    Full schedule return complete
+    
+    can now receive all an employee's shifts in a Date[]
+
+commit d1c68a3ca18ea96e357a58540b4c1189a6005fd5
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Oct 29 14:52:48 2014 -0600
+
+    All custom constructors
+    
+    Such Encapsulation
+
+commit 23ce6ab2a69bdc1c0906ddda0c1ee2997eda91e7
+Author: knames <okenso@gmail.com>
+Date:   Wed Oct 29 14:16:35 2014 -0600
+
+    PAAAAAASTE BIIIINNNNNNNNNNN
+    
+    PASTEBINNNN
+
+commit 87aab7bc61b68fd0bf5ce86b9d2c19fade80baa9
+Author: knames <okenso@gmail.com>
+Date:   Wed Oct 29 14:09:33 2014 -0600
+
+    this password bastard is so ghetto
+    
+    you don’t even know
+
+commit 19b2f2b72c747ca79ea5d1800654300f823f8e9d
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Oct 29 12:55:13 2014 -0600
+
+    Beginning shift lookup function
+    
+    Requires work
+
+commit 4a4bd43cb7d0811f7da677c8ea3b6e4e094f9637
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Oct 29 12:37:06 2014 -0600
+
+    Functionality setup and login fixed
+    
+    Login will now pull down the password as a byte array and compare the
+    array cell by cell to check equality. (Requires passwords stored
+    correctly in database and in view)
+
+commit 7d6cd8e518489a723cf7efd49523ed8dbfbfc424
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Mon Oct 27 16:41:34 2014 -0600
+
+    Testing NetBeans GIT support: Created Empoyee object for new-employee creation support. Fleshed out Messages to support all known functionality
+
+commit 26003b1df690600e789ce538c8b1f0fe2b11b403
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Mon Oct 27 15:45:37 2014 -0600
+
+    Added 'Message' class and Javadoc comments
+    
+    'Request' is finalized now, hopefully
+
+commit 2c644129949a7d222efc7fbaaf82fe552043560d
+Author: knames <okenso@gmail.com>
+Date:   Wed Oct 22 21:45:41 2014 -0600
+
+    cleaned up
+    
+    removed useless files
+
+commit 2c7f7320a9e36b492d96d28257590d1259656c23
+Author: knames <okenso@gmail.com>
+Date:   Wed Oct 22 21:28:53 2014 -0600
+
+    kens milestone stuff
+    
+    will fix editing later on
+
+commit e0adfdd46eaf22ba18483a172c91c94862641d86
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Wed Oct 22 21:23:57 2014 -0600
+
+    WORD FORMAT AND ASCII MILESTONE
+    
+    read the title
+
+commit 65f212e4c96e6c8d95a354bbfd3c79bf7a0d7260
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Wed Oct 22 20:52:38 2014 -0600
+
+    Master milestone doc
+    
+    Sorry i took so long to upload, I merged Connors use cases in with it.
+
+commit 9562d9c44f856e2f83a0a18f814e1052dc592561
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Wed Oct 22 13:08:46 2014 -0600
+
+    Added my types use cases for copy/pasta into the greater document
+
+commit 6ab72c57fa2b05ac6b68e24f0e9b9d3972a0da09
+Author: Assisting <erik@applied-logistics.org>
+Date:   Tue Oct 21 17:42:15 2014 -0600
+
+    Adding shift approval fully-dressed use case
+
+commit 7e32c0b4a3620e5eea5db8184eef8dd4900e54d6
+Author: Assisting <erik@applied-logistics.org>
+Date:   Mon Oct 20 12:17:55 2014 -0600
+
+    updating passwords file to include expected SHA-256 hashes
+
+commit 02643bcbf1067ed420cec10a563bcd69c8434990
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sun Oct 19 23:18:57 2014 -0600
+
+    added more functins
+    
+    tot the controller  more query generators
+
+commit 16c70117349ebe10f5e247b7dd1611cc7b2214a5
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sun Oct 19 19:41:57 2014 -0600
+
+    added some more controller functions
+    
+    added more query generation functions
+
+commit 0ede56f090935880ba1eed20dfd179560b3e23c9
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sat Oct 18 16:58:55 2014 -0600
+
+    updating sample shift file
+    
+    so that in now includes bossmanager info and some inbox stuff
+
+commit b58d44ee82b7b30612c2eda585c99dede877a771
+Author: knames <okenso@gmail.com>
+Date:   Fri Oct 17 13:28:14 2014 -0600
+
+    Update sampleshifts.sql
+    
+    made it perty
+
+commit 17cbb5c236c0fee9c00ee930f99b968618fff912
+Author: knames <okenso@gmail.com>
+Date:   Fri Oct 17 13:23:07 2014 -0600
+
+    created sample shift file
+    
+    data entry sux
+
+commit bdda5e1ee5795e64c5607505442f354301a108d9
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Thu Oct 16 19:53:49 2014 -0600
+
+    Added function to controller
+    
+    I added a function that generates a query for a given input for the
+    login.
+
+commit 6445061b6bbb35c5497dda2f23b30a4e19161075
+Author: knames <okenso@gmail.com>
+Date:   Thu Oct 16 19:08:11 2014 -0600
+
+    minor fixes
+    
+    tinkered with Input for login, set Controller to new server empLogin
+
+commit 394ef9e884445daf11fdfa24519cbeb52906e9b6
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sat Oct 11 14:31:00 2014 -0600
+
+    Milestone4 Document
+    
+    I am starting the milestone 4 project report, There is quite a few
+    parts, and several of them have requirements like "if you are five in
+    your group, you should have at least 10" so if you could edit the doc
+    and add some stuff for yourself that would be good. I have started but
+    not exactly sure what is required
+
+commit 1f111471b93e6b9b182a5d1a9afffa7d6f335190
+Author: knames <okenso@gmail.com>
+Date:   Mon Oct 6 00:54:31 2014 -0600
+
+    hit enter for login
+    
+    Can now hit enter instead of clicking a button like a peasant. Should
+    probably be made a function that click and enter both cal;.
+
+commit d083cdfb4b55f3beedab00552087a082da5a5091
+Merge: 972abbc 7e02ae6
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Mon Oct 6 00:19:14 2014 -0600
+
+    Merge remote-tracking branch 'origin/master'
+    
+    Conflicts:
+    	controller/Controller.java
+
+commit 972abbc553e8d58b04fa5b4723526396b183a50c
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Mon Oct 6 00:13:52 2014 -0600
+
+    Login Connects to Database
+    
+    Okay guiz i made it work, the login feature works, i removed the hashing
+    because i did not want to deal with it, it was being a dumb. Connors
+    controller connects to the database, and Eriks login screen now says
+    successful if you it right
+
+commit 7e02ae6e220336e40cacebf1a628f1eb9e79204a
+Author: knames <okenso@gmail.com>
+Date:   Sun Oct 5 23:50:52 2014 -0600
+
+    lib folder
+    
+    complete with lib jar!
+
+commit 780edf9c7490bdf4119fd45bd9f0c661bae1bc54
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Sun Oct 5 23:48:52 2014 -0600
+
+    Formatting Fixes
+    
+    My code was double indented for some reason
+
+commit 0e86704785cd3236272a67f53bd48c80002b2ee1
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Sun Oct 5 22:38:42 2014 -0600
+
+    Proper connection syntax
+    
+    Need statement sending syntax still
+
+commit d483c9912830aa58227c5e18c4269c49a81dc445
+Author: knames <okenso@gmail.com>
+Date:   Sun Oct 5 22:30:04 2014 -0600
+
+    cleanup and rename
+    
+    removed excess stuff. renamed stuff. just girly things.
+
+commit 64594208bd65c401455a7f80b3e9be54b93f0842
+Author: knames <okenso@gmail.com>
+Date:   Sun Oct 5 22:25:59 2014 -0600
+
+    added working test file
+    
+    the thing we need to do as add a class path to the postgresql jar
+
+commit b127f635bc702b053ef5e6b96d0b3e9d8d4d58d9
+Author: knames <okenso@gmail.com>
+Date:   Sun Oct 5 19:20:05 2014 -0600
+
+    password hasher
+    
+    just run PasswordBastard with some arguments, it will return hashed
+    passwords on their own line
+
+commit ed3f36ad95f0d335ccd15d86b7f844837a7a8c9a
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sun Oct 5 13:23:55 2014 -0600
+
+    Getting an error
+    
+    made a comment in Login
+
+commit 8d7e659989e633159996e404a65718c0e704de23
+Author: Assisting <erik@applied-logistics.org>
+Date:   Sun Oct 5 11:05:09 2014 -0600
+
+    Fixing a failed commit
+
+commit 9a235406b67a6d62187e035ad79a00d1cffb02a5
+Author: Assisting <erik@applied-logistics.org>
+Date:   Sat Oct 4 23:12:09 2014 -0600
+
+    Now with more JAR
+
+commit da086bc1d5077b053dc640fae883e6d369121b3c
+Author: Assisting <erik@applied-logistics.org>
+Date:   Sat Oct 4 18:31:36 2014 -0600
+
+    Please work please work
+
+commit ef83065bdde018be0ee5197f1d1d8e03715e33c8
+Merge: 6c6f0b3 4b6ee25
+Author: Assisting <erik@applied-logistics.org>
+Date:   Sat Oct 4 18:30:40 2014 -0600
+
+    Merge branch 'master' of https://github.com/knames/shift-swap
+
+commit 4b6ee25ac004299afd3c8fe94eafee4af439997e
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Sat Oct 4 18:06:07 2014 -0600
+
+    Apparently java used "boolean", not "bool"
+    
+    Fixed it
+
+commit 6c6f0b369fe4702639a8ab6ab14d855b63d8dc72
+Merge: dd68f47 b95a8d9
+Author: Assisting <erik@applied-logistics.org>
+Date:   Sat Oct 4 16:37:11 2014 -0600
+
+    Merge branch 'master' of https://github.com/knames/shift-swap
+
+commit b95a8d9607311e7b9a884f6c55021bf70f51655f
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Sat Oct 4 12:44:31 2014 -0600
+
+    Fixed mention of encryption algorithm
+    
+    We use SHA-256 encryption now
+
+commit dd68f474162c9e536918e6315d5a4925fbf7acd5
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Oct 3 18:54:03 2014 -0600
+
+    Here's the GUI I've done so far. Dummy login works when password matches username
+
+commit 7a8579a65ba7a92b914a4bce9041cbdee2b2645d
+Author: knames <okenso@gmail.com>
+Date:   Fri Oct 3 18:25:56 2014 -0600
+
+    i maek fix anglish
+    
+    spelling error fix
+
+commit 96f2d403324e8d9369a8f221ed20b83fff87aefe
+Author: knames <okenso@gmail.com>
+Date:   Fri Oct 3 18:20:06 2014 -0600
+
+    Added shift table
+    
+    Added shift table, a sample view, and some test data. Need to add
+    checks to prevent overlapping shifts.
+
+commit 92920d5f530f6f517c7926bc24c994f36dc36031
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Fri Oct 3 17:38:27 2014 -0600
+
+    Presentation Power point
+    
+    I'm adding this so everyone can take a look at the presentation and add
+    stuff if necessary. Please look at the presentation outline on dropbox
+    and make sure everything is covered in the presentation.
+
+commit ea67f212f60b8ecba9d19a3716037d184053d2cb
+Author: knames <okenso@gmail.com>
+Date:   Fri Oct 3 16:33:50 2014 -0600
+
+    fixed database setup
+
+commit c92089058eb7c2f4b9674dd1656dd2eb77842db8
+Author: knames <okenso@gmail.com>
+Date:   Fri Oct 3 16:32:04 2014 -0600
+
+    server/pass fix
+    
+    updated server to new one, set correct pass.
+
+commit e0bcda09c7b349723b5bc14a27b05e1a5f534698
+Author: knames <okenso@gmail.com>
+Date:   Fri Oct 3 15:53:27 2014 -0600
+
+    fixed file extension
+
+commit cd602b934d3baf2ac4998be77ff89fd6cf0ebfdc
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Thu Oct 2 15:22:15 2014 -0600
+
+    Added controller support for login
+    
+    WOOOOOOOOOO!!!!!
+
+commit b602ef12ed8e07d3918e4ffd25d6f7a50305c88f
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Wed Oct 1 13:23:54 2014 -0600
+
+    Update databaseSetup.txt
+    
+    added the table necessary for doing the Toy Prototype. some other misc stuff is there too, but dont worry about it.
+
+commit 2ed3d3be09130d15e6a038ba7690fc8360ba325d
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Wed Oct 1 12:33:23 2014 -0600
+
+    Create databaseSetup.txt
+    
+    All the tables are going to be defined and created in this file, which will just have to be run on the database
+
+commit edeb83d375f834e1de9348b9490dfd41b11215d4
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Sun Sep 14 16:56:38 2014 -0600
+
+    I dont know if this will work, so im trying to push from eclipse
+
+commit 5828843a48169cc7683846096f72f62f9690a79c
+Author: knames <okenso@gmail.com>
+Date:   Tue Sep 9 16:38:31 2014 -0600
+
+    added link to Wiki Main and Minutes
+    
+    dat title doe
+
+commit c79be3b5beb7749833538d41d3a71795fe273424
+Author: knames <okenso@gmail.com>
+Date:   Tue Sep 9 16:35:42 2014 -0600
+
+    Removed minutes, see wiki
+    
+    Created a wiki to host all of our minutes
+
+commit b2a308bfb5e808b074c05131822b7d31e573ba26
+Author: knames <okenso@gmail.com>
+Date:   Tue Sep 9 15:27:26 2014 -0600
+
+    Create minutes_sep8
+    
+    just added up the minutes. I still need to get Connor and Warrens git name
+
+commit 802d0c6d2922b6658f4e6e20f0b20cc708cbc05e
+Author: knames <okenso@gmail.com>
+Date:   Tue Sep 9 15:24:23 2014 -0600
+
+    Initial commit

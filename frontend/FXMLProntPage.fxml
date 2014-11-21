@@ -77,8 +77,8 @@
                               <TextArea fx:id="day6Schedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <Button layoutX="218.0" layoutY="174.0" mnemonicParsing="false" onAction="#onMonthlySchedulePress" styleClass="button-standard" text="View Monthly Schedule" />
-                        <Button layoutX="376.0" layoutY="174.0" mnemonicParsing="false" onAction="#onScheduleUpdateButtonPress" text="Check Schedule" />
+                        <Button layoutX="211.0" layoutY="173.0" mnemonicParsing="false" onAction="#onMonthlySchedulePress" styleClass="button-standard" text="View Monthly Schedule" />
+                        <Button layoutX="385.0" layoutY="173.0" mnemonicParsing="false" onAction="#onScheduleUpdateButtonPress" styleClass="button-standard" text="Check Schedule" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -87,7 +87,7 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <Button layoutX="126.0" layoutY="48.0" mnemonicParsing="false" onAction="#onCheckMessageButtonPress" text="Check Messages" />
+                                    <Button layoutX="123.0" layoutY="46.0" mnemonicParsing="false" onAction="#onCheckMessageButtonPress" text="Check Messages" />
                                     <Button layoutX="139.0" layoutY="156.0" mnemonicParsing="false" onAction="#onSwapShiftButtonPress" text="Swap Shifts" />
                                     <Button layoutX="112.0" layoutY="99.0" mnemonicParsing="false" onAction="#onCheckAvailableShiftsPress" text="Check Available Shifts" />
                                  </children>
@@ -96,7 +96,7 @@
                                  <children>
                                     <Pane layoutX="41.0" layoutY="14.0" prefHeight="310.0" prefWidth="354.0" styleClass="background-standard" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Hyperlink fx:id="addEmployeeButton" layoutX="14.0" layoutY="14.0" onAction="#onAddEmployeeButtonPress" text="Add Employee" />
+                                          <Hyperlink fx:id="addEmployeeButton" layoutX="14.0" layoutY="14.0" onAction="#onAddEmployeeButtonPress" text="Manager Settings" />
                                        </children>
                                     </Pane>
                                  </children>
