@@ -15,8 +15,8 @@
                   <Label layoutX="189.0" layoutY="206.0" styleClass="label-standard" text="Username" />
                   <Label layoutX="189.0" layoutY="246.0" styleClass="label-standard" text="Password" />
                   <Label fx:id="resultLabel" layoutX="321.0" layoutY="288.0" />
+                  <PasswordField fx:id="passwordField" layoutX="261.0" layoutY="241.0" onKeyPressed="#onLoginButtonPress" />
                   <Button fx:id="loginButton" layoutX="452.0" layoutY="241.0" mnemonicParsing="false" onAction="#onLoginButtonPress" styleClass="button-standard" text="Enter" />
-                  <PasswordField fx:id="passwordField" layoutX="261.0" layoutY="241.0" />
                   <Label layoutX="189.0" layoutY="132.0" styleClass="title" text="Log In" />
                </children>
             </AnchorPane>

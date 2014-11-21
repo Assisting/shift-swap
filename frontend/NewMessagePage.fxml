@@ -4,25 +4,49 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.NewMessagePageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../../../../../cmpt/shift-swap/source/frontend/Primary.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.NewMessagePageController">
    <children>
-      <TextArea fx:id="recipientField" layoutX="82.0" layoutY="47.0" maxHeight="20.0" prefHeight="20.0" prefWidth="466.0" />
-      <Label layoutX="348.0" layoutY="14.0" text="New Message">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="20.0" layoutY="49.0" text="Recipient" />
-      <Label fx:id="recipientDoesntExist" layoutX="599.0" layoutY="49.0" text="Recipient doesn't exist" textFill="RED" visible="false" />
-      <TextArea fx:id="messageField" layoutX="18.0" layoutY="81.0" prefHeight="361.0" prefWidth="771.0" />
-      <Label fx:id="characterLimit" layoutX="260.0" layoutY="533.0" text="Over message limit, must be less then 255 characters" textFill="RED" visible="false" />
-      <Button layoutX="305.0" layoutY="459.0" mnemonicParsing="false" onAction="#onSendButtonPress" text="Send" />
-      <Button layoutX="459.0" layoutY="459.0" mnemonicParsing="false" onAction="#onBackButtonPress" text="Back" />
-      <Label fx:id="successField" layoutX="330.0" layoutY="505.0" text="Message sent successfully!" textFill="#74ff00" visible="false">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
+      <BorderPane prefHeight="600.0" prefWidth="800.0">
+         <center>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="720.0" styleClass="background-standard" BorderPane.alignment="CENTER">
+               <children>
+                  <TextArea fx:id="recipientField" layoutX="97.0" layoutY="71.0" maxHeight="20.0" prefHeight="20.0" prefWidth="466.0" />
+                  <Label layoutX="240.0" layoutY="14.0" styleClass="title" text="New Message">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="22.0" layoutY="74.0" styleClass="label-standard" text="Recipient" />
+                  <Label fx:id="recipientDoesntExist" layoutX="599.0" layoutY="49.0" text="Recipient doesn't exist" textFill="RED" visible="false" />
+                  <TextArea fx:id="messageField" layoutX="10.0" layoutY="107.0" prefHeight="361.0" prefWidth="700.0" />
+                  <Label fx:id="characterLimit" layoutX="260.0" layoutY="533.0" text="Over message limit, must be less then 255 characters" textFill="RED" visible="false" />
+                  <Button layoutX="258.0" layoutY="480.0" mnemonicParsing="false" onAction="#onSendButtonPress" styleClass="button-standard" text="Send" />
+                  <Button layoutX="412.0" layoutY="480.0" mnemonicParsing="false" onAction="#onBackButtonPress" styleClass="button-standard" text="Back" />
+                  <Label fx:id="successField" layoutX="330.0" layoutY="505.0" text="Message sent successfully!" textFill="#74ff00" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </center>
+         <top>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </top>
+         <left>
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
    </children>
+   <stylesheets>
+        <URL value="@Primary.css" />
+   </stylesheets>
 </AnchorPane>

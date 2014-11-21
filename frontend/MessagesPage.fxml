@@ -4,58 +4,84 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.MessagesPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.MessagesPageController">
    <children>
-      <SplitPane dividerPositions="0.0903010033444816" layoutX="328.0" layoutY="141.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+      <BorderPane prefHeight="600.0" prefWidth="800.0">
+         <center>
+            <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="371.0" layoutY="8.0" text="Inbox">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <SplitPane dividerPositions="0.2675879396984925" layoutX="299.0" layoutY="191.0" prefHeight="508.0" prefWidth="798.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.0903010033444816" layoutX="328.0" layoutY="141.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background-standard">
                            <children>
-                              <ListView fx:id="inboxGrid" layoutX="5.0" layoutY="71.0" prefHeight="506.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children></AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                              <Label layoutX="311.0" styleClass="title" text="Inbox">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background-standard">
                            <children>
-                              <SplitPane dividerPositions="0.08928571428571429" layoutX="210.0" layoutY="123.0" orientation="VERTICAL" prefHeight="506.0" prefWidth="580.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <SplitPane dividerPositions="0.2675879396984925" layoutX="299.0" layoutY="191.0" prefHeight="508.0" prefWidth="798.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <Label layoutX="14.0" layoutY="11.0" text="Sender:">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextArea fx:id="senderField" editable="false" layoutX="76.0" layoutY="-89.0" prefHeight="42.0" prefWidth="502.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <ListView fx:id="inboxGrid" layoutX="5.0" layoutY="71.0" prefHeight="506.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <TextArea fx:id="messageArea" editable="false" layoutX="189.0" layoutY="117.0" prefHeight="456.0" prefWidth="578.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <SplitPane dividerPositions="0.08928571428571429" layoutX="210.0" layoutY="123.0" orientation="VERTICAL" prefHeight="506.0" prefWidth="580.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <items>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background-standard">
+                                                   <children>
+                                                      <Label layoutX="14.0" layoutY="11.0" styleClass="label-standard" text="Sender:">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextArea fx:id="senderField" editable="false" layoutX="76.0" layoutY="-89.0" prefHeight="42.0" prefWidth="502.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                   <children>
+                                                      <TextArea fx:id="messageArea" editable="false" layoutX="189.0" layoutY="117.0" prefHeight="456.0" prefWidth="578.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                            </items>
+                                          </SplitPane>
                                        </children>
                                     </AnchorPane>
                                 </items>
                               </SplitPane>
-                           </children></AnchorPane>
+                              <Button layoutX="199.0" layoutY="438.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" styleClass="button-standard" text="Update Inbox" />
+                              <Button layoutX="469.0" layoutY="438.0" mnemonicParsing="false" onAction="#onBackButtonPress" styleClass="button-standard" text="Back" />
+                              <Button layoutX="309.0" layoutY="438.0" mnemonicParsing="false" onAction="#onCreateNewMessageButtonPress" styleClass="button-standard" text="Create New Message" />
+                           </children>
+                        </AnchorPane>
                     </items>
                   </SplitPane>
-                  <Button layoutX="197.0" layoutY="515.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" text="Update Inbox" />
-                  <Button layoutX="592.0" layoutY="515.0" mnemonicParsing="false" onAction="#onBackButtonPress" text="Back" />
-                  <Button layoutX="382.0" layoutY="515.0" mnemonicParsing="false" onAction="#onCreateNewMessageButtonPress" text="Create New Message" />
                </children>
             </AnchorPane>
-        </items>
-      </SplitPane>
+         </center>
+         <top>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </top>
+         <left>
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
    </children>
+   <stylesheets>
+        <URL value="@Primary.css" />
+   </stylesheets>
 </AnchorPane>
