@@ -277,7 +277,7 @@ public class Controller {
                         String message = "";
                         while (messages.next())
                         {
-                            message += "From: " + messages.getString("msgsender") + " To: " + messages.getString("msgreceiver") + " -> " + messages.getString("msgtext") + "\n";
+                            message += "From: " + messages.getString("mssgsender") + " To: " + messages.getString("mssgreceiver") + " -> " + messages.getString("mssgtext") + "\n";
                         }
                         break;
                     }

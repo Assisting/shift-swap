@@ -306,7 +306,7 @@ public class View extends Application
     
     protected boolean sendMessage(String message, String recipient)
     {
-        if(Input.isUsernameUnique(recipient))
+        if(!Input.isUsernameUnique(recipient))
         {
             Input.sendMessage(userID,recipient,message);
             return true;

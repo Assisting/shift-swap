@@ -33,7 +33,7 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     @FXML
     void onBackButtonPress() 
     {
-        instance.sendMessage("ttori","Hello, Tori!");
+        instance.sendMessage("Hello, Tori!","ttori");
     }
     
     @Override
