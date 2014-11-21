@@ -1,5 +1,6 @@
 package frontend;
 
+import controller.Employee;
 import controller.Shift;
 import java.io.InputStream;
 import javafx.application.Application;
@@ -401,6 +402,41 @@ public class View extends Application
         curStage.setScene(scene);
         curStage.sizeToScene();
         return (Initializable) loader.getController();
+    }
+    
+    public void addEmployee(String ID, String firstName, String lastName,
+	    String password, String email, float wage)
+    {
+	Employee newEmployee = new Employee(ID, firstName, lastName, 1,
+		Input.createHash(password), email, wage);
+	
+	Input.addNewEmployee(newEmployee);
+    }
+    
+    public void modifyEmployee(String ID, String firstName, String lastName,
+	    String email, float wage)
+    {
+	Input.modifyEmployeeInfo(ID, firstName, lastName, email, 1, wage);
+    }
+    
+    public void changeAccessLevel(String ID, int accessLevel)
+    {
+	Input.changeEmployeeAccessLevel(ID, accessLevel);
+    }
+    
+    public void setManager(String employee, String manager)
+    {
+	Input.changeEmployeesManager(employee, manager);
+    }
+    
+    public void setPassword(String employee, String password)
+    {
+	Input.changeEmployeePassword(employee, password);
+    }
+    
+    public void removeEmployee(String employee)
+    {
+	Input.removeEmployee(employee);
     }
     
     /**

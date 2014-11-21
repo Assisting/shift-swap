@@ -105,16 +105,9 @@ public class ManagerSettingsController implements Initializable
     @FXML
     private void processNewEmployee(ActionEvent event)
     {
-	// TODO check that 1 is the access level for a worker
-	Employee newEmployee = new Employee(newEmpID.getText(),
-					   newEmpFirstName.getText(),
-					   newEmpLastName.getText(),
-					   1,
-					   Input.createHash(newEmpPass.getText()),
-					   newEmpEmail.getText(),
-					   Float.parseFloat(newEmpWage.getText()));
-	
-	Input.addNewEmployee(newEmployee);
+	instance.addEmployee(newEmpID.getText(), newEmpFirstName.getText(),
+		newEmpLastName.getText(), newEmpPass.getText(),
+		newEmpEmail.getText(), Float.parseFloat(newEmpWage.getText()));
     }
 
     /**
@@ -124,11 +117,10 @@ public class ManagerSettingsController implements Initializable
     @FXML
     private void modifyEmployee(ActionEvent event)
     {
-	Input.modifyEmployeeInfo(modEmpID.getText(),
+	instance.modifyEmployee(modEmpID.getText(),
 		modEmpFirstName.getText(),
 		modEmpLastName.getText(),
 		modEmpEmail.getText(),
-		1, 
 		Float.parseFloat(modEmpWage.getText()));
     }
 
@@ -146,13 +138,13 @@ public class ManagerSettingsController implements Initializable
 	    e.printStackTrace();
 	}
 	
-	Input.changeEmployeeAccessLevel(modAccessID.getText(), newAccessLevel);
+	instance.changeAccessLevel(modAccessID.getText(), newAccessLevel);
     }
 
     @FXML
     private void setEmployeeManager(ActionEvent event)
     {
-	Input.changeEmployeesManager(setManagerEmployee.getText(),
+	instance.setManager(setManagerEmployee.getText(),
 		setManagerManager.getText());
     }
 
@@ -164,7 +156,7 @@ public class ManagerSettingsController implements Initializable
 	if(proposedPassword == setPasswordConfirm.getText()) {
 	    setPasswordConfirmation.setText("");
 	    
-	    Input.changeEmployeePassword(setPasswordID.getText(),
+	    instance.setPassword(setPasswordID.getText(),
 		    proposedPassword);
 	}
 	else {
@@ -176,7 +168,7 @@ public class ManagerSettingsController implements Initializable
     @FXML
     private void removeEmployee(ActionEvent event)
     {
-	Input.removeEmployee(removeEmployeeID.getText());
+	instance.removeEmployee(removeEmployeeID.getText());
     }
     
     private int getModAccessLevelSelection() throws IllegalArgumentException
