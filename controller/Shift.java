@@ -57,4 +57,12 @@ public class Shift{
     {
         return shiftEndTime;
     }
+    
+    @Override
+    public String toString()
+    {
+        String slate=employeeLogin+shiftStartTime.toString().substring(0, 16)+
+                " - "+shiftEndTime.toString().substring(0, 16);
+        return slate;
+    }
 }
