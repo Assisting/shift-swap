@@ -385,6 +385,38 @@ public class Input
         //TODO
     }
     
+    /** requests the worker info given a login
+     * @param login the login of the employee
+     */
+   public static void getWorkerInfo (String login){
+	   //TODO need request for this
+       Request getInfo = Request.GetUserInfoRequest(login);
+       try
+       {
+           controller.sendRequest(getInfo);
+       }
+       catch(SQLException exception)
+       {
+           System.out.println("Message couldn't be sent, error is: " + exception.getMessage());
+       }
+   }
+   
+   /** requests worker login(s) based on first and last name
+    * @param firstName the first name of the employee
+    * @param lastName the last name of the emploee */
+   public static void getWorkerLogin (String firstName, String lastName){
+	   //TODO need request for this
+	   Request getLogin = Request.GetUserLoginRequest(firstName, lastName);
+       try
+       {
+           controller.sendRequest(getLogin);
+       }
+       catch(SQLException exception)
+       {
+           System.out.println("Message couldn't be sent, error is: " + exception.getMessage());
+       }
+   }
+    
     
     
     

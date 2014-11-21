@@ -1,5 +1,6 @@
 package frontend;
 
+import controller.Shift;
 import java.io.InputStream;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -341,6 +342,19 @@ public class View extends Application
         }
       
         return inbox;
+    }
+    
+    protected LinkedList<Shift> grabGiveShifts()
+    {
+        Shift[] shifts=Input.getGiveList();
+        LinkedList<Shift> shiftList= new LinkedList<Shift>();
+        int i=0;
+        while(i<shifts.length)
+        {
+            shiftList.add(shifts[i]);
+        }
+        
+        return shiftList;
     }
     
     protected boolean sendMessage(String message, String recipient)

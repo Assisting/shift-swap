@@ -20,6 +20,7 @@ public class RequestResults {
     private String[] names;
     private String messages;
     private int accessLevel;
+    private Employee employee;
     
     public RequestResults() {
         
@@ -91,6 +92,20 @@ public class RequestResults {
      */
     public void setAccessLevel(int accessLevel) {
         this.accessLevel = accessLevel;
+    }
+
+    /**
+     * @return the employee
+     */
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    /**
+     * @param employee the employee to set
+     */
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
     
 }

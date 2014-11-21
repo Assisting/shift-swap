@@ -223,6 +223,14 @@ public class Controller {
                         userValidateRequest.close();
                         break;
                     }
+                    case USER_INFO:
+                    {
+                        Statement userInfo = dbconnection.createStatement();
+                        ResultSet results = userInfo.executeQuery(getWorkerInfoQuery(request.getSender()));
+                        returnResults = new RequestResults();
+                        Employee employee = new Employee(request.getSender(), results.getString("empfirstname"), results.getString("emplastname"), results.getInt("empaccesslevel"), null, results.getString("empemail"), results.getFloat("empwage"));
+                        returnResults.setEmployee(employee);
+                    }
                     case SHIFT_RANGE:
                     {
                         Statement shiftRangeRequest = dbconnection.createStatement();
@@ -247,14 +255,24 @@ public class Controller {
                     {
                         Statement getGives = dbconnection.createStatement();
                         ResultSet gives = getGives.executeQuery(getAllGiveRecords());
-                        String[] names = new String[gives.getRow()];
-                        Timestamp[] timePairs = new Timestamp[gives.getRow()*2];
+                        String[] names;
+                        Timestamp[] timePairs;
+                        if (gives.last())
+                        {
+                            names = new String[gives.getRow()];
+                            timePairs = new Timestamp[gives.getRow()*2];
+                        }
+                        else
+                            return null;
+                        gives.beforeFirst();
+                        
                         int i = 0;
                         while (gives.next())
                         {
                             names[i] = gives.getString("giverlogin");
                             timePairs[i*2] = gives.getTimestamp("givershiftstart");
                             timePairs[i*2+1] = gives.getTimestamp("givershiftend");
+                            i++;
                         }
                         gives.close();
                         returnResults = new RequestResults();
@@ -402,11 +420,19 @@ public class Controller {
      */
     private String getWorkerInfoQuery(String LoginID)
     {
-
         return "SELECT empfirstname, emplastname, empaccesslevel,"
-                + " emplogin, emppassword, empemail, empmanager "
+                + " emplogin, emppassword, empemail, empmanager, empwage"
                 + "FROM full_employee_info"
                 + " WHERE emplogin = '" + LoginID + "'";
+    }
+    
+    /** return the employee login(s) based on first and lastname
+     * @param firstName the first name of the employee
+     * @param lastName the last name of the employee
+     * @return emplogin(s, if multiple). */
+    private String getEmployeeLogin(String firstName, String lastName){
+    	return "SELECT emplogin from full_employee_info where empfirstname = '" 
+    			+ firstName + "' AND emplastname = '" + lastName + "';";
     }
 
     /**
