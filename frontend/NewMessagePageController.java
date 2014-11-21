@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -17,7 +18,16 @@ public class NewMessagePageController extends AnchorPane implements Initializabl
     private Label recipientDoesntExist;
 
     @FXML
-    private Label charcterLimit;
+    private TextArea messageField;
+    
+    @FXML
+    private Label characterLimit;
+    
+    @FXML
+    private TextArea recipientField;
+
+    @FXML
+    private Label successField;
 
     private View instance;
     
@@ -26,8 +36,28 @@ public class NewMessagePageController extends AnchorPane implements Initializabl
     }
     
     @FXML
-    void onSendButtonPress() {
-
+    void onSendButtonPress() 
+    {
+        String message=messageField.getText();
+        if(message.length()>255)//If message is over character limit
+        {
+            characterLimit.setVisible(true);
+            successField.setVisible(false);
+        }
+        else if(!instance.sendMessage(message,recipientField.getText()))//If user is not in system
+        {
+            recipientDoesntExist.setVisible(true);
+            successField.setVisible(false);
+        }
+        else
+        {
+            successField.setVisible(true);
+            recipientDoesntExist.setVisible(false);
+            characterLimit.setVisible(false);
+            messageField.setText("");
+            recipientField.setText("");   
+        }
+        
     }
 
     @FXML
@@ -39,7 +69,7 @@ public class NewMessagePageController extends AnchorPane implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
-        
+
     }
     
 }
