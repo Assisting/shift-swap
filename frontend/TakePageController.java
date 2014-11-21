@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 
@@ -26,12 +27,16 @@ public class TakePageController extends AnchorPane implements Initializable
     private View instance;
     
     LinkedList<Shift> shiftList;
+    private int  currentIndex;
     
     @FXML
     private ListView<String> shiftGrid;
     
     @FXML
     private TextArea shiftHeader;
+    
+    @FXML
+    private Button takeButton;
     
     public void setApp(View application){
         this.instance = application;
@@ -47,22 +52,23 @@ public class TakePageController extends AnchorPane implements Initializable
          updateShifts();
     }
     
+    @FXML
+    void onTakeButtonPress() {
+
+    }
+    
     void updateShifts(){
         shiftGrid.setItems(grabShifts());
         shiftGrid.getSelectionModel().selectedItemProperty().addListener(
-            (observable, oldValue, newValue) -> populateMessage(newValue));
+            (observable, oldValue, newValue) -> populateMessage(shiftGrid.getSelectionModel().getSelectedIndex()));
     }
     
-    private void populateMessage(String message)
+    private void populateMessage(int index)
     {
-        if(message==null)
-        {
-            shiftHeader.setText("");
-        }
-        else
-        {
-           shiftHeader.setText(message);
-        }
+        takeButton.setDisable(false);
+        takeButton.setVisible(true);
+        currentIndex=index;
+        shiftHeader.setText("Shift is from: "+shiftList.get(index).toString());
     }
     
     private ObservableList<String> grabShifts()
