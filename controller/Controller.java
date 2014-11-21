@@ -223,6 +223,14 @@ public class Controller {
                         userValidateRequest.close();
                         break;
                     }
+                    case USER_INFO:
+                    {
+                        Statement userInfo = dbconnection.createStatement();
+                        ResultSet results = userInfo.executeQuery(getWorkerInfoQuery(request.getSender()));
+                        returnResults = new RequestResults();
+                        Employee employee = new Employee(request.getSender(), results.getString("empfirstname"), results.getString("emplastname"), results.getInt("empaccesslevel"), null, results.getString("empemail"), results.getFloat("empwage"));
+                        returnResults.setEmployee(employee);
+                    }
                     case SHIFT_RANGE:
                     {
                         Statement shiftRangeRequest = dbconnection.createStatement();

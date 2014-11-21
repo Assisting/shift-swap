@@ -17,7 +17,7 @@ public class Request
 {
  
     public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE, SEND_MESSAGE,
-                              CREATE, DELETE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL,
+                              CREATE, DELETE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL, USER_INFO,
                               LOGIN, GIVELIST, MESSAGES,
                               APPROVAL_STATUS,
                               SCHEDULE, SHIFT_RANGE, ADD, REMOVE }
@@ -170,6 +170,11 @@ public static Request ChangeAccessLevelRequest(String username, int newAccesslev
 public static Request GetAccessLevelRequest(String username)
 {
     return new Request(username, null, null, RequestType.ACCESS_LEVEL);
+}
+
+public static Request GetUserInfoRequest(String username)
+{
+    return new Request(username, null, null, RequestType.USER_INFO);
 }
 
 /**
