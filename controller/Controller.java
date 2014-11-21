@@ -217,7 +217,8 @@ public class Controller {
                     {
                         Statement userValidateRequest= dbconnection.createStatement();
                         ResultSet results = userValidateRequest.executeQuery(this.usernameValidityQuery(request.getSender()));
-                        results.next();
+                        if (!results.next())
+                            return null;
                         returnResults = new RequestResults();
                         returnResults.setApproved(results.getBoolean("isfound"));
                         userValidateRequest.close();
@@ -227,13 +228,24 @@ public class Controller {
                     {
                         Statement userInfo = dbconnection.createStatement();
                         ResultSet results = userInfo.executeQuery(getWorkerInfoQuery(request.getSender()));
+                        if (!results.next())
+                            return null;
                         returnResults = new RequestResults();
                         Employee employee = new Employee(request.getSender(), results.getString("empfirstname"), results.getString("emplastname"), results.getInt("empaccesslevel"), null, results.getString("empemail"), results.getFloat("empwage"));
                         returnResults.setEmployee(employee);
                     }
+                    case GET_USERNAME:
+                    {
+                        Statement username = dbconnection.createStatement();
+                        ResultSet results = username.executeQuery(getEmployeeLogin(request.getSender(), request.getRecipient()));
+                        if (!results.next())
+                            return null;
+                        returnResults = new RequestResults();
+                        returnResults.setMessages(results.getString("emplogin"));
+                    }
                     case SHIFT_RANGE:
                     {
-                        Statement shiftRangeRequest = dbconnection.createStatement();
+                        Statement shiftRangeRequest = dbconnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                         ResultSet results = shiftRangeRequest.executeQuery(this.dateRangeShiftQuery(request.getShifts()[0], request.getShifts()[1], request.getSender()));
                         Timestamp[] resultsList = tabulateShifts(results);
                         returnResults = new RequestResults();
@@ -253,7 +265,7 @@ public class Controller {
                     }
                     case GIVELIST:
                     {
-                        Statement getGives = dbconnection.createStatement();
+                        Statement getGives = dbconnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                         ResultSet gives = getGives.executeQuery(getAllGiveRecords());
                         String[] names;
                         Timestamp[] timePairs;

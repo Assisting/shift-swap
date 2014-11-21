@@ -17,7 +17,7 @@ public class Request
 {
  
     public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE, SEND_MESSAGE,
-                              CREATE, DELETE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL, USER_INFO,
+                              CREATE, DELETE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL, USER_INFO, GET_USERNAME,
                               LOGIN, GIVELIST, MESSAGES,
                               APPROVAL_STATUS,
                               SCHEDULE, SHIFT_RANGE, ADD, REMOVE }
@@ -213,6 +213,11 @@ public static Request changeManagerApprovalStatusRequest(String manager, boolean
 {
     Message message = new Message(null, null, null, null, manager, wantToApprove);
     return new Request(null, null, message, RequestType.APPROVAL_STATUS);
+}
+
+public static Request GetUserLoginRequest(String first, String last)
+{
+    return new Request(first, last, null, RequestType.GET_USERNAME);
 }
  
 //-----Getters and Setters----------------------------------------
