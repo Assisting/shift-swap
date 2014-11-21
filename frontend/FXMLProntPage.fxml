@@ -85,11 +85,11 @@
                      <children>
                         <SplitPane dividerPositions="0.5" layoutX="199.0" layoutY="40.0" prefHeight="239.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background-standard">
                                  <children>
-                                    <Button layoutX="123.0" layoutY="46.0" mnemonicParsing="false" onAction="#onCheckMessageButtonPress" text="Check Messages" />
-                                    <Button layoutX="139.0" layoutY="156.0" mnemonicParsing="false" onAction="#onSwapShiftButtonPress" text="Swap Shifts" />
-                                    <Button layoutX="112.0" layoutY="99.0" mnemonicParsing="false" onAction="#onCheckAvailableShiftsPress" text="Check Available Shifts" />
+                                    <Button layoutX="49.0" layoutY="40.0" mnemonicParsing="false" onAction="#onCheckMessageButtonPress" styleClass="button-standard" text="Check Messages" />
+                                    <Button layoutX="49.0" layoutY="118.0" mnemonicParsing="false" onAction="#onSwapShiftButtonPress" styleClass="button-standard" text="Swap Shifts" />
+                                    <Button layoutX="49.0" layoutY="79.0" mnemonicParsing="false" onAction="#onCheckAvailableShiftsPress" styleClass="button-standard" text="Check Available Shifts" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

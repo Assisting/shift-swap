@@ -116,7 +116,7 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     @FXML
     private void onSwapShiftButtonPress()
     {
-        
+        instance.swapToShiftSwapSwapShift();
     }
     
     @FXML

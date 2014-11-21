@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.SwapShiftController">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="800.0">
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background-standard" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="258.0" layoutY="14.0" styleClass="title" text="Swap Shifts" />
+                  <ListView fx:id="yourShiftsList" layoutX="58.0" layoutY="95.0" prefHeight="325.0" prefWidth="251.0" />
+                  <Label layoutX="58.0" layoutY="72.0" styleClass="label-standard" text="Your Shifts" />
+                  <ListView fx:id="availShiftsList" layoutX="415.0" layoutY="98.0" prefHeight="325.0" prefWidth="251.0" />
+                  <Label layoutX="415.0" layoutY="72.0" styleClass="label-standard" text="Available Shifts" />
+                  <Label layoutX="69.0" layoutY="439.0" text="Search by Day" />
+                  <Button layoutX="333.0" layoutY="245.0" mnemonicParsing="false" onAction="#onPressSwap" styleClass="button-standard" text="Swap" />
+                  <Label layoutX="67.0" layoutY="471.0" text="Search by User" />
+                  <TextField fx:id="daySearch" layoutX="190.0" layoutY="434.0" />
+                  <TextField fx:id="userSearch" layoutX="190.0" layoutY="466.0" />
+                  <Button layoutX="415.0" layoutY="466.0" mnemonicParsing="false" onAction="#onSearchButtonPressed" styleClass="button-standard" text="Search" />
+               </children>
+            </AnchorPane>
+         </center>
+         <top>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </top>
+         <left>
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </children>
+   <stylesheets>
+        <URL value="@Primary.css" />
+   </stylesheets>
+</AnchorPane>

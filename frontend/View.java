@@ -125,6 +125,16 @@ public class View extends Application
         }
     }
     
+    private void beginSwapShift()
+    {
+	try {
+            SwapShiftController swapShift = (SwapShiftController) sceneTransition("SwapShift.fxml");
+            swapShift.setApp(instance);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     /*Checks if the login credentials are true, and if they are, changes to the main page.
     * Otherwise, it returns false, and passes the result back to the login screen.
     */
@@ -145,6 +155,11 @@ public class View extends Application
     protected void swapToCalendar()
     {
         beginCalendar();
+    }
+    
+    protected void swapToShiftSwapSwapShift()
+    {
+	beginSwapShift();
     }
     
     protected void swapToTakeShift()
