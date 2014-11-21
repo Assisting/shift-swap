@@ -312,10 +312,21 @@ public class View extends Application
     {
         String input=Input.getEmployeeMessages(userID);
         LinkedList<String> inbox = new LinkedList<String>();
-        
-        
-                
-        return null;
+        String partial;
+        int i=0;
+        int stringStart=0;
+        while(i<input.length())
+        {
+            if(input.charAt(i)=='\n')
+            {
+                partial=input.substring(stringStart, i);
+                inbox.add(partial);
+                stringStart=i+1;
+            }
+            i=i+1;
+        }
+      
+        return inbox;
     }
     
     protected boolean sendMessage(String message, String recipient)
