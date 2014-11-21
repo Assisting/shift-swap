@@ -72,8 +72,21 @@ public class TakePageController extends AnchorPane implements Initializable
         int i=0;
         while(i<shiftList.size())
         {
-            String stuff;
-            shiftData.add(shiftList.get(i).toString());
+            String entry=shiftList.get(i).toString();
+            
+            //This parses the data properly.
+            int stringCounter=0;
+            while(entry.charAt(stringCounter)!=' ')
+            {
+                stringCounter++;
+            }
+            entry=entry.substring(stringCounter);
+            
+            //This will remove one of the non-essential dates
+            entry=entry.substring(0, 17)+"-"+entry.substring(32);
+            
+            
+            shiftData.add(entry);
             i=i+1;
         }
         return shiftData;

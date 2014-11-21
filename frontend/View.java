@@ -367,6 +367,7 @@ public class View extends Application
         while(i<shifts.length)
         {
             shiftList.add(shifts[i]);
+            i=i+1;
         }
         
         return shiftList;
