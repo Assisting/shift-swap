@@ -85,7 +85,7 @@ public class View extends Application
         }
     }
     
-        private void beginCalendar() {
+    private void beginCalendar() {
 	try {
             FXMLCalendarController calendar = 
 		    (FXMLCalendarController) sceneTransition("CalendarPage.fxml");
@@ -105,11 +105,20 @@ public class View extends Application
         }
     }
     
-     private void beginNewMessage() {
+    private void beginNewMessage() {
 	try {
             NewMessagePageController message = 
 		    (NewMessagePageController) sceneTransition("NewMessagePage.fxml");
             message.setApp(instance);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void beginTakeShift() {
+        try {
+            TakePageController take = (TakePageController) sceneTransition("TakePage.fxml");
+            take.setApp(instance);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -135,6 +144,11 @@ public class View extends Application
     protected void swapToCalendar()
     {
         beginCalendar();
+    }
+    
+    protected void swapToTakeShift()
+    {
+        beginTakeShift();
     }
     
     protected void swapToProntPage()

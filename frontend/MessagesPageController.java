@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
 import java.util.LinkedList;
+import javafx.event.ActionEvent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -99,7 +100,11 @@ public class MessagesPageController extends AnchorPane implements Initializable 
         instance.swapToNewMessage();
     }
 
-    
+      @FXML
+    void onGridClicked(ActionEvent event) {
+
+    }
+
     
     
     @Override

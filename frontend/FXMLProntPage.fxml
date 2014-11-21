@@ -89,6 +89,7 @@
                                  <children>
                                     <Button layoutX="126.0" layoutY="48.0" mnemonicParsing="false" onAction="#onCheckMessageButtonPress" text="Check Messages" />
                                     <Button layoutX="139.0" layoutY="156.0" mnemonicParsing="false" onAction="#onSwapShiftButtonPress" text="Swap Shifts" />
+                                    <Button layoutX="112.0" layoutY="99.0" mnemonicParsing="false" onAction="#onCheckAvailableShiftsPress" text="Check Available Shifts" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

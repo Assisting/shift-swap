@@ -154,6 +154,11 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
         populateSchedule(weeklySchedule,6, day6Schedule);
     }
     
+    @FXML
+    void onCheckAvailableShiftsPress(ActionEvent event) {
+        instance.swapToTakeShift();
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {    
