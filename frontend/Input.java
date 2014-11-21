@@ -3,6 +3,8 @@
  * ejl389@mail.usask.ca
  * For use in shift-swap project; CMPT 370, University of Saskatchewan
  * 2014
+ *
+ * Also worked on by Warren Fehr, wwf594.
  */
 
 package frontend;
@@ -301,6 +303,20 @@ public class Input
             System.out.println("Messages couldn't be found, error is: " + exception.getMessage());
         }
         return results.getMessages();
+    }
+    
+    
+    public static void sendMessage(String sender, String recipent, String message)
+    {
+        Request messageRequest = Request.SendMessageRequest(sender, recipent, message);
+        try
+        {
+            controller.sendRequest(messageRequest);
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("Message couldn't be sent, error is: " + exception.getMessage());
+        }
     }
     
     /**

@@ -44,25 +44,7 @@ public class View extends Application
 	}
     }
     
-    private void beginCalendar() {
-	try {
-            FXMLCalendarController calendar = 
-		    (FXMLCalendarController) sceneTransition("CalendarPage.fxml");
-            calendar.setApp(instance);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    private void beginHomescreen() {
-	try {
-            FXMLProntPageController homescreen = 
-		    (FXMLProntPageController) sceneTransition("FXMLProntPage.fxml");
-            homescreen.setApp(instance);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
+
     
     /* Grabs the current date and puts it into our program. Usually we would grab the current date,
     *  but because the shifts are fixed and not being added to right now, we are using October 25th,
@@ -77,8 +59,8 @@ public class View extends Application
     //All ways to swap between screens
     private void beginMessages(){
         try {
-            LoginPageController login = (LoginPageController) sceneTransition("MessagesPage.fxml");
-            login.setApp(instance);
+            MessagesPageController message = (MessagesPageController) sceneTransition("MessagesPage.fxml");
+            message.setApp(instance);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -98,6 +80,26 @@ public class View extends Application
             AddEmployeePageController managerSettings = 
 		    (AddEmployeePageController) sceneTransition("AddEmployeePage.fxml");
 	    managerSettings.setApp(instance);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+        private void beginCalendar() {
+	try {
+            FXMLCalendarController calendar = 
+		    (FXMLCalendarController) sceneTransition("CalendarPage.fxml");
+            calendar.setApp(instance);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void beginHomescreen() {
+	try {
+            FXMLProntPageController homescreen = 
+		    (FXMLProntPageController) sceneTransition("FXMLProntPage.fxml");
+            homescreen.setApp(instance);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -204,7 +206,7 @@ public class View extends Application
         return weeklySchedule;
     }
     
-        protected LinkedList<LinkedList<Timestamp>> grabScheduleMonthly()
+    protected LinkedList<LinkedList<Timestamp>> grabScheduleMonthly()
     {
         Timestamp[] schedule=Input.getSchedule(userID);
         //This will hold the weekly schedule, which is made up of 7 day schedules.
@@ -290,6 +292,29 @@ public class View extends Application
         
         
         return monthlySchedule;
+    }
+    
+    protected LinkedList<String> grabInbox()
+    {
+        String input=Input.getEmployeeMessages(userID);
+        LinkedList<String> inbox = new LinkedList<String>();
+        
+        
+                
+        return null;
+    }
+    
+    protected boolean sendMessage(String message, String recipient)
+    {
+        if(Input.isUsernameUnique(recipient))
+        {
+            Input.sendMessage(userID,recipient,message);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     private Initializable sceneTransition(String fxml) throws Exception {
