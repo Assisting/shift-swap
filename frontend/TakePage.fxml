@@ -3,21 +3,20 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.TakePageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.TakePageController">
    <children>
       <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <Pane prefHeight="45.0" prefWidth="600.0" styleClass="border" BorderPane.alignment="CENTER">
+            <Pane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="380.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBackButtonPress" styleClass="button-standard" text="Back" />
-                  <Button layoutX="40.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" styleClass="button-standard" text="Update Available Shifts" />
+                  <Button layoutX="380.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBackButtonPress" text="Back" />
+                  <Button layoutX="40.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" text="Update Available Shifts" />
                </children>
             </Pane>
          </bottom>
          <top>
-            <Pane prefHeight="44.0" prefWidth="600.0" styleClass="border" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="44.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <SplitPane dividerPositions="0.16110019646365423" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
@@ -26,9 +25,9 @@
                      <children>
                         <TextArea fx:id="shiftHeader" editable="false" layoutX="154.0" layoutY="-60.0" prefHeight="79.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background-standard">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <Button fx:id="takeButton" disable="true" layoutX="165.0" layoutY="123.0" mnemonicParsing="false" onAction="#onTakeButtonPress" styleClass="button-standard" text="Take Shift" visible="false" />
+                        <Button fx:id="takeButton" disable="true" layoutX="165.0" layoutY="123.0" mnemonicParsing="false" onAction="#onTakeButtonPress" text="Take Shift" visible="false" />
                      </children></AnchorPane>
               </items>
             </SplitPane>
@@ -41,7 +40,4 @@
          </right>
       </BorderPane>
    </children>
-   <stylesheets>
-        <URL value="@Primary.css" />
-   </stylesheets>
 </AnchorPane>
