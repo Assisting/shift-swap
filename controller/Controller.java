@@ -106,7 +106,7 @@ public class Controller {
                         if (request.isApproved())
                         {
                             boolean manager1Approved = transactionFields.getBoolean("initmanagersign");
-                            boolean manager2Approved = transactionFields.getBoolean("finalmanagersign");
+                            boolean manager2Approved = transactionFields.getBoolean("finaltmanagersign");
                             if (!manager1Approved || !manager2Approved)
                             {
                                 String giveTime = "nothing";
@@ -114,15 +114,16 @@ public class Controller {
                                 {
                                     giveTime = transactionFields.getTimestamp("initshiftstart").toString();
                                 }
+                                Statement managerChecking = dbconnection.createStatement();
                                 if (!manager1Approved)
                                 {
-                                    String manager = transactionFields.getString("initiatorManager");
-                                    acceptStatement.executeQuery(newMessageQuery("Server", manager, "APPROVAL: " + transactionFields.getString("initlogin") + " wants to trade "+ giveTime + " for " + transactionFields.getString("finalshiftstart") + ". This request requires your approval"));
+                                    String manager = transactionFields.getString("initmanagerlogin");
+                                    managerChecking.execute(newMessageQuery("Server", manager, "APPROVAL: " + transactionFields.getString("initlogin") + " wants to trade "+ giveTime + " for " + transactionFields.getString("finalshiftstart") + ". This request requires your approval"));
                                 }
                                 if (!manager2Approved)
                                 {
-                                    String manager = transactionFields.getString("finalizerManager");
-                                    acceptStatement.executeQuery(newMessageQuery("Server", manager, "APPROVAL: " +  transactionFields.getString("finallogin") + " wants to trade "+ transactionFields.getString("finalshiftstart") + " for " + giveTime + ". This request requires your approval"));
+                                    String manager = transactionFields.getString("finalmanagerlogin");
+                                    managerChecking.execute(newMessageQuery("Server", manager, "APPROVAL: " +  transactionFields.getString("finallogin") + " wants to trade "+ transactionFields.getString("finalshiftstart") + " for " + giveTime + ". This request requires your approval"));
                                 }
                             }
                             else
@@ -148,9 +149,10 @@ public class Controller {
                             throw new SQLException("Data not found");
                         if (request.isApproved())
                         {
-                            approveRequest.executeQuery(updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover()));
+                            Statement managerApprove = dbconnection.createStatement();
+                            managerApprove.executeQuery(updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover()));
                             boolean manager1Approved = transactionFields.getBoolean("initmanagersign");
-                            boolean manager2Approved = transactionFields.getBoolean("finalmanagersign");
+                            boolean manager2Approved = transactionFields.getBoolean("finaltmanagersign");
                             if (manager1Approved && manager2Approved)
                                 makeTrade(transactionFields);
                         }
