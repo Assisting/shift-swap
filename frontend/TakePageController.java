@@ -59,8 +59,9 @@ public class TakePageController extends AnchorPane implements Initializable
     }
     
     @FXML
-    void onTakeButtonPress() {
-
+    void onTakeButtonPress() 
+    {
+        instance.sendTakeRequest(shiftList.get(currentIndex));
     }
     
     @FXML

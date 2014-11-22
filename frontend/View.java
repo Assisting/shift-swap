@@ -193,6 +193,10 @@ public class View extends Application
     protected LinkedList<LinkedList<Timestamp>> grabScheduleWeekly()
     {
         Timestamp[] schedule=Input.getSchedule(userID);
+        if(schedule==null)
+        {
+            return null;
+        }
         //This will hold the weekly schedule, which is made up of 7 day schedules.
         //Can't do List of Arrays in java, so this will have to do.
         LinkedList<LinkedList<Timestamp>> weeklySchedule= new LinkedList<LinkedList<Timestamp>>();
@@ -257,6 +261,10 @@ public class View extends Application
         //This will hold the weekly schedule, which is made up of 7 day schedules.
         //Can't do List of Arrays in java, so this will have to do.
         LinkedList<LinkedList<Timestamp>> monthlySchedule= new LinkedList<LinkedList<Timestamp>>();
+        if(schedule==null)
+        {
+            return null;
+        }
         int arrLength= schedule.length;
         LocalDate compare=currentDate;
         LocalDate temp;
@@ -385,6 +393,12 @@ public class View extends Application
         {
             return false;
         }
+    }
+    
+    protected void sendTakeRequest(Shift take)
+    {
+        Timestamp[] temp={take.getShiftStartTime(),take.getShiftEndTime()};
+        Input.createTakeRequest(take.getEmployeeLogin(), userID, temp);
     }
     
     private Initializable sceneTransition(String fxml) throws Exception {

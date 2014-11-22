@@ -253,6 +253,25 @@ public class Input
     	 * 	VALUES (empName, shiftStartEnd[0], shiftStartEnd[1]); */
     }
     
+    /** creates a trade request, the basis for give/take/trade.
+     * @param initLogin the employee giving up a shift
+     * @param shiftStartEnd the employee giving up a shift's start and end time
+     * @param finalLogin the employee taking a shift
+     * @param finalshiftStartEnd the employee taking a shift's start and end time
+     */
+    public static void createTakeRequest(String initLogin, String finalLogin, Timestamp[] finalshiftStartEnd){
+    	Request request = null;
+        Timestamp[] temp={null,null,finalshiftStartEnd[0],finalshiftStartEnd[1]};
+    	request = Request.TradeRequest(initLogin, finalLogin, temp);
+    	try {
+			controller.sendRequest(request);
+		} catch (SQLException e) {
+			System.out.println("createTakeRequest just got smoked");
+			e.printStackTrace();
+		}
+		
+    }
+    
     /** Takes two Timestamp arrays, concats and returns them
      * @param senderShifts the senders shifts (start, end) in 0,1
      * @param recipientShifts the recipients shifts (start,end) in 0,1

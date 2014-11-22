@@ -145,13 +145,16 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
         weekday=weekday.plus(1);
         updateDayHeaders(weekday,day6Label);
         
-        populateSchedule(weeklySchedule,0, day0Schedule);
-        populateSchedule(weeklySchedule,1, day1Schedule);
-        populateSchedule(weeklySchedule,2, day2Schedule);
-        populateSchedule(weeklySchedule,3, day3Schedule);
-        populateSchedule(weeklySchedule,4, day4Schedule);
-        populateSchedule(weeklySchedule,5, day5Schedule);
-        populateSchedule(weeklySchedule,6, day6Schedule);
+        if(weeklySchedule!=null)
+        {
+            populateSchedule(weeklySchedule,0, day0Schedule);
+            populateSchedule(weeklySchedule,1, day1Schedule);
+            populateSchedule(weeklySchedule,2, day2Schedule);
+            populateSchedule(weeklySchedule,3, day3Schedule);
+            populateSchedule(weeklySchedule,4, day4Schedule);
+            populateSchedule(weeklySchedule,5, day5Schedule);
+            populateSchedule(weeklySchedule,6, day6Schedule);
+        }
     }
     
     @FXML

@@ -35,6 +35,10 @@ public class FXMLCalendarController extends AnchorPane implements Initializable
     {
         //Grab monthly schedule
         LinkedList<LinkedList<Timestamp>> monthlySchedule= instance.grabScheduleMonthly();
+        if(monthlySchedule==null)
+        {
+            return;
+        }
         
         //Get the DayoftheWeek for the start of month for calendar.
         LocalDate temp=instance.getCurrentDate();
