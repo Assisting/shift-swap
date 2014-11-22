@@ -60,15 +60,27 @@ public class Controller {
                     case TRADE:
                     {
                         Statement tradeRequest = dbconnection.createStatement();
-                        String manager1 = tradeRequest.executeQuery(getWorkerInfoQuery(request.getSender())).getString("empmanager");
-                        boolean manager1reqd = tradeRequest.executeQuery(getManagerApprovalStatus(manager1)).getBoolean("required");
-                        String manager2 = tradeRequest.executeQuery(getWorkerInfoQuery(request.getRecipient())).getString("empmanager");
-                        boolean manager2reqd = tradeRequest.executeQuery(getManagerApprovalStatus(manager1)).getBoolean("required");
                         
-
-                        if (request.getShifts()[0] == null) //Take request
+                        ResultSet manager1Result = tradeRequest.executeQuery(getWorkerInfoQuery(request.getSender()));//.getString("manager");
+                        manager1Result.next();
+                        String manager1 = manager1Result.getString("manager");
+                        
+                        ResultSet manager1Approval = tradeRequest.executeQuery(getManagerApprovalStatus(manager1));
+                        manager1Approval.next();
+                        boolean manager1reqd = manager1Approval.getBoolean("ma_approval");
+                        System.out.println(manager1reqd);
+                        ResultSet manager2Result = tradeRequest.executeQuery(getWorkerInfoQuery(request.getSender()));//.getString("manager");
+                        manager2Result.next();
+                        String manager2 = manager2Result.getString("manager");
+                        ResultSet manager2Approval = tradeRequest.executeQuery(getManagerApprovalStatus(manager1));
+                        manager2Approval.next();
+                        boolean manager2reqd = manager2Approval.getBoolean("ma_approval");
+                        
+                        
+                        if (request.getShifts()[2] == null) //Take request
                         {
-                            tradeRequest.execute(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "TAKE", manager1, manager1reqd, manager2, manager2reqd));
+                           System.out.println( request.getShifts()[0].toString());
+                            tradeRequest.execute(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "take", manager1, manager1reqd, manager2, manager2reqd));
                             tradeRequest.close();
                             Request giveAccept = Request.AcceptRequest(request.getSender(), request.getRecipient(), new Timestamp[] {request.getShifts()[0], request.getShifts()[2]}, true);
                             sendRequest(giveAccept);
@@ -433,8 +445,8 @@ public class Controller {
     private String getWorkerInfoQuery(String LoginID)
     {
         return "SELECT empfirstname, emplastname, empaccesslevel,"
-                + " emplogin, emppassword, empemail, empmanager, empwage"
-                + "FROM full_employee_info"
+                + " emplogin, empemail, manager, empwage"
+                + " FROM full_employee_info"
                 + " WHERE emplogin = '" + LoginID + "'";
     }
     
@@ -711,7 +723,7 @@ public class Controller {
     */
     private String getManagerApprovalStatus(String managerlogin)
     {
-        return "SELECT ma_approval FROM managerapproval WHERE ma_manager = " + managerlogin;
+        return "SELECT ma_approval FROM managerapproval WHERE ma_manager = '" + managerlogin + "' ";
     }
 
     /**
@@ -731,7 +743,7 @@ public class Controller {
 
         if(shiftTimes[2] != null)
         {
-            return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finalmanagerlogin, initmanagersign, finalmanagersign, transactiontype,) "
+            return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finaltmanagerlogin, initmanagersign, finalmanagersign, transactiontype,) "
                     + "VALUES ( "
                     + "'" + initiatorLoginID + "', "
                     + "'" + shiftTimes[0].toString() + "', "
@@ -747,17 +759,18 @@ public class Controller {
         }
         else //finalizer shifts are null
         {
-           return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, initmanagerlogin, finalmanagerlogin, initmanagersign, finalmanagersign, transactiontype) "
-                    + "VALUES ( "
+            System.out.print("noo");
+           return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, initmanagerlogin, finalmanagerlogin, initmanagersign, finaltmanagersign, transactiontype) "
+                    + "VALUES( "
                     + "'" + initiatorLoginID + "', "
                     + "'" + shiftTimes[0].toString() + "', "
                     + "'" + shiftTimes[1].toString() + "', "
                     + "'" + finalizerLoginID + "', "
                     + "'" + initiatorManager + "', "
                     + "'" + finalizerManager + "', "
-                    + "'" + initiatorManager + "', "
-                    + "'" + finalizerManager + "', "
-                    + "'" + transactionType + "') ";
+                    + "'" + initManagerSign + "', "
+                    + "'" + finalManagerSign + "', "
+                    + "'" + transactionType + "' ) ";
         }
 
     }
@@ -894,6 +907,7 @@ public class Controller {
          System.out.println(c.deleteShiftQuery("rickjames", b[0], b[1]));
          System.out.println(c.getAllGiveRecords());
          System.out.println(c.deleteEmployeeMessage("tmike", "rickjames", b[0]));
+         System.out.println(c.getWorkerInfoQuery("twarren"));
 
     }  
 }
