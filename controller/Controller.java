@@ -84,7 +84,7 @@ public class Controller {
                             tradeRequest.close();
                             Timestamp[] acceptTimes = new Timestamp[2];
                             acceptTimes[0] = request.getShifts()[0];
-                            acceptTimes[1] = request.getShifts()[2];
+                            acceptTimes[1] = request.getShifts()[1];
                             Request giveAccept = Request.AcceptRequest(request.getSender(), request.getRecipient(), acceptTimes, true);
                             sendRequest(giveAccept);
                         }
@@ -105,8 +105,8 @@ public class Controller {
                             throw new SQLException("Data nor found");
                         if (request.isApproved())
                         {
-                            boolean manager1Approved = transactionFields.getBoolean("manager1Approval");
-                            boolean manager2Approved = transactionFields.getBoolean("manager2Approval");
+                            boolean manager1Approved = transactionFields.getBoolean("initmanagersign");
+                            boolean manager2Approved = transactionFields.getBoolean("finalmanagersign");
                             if (!manager1Approved || !manager2Approved)
                             {
                                 String giveTime = "nothing";
@@ -149,8 +149,8 @@ public class Controller {
                         if (request.isApproved())
                         {
                             approveRequest.executeQuery(updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover()));
-                            boolean manager1Approved = transactionFields.getBoolean("manager1Approval");
-                            boolean manager2Approved = transactionFields.getBoolean("manager2Approval");
+                            boolean manager1Approved = transactionFields.getBoolean("initmanagersign");
+                            boolean manager2Approved = transactionFields.getBoolean("finalmanagersign");
                             if (manager1Approved && manager2Approved)
                                 makeTrade(transactionFields);
                         }
@@ -417,6 +417,11 @@ public class Controller {
      * @parma return the sql to gather this info**/
     private String getTransactionData(String sender, String recipient, Timestamp start, Timestamp end)
     {
+        String lastTime;
+        if (end == null)
+            lastTime = "null";
+        else
+            lastTime = end.toString();
         return ("Select * from shifttransaction WHERE "
         		+ "initlogin ='" + sender +"' AND "
         		+ "initshiftstart = '" + start + "' AND "
