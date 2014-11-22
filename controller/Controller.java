@@ -82,7 +82,10 @@ public class Controller {
                            System.out.println( request.getShifts()[0].toString());
                             tradeRequest.execute(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "take", manager1, manager1reqd, manager2, manager2reqd));
                             tradeRequest.close();
-                            Request giveAccept = Request.AcceptRequest(request.getSender(), request.getRecipient(), new Timestamp[] {request.getShifts()[0], request.getShifts()[2]}, true);
+                            Timestamp[] acceptTimes = new Timestamp[2];
+                            acceptTimes[0] = request.getShifts()[0];
+                            acceptTimes[1] = request.getShifts()[2];
+                            Request giveAccept = Request.AcceptRequest(request.getSender(), request.getRecipient(), acceptTimes, true);
                             sendRequest(giveAccept);
                         }
                         else //trade

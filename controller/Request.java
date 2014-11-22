@@ -101,8 +101,8 @@ public static Request TradeRequest(String sender, String recipient, Timestamp[] 
 
 public static Request AcceptRequest(String asker, String accepter, Timestamp[] shifts, boolean accepted)
 {
-    Message message = new Message(null, null, null, null, null, accepted);
-    return new Request(null, null, message, RequestType.ACCEPT);
+    Message message = new Message(null, null, shifts, null, null, accepted);
+    return new Request(asker, accepter, message, RequestType.ACCEPT);
 }
 
 public static Request ApproveRequest(String asker, String accepter, String approver, Timestamp[] shifts, boolean approved)
