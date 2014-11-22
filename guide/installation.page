@@ -2,5 +2,6 @@
       type="topic"
       id="install">
 <title>Installation Instructions</title>
-<p>Currently, Shift Swap is not optimized to be istalled and run as a web-app. To run Shift Swap, simply run the file using:
+<p>Currently, Shift Swap is not optimized to be istalled and run as a web-app. To run Shift Swap, simply run the file using: <cmd>java -jar ShiftSwap.jar</cmd></p>
+<p>If this is unsuccessful, the program can simply be run by executing the jar file using the Java 8 Runtime.</p>
 </page>

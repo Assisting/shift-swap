@@ -6,5 +6,44 @@
 <p>If you are new to Shift Swap, please check <link xref="gettingstarted"/>. Other pages currently available include a run-down of most major features, <link xref="installing"/>, and <link xref="managersettings"/>.</p>
 <section id="marker">
 	<title>For the Marker</title>
+	<p>To run the file, you will require Java 8.</p>
+	<p>You can login using the username/password combation <cmd>tmike</cmd> and <cmd>doge</cmd>. Once this is done you'll be on the front page.</p>
+	
+	<steps>
+		<title>Success Scenario 1: Check Monthly Schedule</title>
+		<item><p>Click on the <cmd>View Monthly Schedule</cmd> button</p></item>
+		<item><p>Click on the <cmd>Get Schedule</cmd> button; this will bring up your schedule for the current calendar month.</p></item>
+		<item><p>The sceen should now appear like this:</p> <media type="image" src="scenario1.png" width="450" height="326"/></item>
+		<item><p>You have successfully checked a schedule. Click <cmd>Back</cmd> to proceed.</p></item>
+	</steps>
+	
+	<steps>
+		<title>Success Scenario 2: Check Weekly Schedule</title>
+		<item><p>Click on the <cmd>Check Schedule</cmd> button; this will bring up your schedule for the next 7 days.</p></item>
+		<item><p>The sceen should now appear like this:</p> <media type="image" src="weekly.png" width="450" height="326"/></item>
+	</steps>
+	
+	<steps>
+		<title>Success Scenario 3: Add Employee</title>
+		<item><p>Click on the <cmd>Manager Settings</cmd> link.</p></item>
+		<item><p>Enter some information. It doesn't particularly matter what you put so long as you remember the Employee ID and password, and the Wage is a floating point number.</p> <media type="image" src="newemployee.png" width="450" height="326"/></item>
+		<item><p>You have now added a new employee. You can verify this by quitting the application, re-launching, and logging in with the credentials you just provided.</p></item>
+	</steps>
+	
+	<steps>
+		<title>Success Scenario 4: Send a Message</title>
+		<item><p>While still logged in to this new account, click <cmd>Check Messages</cmd></p></item>
+		<item><p>Your inbox should be empty since you are a new employee. Click <cmd>Create New Message</cmd>.</p></item>
+		<item><p>Set the recipient to your Employee ID. Enter anything you like for the message itself. Click <cmd>Send</cmd>.</p> <media type="image" src="hello.png" width="450" height="326"/></item>
+		<item><p>Now click <cmd>Back</cmd>. Then, click <cmd>Update Inbox</cmd> to verify you have received the message from yourself. Once you have verified this, click <cmd>Back</cmd> to proceed.</p></item>
+	</steps>
+	
+	<steps>
+		<title>Success Scenario 5: Take a Shift</title>
+		<item><p>While still logged in to this new account, click <cmd>Check Messages</cmd></p></item>
+		<item><p>Your inbox should be empty since you are a new employee. Click <cmd>Create New Message</cmd>.</p></item>
+		<item><p>Set the recipient to your Employee ID. Enter anything you like for the message itself. Click <cmd>Send</cmd>.</p> <media type="image" src="hello.png" width="450" height="326"/></item>
+		<item><p>Now click <cmd>Back</cmd>. Then, click <cmd>Update Inbox</cmd> to verify you have received the message from yourself. Once you have verified this, click <cmd>Back</cmd> to proceed.</p></item>
+	</steps>
 </section>
 </page>

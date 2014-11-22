@@ -171,6 +171,12 @@ public class ManagerSettingsController implements Initializable
 	instance.removeEmployee(removeEmployeeID.getText());
     }
     
+    @FXML
+    private void onBackPress(ActionEvent event)
+    {
+	instance.swapToProntPage();
+    }
+    
     private int getModAccessLevelSelection() throws IllegalArgumentException
     {
 	if(modAccessWorker.isSelected()) {
