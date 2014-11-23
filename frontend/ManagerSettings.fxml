@@ -9,7 +9,10 @@
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
          <top>
-            <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="40.0" layoutY="7.0" mnemonicParsing="false" onAction="#onBackPress" styleClass="button-standard" text="Back" />
+               </children></Pane>
          </top>
          <left>
             <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
@@ -18,10 +21,7 @@
             <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
          </right>
          <bottom>
-            <Pane prefHeight="40.0" prefWidth="680.0" styleClass="border" BorderPane.alignment="CENTER">
-               <children>
-                  <Button layoutX="375.0" layoutY="8.0" mnemonicParsing="false" onAction="#onBackPress" styleClass="button-standard" text="Back" />
-               </children></Pane>
+            <Pane prefHeight="40.0" prefWidth="680.0" styleClass="border" BorderPane.alignment="CENTER" />
          </bottom>
          <center>
             <TabPane styleClass="background-standard">

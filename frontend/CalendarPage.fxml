@@ -30,7 +30,6 @@
                     </rowConstraints>
                   </GridPane>
                   <Button layoutX="382.0" layoutY="484.0" mnemonicParsing="false" onAction="#onStuffButtonClicked" styleClass="button-standard" text="Get Schedule" />
-                  <Button layoutX="249.0" layoutY="484.0" mnemonicParsing="false" onAction="#onBackButtonClick" styleClass="button-standard" text="Back" />
                   <Label layoutX="22.0" layoutY="19.0" styleClass="label-standard" text="Sunday" />
                   <Label layoutX="107.0" layoutY="19.0" styleClass="label-standard" text="Monday" />
                   <Label layoutX="197.0" layoutY="19.0" styleClass="label-standard" text="Tuesday" />
@@ -42,7 +41,10 @@
             </AnchorPane>
          </center>
          <top>
-            <Pane prefHeight="40.0" prefWidth="1000.0" styleClass="border" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="40.0" prefWidth="1000.0" styleClass="border" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="40.0" layoutY="7.0" mnemonicParsing="false" onAction="#onBackButtonClick" styleClass="button-standard" text="Back" />
+               </children></Pane>
          </top>
          <left>
             <Pane prefHeight="400.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />

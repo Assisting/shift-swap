@@ -152,6 +152,15 @@ public class View extends Application
 	}
     }
     
+    /**
+     * Just what is says on the tin; we don't have to worry about security so
+     * much with logging out vs logging in since it fails safe.
+     */
+    public void logOut() {
+	userID = null;
+	beginLogin();
+    }
+    
     //These are all just ways for Controllers to use swap screen functions.
     protected void swapToCalendar()
     {

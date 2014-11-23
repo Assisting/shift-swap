@@ -15,7 +15,6 @@
                      <bottom>
                         <Pane prefHeight="45.0" prefWidth="600.0" styleClass="background-standard" BorderPane.alignment="CENTER">
                            <children>
-                              <Button layoutX="335.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBackButtonPress" styleClass="button-standard" text="Back" />
                               <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" styleClass="button-standard" text="Update Available Shifts" />
                            </children>
                         </Pane>
@@ -55,7 +54,10 @@
             </AnchorPane>
          </center>
          <top>
-            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="40.0" layoutY="7.0" mnemonicParsing="false" onAction="#onBackButtonPress" styleClass="button-standard" text="Back" />
+               </children></Pane>
          </top>
          <left>
             <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />

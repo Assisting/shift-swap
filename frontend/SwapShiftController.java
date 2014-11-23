@@ -49,7 +49,12 @@ public class SwapShiftController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-    }    
+    }
+    
+    @FXML
+    private void onBackPressed() {
+	instance.swapToProntPage();
+    }
 
     @FXML
     private void onPressSwap(ActionEvent event)

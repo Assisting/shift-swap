@@ -22,8 +22,7 @@
                   <Label fx:id="recipientDoesntExist" layoutX="599.0" layoutY="49.0" text="Recipient doesn't exist" textFill="RED" visible="false" />
                   <TextArea fx:id="messageField" layoutX="10.0" layoutY="107.0" prefHeight="361.0" prefWidth="700.0" />
                   <Label fx:id="characterLimit" layoutX="260.0" layoutY="533.0" text="Over message limit, must be less then 255 characters" textFill="RED" visible="false" />
-                  <Button layoutX="258.0" layoutY="480.0" mnemonicParsing="false" onAction="#onSendButtonPress" styleClass="button-standard" text="Send" />
-                  <Button layoutX="412.0" layoutY="480.0" mnemonicParsing="false" onAction="#onBackButtonPress" styleClass="button-standard" text="Back" />
+                  <Button layoutX="335.0" layoutY="480.0" mnemonicParsing="false" onAction="#onSendButtonPress" styleClass="button-standard" text="Send" />
                   <Label fx:id="successField" layoutX="330.0" layoutY="505.0" text="Message sent successfully!" textFill="#74ff00" visible="false">
                      <font>
                         <Font size="14.0" />
@@ -33,7 +32,10 @@
             </AnchorPane>
          </center>
          <top>
-            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="40.0" layoutY="7.0" mnemonicParsing="false" onAction="#onBackButtonPress" styleClass="button-standard" text="Back" />
+               </children></Pane>
          </top>
          <left>
             <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />

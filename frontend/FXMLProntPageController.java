@@ -162,6 +162,11 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
         instance.swapToTakeShift();
     }
     
+    @FXML
+    void logOut() {
+	instance.logOut();
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {    

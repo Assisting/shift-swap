@@ -109,7 +109,10 @@
             </SplitPane>
          </center>
          <top>
-            <Pane prefHeight="40.0" prefWidth="639.0" styleClass="border" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="40.0" prefWidth="639.0" styleClass="border" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="39.0" layoutY="7.0" mnemonicParsing="false" onAction="#logOut" styleClass="button-standard" text="Log Out" />
+               </children></Pane>
          </top>
          <left>
             <Pane prefHeight="383.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
