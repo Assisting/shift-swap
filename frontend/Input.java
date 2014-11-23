@@ -254,10 +254,9 @@ public class Input
     }
     
     /** creates a trade request, the basis for give/take/trade.
-     * @param initLogin the employee giving up a shift
-     * @param shiftStartEnd the employee giving up a shift's start and end time
-     * @param finalLogin the employee taking a shift
-     * @param finalshiftStartEnd the employee taking a shift's start and end time
+     * @param initLogin the person logged in
+     * @param finalLogin the employee giving up the shift
+     * @param finalshiftStartEnd the shift's start[0] and end[1]
      */
     public static void createTakeRequest(String initLogin, String finalLogin, Timestamp[] finalshiftStartEnd){
     	Request request = null;

@@ -407,7 +407,7 @@ public class View extends Application
     protected void sendTakeRequest(Shift take)
     {
         Timestamp[] temp={take.getShiftStartTime(),take.getShiftEndTime()};
-        Input.createTakeRequest(take.getEmployeeLogin(), userID, temp);
+        Input.createTakeRequest( userID, take.getEmployeeLogin(), temp);
     }
     
     private Initializable sceneTransition(String fxml) throws Exception {

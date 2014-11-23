@@ -22,9 +22,11 @@ import java.sql.Timestamp;
 public class Controller {
 
     private Connection dbconnection;
+    private Timestamp nullStamp;
 
     public Controller() {
         //System.out.print("connection");
+        nullStamp = new Timestamp(0);
         try {
                     Class.forName("org.postgresql.Driver");
             } catch (ClassNotFoundException e) {
@@ -424,12 +426,12 @@ public class Controller {
     {
         String takeTime;
         if (initstart == null)
-            takeTime = "null";
+            takeTime = nullStamp.toString();
         else
             takeTime = initstart.toString();
         return ("Select * from shifttransaction WHERE "
         		+ "initlogin ='" + sender +"' AND "
-        		+ "initshiftstart = '" + initstart + "' AND "
+        		+ "initshiftstart = '" + takeTime + "' AND "
         		+ "finalshiftstart = '" + finalstart + "';");
     }
     
@@ -753,15 +755,21 @@ public class Controller {
     //TODO check if this function works property
     private String insertTradeQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType, String initiatorManager, boolean initManagerSign, String finalizerManager, boolean finalManagerSign )
     {
-
+        String returnString = "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finaltmanagerlogin, initmanagersign, finalmanagersign, transactiontype,) "
+                    + "VALUES ( "
+                    + "'" + initiatorLoginID + "', ";
         if(shiftTimes[0] != null)
         {
-            return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finaltmanagerlogin, initmanagersign, finalmanagersign, transactiontype,) "
-                    + "VALUES ( "
-                    + "'" + initiatorLoginID + "', "
-                    + "'" + shiftTimes[0].toString() + "', "
-                    + "'" + shiftTimes[1].toString() + "', "
-                    + "'" + finalizerLoginID + "', "
+            returnString += shiftTimes[0].toString() + "', "
+                    + "'" + shiftTimes[1].toString() + "', ";
+        }
+        else //initial shifts are null
+        {
+            System.out.print("noo");
+            returnString += nullStamp.toString() + "', "
+                    + "'" + nullStamp.toString() + "', ";
+        }
+        returnString += "'" + finalizerLoginID + "', "
                     + "'" + shiftTimes[2].toString() + "', "
                     + "'" + shiftTimes[3].toString() + "', "
                     + "'" + initiatorManager + "', "
@@ -769,23 +777,7 @@ public class Controller {
                     + "'" + initManagerSign + "', "
                     + "'" + finalManagerSign + "', "
                     + "'" + transactionType + "') ";
-        }
-        else //initial shifts are null
-        {
-            System.out.print("noo");
-           return "INSERT INTO shifttransaction (initlogin, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finalmanagerlogin, initmanagersign, finaltmanagersign, transactiontype) "
-                    + "VALUES( "
-                    + "'" + initiatorLoginID + "', "
-                    + "'" + finalizerLoginID + "', "
-                    + "'" + shiftTimes[2].toString() + "', "
-                    + "'" + shiftTimes[3].toString() + "', "
-                    + "'" + initiatorManager + "', "
-                    + "'" + finalizerManager + "', "
-                    + "'" + initManagerSign + "', "
-                    + "'" + finalManagerSign + "', "
-                    + "'" + transactionType + "' ) ";
-        }
-
+        return returnString;
     }
 
    /**
