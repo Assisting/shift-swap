@@ -3,42 +3,72 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.TakePageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.TakePageController">
    <children>
-      <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <bottom>
-            <Pane prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button layoutX="380.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBackButtonPress" text="Back" />
-                  <Button layoutX="40.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" text="Update Available Shifts" />
-               </children>
-            </Pane>
-         </bottom>
-         <top>
-            <Pane prefHeight="44.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-         </top>
+      <BorderPane prefHeight="600.0" prefWidth="800.0">
          <center>
-            <SplitPane dividerPositions="0.16110019646365423" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="598.0">
-                     <children>
-                        <TextArea fx:id="shiftHeader" editable="false" layoutX="154.0" layoutY="-60.0" prefHeight="79.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                     <children>
-                        <Button fx:id="takeButton" disable="true" layoutX="165.0" layoutY="123.0" mnemonicParsing="false" onAction="#onTakeButtonPress" text="Take Shift" visible="false" />
-                        <Button fx:id="giveButton" disable="true" layoutX="173.0" layoutY="200.0" mnemonicParsing="false" onAction="#onGiveButtonPress" text="Give" visible="false" />
-                     </children></AnchorPane>
-              </items>
-            </SplitPane>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+               <children>
+                  <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="720.0" prefWidth="520.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <bottom>
+                        <Pane prefHeight="45.0" prefWidth="600.0" styleClass="background-standard" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button layoutX="335.0" layoutY="10.0" mnemonicParsing="false" onAction="#onBackButtonPress" styleClass="button-standard" text="Back" />
+                              <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" styleClass="button-standard" text="Update Available Shifts" />
+                           </children>
+                        </Pane>
+                     </bottom>
+                     <top>
+                        <Pane prefHeight="44.0" prefWidth="600.0" styleClass="background-standard" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label layoutX="263.0" layoutY="1.0" styleClass="title" text="Take Shifts" />
+                           </children>
+                        </Pane>
+                     </top>
+                     <center>
+                        <SplitPane dividerPositions="0.16110019646365423" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="598.0">
+                                 <children>
+                                    <TextArea fx:id="shiftHeader" editable="false" layoutX="154.0" layoutY="-60.0" prefHeight="79.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background-standard">
+                                 <children>
+                                    <Button fx:id="takeButton" disable="true" layoutX="117.0" layoutY="127.0" mnemonicParsing="false" onAction="#onTakeButtonPress" styleClass="button-standard" text="Take Shift" visible="false" />
+                                    <Button fx:id="giveButton" disable="true" layoutX="135.0" layoutY="166.0" mnemonicParsing="false" onAction="#onGiveButtonPress" styleClass="button-standard" text="Give" visible="false" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </center>
+                     <left>
+                        <ListView fx:id="shiftGrid" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </left>
+                     <right>
+                        <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </right>
+                  </BorderPane>
+               </children>
+            </AnchorPane>
          </center>
+         <top>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </top>
          <left>
-            <ListView fx:id="shiftGrid" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
          </right>
+         <bottom>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </bottom>
       </BorderPane>
    </children>
+   <stylesheets>
+        <URL value="@Primary.css" />
+   </stylesheets>
 </AnchorPane>
