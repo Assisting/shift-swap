@@ -64,27 +64,24 @@ public class Controller {
                         ResultSet manager1Result = tradeRequest.executeQuery(getWorkerInfoQuery(request.getSender()));//.getString("manager");
                         manager1Result.next();
                         String manager1 = manager1Result.getString("manager");
-                        
                         ResultSet manager1Approval = tradeRequest.executeQuery(getManagerApprovalStatus(manager1));
                         manager1Approval.next();
                         boolean manager1reqd = manager1Approval.getBoolean("ma_approval");
-                        System.out.println(manager1reqd);
-                        ResultSet manager2Result = tradeRequest.executeQuery(getWorkerInfoQuery(request.getSender()));//.getString("manager");
+                        
+                        ResultSet manager2Result = tradeRequest.executeQuery(getWorkerInfoQuery(request.getRecipient()));//.getString("manager");
                         manager2Result.next();
                         String manager2 = manager2Result.getString("manager");
                         ResultSet manager2Approval = tradeRequest.executeQuery(getManagerApprovalStatus(manager1));
                         manager2Approval.next();
                         boolean manager2reqd = manager2Approval.getBoolean("ma_approval");
                         
-                        
-                        if (request.getShifts()[2] == null) //Take request
+                        if (request.getShifts()[0] == null) //Take request
                         {
-                           System.out.println( request.getShifts()[0].toString());
                             tradeRequest.execute(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "take", manager1, manager1reqd, manager2, manager2reqd));
                             tradeRequest.close();
                             Timestamp[] acceptTimes = new Timestamp[2];
                             acceptTimes[0] = request.getShifts()[0];
-                            acceptTimes[1] = request.getShifts()[1];
+                            acceptTimes[1] = request.getShifts()[2];
                             Request giveAccept = Request.AcceptRequest(request.getSender(), request.getRecipient(), acceptTimes, true);
                             sendRequest(giveAccept);
                         }
@@ -102,7 +99,7 @@ public class Controller {
                         Statement acceptStatement = dbconnection.createStatement();
                         ResultSet transactionFields = acceptStatement.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
                         if (!transactionFields.next())
-                            throw new SQLException("Data nor found");
+                            throw new SQLException("Data not found");
                         if (request.isApproved())
                         {
                             boolean manager1Approved = transactionFields.getBoolean("initmanagersign");
@@ -151,6 +148,8 @@ public class Controller {
                         {
                             Statement managerApprove = dbconnection.createStatement();
                             managerApprove.executeQuery(updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover()));
+                            //renew data
+                            transactionFields = approveRequest.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
                             boolean manager1Approved = transactionFields.getBoolean("initmanagersign");
                             boolean manager2Approved = transactionFields.getBoolean("finaltmanagersign");
                             if (manager1Approved && manager2Approved)
@@ -162,7 +161,7 @@ public class Controller {
                             String recipient = transactionFields.getString("recipient");
                             approveRequest.addBatch(deleteShiftTransactionQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1])); //remove record
                             approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE: trading " + request.getShifts()[0] + " was rejected by a manager")); //notifiy sender
-                            approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE: trading " + request.getShifts()[1] + " was rejected by a manager")); //notifiy recipient
+                            approveRequest.addBatch(newMessageQuery("Server", recipient, "TRADE: trading " + request.getShifts()[1] + " was rejected by a manager")); //notifiy recipient
                             approveRequest.executeBatch();
                         }
                         approveRequest.close();
@@ -368,12 +367,12 @@ public class Controller {
      * @param shiftstart/shiftend the start and end of the shift.
      * @return the string query */
     private String deleteShiftTransactionQuery(String sender, String recipient,
-			Timestamp shiftstart, Timestamp shiftend) {
+			Timestamp initstart, Timestamp finalstart) {
 		return ("DELETE FROM shifttransaction"
 				+ " WHERE "
 				+ "initlogin = '" + sender
-				+ "' AND initshiftstart = '" + shiftstart
-				+ "' AND intshiftend = '" + shiftend
+				+ "' AND initshiftstart = '" + initstart
+				+ "' AND finalshiftstart = '" + finalstart
 				+ "';");
 	}
 
@@ -421,17 +420,17 @@ public class Controller {
      * @param sender the login of the person starting transaction
      * @param start/end the start and end time of the sender
      * @parma return the sql to gather this info**/
-    private String getTransactionData(String sender, String recipient, Timestamp start, Timestamp end)
+    private String getTransactionData(String sender, String recipient, Timestamp initstart, Timestamp finalstart)
     {
-        String lastTime;
-        if (end == null)
-            lastTime = "null";
+        String takeTime;
+        if (initstart == null)
+            takeTime = "null";
         else
-            lastTime = end.toString();
+            takeTime = initstart.toString();
         return ("Select * from shifttransaction WHERE "
         		+ "initlogin ='" + sender +"' AND "
-        		+ "initshiftstart = '" + start + "' AND "
-        		+ "initshiftend = '" + end + "';");
+        		+ "initshiftstart = '" + initstart + "' AND "
+        		+ "finalshiftstart = '" + finalstart + "';");
     }
     
     /** returns the entire row of a transaction
@@ -755,7 +754,7 @@ public class Controller {
     private String insertTradeQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType, String initiatorManager, boolean initManagerSign, String finalizerManager, boolean finalManagerSign )
     {
 
-        if(shiftTimes[2] != null)
+        if(shiftTimes[0] != null)
         {
             return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finaltmanagerlogin, initmanagersign, finalmanagersign, transactiontype,) "
                     + "VALUES ( "
@@ -771,15 +770,15 @@ public class Controller {
                     + "'" + finalManagerSign + "', "
                     + "'" + transactionType + "') ";
         }
-        else //finalizer shifts are null
+        else //initial shifts are null
         {
             System.out.print("noo");
-           return "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, initmanagerlogin, finalmanagerlogin, initmanagersign, finaltmanagersign, transactiontype) "
+           return "INSERT INTO shifttransaction (initlogin, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finalmanagerlogin, initmanagersign, finaltmanagersign, transactiontype) "
                     + "VALUES( "
                     + "'" + initiatorLoginID + "', "
-                    + "'" + shiftTimes[0].toString() + "', "
-                    + "'" + shiftTimes[1].toString() + "', "
                     + "'" + finalizerLoginID + "', "
+                    + "'" + shiftTimes[2].toString() + "', "
+                    + "'" + shiftTimes[3].toString() + "', "
                     + "'" + initiatorManager + "', "
                     + "'" + finalizerManager + "', "
                     + "'" + initManagerSign + "', "
@@ -787,19 +786,6 @@ public class Controller {
                     + "'" + transactionType + "' ) ";
         }
 
-    }
-
-            /**
-     * Generate a query to delete from the shift transactions table
-     * @param initiatorLoginID login of the person who created the trade
-     * @param finalizerLoginID login of the person who was sent the trade
-     * @param shiftTimes shiftTimes[0] and shiftTimes[1] are used for start and end time of the initiator shifts
-     * @return String query
-     */
-    private String deleteShiftTransactionQuery(int transactionID)
-    {
-        return "DELETE FROM shifttransaction WHERE "
-                + "transactionid = '" + transactionID + "'";
     }
 
    /**
@@ -816,7 +802,7 @@ public class Controller {
     */
     //TODO testing if this works
     //updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover())
-    private String updateManagerApprovalTransactionsQuery(String sender, String recipient, Timestamp shiftstart, Timestamp shiftend, String managerLoginID ) throws SQLException
+    private String updateManagerApprovalTransactionsQuery(String sender, String recipient, Timestamp initstart, Timestamp finalstart, String managerLoginID ) throws SQLException
     {
     	Statement getTrannyID = null;
 		try {
@@ -825,8 +811,8 @@ public class Controller {
 			System.out.println("updateManagerApprovalTransactionsQuery died");
 			e.printStackTrace();
 		}
-    	ResultSet results = getTrannyID.executeQuery(this.getTransactionID(sender, recipient, shiftstart, shiftend));
-    	int transactionID = results.getInt("Column name here"); // how do I pull the int out?    	
+    	ResultSet results = getTrannyID.executeQuery(this.getTransactionID(sender, recipient, initstart, finalstart));
+    	int transactionID = results.getInt("transactionid");  	
         String initiatorlogin = "UPDATE shifttransaction "
                 + "SET initmanagersign = TRUE "
                 + "WHERE initlogin = '" + transactionID + "' AND "

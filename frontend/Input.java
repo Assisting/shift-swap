@@ -261,7 +261,7 @@ public class Input
      */
     public static void createTakeRequest(String initLogin, String finalLogin, Timestamp[] finalshiftStartEnd){
     	Request request = null;
-        Timestamp[] temp={finalshiftStartEnd[0],finalshiftStartEnd[1],null,null};
+        Timestamp[] temp={null,null, finalshiftStartEnd[0],finalshiftStartEnd[1]};
     	request = Request.TradeRequest(initLogin, finalLogin, temp);
     	try {
 			controller.sendRequest(request);
