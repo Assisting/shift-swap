@@ -405,11 +405,12 @@ public class Controller {
         if (transactionFields.getString("transactiontype").equals("TRADE"))
         {
             transaction.addBatch(deleteShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
-            transaction.addBatch(deleteShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
+            transaction.addBatch(insertShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
         }
         transaction.addBatch(deleteShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
         transaction.addBatch(insertShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
         transaction.executeBatch();
+        transaction.close();
     }
     
     
