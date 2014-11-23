@@ -90,7 +90,7 @@ public class Controller {
                         }
                         else //trade
                         {
-                            tradeRequest.addBatch(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "TRADE", manager1, manager1reqd, manager2, manager2reqd));
+                            tradeRequest.addBatch(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "swap", manager1, manager1reqd, manager2, manager2reqd));
                             tradeRequest.addBatch(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2]));
                             tradeRequest.executeBatch();
                             tradeRequest.close();
