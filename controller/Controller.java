@@ -79,7 +79,7 @@ public class Controller {
                         
                         if (request.getShifts()[0] == null) //Take request
                         {
-                            tradeRequest.execute(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "take", manager1, manager1reqd, manager2, manager2reqd));
+                            tradeRequest.execute(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "take", manager1, !manager1reqd, manager2, !manager2reqd));
                             tradeRequest.close();
                             Timestamp[] acceptTimes = new Timestamp[2];
                             acceptTimes[0] = request.getShifts()[0];
@@ -89,7 +89,7 @@ public class Controller {
                         }
                         else //trade
                         {
-                            tradeRequest.addBatch(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "swap", manager1, manager1reqd, manager2, manager2reqd));
+                            tradeRequest.addBatch(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "swap", manager1, !manager1reqd, manager2, !manager2reqd));
                             tradeRequest.addBatch(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2]));
                             tradeRequest.executeBatch();
                             tradeRequest.close();
@@ -370,10 +370,14 @@ public class Controller {
      * @return the string query */
     private String deleteShiftTransactionQuery(String sender, String recipient,
 			Timestamp initstart, Timestamp finalstart) {
+                String takeTime = nullStamp.toString();
+                if (initstart != null)
+                    takeTime = initstart.toString();
 		return ("DELETE FROM shifttransaction"
 				+ " WHERE "
 				+ "initlogin = '" + sender
-				+ "' AND initshiftstart = '" + initstart
+                                + "' AND finallogin = '" + recipient
+				+ "' AND initshiftstart = '" + takeTime
 				+ "' AND finalshiftstart = '" + finalstart
 				+ "';");
 	}
@@ -412,7 +416,7 @@ public class Controller {
             transaction.addBatch(deleteGiveRecordQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
         transaction.addBatch(deleteShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
         transaction.addBatch(insertShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
-        transaction.addBatch(deleteShiftTransactionQuery(transactionFields.getString("initlogin"), transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
+        transaction.addBatch(deleteShiftTransactionQuery(transactionFields.getString("initlogin"), transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("finalshiftstart")));
         transaction.executeBatch();
         transaction.close();
     }
@@ -755,18 +759,18 @@ public class Controller {
     //TODO check if this function works property
     private String insertTradeQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType, String initiatorManager, boolean initManagerSign, String finalizerManager, boolean finalManagerSign )
     {
-        String returnString = "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finaltmanagerlogin, initmanagersign, finalmanagersign, transactiontype,) "
+        String returnString = "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finalmanagerlogin, initmanagersign, finaltmanagersign, transactiontype) "
                     + "VALUES ( "
                     + "'" + initiatorLoginID + "', ";
         if(shiftTimes[0] != null)
         {
-            returnString += shiftTimes[0].toString() + "', "
+            returnString += "'" + shiftTimes[0].toString() + "', "
                     + "'" + shiftTimes[1].toString() + "', ";
         }
         else //initial shifts are null
         {
             System.out.print("noo");
-            returnString += nullStamp.toString() + "', "
+            returnString += "'" + nullStamp.toString() + "', "
                     + "'" + nullStamp.toString() + "', ";
         }
         returnString += "'" + finalizerLoginID + "', "
