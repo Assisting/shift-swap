@@ -1,3 +1,222 @@
+commit fba29d99a9f09c12f3c0335bfae19777c5540f7d
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Fri Nov 21 23:29:06 2014 -0600
+
+    all fixed
+    
+    gooo
+
+commit add86148b013a1527fa02c2ad6cc3724359f776b
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Fri Nov 21 23:09:49 2014 -0600
+
+    getting close
+
+commit 792ee00d511a9a3d9e629383d469dc9b69a625ce
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Nov 21 22:12:54 2014 -0600
+
+    problems, I don't even know how
+
+commit 41915a8ef60116bcb2e756cbaaee878e06aa838c
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Fri Nov 21 20:52:25 2014 -0600
+
+    partially fixed some controller/sql issues
+
+commit fdca3b3398f4af4229e6fafffee809b94966235d
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Nov 21 19:40:42 2014 -0600
+
+    Almost done
+    
+    Problem in database, but everything else is ready.
+
+commit a09aa2e0f33378169471fd191b9ca1b1dc3a39a0
+Author: magnusandy <magnusandy@gmail.com>
+Date:   Fri Nov 21 19:38:52 2014 -0600
+
+    Report Stuff
+    
+    Here is the report docs needed for the submission
+
+commit e9fdc9b368d8ec7fe9ae802db6c4de9765c190a1
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 18:32:39 2014 -0600
+
+    Adding a .PDF copy of the user guide
+
+commit a2adde06d798d4e648c78f757d5045c02a821dfe
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 18:17:47 2014 -0600
+
+    Whoops
+
+commit fcbc1e1dc10f141521a12de76e11e6092b045faa
+Merge: af347c9 8d1eb5d
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 18:12:48 2014 -0600
+
+    Merge branch 'master' of https://github.com/knames/shift-swap
+
+commit af347c92d69b4c201fe51a4ea197e12e7e33a3af
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 18:12:30 2014 -0600
+
+    Changes for guide
+
+commit 8d1eb5db754624e39cfd000618f0a864aa17b589
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Nov 21 17:57:36 2014 -0600
+
+    Nearly done
+    
+    Just need to finalize button workings.
+
+commit a8c0fa813ca9c7fbad62a1433ac4e333626fcf95
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Nov 21 17:28:10 2014 -0600
+
+    Nearly finished up takes!
+    
+    All that's left is the magical button....
+
+commit 4645bf15d419abb88cb17799675a9aef19d1eb59
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 17:26:58 2014 -0600
+
+    Fixing up calls from manager settings controller
+
+commit 072f939b262b1e7087c5e808850ab462b7e79fc5
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 17:08:02 2014 -0600
+
+    Added stubs for Shift Swap Swap Shift Swap. Fixed error that prevented the entering of passwords.
+
+commit 356dc739b239c190773266b3e5f16770da8fe9f8
+Merge: ee48d5f 112c69b
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 16:59:51 2014 -0600
+
+    Merge branch 'master' of https://github.com/knames/shift-swap
+
+commit 112c69b7f17b468477307c96d7254a8f56979c5d
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Nov 21 16:59:16 2014 -0600
+
+    More work on TakePage
+
+commit ee48d5f7d9e57fb557f58c7f360783c65c95d3d2
+Merge: e09dc77 5b088d7
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 16:54:24 2014 -0600
+
+    Merge branch 'master' of https://github.com/knames/shift-swap
+
+commit e09dc77949cd9802138817093b1ee67dc5d62449
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 16:54:15 2014 -0600
+
+    tryingthe commit again because the changes aren't correctly in place
+
+commit 5b088d79c4b5c189ab19ee1ca4f20dd8bed7f242
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Fri Nov 21 16:19:33 2014 -0600
+
+    getUsername
+    
+    also fixes to requests in general
+
+commit f067878cbe232cb9e632d211af4308bc882f5801
+Author: knames <okenso@gmail.com>
+Date:   Fri Nov 21 16:17:46 2014 -0600
+
+    enter to login
+
+commit 70b3da0224fe9fa06eab9c512fa8f94a9ff0fc58
+Merge: cd1c3c0 708ce10
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 16:17:22 2014 -0600
+
+    Merge branch 'master' of https://github.com/knames/shift-swap
+
+commit cd1c3c074842bfc6edd24b06d19d20247b6e7844
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 16:17:00 2014 -0600
+
+    Adding CSS, fixing tabs
+
+commit 708ce10851322fc115b5bf883935942826ee3815
+Author: knames <okenso@gmail.com>
+Date:   Fri Nov 21 16:04:29 2014 -0600
+
+    appended request to get requests
+
+commit 64faa0ba1a9d9224738760899c59264e427faddc
+Author: knames <okenso@gmail.com>
+Date:   Fri Nov 21 15:58:16 2014 -0600
+
+    controller and input for getworkerinfo and getworkerlogin
+    
+    see desc.
+
+commit fd5ef20876f7f3839ad8c2688b8d631dfec00eb2
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Fri Nov 21 15:57:00 2014 -0600
+
+    Warren fixes
+
+commit ac966dea25b8288fe6d4fff213db7c8aad995780
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Nov 21 15:52:53 2014 -0600
+
+    Started working upon TakePage
+
+commit 7d52f9d2e7be1a9f4d3dcfa9526f92d06a47b6d7
+Author: linxcat <clavoy_comp@hotmail.com>
+Date:   Fri Nov 21 15:47:47 2014 -0600
+
+    get userinfo
+
+commit f29ee3ff60dfe41e1d4e4b4bdd9104723bb71f0d
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 14:50:10 2014 -0600
+
+    Adding guidebook so far
+
+commit be21c744926225e9fba39881ebf7b6ac34680cee
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 13:39:55 2014 -0600
+
+    fixing missed import in Manager Settings page
+
+commit 90a2529fb56cc26fb08e2f5d433ae4ea68e6ab47
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 13:34:45 2014 -0600
+
+    Let's try this
+
+commit 9779eb105e860733674669af8f36cc119d8f424d
+Merge: 79f0b43 7d593d9
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 13:02:24 2014 -0600
+
+    Merge branch 'master' of https://github.com/knames/shift-swap
+
+commit 79f0b43cf801dbf3944d7bb0435c35dcbce75777
+Author: Assisting <erik@applied-logistics.org>
+Date:   Fri Nov 21 13:02:10 2014 -0600
+
+    Adding managerial settings
+
+commit 7d593d90f87179813eb44a5c7bc9a4e78ba25550
+Author: RetroHack <wwf594@mail.usask.ca>
+Date:   Fri Nov 21 12:40:04 2014 -0600
+
+    Inbox now fully works!
+    
+    Other then cleaning up what it spits out, this part is done. Yay!
+
 commit 1829e63e715b30b4c3f8ee23c2c472e1aa4eef88
 Author: RetroHack <wwf594@mail.usask.ca>
 Date:   Fri Nov 21 01:08:24 2014 -0600

@@ -40,10 +40,16 @@
 	
 	<steps>
 		<title>Success Scenario 5: Take a Shift</title>
-		<item><p>While still logged in to this new account, click <cmd>Check Messages</cmd></p></item>
-		<item><p>Your inbox should be empty since you are a new employee. Click <cmd>Create New Message</cmd>.</p></item>
-		<item><p>Set the recipient to your Employee ID. Enter anything you like for the message itself. Click <cmd>Send</cmd>.</p> <media type="image" src="hello.png" width="450" height="326"/></item>
-		<item><p>Now click <cmd>Back</cmd>. Then, click <cmd>Update Inbox</cmd> to verify you have received the message from yourself. Once you have verified this, click <cmd>Back</cmd> to proceed.</p></item>
+		<item><p>Checking your weekly schedule will confirm that this new account has no upcoming shifts.</p></item>
+		<item><p>Click <cmd>Check Available Shifts</cmd>. Click <cmd>Update Available Shifts</cmd> and then select one after the date 2014-10-25. Then, click <cmd>Take Shift</cmd></p> <media type="image" src="take.png" width="450" height="326"/></item>
+		<item><p>Now click <cmd>Back</cmd>. Then, click <cmd>Check Schedule</cmd> to verify that you have successfully acquired the new shift.</p></item>
 	</steps>
+	
+	<section>
+		<title>Future Plans</title>
+		<p>In the future, we hope to add more shift-trade functionality (You can see the skeleton of the "Swap Shift" page, which will allow you to give a user one of your shifts in exchange for taking on of theirs). As you can see, there is a lot of UX work to do yet, which will be a big priority. Overall stability and security can also be improved.</p>
+		<p>For Milestone 6 we also plan on allowing this to be run as a web applet accessible by any standard web browser. This will improve not only accessibility, but also overall speed of execution.</p>
+		<p>Finally, we hope to add more features for the owner of a business running Shift Swap to fully customize the software to their business needs, using a menu to configure things like date formats, maximum hours an employee can work, etc.</p>
+	</section>
 </section>
 </page>
