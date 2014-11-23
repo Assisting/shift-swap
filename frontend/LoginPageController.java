@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -40,9 +41,16 @@ public class LoginPageController extends AnchorPane implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         resultLabel.setText("Welcome to Shift Swap");
     }
-
+    
     @FXML
-    void onLoginButtonPress(ActionEvent event) 
+    void checkForEnter(KeyEvent event) {
+	if(event.getCode() == KeyCode.ENTER) {
+	    onLoginButtonPress();
+	}
+    }
+    
+    @FXML
+    void onLoginButtonPress() 
     {
         if(instance.logIn(usernameField.getText(), passwordField.getText()) == false) 
         {
