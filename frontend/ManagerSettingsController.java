@@ -1,6 +1,5 @@
 package frontend;
 
-import controller.Employee;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -10,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
@@ -82,6 +83,20 @@ public class ManagerSettingsController implements Initializable
     @FXML
     private Label setPasswordConfirmation;
     
+    @FXML
+    private TabPane managerTabs;
+    
+    @FXML
+    private Tab setManagerTab;
+
+    @FXML
+    private Tab addEmployeeTab;
+
+    @FXML
+    private Tab setAccessTab;
+    
+    private boolean justAddedEmp;
+    
     /**
      * We can use this instance to pass data back to the top level.
      */
@@ -99,7 +114,7 @@ public class ManagerSettingsController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-	// This is not the method you are looking for.
+	justAddedEmp = false;
     }    
 
     @FXML
@@ -108,6 +123,8 @@ public class ManagerSettingsController implements Initializable
 	instance.addEmployee(newEmpID.getText(), newEmpFirstName.getText(),
 		newEmpLastName.getText(), newEmpPass.getText(),
 		newEmpEmail.getText(), Float.parseFloat(newEmpWage.getText()));
+	justAddedEmp = true;
+	managerTabs.getSelectionModel().select(setAccessTab);
     }
 
     /**
@@ -139,6 +156,10 @@ public class ManagerSettingsController implements Initializable
 	}
 	
 	instance.changeAccessLevel(modAccessID.getText(), newAccessLevel);
+	
+	if(justAddedEmp == true) {
+	    managerTabs.getSelectionModel().select(setManagerTab);
+	}
     }
 
     @FXML
@@ -146,6 +167,10 @@ public class ManagerSettingsController implements Initializable
     {
 	instance.setManager(setManagerEmployee.getText(),
 		setManagerManager.getText());
+	
+	if(justAddedEmp == true) {
+	    justAddedEmp = false;
+	}
     }
 
     @FXML
