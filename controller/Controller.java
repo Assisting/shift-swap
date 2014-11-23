@@ -407,8 +407,11 @@ public class Controller {
             transaction.addBatch(deleteShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
             transaction.addBatch(insertShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
         }
+        else
+            transaction.addBatch(deleteGiveRecordQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
         transaction.addBatch(deleteShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
         transaction.addBatch(insertShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
+        transaction.addBatch(deleteShiftTransactionQuery(transactionFields.getString("initlogin"), transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
         transaction.executeBatch();
         transaction.close();
     }
