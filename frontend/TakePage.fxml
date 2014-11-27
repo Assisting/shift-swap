@@ -47,7 +47,7 @@
                         <ListView fx:id="shiftGrid" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                      </left>
                      <right>
-                        <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                        <ListView fx:id="giveGrid" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                      </right>
                   </BorderPane>
                </children>
