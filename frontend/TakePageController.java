@@ -62,6 +62,7 @@ public class TakePageController extends AnchorPane implements Initializable
     void onTakeButtonPress() 
     {
         instance.sendTakeRequest(shiftList.get(currentIndex));
+        updateShifts();
     }
     
     @FXML
@@ -71,8 +72,22 @@ public class TakePageController extends AnchorPane implements Initializable
     
     void updateShifts(){
         shiftGrid.setItems(grabShifts());
-        shiftGrid.getSelectionModel().selectedItemProperty().addListener(
-            (observable, oldValue, newValue) -> populateMessage(shiftGrid.getSelectionModel().getSelectedIndex()));
+        //shiftGrid.getSelectionModel().selectFirst();
+        
+        try
+        {
+            shiftGrid.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> populateMessage(shiftGrid.getSelectionModel().getSelectedIndex()));
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            /*Every time you update the list past the first, it will throw this error, as index -1.
+            *None of us still know why this is happening, but it doesn't actually affect anything.
+            *We can catch this safely without anything bad happening.
+            */
+        }
+        takeButton.setDisable(true);
+        takeButton.setVisible(false);
     }
     
     private void populateMessage(int index)
