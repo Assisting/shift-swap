@@ -76,6 +76,12 @@ public class Input
         return schedule.getShifts();
     }
     
+    public static Shift[] getRangeSchedule(String userID)
+    {
+        //Do stuff here!
+        return null;
+    }
+    
     /**
      * Given a username string, this function sends a request to the database to see
      * if the given username is already found in the database

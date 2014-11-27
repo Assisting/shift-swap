@@ -28,9 +28,12 @@ public class TakePageController extends AnchorPane implements Initializable
     
     LinkedList<Shift> shiftList;
     
-    LinkedList<Shift> selfList;
+    LinkedList<Shift> giveList;
     
     private int  currentIndex;
+    
+    @FXML
+    private ListView<String> giveGrid;
     
     @FXML
     private ListView<String> shiftGrid;
@@ -55,29 +58,38 @@ public class TakePageController extends AnchorPane implements Initializable
     
     @FXML
     void onUpdateButtonPress() {
-         updateShifts();
+        updateTakeShifts();
     }
     
     @FXML
     void onTakeButtonPress() 
     {
         instance.sendTakeRequest(shiftList.get(currentIndex));
-        updateShifts();
+        updateTakeShifts();
     }
     
     @FXML
     void onGiveButtonPress() {
-
+        
     }
     
-    void updateShifts(){
-        shiftGrid.setItems(grabShifts());
-        //shiftGrid.getSelectionModel().selectFirst();
+    void updateGiveShifts(){
+        giveGrid.setItems(grabGiveShifts());
         
+    }
+    
+    private ObservableList<String> grabGiveShifts()
+    {
+        giveList=instance.grabSelfShifts();
+        return null;
+    }
+    
+    void updateTakeShifts(){
+        shiftGrid.setItems(grabTakeShifts());     
         try
         {
             shiftGrid.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> populateMessage(shiftGrid.getSelectionModel().getSelectedIndex()));
+                (observable, oldValue, newValue) -> populateMessageTake(shiftGrid.getSelectionModel().getSelectedIndex()));
         }
         catch(IndexOutOfBoundsException e)
         {
@@ -90,7 +102,7 @@ public class TakePageController extends AnchorPane implements Initializable
         takeButton.setVisible(false);
     }
     
-    private void populateMessage(int index)
+    private void populateMessageTake(int index)
     {
         takeButton.setDisable(false);
         takeButton.setVisible(true);
@@ -98,7 +110,7 @@ public class TakePageController extends AnchorPane implements Initializable
         shiftHeader.setText("Shift is from: "+shiftList.get(index).toString());
     }
     
-    private ObservableList<String> grabShifts()
+    private ObservableList<String> grabTakeShifts()
     {
         shiftList=instance.grabGiveShifts();
         ObservableList<String> shiftData = FXCollections.observableArrayList();

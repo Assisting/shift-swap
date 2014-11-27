@@ -194,11 +194,23 @@ public class View extends Application
         beginMessages();
     }
     
+    /**
+     * Grabs the current date from the computer.
+     * @return The current date. 
+     */
     protected LocalDate getCurrentDate()
     {
         return currentDate;
     }
     
+    /**
+     * Grabs the weekly schedule for the user from the database for the
+     * currently logged in user. With the advent of the Shift class, this is
+     * slightly out of date.
+     * @return A linked list holding a Linked List of Timestamps representing a weekly schedule.
+     * Time stamps come in pairs, so each of the secondary LinkedLists has a pair of Timestamps representing
+     * a range of time. 
+     */
     protected LinkedList<LinkedList<Timestamp>> grabScheduleWeekly()
     {
         Timestamp[] schedule=Input.getSchedule(userID);
@@ -264,6 +276,14 @@ public class View extends Application
         return weeklySchedule;
     }
     
+    /**
+     * Grabs the weekly schedule for the user from the database for the
+     * currently logged in user. With the advent of the Shift class, this is
+     * slightly out of date.
+     * @return A linked list holding a Linked List of Timestamps representing a monthly schedule.
+     * Time stamps come in pairs, so each of the secondary LinkedLists has a pair of Timestamps representing
+     * a range of time. 
+     */
     protected LinkedList<LinkedList<Timestamp>> grabScheduleMonthly()
     {
         Timestamp[] schedule=Input.getSchedule(userID);
@@ -356,6 +376,10 @@ public class View extends Application
         return monthlySchedule;
     }
     
+    /**
+     * Grabs all the messages that the current user has been sent.
+     * @return A linked list holding a Linked List of Strings which represent the messages. 
+     */
     protected LinkedList<String> grabInbox()
     {
         String input=Input.getEmployeeMessages(userID);
@@ -377,6 +401,10 @@ public class View extends Application
         return inbox;
     }
     
+    /**
+     * Grabs all the shifts that are currently available for employees to take.
+     * @return A linked list holding all the shift data for each available shift. 
+     */
     protected LinkedList<Shift> grabGiveShifts()
     {
         Shift[] shifts=Input.getGiveList();
@@ -391,6 +419,23 @@ public class View extends Application
         return shiftList;
     }
     
+    /**
+     * Grabs all the shifts that are available for the currently logged in employee to give away.
+     * @return A linked list holding all the shift data for each available shift. 
+     */
+    protected LinkedList<Shift> grabSelfShifts()
+    {
+        //IN PROGRESS
+        Shift[] shifts=Input.getRangeSchedule(userID);
+        return null;
+    }
+    
+    /**
+     * Sends a message from the current user to another user.
+     * @param message The message you wish to send.
+     * @param recipient The person you wish to send the message to.
+     * @return True if the message was sent, false otherwise. 
+     */
     protected boolean sendMessage(String message, String recipient)
     {
         if(!Input.isUsernameUnique(recipient))
@@ -404,6 +449,10 @@ public class View extends Application
         }
     }
     
+    /**
+     * Sends a request for the logged in employee to take the given shift.
+     * @param take The shift you wish to take.
+     */
     protected void sendTakeRequest(Shift take)
     {
         Timestamp[] temp={take.getShiftStartTime(),take.getShiftEndTime()};
