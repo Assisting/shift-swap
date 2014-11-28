@@ -79,7 +79,7 @@ public class Controller {
                         
                         if (request.getShifts()[0] == null) //Take request
                         {
-                            tradeRequest.execute(Queries.insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "take", manager1, !manager1reqd, manager2, !manager2reqd));
+                            tradeRequest.execute(Queries.insertShiftTransactionQuery(request.getSender(), request.getRecipient(), request.getShifts(), "take", manager1, !manager1reqd, manager2, !manager2reqd));
                             tradeRequest.close();
                             Timestamp[] acceptTimes = new Timestamp[2];
                             acceptTimes[0] = request.getShifts()[0];
@@ -89,7 +89,7 @@ public class Controller {
                         }
                         else //trade
                         {
-                            tradeRequest.addBatch(Queries.insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "swap", manager1, !manager1reqd, manager2, !manager2reqd));
+                            tradeRequest.addBatch(Queries.insertShiftTransactionQuery(request.getSender(), request.getRecipient(), request.getShifts(), "swap", manager1, !manager1reqd, manager2, !manager2reqd));
                             tradeRequest.addBatch(Queries.newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2]));
                             tradeRequest.executeBatch();
                             tradeRequest.close();
