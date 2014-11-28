@@ -56,30 +56,30 @@ public class Controller {
                     case GIVE:
                     {
                         Statement giveRequest = dbconnection.createStatement();
-                        giveRequest.execute(insertGiveRecordQuery(request.getSender(), request.getShifts()[0], request.getShifts()[1]));
+                        giveRequest.execute(Queries.insertGiveRecordQuery(request.getSender(), request.getShifts()[0], request.getShifts()[1]));
                         break;
                     }
                     case TRADE:
                     {
                         Statement tradeRequest = dbconnection.createStatement();
                         
-                        ResultSet manager1Result = tradeRequest.executeQuery(getWorkerInfoQuery(request.getSender()));//.getString("manager");
+                        ResultSet manager1Result = tradeRequest.executeQuery(Queries.getWorkerInfoQuery(request.getSender()));//.getString("manager");
                         manager1Result.next();
                         String manager1 = manager1Result.getString("manager");
-                        ResultSet manager1Approval = tradeRequest.executeQuery(getManagerApprovalStatus(manager1));
+                        ResultSet manager1Approval = tradeRequest.executeQuery(Queries.getManagerApprovalStatus(manager1));
                         manager1Approval.next();
                         boolean manager1reqd = manager1Approval.getBoolean("ma_approval");
                         
-                        ResultSet manager2Result = tradeRequest.executeQuery(getWorkerInfoQuery(request.getRecipient()));//.getString("manager");
+                        ResultSet manager2Result = tradeRequest.executeQuery(Queries.getWorkerInfoQuery(request.getRecipient()));//.getString("manager");
                         manager2Result.next();
                         String manager2 = manager2Result.getString("manager");
-                        ResultSet manager2Approval = tradeRequest.executeQuery(getManagerApprovalStatus(manager1));
+                        ResultSet manager2Approval = tradeRequest.executeQuery(Queries.getManagerApprovalStatus(manager1));
                         manager2Approval.next();
                         boolean manager2reqd = manager2Approval.getBoolean("ma_approval");
                         
                         if (request.getShifts()[0] == null) //Take request
                         {
-                            tradeRequest.execute(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "take", manager1, !manager1reqd, manager2, !manager2reqd));
+                            tradeRequest.execute(Queries.insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "take", manager1, !manager1reqd, manager2, !manager2reqd));
                             tradeRequest.close();
                             Timestamp[] acceptTimes = new Timestamp[2];
                             acceptTimes[0] = request.getShifts()[0];
@@ -89,8 +89,8 @@ public class Controller {
                         }
                         else //trade
                         {
-                            tradeRequest.addBatch(insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "swap", manager1, !manager1reqd, manager2, !manager2reqd));
-                            tradeRequest.addBatch(newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2]));
+                            tradeRequest.addBatch(Queries.insertTradeQuery(request.getSender(), request.getRecipient(), request.getShifts(), "swap", manager1, !manager1reqd, manager2, !manager2reqd));
+                            tradeRequest.addBatch(Queries.newMessageQuery(request.getSender(), request.getRecipient(), "TRADE: " + request.getSender() + " wants to trade "+ request.getShifts()[0] + " for " + request.getShifts()[2]));
                             tradeRequest.executeBatch();
                             tradeRequest.close();
                         }
@@ -99,7 +99,7 @@ public class Controller {
                     case ACCEPT:
                     {
                         Statement acceptStatement = dbconnection.createStatement();
-                        ResultSet transactionFields = acceptStatement.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
+                        ResultSet transactionFields = acceptStatement.executeQuery(Queries.getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
                         if (!transactionFields.next())
                             throw new SQLException("Data not found");
                         if (request.isApproved())
@@ -117,12 +117,12 @@ public class Controller {
                                 if (!manager1Approved)
                                 {
                                     String manager = transactionFields.getString("initmanagerlogin");
-                                    managerChecking.execute(newMessageQuery("Server", manager, "APPROVAL: " + transactionFields.getString("initlogin") + " wants to trade "+ giveTime + " for " + transactionFields.getString("finalshiftstart") + ". This request requires your approval"));
+                                    managerChecking.execute(Queries.newMessageQuery("Server", manager, "APPROVAL: " + transactionFields.getString("initlogin") + " wants to trade "+ giveTime + " for " + transactionFields.getString("finalshiftstart") + ". This request requires your approval"));
                                 }
                                 if (!manager2Approved)
                                 {
                                     String manager = transactionFields.getString("finalmanagerlogin");
-                                    managerChecking.execute(newMessageQuery("Server", manager, "APPROVAL: " +  transactionFields.getString("finallogin") + " wants to trade "+ transactionFields.getString("finalshiftstart") + " for " + giveTime + ". This request requires your approval"));
+                                    managerChecking.execute(Queries.newMessageQuery("Server", manager, "APPROVAL: " +  transactionFields.getString("finallogin") + " wants to trade "+ transactionFields.getString("finalshiftstart") + " for " + giveTime + ". This request requires your approval"));
                                 }
                             }
                             else
@@ -133,8 +133,8 @@ public class Controller {
                         else
                         {
                             String sender = transactionFields.getString("sender");
-                            acceptStatement.addBatch(deleteShiftTransactionQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1])); //remove record
-                            acceptStatement.addBatch(newMessageQuery("Server", sender, "TRADE: trading " + request.getShifts()[0] + " was rejected by the recipient")); //notifiy sender
+                            acceptStatement.addBatch(Queries.deleteShiftTransactionQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1])); //remove record
+                            acceptStatement.addBatch(Queries.newMessageQuery("Server", sender, "TRADE: trading " + request.getShifts()[0] + " was rejected by the recipient")); //notifiy sender
                             acceptStatement.executeBatch();
                         }
                         acceptStatement.close();
@@ -143,7 +143,7 @@ public class Controller {
                     case APPROVE:
                     {
                         Statement approveRequest = dbconnection.createStatement();
-                        ResultSet transactionFields = approveRequest.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
+                        ResultSet transactionFields = approveRequest.executeQuery(Queries.getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
                         if (!transactionFields.next())
                             throw new SQLException("Data not found");
                         if (request.isApproved())
@@ -151,7 +151,7 @@ public class Controller {
                             Statement managerApprove = dbconnection.createStatement();
                             managerApprove.executeQuery(updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover()));
                             //renew data
-                            transactionFields = approveRequest.executeQuery(getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
+                            transactionFields = approveRequest.executeQuery(Queries.getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
                             boolean manager1Approved = transactionFields.getBoolean("initmanagersign");
                             boolean manager2Approved = transactionFields.getBoolean("finaltmanagersign");
                             if (manager1Approved && manager2Approved)
@@ -161,9 +161,9 @@ public class Controller {
                         {
                             String sender = transactionFields.getString("sender");
                             String recipient = transactionFields.getString("recipient");
-                            approveRequest.addBatch(deleteShiftTransactionQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1])); //remove record
-                            approveRequest.addBatch(newMessageQuery("Server", sender, "TRADE: trading " + request.getShifts()[0] + " was rejected by a manager")); //notifiy sender
-                            approveRequest.addBatch(newMessageQuery("Server", recipient, "TRADE: trading " + request.getShifts()[1] + " was rejected by a manager")); //notifiy recipient
+                            approveRequest.addBatch(Queries.deleteShiftTransactionQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1])); //remove record
+                            approveRequest.addBatch(Queries.newMessageQuery("Server", sender, "TRADE: trading " + request.getShifts()[0] + " was rejected by a manager")); //notifiy sender
+                            approveRequest.addBatch(Queries.newMessageQuery("Server", recipient, "TRADE: trading " + request.getShifts()[1] + " was rejected by a manager")); //notifiy recipient
                             approveRequest.executeBatch();
                         }
                         approveRequest.close();
@@ -172,14 +172,14 @@ public class Controller {
                     case ADD:
                     {
                         Statement addShift = dbconnection.createStatement();
-                        addShift.execute(insertShiftQuery(request.getSender(), request.getShifts()[0], request.getShifts()[1]));
+                        addShift.execute(Queries.insertShiftQuery(request.getSender(), request.getShifts()[0], request.getShifts()[1]));
                         addShift.close();
                     }
                     case LOGIN:
                     {
                         boolean validated = false;
                         Statement loginRequest = dbconnection.createStatement();
-                        ResultSet results = loginRequest.executeQuery(this.getloginQuery(request.getSender()));
+                        ResultSet results = loginRequest.executeQuery(Queries.getloginQuery(request.getSender()));
                         while (results.next() && !validated)
                         {
                             byte[] query = request.getPassword();
@@ -213,7 +213,7 @@ public class Controller {
                         //the boss manager table (which tells who is that employees mananger) with a null value
                         Statement addUserBossmanagerRecord = dbconnection.createStatement();
                         //executeUpdate is used rather than executeQuery because executeUpdate doesnt throw exceptions when nothing is returned by the query
-                        addUserBossmanagerRecord.executeUpdate(this.newManagerQuery(newEmployee.getId()));
+                        addUserBossmanagerRecord.executeUpdate(Queries.newManagerQuery(newEmployee.getId()));
 
                         break;
                     }
@@ -224,7 +224,7 @@ public class Controller {
                     case SCHEDULE:
                     {
                         Statement shiftPullRequest = dbconnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                        ResultSet results = shiftPullRequest.executeQuery(this.getEmployeeShiftInfo(request.getSender()));
+                        ResultSet results = shiftPullRequest.executeQuery(Queries.getEmployeeShiftInfo(request.getSender()));
                         Timestamp[] resultsList = tabulateShifts(results);
                         returnResults = new RequestResults();
                         returnResults.setShifts(resultsList);
@@ -234,7 +234,7 @@ public class Controller {
                     case VALIDATE:
                     {
                         Statement userValidateRequest= dbconnection.createStatement();
-                        ResultSet results = userValidateRequest.executeQuery(this.usernameValidityQuery(request.getSender()));
+                        ResultSet results = userValidateRequest.executeQuery(Queries.usernameValidityQuery(request.getSender()));
                         if (!results.next())
                             return null;
                         returnResults = new RequestResults();
@@ -245,7 +245,7 @@ public class Controller {
                     case USER_INFO:
                     {
                         Statement userInfo = dbconnection.createStatement();
-                        ResultSet results = userInfo.executeQuery(getWorkerInfoQuery(request.getSender()));
+                        ResultSet results = userInfo.executeQuery(Queries.getWorkerInfoQuery(request.getSender()));
                         if (!results.next())
                             return null;
                         returnResults = new RequestResults();
@@ -255,7 +255,7 @@ public class Controller {
                     case GET_USERNAME:
                     {
                         Statement username = dbconnection.createStatement();
-                        ResultSet results = username.executeQuery(getEmployeeLogin(request.getSender(), request.getRecipient()));
+                        ResultSet results = username.executeQuery(Queries.getEmployeeLogin(request.getSender(), request.getRecipient()));
                         if (!results.next())
                             return null;
                         returnResults = new RequestResults();
@@ -264,7 +264,7 @@ public class Controller {
                     case SHIFT_RANGE:
                     {
                         Statement shiftRangeRequest = dbconnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                        ResultSet results = shiftRangeRequest.executeQuery(this.dateRangeShiftQuery(request.getShifts()[0], request.getShifts()[1], request.getSender()));
+                        ResultSet results = shiftRangeRequest.executeQuery(Queries.dateRangeShiftQuery(request.getShifts()[0], request.getShifts()[1], request.getSender()));
                         Timestamp[] resultsList = tabulateShifts(results);
                         returnResults = new RequestResults();
                         returnResults.setShifts(resultsList);
@@ -284,7 +284,7 @@ public class Controller {
                     case GIVELIST:
                     {
                         Statement getGives = dbconnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                        ResultSet gives = getGives.executeQuery(getAllGiveRecords());
+                        ResultSet gives = getGives.executeQuery(Queries.getAllGiveRecords());
                         String[] names;
                         Timestamp[] timePairs;
                         if (gives.last())
@@ -313,14 +313,14 @@ public class Controller {
                     case SEND_MESSAGE:
                     {
                         Statement sendMessage = dbconnection.createStatement();
-                        sendMessage.execute(newMessageQuery(request.getSender(), request.getRecipient(), "MESSAGE: " + request.getNotification()));
+                        sendMessage.execute(Queries.newMessageQuery(request.getSender(), request.getRecipient(), "MESSAGE: " + request.getNotification()));
                         sendMessage.close();
                         break;
                     }
                     case MESSAGES:
                     {
                         Statement getMessages = dbconnection.createStatement();
-                        ResultSet messages = getMessages.executeQuery(getEmployeeMessages(request.getSender()));
+                        ResultSet messages = getMessages.executeQuery(Queries.getEmployeeMessages(request.getSender()));
                         returnResults = new RequestResults();
                         String message = "";
                         while (messages.next())
@@ -333,21 +333,21 @@ public class Controller {
                     case MANAGER_CHANGE:
                     {
                         Statement managerChange = dbconnection.createStatement();
-                        managerChange.execute( updateManagerQuery(request.getSender(), request.getManager()) );
+                        managerChange.execute( Queries.updateManagerQuery(request.getSender(), request.getManager()) );
                         managerChange.close();
                         break;
                     }
                     case APPROVAL_STATUS:
                     {
                         Statement approvalStatus = dbconnection.createStatement();
-                        approvalStatus.execute(approvalStatusChangeQuery(request.getManager(), request.isApproved()));
+                        approvalStatus.execute(Queries.approvalStatusChangeQuery(request.getManager(), request.isApproved()));
                         approvalStatus.close();
                         break;
                     }
                     case ACCESS_UPDATE:
                     {
                         Statement accessUpdate = dbconnection.createStatement();
-                        accessUpdate.execute(updateEmployeeQuery(null, null, request.getEmployee().getAccessLevel(), request.getSender(), null, -1));
+                        accessUpdate.execute(Queries.updateEmployeeQuery(null, null, request.getEmployee().getAccessLevel(), request.getSender(), null, -1));
                         accessUpdate.close();
                         break;
                     }
@@ -355,7 +355,7 @@ public class Controller {
                     {
                         returnResults = new RequestResults();
                         Statement accessLevel = dbconnection.createStatement();
-                        ResultSet results = accessLevel.executeQuery(getAccessLevelQuery(request.getSender()));
+                        ResultSet results = accessLevel.executeQuery(Queries.getAccessLevelQuery(request.getSender()));
                         accessLevel.close();
                         returnResults.setAccessLevel(results.getInt("empaccesslevel"));
                         break;
@@ -363,24 +363,6 @@ public class Controller {
             }
             return returnResults;
     }
-
-    /** deletes a shift transaction
-     * @param sender the person initiating the shfit chagne
-     * @param shiftstart/shiftend the start and end of the shift.
-     * @return the string query */
-    private String deleteShiftTransactionQuery(String sender, String recipient,
-			Timestamp initstart, Timestamp finalstart) {
-                String takeTime = nullStamp.toString();
-                if (initstart != null)
-                    takeTime = initstart.toString();
-		return ("DELETE FROM shifttransaction"
-				+ " WHERE "
-				+ "initlogin = '" + sender
-                                + "' AND finallogin = '" + recipient
-				+ "' AND initshiftstart = '" + takeTime
-				+ "' AND finalshiftstart = '" + finalstart
-				+ "';");
-	}
 
 	/**
      * takes a set of shift start and end times and puts them back-to-back in a single array
@@ -409,382 +391,19 @@ public class Controller {
         Statement transaction = dbconnection.createStatement();
         if (transactionFields.getString("transactiontype").equals("TRADE"))
         {
-            transaction.addBatch(deleteShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
-            transaction.addBatch(insertShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
+            transaction.addBatch(Queries.deleteShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
+            transaction.addBatch(Queries.insertShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
         }
         else
-            transaction.addBatch(deleteGiveRecordQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
-        transaction.addBatch(deleteShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
-        transaction.addBatch(insertShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
-        transaction.addBatch(deleteShiftTransactionQuery(transactionFields.getString("initlogin"), transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("finalshiftstart")));
+            transaction.addBatch(Queries.deleteGiveRecordQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
+        transaction.addBatch(Queries.deleteShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
+        transaction.addBatch(Queries.insertShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
+        transaction.addBatch(Queries.deleteShiftTransactionQuery(transactionFields.getString("initlogin"), transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("finalshiftstart")));
         transaction.executeBatch();
         transaction.close();
     }
     
-    
-    /** returns the entire row of a transaction
-     * @param sender the login of the person starting transaction
-     * @param start/end the start and end time of the sender
-     * @parma return the sql to gather this info**/
-    private String getTransactionData(String sender, String recipient, Timestamp initstart, Timestamp finalstart)
-    {
-        String takeTime;
-        if (initstart == null)
-            takeTime = nullStamp.toString();
-        else
-            takeTime = initstart.toString();
-        return ("Select * from shifttransaction WHERE "
-        		+ "initlogin ='" + sender +"' AND "
-        		+ "initshiftstart = '" + takeTime + "' AND "
-        		+ "finalshiftstart = '" + finalstart + "';");
-    }
-    
-    /** returns the entire row of a transaction
-     * @param sender the login of the person starting transaction
-     * @param start/end the start and end time of the sender
-     * @parma return the sql to gather this info**/
-    private String getTransactionID(String sender, String recipient, Timestamp start, Timestamp end)
-    {
-        return ("Select transactionid from shifttransaction WHERE "
-        		+ "initlogin ='" + sender +"' AND "
-        		+ "initshiftstart = '" + start + "' AND "
-        		+ "initshiftend = '" + end + "';");
-    }
-
-    //Generate a query to select the login (username and password) information from the database so that it can be checked for authentication
-    private String getloginQuery(String LoginID){
-        return "SELECT empLogin, empPassword FROM login WHERE empLogin = '" + LoginID + "'" ;
-    }
-
     /**
-     * generate a query to get all important non shift information from
-     * the database for a given loginID, First Name, Last Name, access level, login, password,
-     * email and who their manager is.
-     */
-    private String getWorkerInfoQuery(String LoginID)
-    {
-        return "SELECT empfirstname, emplastname, empaccesslevel,"
-                + " emplogin, empemail, manager, empwage"
-                + " FROM full_employee_info"
-                + " WHERE emplogin = '" + LoginID + "'";
-    }
-    
-    /** return the employee login(s) based on first and lastname
-     * @param firstName the first name of the employee
-     * @param lastName the last name of the employee
-     * @return emplogin(s, if multiple). */
-    private String getEmployeeLogin(String firstName, String lastName){
-    	return "SELECT emplogin from full_employee_info where empfirstname = '" 
-    			+ firstName + "' AND emplastname = '" + lastName + "';";
-    }
-
-    /**
-     * Generate a query to get ALL the shift info for a particular person denoted by LoginID
-     * @param LoginID ID of the person you want to get the shifts of
-     * @return String of the Query needed
-     */
-    private String getEmployeeShiftInfo(String LoginID)
-    {
-    return "SELECT shiftemployeelogin, shiftstarttime, shiftendtime"
-            + " FROM employeeshifts"
-            + " WHERE shiftemployeelogin = '" + LoginID + "'"
-            + " ORDER BY shiftstarttime" ;
-    }
-
-
-    /**
-     *generate a query to update any or all employee info, it is assumed that the loginID cannot be changed
-     * because of the need for prepared statements to change the password, i am removing password from this query
-     * @param firstName can be null
-     * @param lastName can be null
-     * @param accesslevel must be set to -1 if not specified
-     * @param loginID CANNOT be null
-     * @param email can be null
-     * @param wage set to -1 if not specified
-     * @return a custom string for the update query given the parameters 
-     */
-    
-    private String updateEmployeeQuery(String firstName, String lastName, int accesslevel, String loginID, String email, float wage){
-        boolean needComma = false;
-        String ret = "UPDATE employees SET ";
-        if(firstName != null){
-            ret = ret+ "empfirstname = '"+ firstName +"'";
-            needComma = true;
-        }
-        if(lastName != null){
-            if(needComma == true){
-                    ret = ret + ", ";
-            }
-            ret = ret+ "emplastname = '"+ lastName +"' ";
-            needComma = true;
-        }
-        if(accesslevel != -1){
-            if(needComma == true){
-                    ret = ret + ", ";
-            }
-            ret = ret+ "empaccesslevel = '"+ accesslevel +"' ";
-            needComma = true;
-        }
-        if(email != null){
-            if(needComma == true) {
-                    ret = ret + ", ";
-            }
-            ret = ret+ "empemail = '"+ email +"' ";
-            needComma = true;
-        }
-        if(wage >= 0){
-            if(needComma == true){
-                    ret = ret + ", ";
-            }
-            ret = ret+ "empwage = '"+ wage +"' ";
-            needComma = true;
-        }        
-        ret = ret + " WHERE emplogin = '" + loginID +"'";
-        return ret;
-    }
-
-    /**
-     * Generate Query to insert into the bossmanager table, employee is the LoginID
-     * of the employee and the manager will be set to null.
-     * this function is meant to be used at the same time a new employee is created
-     * and the updateManagerQuery is to be used when actually assigning a person a manager
-     * @param employee LoginID of the employee
-     * @return Query
-     */
-    private String newManagerQuery(String employee)
-    {
-         return "INSERT INTO bossmanager (employee)"
-                + " VALUES ('" + employee + "')";
-    }
-
-    /**
-     * Generate Query to update a employees manager
-     * @param employee employee whos manager needs changing
-     * @param newManager new managers LoginID
-     * @return  the Query
-     */
-    private String updateManagerQuery(String employee, String newManager)
-    {
-        return "UPDATE bossmanager "
-                + "SET manager = '" + newManager +"' "
-                + "WHERE employee = '" + employee + "' ";
-    }
-
-    /**
-     * Generate Query to insert a new message into the inbox table
-     * @param sender LoginId of who sent it
-     * @param reciever LoginID of who should recieve it
-     * @param message  textual part of the message
-     * @return the query
-     */
-    private String newMessageQuery(String sender, String reciever, String message )
-    {
-        return "INSERT INTO employeeinbox (mssgsender, mssgreciever, mssgtext)"
-                + "VALUES("
-                + "'" + sender + "', "
-                + "'" + reciever + "', "
-                + "'" + message + "' "
-                + ")";
-    }
-
-    /**
-     * Generate a query to get all the messages in a employees inbox
-     * @param LoginID
-     * @return the query
-     */
-    private String getEmployeeMessages(String LoginID)
-    {
-        return "SELECT mssgreciever, mssgsender, mssgtext, mssgsendtime "
-                + "FROM employeeinbox "
-                + "WHERE mssgreciever = '" + LoginID + "' "
-                + "ORDER BY mssgsendtime";
-    }
-    
-    private String deleteEmployeeMessage(String sender, String reciever, Timestamp sendtime)
-    {
-        return "DELETE FROM employeeinbox WHERE "
-                + "mssgsender = '" + sender + "' AND "
-                + "mssgreciever = '" + reciever + "' AND "
-                + "mssgsendtime = '" + sendtime + "' ";
-    }
-
-    /**
-     * Generate a query that returns a single entry under the column name "isfound"
-     * that is either "t" if the given username is found in the database
-     * or "f" if the username is not found in the database.
-     * @return 
-     */
-    private String usernameValidityQuery(String username)
-    {
-        return "SELECT exists("
-                + "SELECT emplogin "
-                + "FROM employees "
-                + "WHERE emplogin = '" + username + "') "
-                + "as isfound";
-    }
-
-    /**
-     * Generate a query  to select a range of shifts by date for a specifc user,
-     * or if the LoginID is null, for all users
-     *
-     * @param startDate start time of the date range
-     * @param endDate end time of the date range
-     * @param LoginID username 
-     * @return 
-     */
-    private String dateRangeShiftQuery( Timestamp startDate, Timestamp endDate, String LoginID) 
-    {
-        String ret = "SELECT shiftemployeelogin, shiftstarttime, shiftendtime "
-                + "FROM employeeshifts "
-                + "WHERE shiftstarttime >= '" + startDate.toString() + "' "
-                + "AND shiftstarttime <= '" + endDate.toString() + "' "
-                + "AND shiftendtime <= '" + endDate.toString() + "' "
-                + "AND shiftendtime >= '" + startDate.toString() + "' ";
-
-        if(LoginID != null)
-        {
-            ret = ret + "AND shiftemployeelogin = '" + LoginID + "' ";
-        }
-        // will just generalize  the query if the loginID is null to get all shifts for all people in the range
-        ret = ret + "ORDER BY shiftstarttime";
-        return ret;
-    }
-    
-
-    /**
-     * Generate a query to get the loginID of all the managers in the database 
-     * @return said query
-     */
-    private String managerListQuery()
-    {
-        return "SELECT emplogin "
-                + "FROM employees "
-                + "WHERE empaccesslevel = '2' ";
-    }
-
-    /**
-     * Actually a fairly complex query, this will remove all record of an employee in the system
-     * @param employeeLoginID employee to be scrubbed from the system
-     * @return 
-     */
-    private String removeEmployeeQuery(String employeeLoginID)
-    {
-        //start by removing their record in the bossmanager table
-        String step1 = "DELETE FROM bossmanager WHERE employee = '" + employeeLoginID + "'; ";
-
-        //if the employee was anyones manager in the bossmanager table, set those records to null
-        String step2 = "UPDATE bossmanager SET manager = NULL WHERE manager = '" + employeeLoginID + "'; ";
-
-        //remove all records associated with the user in the giveshifts table
-        String step3 = "DELETE FROM giveshifts WHERE giverlogin = '" + employeeLoginID + "'; ";
-
-        //remove all records in the shifttransaction table where either the initiator or finalizer is employeeLoginID
-        String step4a = "DELETE FROM shifttransaction WHERE initlogin = '" + employeeLoginID + "'; ";
-        String step4b = "DELETE FROM shifttransaction WHERE finallogin = '" + employeeLoginID + "'; ";
-
-        //remove all shifts in the employeeshifts table associated with the user
-        String step5 = "DELETE FROM employeeshifts WHERE shiftemployeelogin = '" + employeeLoginID + "'; ";
-
-        //remove all messages that were recieved by the user (messages sent from the user can stay)
-        String step6 = "DELETE FROM employeeinbox WHERE mssgreciever = '" + employeeLoginID + "'; ";
-
-        //finally delete the actual user record from the employees table
-        String step7 = "DELETE FROM employees WHERE emplogin = '" + employeeLoginID + "' ";
-
-        return step1 + step2 + step3 + step4a + step4b + step5 + step6 + step7; 
-    }
-
-    /**
-     * Generate a query to insert into the giveshifts table
-     * @param giver person that wants to give away a shift
-     * @param starttime start time of the shift
-     * @param endtime end time of the shift
-     * @return 
-     */
-    private String insertGiveRecordQuery(String giver, Timestamp starttime, Timestamp endtime )
-    {
-        return "INSERT INTO giveshifts(giverlogin, givershiftstart, givershiftend)"
-                + " VALUES("
-                + "'" + giver + "', "
-                + "'" + starttime.toString() + "', "
-                + "'" + endtime.toString() + "' "
-                + ")";
-    }
-
-    /**
-     * Generate a query to delete a specific shift from the give table
-     * @param giver
-     * @param starttime
-     * @param endtime
-     * @return 
-     */
-    private String deleteGiveRecordQuery(String giver, Timestamp starttime, Timestamp endtime )
-    {
-        return "DELETE FROM giveshifts WHERE "
-                + "giverlogin = '" + giver + "' AND "
-                + "givershiftstart = '" + starttime.toString() + "' AND "
-                + "givershiftend = '" + endtime.toString() + "' ";
-    }
-    
-    /**
-     * Generate a query to return all rows in the giveshifts table
-     * @return String version of the query necessary
-     */
-    private String getAllGiveRecords()
-    {
-        return "SELECT giverlogin, givershiftstart, givershiftend FROM giveshifts";
-    }
-
-    /**
-     * Generate a query that returns a single value under the column, requiremanagerapproval which is 
-     * TRUE if trades require a managers signoff/permission and false in its not required
-     * @param managerlogin 
-    */
-    private String getManagerApprovalStatus(String managerlogin)
-    {
-        return "SELECT ma_approval FROM managerapproval WHERE ma_manager = '" + managerlogin + "' ";
-    }
-
-    /**
-     * Generate a query to insert into the transactions table
-     * @param initiatorLoginID login of the person who sent/created the trade
-     * @param finalizerLoginID login of the reciever/ secondary actor of the transaction
-     * @param shiftTimes shiftTimes[0], shiftTimes[1] are the start and end times respectivly of the initiators shift
-     * THE TRANSACTIONID IS AUTOMATICALLY GENERATED HERE
-     * @param transactionType
-     * @param manager2reqd 
-     * @param manager1reqd 
-     * @return 
-     */
-    //TODO check if this function works property
-    private String insertTradeQuery(String initiatorLoginID, String finalizerLoginID, Timestamp[] shiftTimes, String transactionType, String initiatorManager, boolean initManagerSign, String finalizerManager, boolean finalManagerSign )
-    {
-        String returnString = "INSERT INTO shifttransaction (initlogin, initshiftstart, initshiftend, finallogin, finalshiftstart, finalshiftend, initmanagerlogin, finalmanagerlogin, initmanagersign, finaltmanagersign, transactiontype) "
-                    + "VALUES ( "
-                    + "'" + initiatorLoginID + "', ";
-        if(shiftTimes[0] != null)
-        {
-            returnString += "'" + shiftTimes[0].toString() + "', "
-                    + "'" + shiftTimes[1].toString() + "', ";
-        }
-        else //initial shifts are null
-        {
-            System.out.print("noo");
-            returnString += "'" + nullStamp.toString() + "', "
-                    + "'" + nullStamp.toString() + "', ";
-        }
-        returnString += "'" + finalizerLoginID + "', "
-                    + "'" + shiftTimes[2].toString() + "', "
-                    + "'" + shiftTimes[3].toString() + "', "
-                    + "'" + initiatorManager + "', "
-                    + "'" + finalizerManager + "', "
-                    + "'" + initManagerSign + "', "
-                    + "'" + finalManagerSign + "', "
-                    + "'" + transactionType + "') ";
-        return returnString;
-    }
-
-   /**
     * Generates query that updates one or both manager approval fields to true
     * if the manager is the initiators manager, that one will be updated
     * if the manager is the finalizers manager, that one will be updated
@@ -796,18 +415,16 @@ public class Controller {
     * @return the sQL to update approval 
     * @throws SQLException 
     */
-    //TODO testing if this works
-    //updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover())
     private String updateManagerApprovalTransactionsQuery(String sender, String recipient, Timestamp initstart, Timestamp finalstart, String managerLoginID ) throws SQLException
     {
     	Statement getTrannyID = null;
-		try {
-			getTrannyID = dbconnection.createStatement();
-		} catch (SQLException e) {
-			System.out.println("updateManagerApprovalTransactionsQuery died");
-			e.printStackTrace();
-		}
-    	ResultSet results = getTrannyID.executeQuery(this.getTransactionID(sender, recipient, initstart, finalstart));
+        try {
+                getTrannyID = dbconnection.createStatement();
+        } catch (SQLException e) {
+                System.out.println("updateManagerApprovalTransactionsQuery died");
+                e.printStackTrace();
+        }
+    	ResultSet results = getTrannyID.executeQuery(Queries.getTransactionID(sender, recipient, initstart, finalstart));
     	int transactionID = results.getInt("transactionid");  	
         String initiatorlogin = "UPDATE shifttransaction "
                 + "SET initmanagersign = TRUE "
@@ -819,121 +436,4 @@ public class Controller {
                 + "finalmanagerlogin = '" + managerLoginID + "' ";
         return initiatorlogin;
     }
-    
-    /**
-     * Query to Insert a shift into the employeeshifts table
-     * @param loginID = login of the employee assiciated with the shift
-     * @param startTime = start time of the shift
-     * @param endTime = end time of the shift
-     * @return String version of  the query
-     */
-    private String insertShiftQuery(String loginID, Timestamp startTime, Timestamp endTime)
-    {
-        return "INSERT INTO employeeshifts (shiftemployeelogin, shiftstarttime, shiftendtime) "
-                + "VALUES ("
-                + "'" + loginID + "', "
-                + "'" + startTime.toString() + "', "
-                + "'" + endTime.toString() + "' "
-                + ")";
-    }
-    
-    /**
-     * Query to DELETE a shift into the employeeshifts table
-     * @param loginID = login of the employee assiciated with the shift
-     * @param startTime = start time of the shift
-     * @param endTime = end time of the shift
-     * @return String version of  the query
-     */
-    private String deleteShiftQuery(String loginID, Timestamp startTime, Timestamp endTime)
-    {
-        return "DELETE FROM employeeshifts WHERE "
-                + "shiftemployeelogin = '" + loginID + "' AND "
-                + "shiftstarttime = '" + startTime.toString() + "' AND "
-                + "shiftendtime = '" + endTime.toString() + "'";
-    }
-    
-      private String approvalStatusChangeQuery(String manager, boolean isApproved)
-    {
-        return "UPDATE managerapproval SET ma_approval = "
-                + "'" + isApproved +"' "
-                + "WHERE ma_manager = '" + manager + "' ";
-    }
-      
-    private String getAccessLevelQuery(String empName)
-    {
-        return "SELECT empaccesslevel FROM employees WHERE emplogin = " + empName;
-    }
-    
-    
-    /**
-    tatement shiftRangeRequest = dbconnection.createStatement();
-    ResultSet results = shiftRangeRequest.executeQuery(this.dateRangeShiftQuery(request.getShifts()[0], request.getShifts()[1], request.getSender()));
-    Timestamp[] resultsList = tabulateShifts(results);
-    returnResults = new RequestResults();
-    returnResults.setShifts(resultsList);
-    shiftRangeRequest.close();
-    break;*/
-
-  public static void main (String[] args) {
-
-        Controller c = new Controller();
-        System.out.println(c.getloginQuery("testUsername"));
-        System.out.println(c.getWorkerInfoQuery("testUsername"));
-        System.out.println(c.getEmployeeShiftInfo("testUsername"));
-
-        System.out.println(c.updateEmployeeQuery(null, "buster", 2, "magnusandy", null, -1));
-        System.out.println(c.newManagerQuery("testUsername"));
-        System.out.println(c.updateManagerQuery("magnusandy", "oneTrueGod"));
-        System.out.println(c.newMessageQuery("magnusandy", "oneTrueGod", "Yoooo dawg lets do this"));
-        System.out.println(c.getEmployeeMessages("oneTrueGod"));
-        System.out.println(c.usernameValidityQuery("magnusandy"));
-        Timestamp x = Timestamp.valueOf("2014-10-22 09:00:00");
-        Timestamp y = Timestamp.valueOf("2014-10-27 09:00:00");
-        System.out.println(c.dateRangeShiftQuery(x,y,"tmike"));
-        System.out.println(c.dateRangeShiftQuery(x,y,null));
-        System.out.println(c.managerListQuery());
-        System.out.println(c.removeEmployeeQuery("tmike"));
-        System.out.println(c.insertGiveRecordQuery("tmike", x, y));
-        System.out.println(c.deleteGiveRecordQuery("tmike", x, y));
-        Timestamp[] b = new Timestamp[4];
-        b[0] = Timestamp.valueOf( "2014-10-20 08:45:00" );
-         b[1] = Timestamp.valueOf( "2014-10-20 18:30:00" );
-       // System.out.println(c.insertShiftTransactionQuery("tmike", "tsanjay", b, "swap"));
-         System.out.println(c.insertShiftQuery("rickjames", b[0], b[1]));
-         System.out.println(c.deleteShiftQuery("rickjames", b[0], b[1]));
-         System.out.println(c.getAllGiveRecords());
-         System.out.println(c.deleteEmployeeMessage("tmike", "rickjames", b[0]));
-         System.out.println(c.getWorkerInfoQuery("twarren"));
-
-    }  
 }
-
-
-
-/** Sample SQL for a shift exchange
- * TAKE
- * 		INSERT INTO employeeshifts VALUES (persontaking, shiftStartEnd[0], shiftStartEnd[1]);
- * 		DELETE FROM employeeshifts
- * 		WHERE
- * 			shiftemployeelogin = persongiving AND
- * 			shiftstarttime = shiftStartEnd[0] AND
- * 			shitendtime = shiftStartEnd[1]
- *		;
- *
- * SWAP
- * 		INSERT INTO employeeshifts VALUES (person1, shiftStartEnd[2], shiftStartEnd[3]); //person 2s shifts
- * 		INSERT INTO employeeshifts VALUES (person2, shiftStartEnd[0], shiftStartEnd[1]); //person 1s shifts
- * 		
- * 		DELETE FROM employeeshifts
- * 		WHERE
- * 			shiftemployeelogin = person1 AND	// remove person 1s shifts he traded away
- * 			shiftstarttime = shiftStartEnd[0] AND
- * 			shitendtime = shiftStartEnd[1]
- *		;
- *		DELETE FROM employeeshifts
- * 		WHERE
- * 			shiftemployeelogin = person2 AND	// remove person 2s shifts he gave away
- * 			shiftstarttime = shiftStartEnd[2] AND
- * 			shitendtime = shiftStartEnd[3]
- *		;
- *  */
