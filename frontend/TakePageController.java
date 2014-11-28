@@ -59,6 +59,7 @@ public class TakePageController extends AnchorPane implements Initializable
     @FXML
     void onUpdateButtonPress() {
         updateTakeShifts();
+        updateGiveShifts();
     }
     
     @FXML
@@ -81,7 +82,28 @@ public class TakePageController extends AnchorPane implements Initializable
     private ObservableList<String> grabGiveShifts()
     {
         giveList=instance.grabSelfShifts();
-        return null;
+        ObservableList<String> shiftData = FXCollections.observableArrayList();
+        int i=0;
+        while(i<giveList.size())
+        {
+            String entry=giveList.get(i).toString();
+            
+            //This parses the data properly.
+            int stringCounter=0;
+            while(entry.charAt(stringCounter)!=' ')
+            {
+                stringCounter++;
+            }
+            entry=entry.substring(stringCounter);
+            
+            //This will remove one of the non-essential dates
+            entry=entry.substring(0, 17)+"-"+entry.substring(32);
+            
+            
+            shiftData.add(entry);
+            i=i+1;
+        }
+        return shiftData;
     }
     
     void updateTakeShifts(){

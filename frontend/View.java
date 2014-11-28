@@ -23,9 +23,16 @@ import java.util.LinkedList;
  */
 public class View extends Application
 {
+    //A point in the far future we need to reference for get ShiftRange
+    private final long END_OF_TIME=100000000000000L;
+    
     private Stage curStage;
     private static View instance;
+    
+    //The user currently logged in.
     private static String userID;
+    
+    //The current Date.
     private static LocalDate currentDate;
     
     public View() {
@@ -409,6 +416,10 @@ public class View extends Application
     {
         Shift[] shifts=Input.getGiveList();
         LinkedList<Shift> shiftList= new LinkedList<Shift>();
+        if(shifts==null)
+        {
+            return shiftList;
+        }
         int i=0;
         while(i<shifts.length)
         {
@@ -425,9 +436,22 @@ public class View extends Application
      */
     protected LinkedList<Shift> grabSelfShifts()
     {
-        //IN PROGRESS
-        Shift[] shifts=Input.getRangeSchedule(userID);
-        return null;
+        LinkedList<Shift> schedule= new LinkedList<Shift>();
+        String todaysDate=currentDate.toString()+" 01:00:00";
+        Timestamp[] shifts=Input.getRangeSchedule(userID, Timestamp.valueOf(todaysDate), new Timestamp(END_OF_TIME));
+        if(shifts==null)
+        {
+            return schedule;
+        }
+        int i=0;
+        while(i<shifts.length)
+        {
+            Shift temp= new Shift(userID,shifts[i],shifts[i+1]);
+            schedule.add(temp);
+            i=i+2;
+        }
+
+        return schedule;
     }
     
     /**

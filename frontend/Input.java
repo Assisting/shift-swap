@@ -76,10 +76,20 @@ public class Input
         return schedule.getShifts();
     }
     
-    public static Shift[] getRangeSchedule(String userID)
+    public static Timestamp[] getRangeSchedule(String userID, Timestamp start, Timestamp end)
     {
+        Request request = Request.ShiftRangeRequest(userID, start, end);
+        RequestResults schedule = new RequestResults();
+        try{
+            schedule = controller.sendRequest(request);
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("Exception in inUsernameUnique with message: " + exception.getMessage());
+            return null;
+        }
         //Do stuff here!
-        return null;
+        return schedule.getShifts();
     }
     
     /**
