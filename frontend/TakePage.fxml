@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -15,14 +16,23 @@
                      <bottom>
                         <Pane prefHeight="45.0" prefWidth="600.0" styleClass="background-standard" BorderPane.alignment="CENTER">
                            <children>
-                              <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" styleClass="button-standard" text="Update Available Shifts" />
+                              <Button layoutX="291.0" layoutY="10.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" styleClass="button-standard" text="Update Available Shifts" />
                            </children>
                         </Pane>
                      </bottom>
                      <top>
                         <Pane prefHeight="44.0" prefWidth="600.0" styleClass="background-standard" BorderPane.alignment="CENTER">
                            <children>
-                              <Label layoutX="263.0" layoutY="1.0" styleClass="title" text="Take Shifts" />
+                              <Label layoutX="36.0" layoutY="12.0" text="Shifts available to take">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="502.0" layoutY="12.0" text="Your shifts available to give away">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </Pane>
                      </top>
@@ -37,7 +47,7 @@
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="background-standard">
                                  <children>
                                     <Button fx:id="takeButton" disable="true" layoutX="117.0" layoutY="127.0" mnemonicParsing="false" onAction="#onTakeButtonPress" styleClass="button-standard" text="Take Shift" visible="false" />
-                                    <Button fx:id="giveButton" disable="true" layoutX="135.0" layoutY="166.0" mnemonicParsing="false" onAction="#onGiveButtonPress" styleClass="button-standard" text="Give" visible="false" />
+                                    <Button fx:id="giveButton" disable="true" layoutX="118.0" layoutY="179.0" mnemonicParsing="false" onAction="#onGiveButtonPress" styleClass="button-standard" text="Give Shift" visible="false" />
                                  </children>
                               </AnchorPane>
                           </items>

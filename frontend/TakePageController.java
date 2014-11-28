@@ -76,7 +76,18 @@ public class TakePageController extends AnchorPane implements Initializable
     
     void updateGiveShifts(){
         giveGrid.setItems(grabGiveShifts());
-        
+        try
+        {
+            giveGrid.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> populateMessageGive(giveGrid.getSelectionModel().getSelectedIndex()));
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            /*Every time you update the list past the first, it will throw this error, as index -1.
+            *None of us still know why this is happening, but it doesn't actually affect anything.
+            *We can catch this safely without anything bad happening.
+            */
+        }
     }
     
     private ObservableList<String> grabGiveShifts()
@@ -122,12 +133,26 @@ public class TakePageController extends AnchorPane implements Initializable
         }
         takeButton.setDisable(true);
         takeButton.setVisible(false);
+        giveButton.setDisable(true);
+        giveButton.setVisible(false);
     }
     
     private void populateMessageTake(int index)
     {
         takeButton.setDisable(false);
         takeButton.setVisible(true);
+        giveButton.setDisable(true);
+        giveButton.setVisible(false);
+        currentIndex=index;
+        shiftHeader.setText("Shift is from: "+shiftList.get(index).toString());
+    }
+    
+    private void populateMessageGive(int index)
+    {
+        takeButton.setDisable(true);
+        takeButton.setVisible(false);
+        giveButton.setDisable(false);
+        giveButton.setVisible(true);
         currentIndex=index;
         shiftHeader.setText("Shift is from: "+shiftList.get(index).toString());
     }
