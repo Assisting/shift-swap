@@ -483,6 +483,13 @@ public class View extends Application
         Input.createTakeRequest( userID, take.getEmployeeLogin(), temp);
     }
     
+    protected boolean sendGiveRequest(Shift give)
+    {
+        Timestamp[] temp={give.getShiftStartTime(),give.getShiftEndTime()};
+        boolean success= Input.createGiveRequest(userID, temp);
+        return success;
+    }
+    
     private Initializable sceneTransition(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader();
         InputStream in = View.class.getResourceAsStream(fxml);

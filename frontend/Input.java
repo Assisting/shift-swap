@@ -17,6 +17,7 @@ import controller.*;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import org.postgresql.util.PSQLException;
 
 /**
  * The class of static functions to help handle input.
@@ -255,15 +256,24 @@ public class Input
      * @param empName the employees name
      * @param shiftStartEnd an array containing the shifts Start time and shifts End time (0,1 respectively)
      */
-    public static void createGiveRequest(String empName, Timestamp[] shiftStartEnd) {
+    public static boolean createGiveRequest(String empName, Timestamp[] shiftStartEnd) {
     	Request request = Request.GiveRequest(empName, shiftStartEnd);
-    	try {
-			controller.sendRequest(request);
-		} catch (SQLException e) {
-			System.out.println("createGiveRequest bombed hard");
-			e.printStackTrace();
-		}
-    	
+    	try 
+        {
+		controller.sendRequest(request);
+	}
+        catch (PSQLException e)
+        {
+            //This means that this shift has already been given away, and can't be given away twice.
+            return false;
+        }
+        catch (SQLException e) 
+        {
+		System.out.println("createGiveRequest bombed hard");
+		e.printStackTrace();
+                return false;
+	}
+    	return true;
     	/** Sample SQL for creating a give request
     	 * INSERT INTO giveshifts (giverlogin, givershiftstart, givershiftend),
     	 * 	VALUES (empName, shiftStartEnd[0], shiftStartEnd[1]); */

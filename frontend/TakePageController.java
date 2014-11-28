@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 
@@ -31,6 +32,9 @@ public class TakePageController extends AnchorPane implements Initializable
     LinkedList<Shift> giveList;
     
     private int  currentIndex;
+    
+    @FXML
+    private Label giveFailureLabel;
     
     @FXML
     private ListView<String> giveGrid;
@@ -67,11 +71,21 @@ public class TakePageController extends AnchorPane implements Initializable
     {
         instance.sendTakeRequest(shiftList.get(currentIndex));
         updateTakeShifts();
+        giveFailureLabel.setVisible(false);
     }
     
     @FXML
-    void onGiveButtonPress() {
-        
+    void onGiveButtonPress() 
+    {
+        boolean success=instance.sendGiveRequest(giveList.get(currentIndex));
+        if(success)
+        {
+            updateGiveShifts();
+        }
+        else
+        {
+            giveFailureLabel.setVisible(true);
+        }
     }
     
     void updateGiveShifts(){
@@ -88,6 +102,11 @@ public class TakePageController extends AnchorPane implements Initializable
             *We can catch this safely without anything bad happening.
             */
         }
+        takeButton.setDisable(true);
+        takeButton.setVisible(false);
+        giveButton.setDisable(true);
+        giveButton.setVisible(false);
+        giveFailureLabel.setVisible(false);
     }
     
     private ObservableList<String> grabGiveShifts()
@@ -108,7 +127,7 @@ public class TakePageController extends AnchorPane implements Initializable
             entry=entry.substring(stringCounter);
             
             //This will remove one of the non-essential dates
-            entry=entry.substring(0, 17)+"-"+entry.substring(32);
+            entry=entry.substring(0, 17)+"-"+entry.substring(31);
             
             
             shiftData.add(entry);
@@ -135,6 +154,7 @@ public class TakePageController extends AnchorPane implements Initializable
         takeButton.setVisible(false);
         giveButton.setDisable(true);
         giveButton.setVisible(false);
+        giveFailureLabel.setVisible(false);
     }
     
     private void populateMessageTake(int index)
@@ -154,7 +174,7 @@ public class TakePageController extends AnchorPane implements Initializable
         giveButton.setDisable(false);
         giveButton.setVisible(true);
         currentIndex=index;
-        shiftHeader.setText("Shift is from: "+shiftList.get(index).toString());
+        shiftHeader.setText("Shift is from: "+giveList.get(index).toString());
     }
     
     private ObservableList<String> grabTakeShifts()
@@ -175,7 +195,7 @@ public class TakePageController extends AnchorPane implements Initializable
             entry=entry.substring(stringCounter);
             
             //This will remove one of the non-essential dates
-            entry=entry.substring(0, 17)+"-"+entry.substring(32);
+            entry=entry.substring(0, 17)+"-"+entry.substring(31);
             
             
             shiftData.add(entry);
