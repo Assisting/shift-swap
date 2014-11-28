@@ -88,7 +88,7 @@ public class TakePageController extends AnchorPane implements Initializable
         }
     }
     
-    void updateGiveShifts(){
+    private void updateGiveShifts(){
         giveGrid.setItems(grabGiveShifts());
         try
         {
@@ -102,11 +102,7 @@ public class TakePageController extends AnchorPane implements Initializable
             *We can catch this safely without anything bad happening.
             */
         }
-        takeButton.setDisable(true);
-        takeButton.setVisible(false);
-        giveButton.setDisable(true);
-        giveButton.setVisible(false);
-        giveFailureLabel.setVisible(false);
+        resetButtons();
     }
     
     private ObservableList<String> grabGiveShifts()
@@ -136,7 +132,7 @@ public class TakePageController extends AnchorPane implements Initializable
         return shiftData;
     }
     
-    void updateTakeShifts(){
+    private void updateTakeShifts(){
         shiftGrid.setItems(grabTakeShifts());     
         try
         {
@@ -150,11 +146,7 @@ public class TakePageController extends AnchorPane implements Initializable
             *We can catch this safely without anything bad happening.
             */
         }
-        takeButton.setDisable(true);
-        takeButton.setVisible(false);
-        giveButton.setDisable(true);
-        giveButton.setVisible(false);
-        giveFailureLabel.setVisible(false);
+        resetButtons();
     }
     
     private void populateMessageTake(int index)
@@ -175,6 +167,15 @@ public class TakePageController extends AnchorPane implements Initializable
         giveButton.setVisible(true);
         currentIndex=index;
         shiftHeader.setText("Shift is from: "+giveList.get(index).toString());
+    }
+    
+    private void resetButtons()
+    {
+        takeButton.setDisable(true);
+        takeButton.setVisible(false);
+        giveButton.setDisable(true);
+        giveButton.setVisible(false);
+        giveFailureLabel.setVisible(false);
     }
     
     private ObservableList<String> grabTakeShifts()
