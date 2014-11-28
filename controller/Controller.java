@@ -169,7 +169,7 @@ public class Controller {
                         approveRequest.close();
                         break;
                     }
-                    case ADD:
+                    case ADD_SHIFT:
                     {
                         Statement addShift = dbconnection.createStatement();
                         addShift.execute(Queries.insertShiftQuery(request.getSender(), request.getShifts()[0], request.getShifts()[1]));
@@ -192,7 +192,7 @@ public class Controller {
                         loginRequest.close();
                         break;
                     }
-                    case CREATE:
+                    case CREATE_USER:
                     {
 
                         PreparedStatement AddUserRequest = dbconnection.prepareStatement(
@@ -217,7 +217,7 @@ public class Controller {
 
                         break;
                     }
-                    case DELETE:
+                    case DELETE_USER:
                     {
                         break;
                     }
@@ -231,7 +231,7 @@ public class Controller {
                         shiftPullRequest.close();
                         break;
                     }
-                    case VALIDATE:
+                    case VALIDATE_UNIQUE:
                     {
                         Statement userValidateRequest= dbconnection.createStatement();
                         ResultSet results = userValidateRequest.executeQuery(Queries.usernameValidityQuery(request.getSender()));
@@ -317,7 +317,7 @@ public class Controller {
                         sendMessage.close();
                         break;
                     }
-                    case MESSAGES:
+                    case GET_MESSAGES:
                     {
                         Statement getMessages = dbconnection.createStatement();
                         ResultSet messages = getMessages.executeQuery(Queries.getEmployeeMessages(request.getSender()));

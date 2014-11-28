@@ -17,10 +17,10 @@ public class Request
 {
  
     public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE, SEND_MESSAGE,
-                              CREATE, DELETE, VALIDATE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL, USER_INFO, GET_USERNAME,
-                              LOGIN, GIVELIST, MESSAGES,
+                              CREATE_USER, DELETE_USER, VALIDATE_UNIQUE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL, USER_INFO, GET_USERNAME,
+                              LOGIN, GIVELIST, GET_MESSAGES,
                               APPROVAL_STATUS,
-                              SCHEDULE, SHIFT_RANGE, ADD, REMOVE }
+                              SCHEDULE, SHIFT_RANGE, ADD_SHIFT, REMOVE_SHIFT }
  
     final private String sender;
     private String approver;
@@ -58,7 +58,7 @@ public static Request GetGivesListRequest()
 
 public static Request GetMessagesRequest(String sender)
 {
-    return new Request(sender, null, null, RequestType.MESSAGES);
+    return new Request(sender, null, null, RequestType.GET_MESSAGES);
 }
 
 public static Request SendMessageRequest(String sender, String recipient, String message)
@@ -73,11 +73,11 @@ public static Request ShiftRequest(String username) {
  
 public static Request CreateRequest(String sender, Employee employee) {
         Message message = new Message(null, null, null, employee, null, false);
-        return new Request(sender, null, message, RequestType.CREATE);
+        return new Request(sender, null, message, RequestType.CREATE_USER);
 }
  
 public static Request DeleteRequest(String sender, String toBeRemoved) {
-        return new Request(sender, toBeRemoved, null, RequestType.DELETE);
+        return new Request(sender, toBeRemoved, null, RequestType.DELETE_USER);
 }
 
 public static Request GiveRequest(String sender, Timestamp[] times) {
@@ -113,7 +113,7 @@ public static Request ApproveRequest(String asker, String accepter, String appro
 
 public static Request UsernameValidateRequest(String username)
 {
-    return new Request(username, null, null, RequestType.VALIDATE);
+    return new Request(username, null, null, RequestType.VALIDATE_UNIQUE);
 }
 
 public static Request ShiftRangeRequest(String username, Timestamp start, Timestamp end)
@@ -202,7 +202,7 @@ public static Request assignShiftsRequest(Shift shift)
     shifts[0] =  shift.getShiftStartTime();
     shifts[1] = shift.getShiftEndTime();
     Message message = new Message(null, null, shifts, null, null, false);
-    return new Request(shift.getEmployeeLogin(), null, message, RequestType.ADD);
+    return new Request(shift.getEmployeeLogin(), null, message, RequestType.ADD_SHIFT);
 }
 
 /**
