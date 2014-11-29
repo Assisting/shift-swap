@@ -16,23 +16,38 @@ import java.sql.Timestamp;
  */
 public class Message {
     
-    String notification;
-    byte[] password;
-    Timestamp[] shift;
-    Employee employee;
+    private String notification;
+    private byte[] password;
+    private Timestamp[] shift;
+    private Employee employee;
     private String manager;
     private boolean approval;
 
+    //if (shift != null && shift.length%2 != 0) throw new IllegalArgumentException("Shift must contain an even number of elements");
+    public Message(){}
     
-    public Message(String notification, byte[] password, Timestamp shift[], Employee employee, String manager, boolean approval) {
-        if (shift != null && shift.length%2 != 0) throw new IllegalArgumentException("Shift must contain an even number of elements");
-        
-        this.password = password;
-        this.notification = notification;
-        this.shift = shift;
-        this.employee = employee;
-        this.manager = manager;
-        this.approval = approval;
+    public void setNotification(String value) {
+        notification = value;
+    }
+    
+    public void setPassword(byte[] value) {
+        password = value;
+    }
+    
+    public void setShifts(Timestamp[] value) {
+        shift = value;
+    }
+    
+    public void setEmployee(Employee value) {
+        employee = value;
+    }
+    
+    public void setManager(String value) {
+        manager = value;
+    }
+    
+    public void setApproved(boolean value) {
+        approval = value;
     }
     
     public String getNotification() {
@@ -52,16 +67,16 @@ public class Message {
     }
 
     /**
-     * @return the approval
-     */
-    public boolean isApproved() {
-        return approval;
-    }
-
-    /**
      * @return the manager
      */
     public String getManager() {
         return manager;
+    }
+    
+    /**
+     * @return the approval
+     */
+    public boolean isApproved() {
+        return approval;
     }
 }

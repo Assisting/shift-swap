@@ -45,47 +45,94 @@ public class Request
     }
  
 //-----Custom Requests------------------------------------------
- 
+
+/**
+ * Make a request to log in to the system
+ * @param username the username to check against
+ * @param password the password to offer
+ * @return the constructed request
+ */
 public static Request LoginRequest(String username, byte[] password) {
-        Message message = new Message(null, password, null, null, null, false);
+        Message message = new Message();
+        message.setPassword(password);
         return new Request(username, null, message, RequestType.LOGIN);
 }
 
+/**
+ * Ask for the list of Give request in the database
+ * @return the request
+ */
 public static Request GetGivesListRequest()
 {
     return new Request(null, null, null, RequestType.GIVELIST);
 }
 
+/**
+ * ask for an employees outstanding inbox messages
+ * @param sender the employee
+ * @return the request
+ */
 public static Request GetMessagesRequest(String sender)
 {
     return new Request(sender, null, null, RequestType.GET_MESSAGES);
 }
 
+/**
+ * send a message from one employee to another
+ * @param sender the employee sending the message
+ * @param recipient the employee receiving the message
+ * @param message the text to send
+ * @return the request
+ */
 public static Request SendMessageRequest(String sender, String recipient, String message)
 {
-    Message newMessage = new Message(message, null, null, null, null, false);
+    Message newMessage = new Message();
+    newMessage.setNotification(message);
     return new Request(sender, recipient, newMessage, RequestType.SEND_MESSAGE);
 }
- 
+
+/**
+ * get the entire schedule of an employee
+ * @param username the employee to use in the query
+ * @return the request
+ */
 public static Request ShiftRequest(String username) {
         return new Request(username, null, null, RequestType.SCHEDULE);
 }
- 
+
+/**
+ * create an employee in the database
+ * @param sender the manager creating the employee
+ * @param employee the employee's information
+ * @return the request
+ */
 public static Request CreateRequest(String sender, Employee employee) {
-        Message message = new Message(null, null, null, employee, null, false);
+        Message message = new Message();
+        message.setEmployee(employee);
         return new Request(sender, null, message, RequestType.CREATE_USER);
 }
- 
+
+/**
+ * deletes an employee from the database
+ * @param sender the manager making the request
+ * @param toBeRemoved the ID of the employee to be removed
+ * @return the request
+ */
 public static Request DeleteRequest(String sender, String toBeRemoved) {
         return new Request(sender, toBeRemoved, null, RequestType.DELETE_USER);
 }
 
+/**
+ * ask anyone who can take a shift to take one from you
+ * @param sender the employees ID
+ * @param times the start and end time of the shift being given away
+ * @return the request
+ */
 public static Request GiveRequest(String sender, Timestamp[] times) {
-    Message message = new Message(null, null, times, null, null, false);
+    Message message = new Message();
+    message.setShifts(times);
     return new Request(sender, null, message, RequestType.GIVE);
 }
-
-
 
 /**
  * create a new request to trade shifts with another employee
@@ -95,31 +142,67 @@ public static Request GiveRequest(String sender, Timestamp[] times) {
  * @return 
  */
 public static Request TradeRequest(String sender, String recipient, Timestamp[] shifts) {
-    Message message = new Message(null, null, shifts, null, null, false);
+    Message message = new Message();
+    message.setShifts(shifts);
     return new Request(sender, recipient, message, RequestType.TRADE);
 }
 
+/**
+ * send a message accepting or rejecting a trade request from another employee
+ * @param asker the employee ID of the person who initiated the trade
+ * @param accepter the employee ID of the person asked to accept the trade
+ * @param shifts the shift start times of the person who started the trade, and the one accepting it
+ * @param accepted whether or not the trade is accepted
+ * @return the request
+ */
 public static Request AcceptRequest(String asker, String accepter, Timestamp[] shifts, boolean accepted)
 {
-    Message message = new Message(null, null, shifts, null, null, accepted);
+    Message message = new Message();
+    message.setApproved(accepted);
+    message.setShifts(shifts);
     return new Request(asker, accepter, message, RequestType.ACCEPT);
 }
 
+/**
+ * message sent by a manager approving or disapproving a trade
+ * @param asker the employee ID of the person who initiated the request
+ * @param accepter the ID of the person who accepted the trade
+ * @param approver the ID of the manger making this approval
+ * @param shifts the start times of the asker and accepters shifts
+ * @param approved whether the manager approves
+ * @return the request
+ */
 public static Request ApproveRequest(String asker, String accepter, String approver, Timestamp[] shifts, boolean approved)
 {
-    Message message = new Message(null, null, shifts, null, approver, approved);
+    Message message = new Message();
+    message.setShifts(shifts);
+    message.setApproved(approved);
+    message.setManager(approver);
     return new Request(null, null, message, RequestType.APPROVE);
 }
 
+/**
+ * checks if a username is unique in the database
+ * @param username the employee ID to check
+ * @return the request
+ */
 public static Request UsernameValidateRequest(String username)
 {
     return new Request(username, null, null, RequestType.VALIDATE_UNIQUE);
 }
 
+/**
+ * get a set of shifts from a start to end time
+ * @param username the user who's schedule should be used
+ * @param start the start of the range
+ * @param end the end of the range
+ * @return the request
+ */
 public static Request ShiftRangeRequest(String username, Timestamp start, Timestamp end)
 {
     Timestamp[] shifts  = {start, end};
-    Message message = new Message(null, null, shifts, null, null, false);
+    Message message = new Message();
+    message.setShifts(shifts);
     return new Request(username, null, message, RequestType.SHIFT_RANGE);
 }
 
@@ -131,10 +214,10 @@ public static Request ShiftRangeRequest(String username, Timestamp start, Timest
  */
 public static Request ChangePasswordRequest(String username, byte[] newPassword)
 {
-    Message message = new Message(null, newPassword, null, null, null, false);
+    Message message = new Message();
+    message.setPassword(newPassword);
     return new Request(username, null, message, RequestType.PASSWORD_CHANGE);
 }
-
 
 /**
  * General Request for updating/ changing user information
@@ -149,7 +232,8 @@ public static Request ChangePasswordRequest(String username, byte[] newPassword)
 public static Request ModifyEmployeeInfoRequest(String userToBeChanged, String newFirstName, String newLastName, String newEmail, int newAccessLevel, float newWage)
 {
     Employee employee = new Employee(userToBeChanged, newFirstName, newLastName, newAccessLevel, null, newEmail, newWage);
-    Message message = new Message(null, null, null, employee, null, false);
+    Message message = new Message();
+    message.setEmployee(employee);
     return new Request(null, null, message, RequestType.UPDATE_EMPLOYEE);
 }
  
@@ -165,15 +249,26 @@ public static Request ModifyEmployeeInfoRequest(String userToBeChanged, String n
 public static Request ChangeAccessLevelRequest(String username, int newAccesslevel)
 {
     Employee employee = new Employee(username, " ", " ", newAccesslevel, null, null, 0);
-    Message message = new Message(null, null, null, employee, null, false);
+    Message message = new Message();
+    message.setEmployee(employee);
     return new Request(username, null, message, RequestType.ACCESS_UPDATE);
 }
 
+/**
+ * get the access level of an employee
+ * @param username the user ID of the checked employee
+ * @return the request
+ */
 public static Request GetAccessLevelRequest(String username)
 {
     return new Request(username, null, null, RequestType.ACCESS_LEVEL);
 }
 
+/**
+ * get the user information of an employee
+ * @param username the employee ID
+ * @return the request
+ */
 public static Request GetUserInfoRequest(String username)
 {
     return new Request(username, null, null, RequestType.USER_INFO);
@@ -187,7 +282,8 @@ public static Request GetUserInfoRequest(String username)
  */
 public static Request changeEmployeesManagerRequest(String employeeLoginID, String managerLoginID)
 {
-    Message message = new Message(null, null, null, null, managerLoginID, false);
+    Message message = new Message();
+    message.setManager(managerLoginID);
     return new Request(employeeLoginID, null, message, RequestType.MANAGER_CHANGE);
 }
 
@@ -201,7 +297,8 @@ public static Request assignShiftsRequest(Shift shift)
     Timestamp[] shifts = new Timestamp[2];
     shifts[0] =  shift.getShiftStartTime();
     shifts[1] = shift.getShiftEndTime();
-    Message message = new Message(null, null, shifts, null, null, false);
+    Message message = new Message();
+    message.setShifts(shifts);
     return new Request(shift.getEmployeeLogin(), null, message, RequestType.ADD_SHIFT);
 }
 
@@ -213,10 +310,18 @@ public static Request assignShiftsRequest(Shift shift)
  */
 public static Request changeManagerApprovalStatusRequest(String manager, boolean wantToApprove)
 {
-    Message message = new Message(null, null, null, null, manager, wantToApprove);
+    Message message = new Message();
+    message.setManager(manager);
+    message.setApproved(wantToApprove);
     return new Request(null, null, message, RequestType.APPROVAL_STATUS);
 }
 
+/**
+ * return the User ID of a employee with the given name
+ * @param first the first name of the employee
+ * @param last the last name of the employee
+ * @return the request
+ */
 public static Request GetUserLoginRequest(String first, String last)
 {
     return new Request(first, last, null, RequestType.GET_USERNAME);
