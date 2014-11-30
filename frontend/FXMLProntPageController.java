@@ -64,13 +64,18 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     @FXML
     private Label day0Label;
     
+    @FXML
+    private Label youAreALabel;
+    
     // Technically this is now the "Manager Settings" button
     @FXML
     private Button addEmployeeButton;
+  
+    @FXML
+    private Button assignShiftsButton;
     
     @FXML
-    private Label youAreALabel;
-  
+    private Button systemSettingsButton;
   
     
     /**
@@ -91,16 +96,7 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
 	
 	this.access = accessLevel;
 	
-	if(this.access == 1) {
-	    youAreALabel.setText("Worker");
-	}
-	else if(this.access == 2) {
-	    youAreALabel.setText("Manager");
-	}
-	else {
-	    youAreALabel.setText("Owner");
-	}
-	
+	setActiveButtons();
     }
     
     @FXML
@@ -143,9 +139,40 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
         instance.swapToShiftSwapSwapShift();
     }
     
+    private void setActiveButtons()
+    {
+	if(this.access == 3) {
+	    youAreALabel.setText("Owner Settings");
+	}
+	else if(this.access == 2) {
+	    youAreALabel.setText("Manager Settings");
+	}
+	else {
+	    youAreALabel.setText("Worker Settings");
+	}
+	
+	if(this.access < 3) {
+	    systemSettingsButton.setVisible(false);
+	}
+	if(this.access < 2) {
+	    addEmployeeButton.setVisible(false);
+	    assignShiftsButton.setVisible(false);
+	}
+    }
+    
     @FXML
     void onAddEmployeeButtonPress(ActionEvent event) {
 	instance.swapToManagerSettings();
+    }
+    
+    @FXML
+    void onAssignShiftsPress(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onSystemSettingsPress(ActionEvent event) {
+
     }
     
     @FXML
