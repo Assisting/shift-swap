@@ -326,11 +326,22 @@ public class Controller {
                         ResultSet messages = getMessages.executeQuery(Queries.getEmployeeMessages(request.getSender()));
                         returnResults = new RequestResults();
                         String message = "";
+                        Timestamp[] times = null;
+                        if (messages.last())
+                        {
+                            times = new Timestamp[messages.getRow()];
+                        }
+                        else
+                            return null;
+                        int i = 0;
                         while (messages.next())
                         {
                             message += "From: " + messages.getString("mssgsender") + " To: " + messages.getString("mssgreciever") + " -> " + messages.getString("mssgtext") + "\n";
+                            times[i] = messages.getTimestamp("mssgsendtime");
+                            i ++;
                         }
                         returnResults.setMessages(message);
+                        returnResults.setShifts(times);
                         break;
                     }
                     case MANAGER_CHANGE:
