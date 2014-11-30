@@ -364,6 +364,35 @@ public class Controller {
                         accessLevel.close();
                         break;
                     }
+                    case SHIFTS_DAY:
+                    {
+                        Statement shiftsDay = dbconnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                        ResultSet results = shiftsDay.executeQuery(Queries.getAllShiftsNotWorkedByY(request.getShifts()[0], request.getShifts()[1], request.getSender()));
+                        String[] names;
+                        Timestamp[] timePairs;
+                        if (results.last())
+                        {
+                            names = new String[results.getRow()];
+                            timePairs = new Timestamp[results.getRow()*2];
+                        }
+                        else
+                            return null;
+                        results.beforeFirst();
+                        
+                        int i = 0;
+                        while (results.next())
+                        {
+                            names[i] = results.getString("shiftemployeelogin");
+                            timePairs[i*2] = results.getTimestamp("shiftstarttime");
+                            timePairs[i*2+1] = results.getTimestamp("shiftendtime");
+                            i++;
+                        }
+                        shiftsDay.close();
+                        returnResults = new RequestResults();
+                        returnResults.setNames(names);
+                        returnResults.setShifts(timePairs);
+                        break;
+                    }
             }
             return returnResults;
     }

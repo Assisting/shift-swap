@@ -20,7 +20,7 @@ public class Request
                               CREATE_USER, DELETE_USER, VALIDATE_UNIQUE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL, USER_INFO, GET_USERNAME,
                               LOGIN, GIVELIST, GET_MESSAGES,
                               APPROVAL_STATUS,
-                              SCHEDULE, SHIFT_RANGE, ADD_SHIFT, REMOVE_SHIFT }
+                              SCHEDULE, SHIFT_RANGE, SHIFTS_DAY, ADD_SHIFT, REMOVE_SHIFT }
  
     final private String sender;
     private String approver;
@@ -65,6 +65,16 @@ public static Request LoginRequest(String username, byte[] password) {
 public static Request GetGivesListRequest()
 {
     return new Request(null, null, null, RequestType.GIVELIST);
+}
+
+/**
+ * get all the shifts worked on a day, except those by the sender
+ * @param sender the person to exclude from the list
+ * @return the query
+ */
+public static Request GetShiftsonDay(String sender)
+{
+    return new Request(sender, null, null, RequestType.SHIFTS_DAY);
 }
 
 /**
