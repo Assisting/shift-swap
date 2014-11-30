@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -12,17 +13,27 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background-standard" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="256.0" layoutY="14.0" styleClass="title" text="Swap Shifts" />
-                  <ListView fx:id="yourShiftsGrid" layoutX="56.0" layoutY="81.0" prefHeight="325.0" prefWidth="251.0" />
+                  <ListView fx:id="yourShiftsGrid" layoutX="56.0" layoutY="81.0" prefHeight="293.0" prefWidth="251.0" />
                   <Label layoutX="56.0" layoutY="58.0" styleClass="label-standard" text="Your Shifts" />
-                  <ListView fx:id="availShiftsGrid" layoutX="413.0" layoutY="84.0" prefHeight="325.0" prefWidth="251.0" />
+                  <ListView fx:id="availShiftsGrid" layoutX="413.0" layoutY="84.0" prefHeight="290.0" prefWidth="251.0" />
                   <Label layoutX="413.0" layoutY="58.0" styleClass="label-standard" text="Available Shifts" />
                   <Label layoutX="67.0" layoutY="425.0" text="Search by Day" />
                   <Button layoutX="331.0" layoutY="231.0" mnemonicParsing="false" onAction="#onPressSwap" styleClass="button-standard" text="Swap" />
-                  <Label layoutX="65.0" layoutY="457.0" text="Search by User" />
-                  <TextField fx:id="daySearch" layoutX="188.0" layoutY="420.0" />
-                  <TextField fx:id="userSearch" layoutX="188.0" layoutY="452.0" />
+                  <Label layoutX="66.0" layoutY="478.0" text="Search by User" />
+                  <TextField fx:id="daySearch" layoutX="188.0" layoutY="420.0" prefHeight="25.0" prefWidth="26.0" />
+                  <TextField fx:id="userSearch" layoutX="188.0" layoutY="474.0" />
                   <Button layoutX="413.0" layoutY="452.0" mnemonicParsing="false" onAction="#onSearchButtonPressed" styleClass="button-standard" text="Search" />
                   <Button layoutX="495.0" layoutY="453.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" text="Update Shifts" />
+                  <TextField fx:id="monthSearch" layoutX="230.0" layoutY="420.0" prefHeight="25.0" prefWidth="26.0" />
+                  <TextField fx:id="yearSearch" layoutX="264.0" layoutY="420.0" prefHeight="25.0" prefWidth="70.0" />
+                  <Label layoutX="191.0" layoutY="445.0" text="Day" />
+                  <Label layoutX="229.0" layoutY="445.0" text="Mnth" />
+                  <Label layoutX="285.0" layoutY="445.0" text="Year" />
+                  <Label fx:id="userFailureLabel" layoutX="123.0" layoutY="386.0" text="User does not exist" textFill="RED" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </center>

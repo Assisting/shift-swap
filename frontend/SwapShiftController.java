@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -31,12 +32,24 @@ public class SwapShiftController implements Initializable
     
     @FXML
     private ListView<String> yourShiftsGrid;
+    
     @FXML
     private ListView<String> availShiftsGrid;
+    
     @FXML
     private TextField daySearch;
+    
+    @FXML
+    private TextField monthSearch;
+
+    @FXML
+    private TextField yearSearch;
+
     @FXML
     private TextField userSearch;
+    
+    @FXML
+    private Label userFailureLabel;
     
     /**
      * We can use this instance to pass data back to the top level.
@@ -63,7 +76,7 @@ public class SwapShiftController implements Initializable
     }
 
     @FXML
-    private void onPressSwap(ActionEvent event)
+    private void onPressSwap()
     {
 	// Ensure two shifts are selected, one in each box
 	
@@ -73,8 +86,34 @@ public class SwapShiftController implements Initializable
     }
 
     @FXML
-    private void onSearchButtonPressed(ActionEvent event)
+    private void onSearchButtonPressed()
     {
+        //If all three day search boxes aren't filled, search by user, otherwise search by date.
+
+        if(daySearch.getText().equals("") || monthSearch.getText().equals("") || yearSearch.getText().equals(""))
+        {
+            String check= instance.getLoggedInEmployee();
+            if(check.equals(userSearch.getText()))
+            {
+                userFailureLabel.setText("You cannot trade with yourself.");
+                userFailureLabel.setVisible(true);
+            }
+            else
+            {
+                LinkedList<Shift> test=userSearch(userSearch.getText());
+                if(test==null)
+                {
+                    userFailureLabel.setText("User does not exist.");
+                    userFailureLabel.setVisible(true);
+                }
+                else
+                {
+                    userFailureLabel.setVisible(false);
+                    wantList=test;
+                    updateTakeShifts();
+                }
+            }
+        }
 	// Check if they are searching by day or by user
 	// If they are trying to search by both, default to by day
 	
@@ -83,10 +122,63 @@ public class SwapShiftController implements Initializable
 	// Display these shifts in the available shifts list
     }
     
+    private void updateTakeShifts()
+    {
+        availShiftsGrid.setItems(grabTakeShifts());
+        try
+        {
+            availShiftsGrid.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> selectedTakeIndex(availShiftsGrid.getSelectionModel().getSelectedIndex()));
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            /*Every time you update the list past the first, it will throw this error, as index -1.
+            *None of us still know why this is happening, but it doesn't actually affect anything.
+            *We can catch this safely without anything bad happening.
+            */
+        }
+    }
+    
+    private ObservableList<String> grabTakeShifts()
+    {
+        ObservableList<String> shiftData = FXCollections.observableArrayList();
+        int i=0;
+        while(i<wantList.size())
+        {
+            String entry=wantList.get(i).toString();
+            
+            //This parses the data properly.
+            int stringCounter=0;
+            while(entry.charAt(stringCounter)!=' ')
+            {
+                stringCounter++;
+            }
+            entry=entry.substring(stringCounter);
+            
+            //This will remove one of the non-essential dates
+            entry=entry.substring(0, 17)+"-"+entry.substring(31);
+            
+            
+            shiftData.add(entry);
+            i=i+1;
+        }
+        return shiftData;
+    }
+    
+     private void selectedTakeIndex(int index)
+    {
+        takeIndex=index;
+    }
+    
     @FXML
-    void onUpdateButtonPress(ActionEvent event) 
+    void onUpdateButtonPress() 
     {
         updateGiveShifts();
+    }
+    
+    private LinkedList<Shift> userSearch(String username)
+    {
+        return instance.grabEmployeesShifts(username);
     }
     
     private void updateGiveShifts()

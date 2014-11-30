@@ -454,6 +454,42 @@ public class View extends Application
         return schedule;
     }
     
+     /**
+     * Grabs all shifts for the given user that can be given away.
+     * @param user The desired user's shifts.
+     * @return A LinkedList containing all the shifts. 
+     */
+    protected LinkedList <Shift> grabEmployeesShifts(String username)
+    {
+        LinkedList<Shift> schedule= new LinkedList<Shift>();
+        if(Input.isUsernameUnique(username))//If the user doesn't exist
+        {
+            return null;
+        }
+        String todaysDate=currentDate.toString()+" 01:00:00";
+        Timestamp[] shifts=Input.getRangeSchedule(username, Timestamp.valueOf(todaysDate), new Timestamp(END_OF_TIME));
+        if(shifts==null)
+        {
+            return schedule;
+        }
+        int i=0;
+        while(i<shifts.length)
+        {
+            Shift temp= new Shift(userID,shifts[i],shifts[i+1]);
+            schedule.add(temp);
+            i=i+2;
+        }
+
+        return schedule;
+       
+        
+    }
+    
+    protected LinkedList <Shift> grabShiftsOnDay(Timestamp day)
+    {
+        return null;
+    }
+    
     /**
      * Sends a message from the current user to another user.
      * @param message The message you wish to send.
@@ -507,7 +543,7 @@ public class View extends Application
         return (Initializable) loader.getController();
     }
     
-    public void addEmployee(String ID, String firstName, String lastName,
+    protected void addEmployee(String ID, String firstName, String lastName,
 	    String password, String email, float wage)
     {
 	Employee newEmployee = new Employee(ID, firstName, lastName, 1,
@@ -516,30 +552,35 @@ public class View extends Application
 	Input.addNewEmployee(newEmployee);
     }
     
-    public void modifyEmployee(String ID, String firstName, String lastName,
+    protected void modifyEmployee(String ID, String firstName, String lastName,
 	    String email, float wage)
     {
 	Input.modifyEmployeeInfo(ID, firstName, lastName, email, 1, wage);
     }
     
-    public void changeAccessLevel(String ID, int accessLevel)
+    protected void changeAccessLevel(String ID, int accessLevel)
     {
 	Input.changeEmployeeAccessLevel(ID, accessLevel);
     }
     
-    public void setManager(String employee, String manager)
+    protected void setManager(String employee, String manager)
     {
 	Input.changeEmployeesManager(employee, manager);
     }
     
-    public void setPassword(String employee, String password)
+    protected void setPassword(String employee, String password)
     {
 	Input.changeEmployeePassword(employee, password);
     }
     
-    public void removeEmployee(String employee)
+    protected void removeEmployee(String employee)
     {
 	Input.removeEmployee(employee);
+    }
+    
+    protected String getLoggedInEmployee()
+    {
+           return userID;     
     }
     
     /**
