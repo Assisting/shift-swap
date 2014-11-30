@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.AssignShiftController">
+   <children>
+      <BorderPane layoutX="245.0" layoutY="146.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <AnchorPane prefHeight="520.0" prefWidth="720.0" styleClass="background-standard" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="248.0" layoutY="14.0" styleClass="title" text="Assign Shifts" />
+                  <Label layoutX="236.0" layoutY="103.0" styleClass="label-standard" text="Employee" />
+                  <CheckBox fx:id="sameDayCheck" layoutX="519.0" layoutY="287.0" mnemonicParsing="false" onAction="#toggleSameDay" selected="true" text="Same Day" />
+                  <Label layoutX="130.0" layoutY="182.0" text="Day" />
+                  <Label layoutX="114.0" layoutY="217.0" text="Month" />
+                  <Label layoutX="126.0" layoutY="253.0" text="Year" />
+                  <Label layoutX="226.0" layoutY="144.0" styleClass="subtitle" text="Start">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="400.0" layoutY="253.0" text="Year" />
+                  <Label layoutX="389.0" layoutY="217.0" text="Month" />
+                  <Label layoutX="404.0" layoutY="182.0" text="Day" />
+                  <Label layoutX="500.0" layoutY="143.0" styleClass="subtitle" text="End">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="111.0" layoutY="363.0" text="Minute" />
+                  <Label layoutX="385.0" layoutY="363.0" text="Minute" />
+                  <Label layoutX="124.0" layoutY="327.0" text="Hour" />
+                  <Label layoutX="398.0" layoutY="327.0" text="Hour" />
+                  <TextField fx:id="userIDField" layoutX="314.0" layoutY="98.0" />
+                  <TextField fx:id="startDay" layoutX="165.0" layoutY="177.0" />
+                  <TextField fx:id="startMonth" layoutX="165.0" layoutY="212.0" />
+                  <TextField fx:id="startYear" layoutX="165.0" layoutY="248.0" />
+                  <TextField fx:id="startHour" layoutX="165.0" layoutY="322.0" />
+                  <TextField fx:id="startMinute" layoutX="165.0" layoutY="358.0" />
+                  <TextField fx:id="endDay" editable="false" layoutX="439.0" layoutY="177.0" />
+                  <TextField fx:id="endMonth" editable="false" layoutX="439.0" layoutY="212.0" />
+                  <TextField fx:id="endYear" editable="false" layoutX="439.0" layoutY="248.0" />
+                  <TextField fx:id="endHour" layoutX="439.0" layoutY="322.0" />
+                  <TextField fx:id="endMinute" layoutX="439.0" layoutY="358.0" />
+                  <Button layoutX="544.0" layoutY="407.0" mnemonicParsing="false" onAction="#onSubmitPress" styleClass="button-standard" text="Submit" />
+                  <Label fx:id="shiftConfLabel" layoutX="165.0" layoutY="425.0" />
+               </children>
+            </AnchorPane>
+         </center>
+         <top>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="40.0" layoutY="8.0" mnemonicParsing="false" onAction="#onBackPress" styleClass="button-standard" text="Back" />
+               </children></Pane>
+         </top>
+         <left>
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane onInputMethodTextChanged="#yearChange" prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </children>
+   <stylesheets>
+        <URL value="@Primary.css" />
+   </stylesheets>
+</AnchorPane>

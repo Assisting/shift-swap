@@ -166,8 +166,9 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     }
     
     @FXML
-    void onAssignShiftsPress(ActionEvent event) {
-
+    void onAssignShiftsPress(ActionEvent event)
+    {
+	instance.swapToAssignShift();
     }
 
     @FXML

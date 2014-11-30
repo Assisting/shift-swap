@@ -146,6 +146,16 @@ public class View extends Application
         }
     }
     
+    private void beginAssignShift()
+    {
+	try {
+            AssignShiftController assignShift = (AssignShiftController) sceneTransition("AssignShift.fxml");
+            assignShift.setApp(instance);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     /*Checks if the login credentials are true, and if they are, changes to the main page.
     * Otherwise, it returns false, and passes the result back to the login screen.
     */
@@ -202,6 +212,11 @@ public class View extends Application
     
     protected void swapToMessages(){
         beginMessages();
+    }
+    
+    protected void swapToAssignShift()
+    {
+	beginAssignShift();
     }
     
     /**
@@ -577,6 +592,15 @@ public class View extends Application
 		Input.createHash(password), email, wage);
 	
 	Input.addNewEmployee(newEmployee);
+    }
+    
+    /**
+     * Assign a shift
+     * @param shift the pre-made shift to be assigned
+     */
+    protected void assignShift(Shift shift)
+    {
+	Input.assignShifts(shift);
     }
     
     protected void modifyEmployee(String ID, String firstName, String lastName,
