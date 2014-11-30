@@ -72,8 +72,12 @@ public static Request GetGivesListRequest()
  * @param sender the person to exclude from the list
  * @return the query
  */
-public static Request GetShiftsonDay(String sender)
+public static Request GetShiftsonDay(String sender, Timestamp start, Timestamp end)
 {
+    Message message = new Message();
+    Timestamp[] times = new Timestamp[2];
+    times[0] = start;
+    times[1] = end;
     return new Request(sender, null, null, RequestType.SHIFTS_DAY);
 }
 
