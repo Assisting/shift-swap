@@ -356,7 +356,8 @@ public class Controller {
                         returnResults = new RequestResults();
                         Statement accessLevel = dbconnection.createStatement();
                         ResultSet results = accessLevel.executeQuery(Queries.getAccessLevelQuery(request.getSender()));
-                        returnResults.setAccessLevel(results.getInt("empaccesslevel"));
+                        if (results.next())
+                                returnResults.setAccessLevel(results.getInt("empaccesslevel"));
                         accessLevel.close();
                         break;
                     }
