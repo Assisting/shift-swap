@@ -484,7 +484,35 @@ public class Input
 	
 	
    }
-    
+   
+   public static Shift[] getShiftsOnDay (String username, Timestamp dayStart, Timestamp dayEnd)
+   {
+       Request getShifts=Request.GetShiftsonDay(username, dayStart, dayEnd);
+       RequestResults results = new RequestResults();
+       try
+       {
+           results=controller.sendRequest(getShifts);
+       }
+       catch(SQLException exception)
+       {
+           System.out.println("Couldn't grab shifts, error is: " + exception.getMessage());
+       }
+       if(results==null)
+       {
+            return null;
+       }
+       else
+       {
+            Shift[] shifts = new Shift[results.getNames().length];
+            String[] names = results.getNames();
+            Timestamp[] times = results.getShifts();
+            for(int i = 0; i < results.getNames().length; i++)
+            {
+                shifts[i] = new Shift(names[i], times[i*2], times[(i*2)+1]);
+            }
+             return shifts;
+       }
+   }
     
     
     

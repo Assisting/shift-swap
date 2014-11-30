@@ -127,11 +127,57 @@ public class SwapShiftController implements Initializable
         //Search by date:
         else
         {
-            
+            boolean success=true;
+            //Dummy values for safety
+            int day=111;
+            int month=111;
+            int year=111;
+            try
+            {
+                day=Integer.parseInt(daySearch.getText());
+                month=Integer.parseInt(monthSearch.getText());
+                year=Integer.parseInt(yearSearch.getText());
+            }
+            catch(NumberFormatException e)
+            {
+                success=false;
+            }
+            if(!success)
+            {
+                userFailureLabel.setVisible(true);
+                userFailureLabel.setText("Please enter numbers.");
+            }
+            else if(!dayOfMonthTest(day,month,year))
+            {
+                userFailureLabel.setVisible(true);
+                userFailureLabel.setText("Not a valid date.");
+            }
+            else
+            {
+                String parse=year+"-";
+                if(month<10)
+                {
+                    parse=parse+"0"+month+"-";
+                }
+                else
+                {
+                    parse=parse+month+"-";
+                }
+                if(day<10)
+                {
+                    parse=parse+"0"+day+" 01:00:00";
+                }
+                else
+                {
+                    parse=parse+day+" 01:00:00";
+                }
+                        
+                wantList=instance.grabShiftsOnDay(parse);
+                userFailureLabel.setVisible(false);
+                updateTakeShifts();
+            }
+                
         }
-	// Query the database to find the shifts in question
-	
-	// Display these shifts in the available shifts list
     }
     
     private void updateTakeShifts()
@@ -240,6 +286,35 @@ public class SwapShiftController implements Initializable
             i=i+1;
         }
         return shiftData;
+    }
+    
+    private boolean dayOfMonthTest(int day, int month, int year)
+    {
+        if(day>31 || month>12)
+        {
+            return false;
+        }
+        if((month==4 || month==6 || month==9 || month==11) && day>30)
+        {
+            return false;
+        }
+        if(month==2 && day>29)
+        {
+            return false;
+        }
+        if(month==2 && day==29)//Leap year calculation.
+        {
+            if(((year % 4 == 0) && (year % 100 == 0) && (year % 400 == 0)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        return true;
     }
     
 }

@@ -20,12 +20,12 @@
                   <Label layoutX="67.0" layoutY="425.0" text="Search by Day" />
                   <Button layoutX="331.0" layoutY="231.0" mnemonicParsing="false" onAction="#onPressSwap" styleClass="button-standard" text="Swap" />
                   <Label layoutX="66.0" layoutY="478.0" text="Search by User" />
-                  <TextField fx:id="daySearch" layoutX="188.0" layoutY="420.0" prefHeight="25.0" prefWidth="26.0" />
+                  <TextField fx:id="daySearch" layoutX="188.0" layoutY="420.0" prefHeight="25.0" prefWidth="35.0" />
                   <TextField fx:id="userSearch" layoutX="188.0" layoutY="474.0" />
                   <Button layoutX="413.0" layoutY="452.0" mnemonicParsing="false" onAction="#onSearchButtonPressed" styleClass="button-standard" text="Search" />
                   <Button layoutX="495.0" layoutY="453.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" text="Update Shifts" />
-                  <TextField fx:id="monthSearch" layoutX="230.0" layoutY="420.0" prefHeight="25.0" prefWidth="26.0" />
-                  <TextField fx:id="yearSearch" layoutX="264.0" layoutY="420.0" prefHeight="25.0" prefWidth="70.0" />
+                  <TextField fx:id="monthSearch" layoutX="230.0" layoutY="420.0" prefHeight="25.0" prefWidth="35.0" />
+                  <TextField fx:id="yearSearch" layoutX="272.0" layoutY="420.0" prefHeight="25.0" prefWidth="62.0" />
                   <Label layoutX="191.0" layoutY="445.0" text="Day" />
                   <Label layoutX="229.0" layoutY="445.0" text="Mnth" />
                   <Label layoutX="285.0" layoutY="445.0" text="Year" />

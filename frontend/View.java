@@ -488,9 +488,26 @@ public class View extends Application
         
     }
     
-    protected LinkedList <Shift> grabShiftsOnDay(Timestamp day)
+    protected LinkedList <Shift> grabShiftsOnDay(String parse)
     {
-        return null;
+        LinkedList<Shift> shiftList=new LinkedList<Shift>();
+        Timestamp dayStart=Timestamp.valueOf(parse);
+        String parse2=parse.substring(0, 10);
+        parse2=parse2+" 23:59:59";
+        Timestamp dayEnd=Timestamp.valueOf(parse2);
+        Shift[] shifts=Input.getShiftsOnDay(userID,dayStart,dayEnd);
+        if(shifts==null)
+        {
+            return shiftList;
+        }
+        int i=0;
+        while(i<shifts.length)
+        {
+            shiftList.add(shifts[i]);
+            i=i+1;
+        }
+        
+        return shiftList;
     }
     
     /**
