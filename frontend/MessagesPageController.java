@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import java.util.LinkedList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 /**
@@ -27,6 +28,15 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     
     @FXML
     private ListView<String> inboxGrid;
+    
+    @FXML
+    private Button rejectButton;
+
+    @FXML
+    private Button acceptButton;
+    
+    @FXML
+    private Button deleteButton;
     
     /**
     * We can use this instance to pass data back to the top level.
@@ -77,7 +87,21 @@ public class MessagesPageController extends AnchorPane implements Initializable 
         instance.swapToNewMessage();
     }
 
-    
+     @FXML
+    void onAcceptButtonPress() {
+
+    }
+
+    @FXML
+    void onRejectButtonPress() {
+
+    }
+
+    @FXML
+    void onDeleteButtonPress() {
+
+    }
+
 
     private void populateMessage(String message)
     {

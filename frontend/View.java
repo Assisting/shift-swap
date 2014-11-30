@@ -459,7 +459,7 @@ public class View extends Application
     
      /**
      * Grabs all shifts for the given user that can be given away.
-     * @param user The desired user's shifts.
+     * @param username The desired user's shifts.
      * @return A LinkedList containing all the shifts. 
      */
     protected LinkedList <Shift> grabEmployeesShifts(String username)

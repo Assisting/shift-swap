@@ -48,7 +48,10 @@
                                                 </AnchorPane>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                                    <children>
-                                                      <TextArea fx:id="messageArea" editable="false" layoutX="189.0" layoutY="117.0" prefHeight="456.0" prefWidth="578.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <TextArea fx:id="messageArea" editable="false" layoutX="189.0" layoutY="117.0" prefHeight="356.0" prefWidth="519.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <Button fx:id="acceptButton" disable="true" layoutX="59.0" layoutY="355.0" mnemonicParsing="false" onAction="#onAcceptButtonPress" text="Accept" visible="false" />
+                                                      <Button fx:id="rejectButton" disable="true" layoutX="196.0" layoutY="355.0" mnemonicParsing="false" onAction="#onRejectButtonPress" text="Reject" visible="false" />
+                                                      <Button fx:id="deleteButton" disable="true" layoutX="390.0" layoutY="355.0" mnemonicParsing="false" onAction="#onDeleteButtonPress" text="Delete" visible="false" />
                                                    </children>
                                                 </AnchorPane>
                                             </items>
