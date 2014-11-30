@@ -480,7 +480,7 @@ public class Queries {
      * that starts between the 2 points and is not being worked by the specified user.*/
     static String getAllShiftsNotWorkedByY(Timestamp startDay, Timestamp endDay, String empLogin){
     	return "SELECT shiftemployeelogin, shiftstarttime, shiftendtime "
-    			+ "FROM employeeshifts"
+    			+ "FROM employeeshifts "
     			+ "WHERE shiftemployeelogin <> '" + empLogin + "' AND "
     			+ "shiftstarttime >= '" + startDay.toString() + "' AND "
     			+ "shiftstarttime <= '" + endDay.toString() + "';";
