@@ -478,7 +478,7 @@ public class View extends Application
         int i=0;
         while(i<shifts.length)
         {
-            Shift temp= new Shift(userID,shifts[i],shifts[i+1]);
+            Shift temp= new Shift(username,shifts[i],shifts[i+1]);
             schedule.add(temp);
             i=i+2;
         }

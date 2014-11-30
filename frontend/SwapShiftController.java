@@ -81,6 +81,7 @@ public class SwapShiftController implements Initializable
         if (takeIndex>0 && giveIndex>0)
         {
             instance.sendTradeRequest(wantList.get(takeIndex),giveList.get(giveIndex));
+            instance.swapToProntPage();
         }
         else
         {
