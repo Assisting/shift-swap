@@ -423,7 +423,16 @@ public class Input
      */
     public static void assignShifts(Shift shift)
     {
-         //TODO
+         Request assignRequest = Request.assignShiftsRequest(shift);
+         try
+         {
+            controller.sendRequest(assignRequest);
+         }
+         catch(SQLException exception)
+         {
+	    exception.printStackTrace();
+            System.out.println("Messages couldn't be found, error is: " + exception.getMessage());
+         }
     }
     
     /**

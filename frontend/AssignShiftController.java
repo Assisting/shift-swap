@@ -193,7 +193,7 @@ public class AssignShiftController implements Initializable
 	    canContinue = false;
 	}
 	
-	if(instance.isUserInSystem(userIDField.getText())) {
+	if(!(instance.isUserInSystem(userIDField.getText()))) {
 	    shiftConfLabel.setTextFill(Color.FIREBRICK);
 	    shiftConfLabel.setText("User not found");
 	    
