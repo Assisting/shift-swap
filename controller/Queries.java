@@ -461,7 +461,7 @@ public class Queries {
      */
     static String getAccessLevelQuery(String empName)
     {
-        return "SELECT empaccesslevel FROM employees WHERE emplogin = " + empName;
+        return "SELECT empaccesslevel FROM employees WHERE emplogin = '" + empName + "';";
     }
     
     /** returns all shifts inbetween the given day(s) that are NOT worked by some user that start between
