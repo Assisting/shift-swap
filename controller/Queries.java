@@ -188,6 +188,16 @@ public class Queries {
                 + "mssgsendtime = '" + sendtime + "' ";
     }
     
+    /** sets a message to read
+     * @param sender, receiver the sender and recipient of a message
+     * @param sendtime the time the message was sent
+     * @return the sql in string format to do this. */
+    static String setMsgRead(String sender, String receiver, Timestamp sendtime){
+    	return "UPDATE employeeinbox SET mssgisread = 't' WHERE "
+    			+ "mssgsender = '" + sender + "' AND mssgreciever = '" + receiver + "' AND"
+    			+ "mssgsendtime = '" + sendtime.toString() + "';";
+    }
+    
 //-----Shift Management---------------------------------------------------------
     
     /**
