@@ -47,7 +47,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Modify Employee">
+                  <Tab fx:id="modEmployeeTab" text="Modify Employee">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" styleClass="background-standard">
                            <children>
@@ -98,7 +98,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Set Password">
+                  <Tab fx:id="setPasswordTab" text="Set Password">
                      <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" styleClass="background-standard">
                            <children>
@@ -114,7 +114,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Remove Employee">
+                  <Tab fx:id="rmEmployeeTab" text="Remove Employee">
                      <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" styleClass="background-standard">
                            <children>

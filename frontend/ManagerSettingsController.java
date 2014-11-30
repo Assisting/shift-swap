@@ -13,6 +13,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 /**
@@ -95,6 +97,15 @@ public class ManagerSettingsController implements Initializable
     @FXML
     private Tab setAccessTab;
     
+    @FXML
+    private Tab modEmployeeTab;
+
+    @FXML
+    private Tab setPasswordTab;
+    
+    @FXML
+    private Tab rmEmployeeTab;
+    
     private boolean justAddedEmp;
     
     /**
@@ -118,7 +129,7 @@ public class ManagerSettingsController implements Initializable
     }    
 
     @FXML
-    private void processNewEmployee(ActionEvent event)
+    private void processNewEmployee()
     {
 	instance.addEmployee(newEmpID.getText(), newEmpFirstName.getText(),
 		newEmpLastName.getText(), newEmpPass.getText(),
@@ -132,7 +143,7 @@ public class ManagerSettingsController implements Initializable
      * lowest access level. That can be re-changed using the other method.
      */
     @FXML
-    private void modifyEmployee(ActionEvent event)
+    private void modifyEmployee()
     {
 	instance.modifyEmployee(modEmpID.getText(),
 		modEmpFirstName.getText(),
@@ -142,7 +153,7 @@ public class ManagerSettingsController implements Initializable
     }
 
     @FXML
-    private void modifyAccessLevel(ActionEvent event)
+    private void modifyAccessLevel()
     {
 	/* If it's not modified correctly, it'll change the user account to the
 	 * lowest access level available. */
@@ -163,7 +174,7 @@ public class ManagerSettingsController implements Initializable
     }
 
     @FXML
-    private void setEmployeeManager(ActionEvent event)
+    private void setEmployeeManager()
     {
 	instance.setManager(setManagerEmployee.getText(),
 		setManagerManager.getText());
@@ -174,7 +185,7 @@ public class ManagerSettingsController implements Initializable
     }
 
     @FXML
-    private void changeEmployeePassword(ActionEvent event)
+    private void changeEmployeePassword()
     {
 	String proposedPassword = setPasswordNew.getText();
 	
@@ -191,13 +202,13 @@ public class ManagerSettingsController implements Initializable
     }
 
     @FXML
-    private void removeEmployee(ActionEvent event)
+    private void removeEmployee()
     {
 	instance.removeEmployee(removeEmployeeID.getText());
     }
     
     @FXML
-    private void onBackPress(ActionEvent event)
+    private void onBackPress()
     {
 	instance.swapToProntPage();
     }
@@ -219,4 +230,31 @@ public class ManagerSettingsController implements Initializable
 	}
     }
     
+    @FXML
+    void checkForEnter(KeyEvent event) {
+	if(event.getCode() == KeyCode.ENTER) {
+	    if(setManagerTab.isSelected()) {
+		setEmployeeManager();
+	    }
+	    else if(setAccessTab.isSelected()) {
+		modifyAccessLevel();
+	    }
+	    else if(addEmployeeTab.isSelected()) {
+		processNewEmployee();
+	    }
+	    else if(modEmployeeTab.isSelected()) {
+		modifyEmployee();
+	    }
+	    else if(setPasswordTab.isSelected()) {
+		changeEmployeePassword();
+	    }
+	    else if(rmEmployeeTab.isSelected()) {
+		removeEmployee();
+	    }
+	    else {
+		// This should be impossible
+		throw new IllegalArgumentException("No access level selected");
+	    }
+	}
+    }
 }
