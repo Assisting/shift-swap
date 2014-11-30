@@ -481,7 +481,7 @@ public class Queries {
     static String getAllShiftsNotWorkedByY(Timestamp startDay, Timestamp endDay, String empLogin){
     	return "SELECT shiftemployeelogin, shiftstarttime, shiftendtime "
     			+ "FROM employeeshifts"
-    			+ "WHERE shiftemployeelogin != '" + empLogin + "' AND "
+    			+ "WHERE shiftemployeelogin <> '" + empLogin + "' AND "
     			+ "shiftstarttime >= '" + startDay.toString() + "' AND "
     			+ "shiftstarttime <= '" + endDay.toString() + "';";
     }
