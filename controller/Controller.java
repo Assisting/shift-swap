@@ -322,7 +322,7 @@ public class Controller {
                     }
                     case GET_MESSAGES:
                     {
-                        Statement getMessages = dbconnection.createStatement();
+                        Statement getMessages = dbconnection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                         ResultSet messages = getMessages.executeQuery(Queries.getEmployeeMessages(request.getSender()));
                         returnResults = new RequestResults();
                         String message = "";
