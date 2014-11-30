@@ -467,18 +467,22 @@ public class Input
    
    /** requests worker login(s) based on first and last name
     * @param firstName the first name of the employee
-    * @param lastName the last name of the emploee */
-   public static void getWorkerLogin (String firstName, String lastName){
-	   //TODO need request for this
-	   Request getLogin = Request.GetUserLoginRequest(firstName, lastName);
-       try
-       {
-           controller.sendRequest(getLogin);
-       }
-       catch(SQLException exception)
-       {
+    * @param lastName the last name of the employee */
+   public static void getWorkerLogin (String firstName, String lastName)
+   {
+	//TODO need request for this
+	Request getLogin = Request.GetUserLoginRequest(firstName, lastName);
+	RequestResults results = new RequestResults();
+	try
+	{
+           results = controller.sendRequest(getLogin);
+	}
+	catch(SQLException exception)
+	{
            System.out.println("Message couldn't be sent, error is: " + exception.getMessage());
-       }
+	}
+	
+	
    }
     
     

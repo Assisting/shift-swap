@@ -118,9 +118,15 @@
                      <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" styleClass="background-standard">
                            <children>
-                              <TextField fx:id="removeEmployeeID" layoutX="327.0" layoutY="148.0" />
-                              <Label layoutX="221.0" layoutY="153.0" styleClass="label-standard" text="Employee ID" />
-                              <Button fx:id="removeEmployeeSubmit" layoutX="432.0" layoutY="196.0" mnemonicParsing="false" onAction="#removeEmployee" styleClass="button-standard" text="Submit" />
+                              <TextField fx:id="removeEmployeeID" layoutX="328.0" layoutY="207.0" />
+                              <Label layoutX="222.0" layoutY="212.0" styleClass="label-standard" text="Employee ID" />
+                              <Button fx:id="removeEmployeeSubmit" layoutX="433.0" layoutY="255.0" mnemonicParsing="false" onAction="#removeEmployee" styleClass="button-standard" text="Submit" />
+                              <Label fx:id="rmEmployeeConf" layoutX="246.0" layoutY="310.0" styleClass="label-standard" />
+                              <TextField fx:id="rmEmployeeLast" layoutX="328.0" layoutY="125.0" />
+                              <TextField fx:id="rmEmployeeFirst" layoutX="328.0" layoutY="97.0" />
+                              <Button layoutX="436.0" layoutY="158.0" mnemonicParsing="false" onAction="#rmEmployeeSearch" styleClass="button-standard" text="Search" />
+                              <Label layoutX="235.0" layoutY="102.0" styleClass="label-standard" text="First Name" />
+                              <Label layoutX="235.0" layoutY="130.0" styleClass="label-standard" text="Last Name" />
                            </children>
                         </AnchorPane>
                      </content>

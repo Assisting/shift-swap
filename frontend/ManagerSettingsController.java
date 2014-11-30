@@ -81,6 +81,12 @@ public class ManagerSettingsController implements Initializable
     @FXML
     private TextField removeEmployeeID;
     @FXML
+    private TextField rmEmployeeFirst;
+    @FXML
+    private TextField rmEmployeeLast;
+    @FXML
+    private Label rmEmployeeConf;
+    @FXML
     private Button removeEmployeeSubmit;
     @FXML
     private Label setPasswordConfirmation;
@@ -108,6 +114,9 @@ public class ManagerSettingsController implements Initializable
     
     private boolean justAddedEmp;
     
+    // The default font colour
+    public Color fontColor;
+    
     /**
      * We can use this instance to pass data back to the top level.
      */
@@ -115,6 +124,8 @@ public class ManagerSettingsController implements Initializable
     
     public void setApp(View application){
         this.instance = application;
+	
+	fontColor = Color.web("#41373D");
     }
 
     /**
@@ -204,7 +215,17 @@ public class ManagerSettingsController implements Initializable
     @FXML
     private void removeEmployee()
     {
-	instance.removeEmployee(removeEmployeeID.getText());
+	String userID = removeEmployeeID.getText();
+	instance.removeEmployee(userID);
+	
+	if(instance.isUserInSystem(userID)){
+	    rmEmployeeConf.setTextFill(Color.FIREBRICK);
+	    rmEmployeeConf.setText("User not successfully removed");
+	}
+	else {
+	    rmEmployeeConf.setTextFill(fontColor);
+	    rmEmployeeConf.setText("User successfully removed");
+	}
     }
     
     @FXML
@@ -231,7 +252,20 @@ public class ManagerSettingsController implements Initializable
     }
     
     @FXML
-    void checkForEnter(KeyEvent event) {
+    void rmEmployeeSearch() 
+    {
+	String employeeFirstName = rmEmployeeFirst.getText();
+	String employeeLastName = rmEmployeeLast.getText();
+	
+	String userID = "";
+	//userID = Input.getWorkerLogin(employeeFirstName, employeeLastName);
+	
+	removeEmployeeID.setText(userID);
+    }
+    
+    @FXML
+    void checkForEnter(KeyEvent event)
+    {
 	if(event.getCode() == KeyCode.ENTER) {
 	    if(setManagerTab.isSelected()) {
 		setEmployeeManager();

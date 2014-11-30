@@ -594,6 +594,16 @@ public class View extends Application
     }
     
     /**
+     * A quick way to search for users
+     * @param userID the login of the employee
+     * @return False if user is not in system
+     */
+    protected boolean isUserInSystem(String userID)
+    {
+	return !(Input.isUsernameUnique(userID));
+    }
+    
+    /**
      * This should never launch if JavaFX works correctly.
      * @param args The command line arguments.
      */
