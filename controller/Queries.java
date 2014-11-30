@@ -464,13 +464,14 @@ public class Queries {
         return "SELECT empaccesslevel FROM employees WHERE emplogin = " + empName;
     }
     
-    /** returns all shifts inbetween the given day(s) that are NOT worked by some user
+    /** returns all shifts inbetween the given day(s) that are NOT worked by some user that start between
+     * the 2 specified times
      * @param startDay the start of the time period you would like to query
      * @param endDay the end of the time period you would like to query
      * @param empLogin the login of the user you want to exclude from this search. 
      * @return returns the employee login, and the timestamps of the start and end of the shift
-     * that is between the 2 points and not being worked by the specified user.*/
-    static String getAllShiftsOnDayXNotWorkedByY(Timestamp startDay, Timestamp endDay, String empLogin){
+     * that starts between the 2 points and is not being worked by the specified user.*/
+    static String getAllShiftsNotWorkedByY(Timestamp startDay, Timestamp endDay, String empLogin){
     	return "SELECT shiftemployeelogin, shiftstarttime, shiftendtime "
     			+ "FROM employeeshifts"
     			+ "WHERE shiftemployeelogin != '" + empLogin + "' AND "
