@@ -107,5 +107,4 @@ public class RequestResults {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
-    
 }

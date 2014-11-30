@@ -78,7 +78,7 @@ public static Request GetShiftsonDay(String sender, Timestamp start, Timestamp e
     Timestamp[] times = new Timestamp[2];
     times[0] = start;
     times[1] = end;
-    return new Request(sender, null, null, RequestType.SHIFTS_DAY);
+    return new Request(sender, null, message, RequestType.SHIFTS_DAY);
 }
 
 /**
