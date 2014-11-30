@@ -219,6 +219,9 @@ public class Controller {
                     }
                     case DELETE_USER:
                     {
+                        Statement deleteUser = dbconnection.createStatement();
+                        deleteUser.execute(Queries.removeEmployeeQuery(request.getRecipient()));
+                        deleteUser.close();
                         break;
                     }
                     case SCHEDULE:
