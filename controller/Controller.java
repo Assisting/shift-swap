@@ -344,6 +344,12 @@ public class Controller {
                         returnResults.setShifts(times);
                         break;
                     }
+                    case DELETE_MESSAGE:
+                    {
+                        Statement deleteMessage = dbconnection.createStatement();
+                        deleteMessage.execute(Queries.deleteEmployeeMessage(request.getSender(), request.getRecipient(), request.getShifts()[0]));
+                        break;
+                    }
                     case MANAGER_CHANGE:
                     {
                         Statement managerChange = dbconnection.createStatement();

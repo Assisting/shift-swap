@@ -18,7 +18,7 @@ public class Request
  
     public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE, SEND_MESSAGE,
                               CREATE_USER, DELETE_USER, VALIDATE_UNIQUE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL, USER_INFO, GET_USERNAME,
-                              LOGIN, GIVELIST, GET_MESSAGES,
+                              LOGIN, GIVELIST, GET_MESSAGES, DELETE_MESSAGE,
                               APPROVAL_STATUS,
                               SCHEDULE, SHIFT_RANGE, SHIFTS_DAY, ADD_SHIFT, REMOVE_SHIFT }
  
@@ -99,6 +99,15 @@ public static Request SendMessageRequest(String sender, String recipient, String
     Message newMessage = new Message();
     newMessage.setNotification(message);
     return new Request(sender, recipient, newMessage, RequestType.SEND_MESSAGE);
+}
+
+public static Request DeleteMessageRequest(String sender, String recipient, Timestamp sendTime)
+{
+        Message message = new Message();
+        Timestamp[] timeArray = new Timestamp[1];
+        timeArray[0] = sendTime;
+        message.setShifts(timeArray);
+        return new Request(sender, recipient, message, RequestType.DELETE_MESSAGE);
 }
 
 /**
