@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  */
 public class Queries {
     
-    private static Timestamp nullStamp;
+    private static Timestamp nullStamp = new Timestamp(0);
     
 //-----Transactions-------------------------------------------------------------
     

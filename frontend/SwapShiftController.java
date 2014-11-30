@@ -78,6 +78,15 @@ public class SwapShiftController implements Initializable
     @FXML
     private void onPressSwap()
     {
+        if (takeIndex>0 && giveIndex>0)
+        {
+            instance.sendTradeRequest(wantList.get(takeIndex),giveList.get(giveIndex));
+        }
+        else
+        {
+            userFailureLabel.setText("Need to select a shift to give and a shift to take.");
+            userFailureLabel.setVisible(true);
+        }
 	// Ensure two shifts are selected, one in each box
 	
 	// Ensure the user isn't selecting an Available Shift they cannot take
@@ -89,7 +98,7 @@ public class SwapShiftController implements Initializable
     private void onSearchButtonPressed()
     {
         //If all three day search boxes aren't filled, search by user, otherwise search by date.
-
+        //Search by name:
         if(daySearch.getText().equals("") || monthSearch.getText().equals("") || yearSearch.getText().equals(""))
         {
             String check= instance.getLoggedInEmployee();
@@ -114,9 +123,11 @@ public class SwapShiftController implements Initializable
                 }
             }
         }
-	// Check if they are searching by day or by user
-	// If they are trying to search by both, default to by day
-	
+        //Search by date:
+        else
+        {
+            
+        }
 	// Query the database to find the shifts in question
 	
 	// Display these shifts in the available shifts list
@@ -165,7 +176,7 @@ public class SwapShiftController implements Initializable
         return shiftData;
     }
     
-     private void selectedTakeIndex(int index)
+    private void selectedTakeIndex(int index)
     {
         takeIndex=index;
     }

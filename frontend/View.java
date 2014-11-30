@@ -512,6 +512,13 @@ public class View extends Application
         }
     }
     
+    protected void sendTradeRequest(Shift want, Shift giveaway)
+    {
+        Timestamp[] giveawayTime={giveaway.getShiftStartTime(),giveaway.getShiftEndTime()};
+        Timestamp[] wantTime={want.getShiftStartTime(),want.getShiftEndTime()};
+        Input.createTradeRequest(userID, giveawayTime, want.getEmployeeLogin(), wantTime);
+    }
+    
     /**
      * Sends a request for the logged in employee to take the given shift.
      * @param take The shift you wish to take.
