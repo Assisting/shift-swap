@@ -54,6 +54,10 @@ public class TakePageController extends AnchorPane implements Initializable
     public void setApp(View application){
         this.instance = application;
 	onUpdateButtonPress();
+	
+	setButtonVisibility();
+	
+	
     }
     
     @FXML
@@ -207,6 +211,15 @@ public class TakePageController extends AnchorPane implements Initializable
         giveButton.setDisable(true);
         giveButton.setVisible(false);
         giveFailureLabel.setVisible(false);
+    }
+    
+    /**
+     * Sets which "settings" buttons should be visible given the current
+     * user's access level.
+     */
+    private void setButtonVisibility()
+    {
+	
     }
     
     @Override

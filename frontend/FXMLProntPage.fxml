@@ -77,8 +77,7 @@
                               <TextArea fx:id="day6Schedule" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <Button layoutX="211.0" layoutY="173.0" mnemonicParsing="false" onAction="#onMonthlySchedulePress" styleClass="button-standard" text="View Monthly Schedule" />
-                        <Button layoutX="385.0" layoutY="173.0" mnemonicParsing="false" onAction="#onScheduleUpdateButtonPress" styleClass="button-standard" text="Check Schedule" />
+                        <Button layoutX="274.0" layoutY="173.0" mnemonicParsing="false" onAction="#onMonthlySchedulePress" styleClass="button-standard" text="View Monthly Schedule" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -97,6 +96,7 @@
                                     <Pane layoutX="41.0" layoutY="14.0" prefHeight="310.0" prefWidth="354.0" styleClass="background-standard" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <Button fx:id="addEmployeeButton" layoutX="14.0" layoutY="40.0" mnemonicParsing="false" onAction="#onAddEmployeeButtonPress" styleClass="button-standard" text="Manager Settings" />
+                                          <Label fx:id="youAreALabel" layoutX="28.0" layoutY="170.0" text="Label" />
                                        </children>
                                     </Pane>
                                  </children>

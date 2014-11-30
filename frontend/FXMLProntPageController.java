@@ -67,6 +67,9 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     // Technically this is now the "Manager Settings" button
     @FXML
     private Button addEmployeeButton;
+    
+    @FXML
+    private Label youAreALabel;
   
   
     
@@ -80,11 +83,24 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
      */
     private int access;
     
-    public void setApp(View application) 
+    public void setApp(View application, int accessLevel) 
     {
         this.instance = application;
 	
 	onScheduleUpdateButtonPress(null);
+	
+	this.access = accessLevel;
+	
+	if(this.access == 1) {
+	    youAreALabel.setText("Worker");
+	}
+	else if(this.access == 2) {
+	    youAreALabel.setText("Manager");
+	}
+	else {
+	    youAreALabel.setText("Owner");
+	}
+	
     }
     
     @FXML

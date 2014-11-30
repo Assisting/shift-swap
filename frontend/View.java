@@ -108,7 +108,10 @@ public class View extends Application
 	try {
             FXMLProntPageController homescreen = 
 		    (FXMLProntPageController) sceneTransition("FXMLProntPage.fxml");
-            homescreen.setApp(instance);
+	    
+	    int access = Input.getEmployeeAccessLevel(userID);
+	    
+            homescreen.setApp(instance, access);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

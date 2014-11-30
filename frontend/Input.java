@@ -77,6 +77,25 @@ public class Input
         return schedule.getShifts();
     }
     
+    /**
+     * Finds the current access level of the employee.
+     * @param userID the employee's user ID
+     * @return The access level (1 = Worker, 2 = Manager, 3 = Owner)
+     */
+    public static int getEmployeeAccessLevel(String userID)
+    {
+	Request request = Request.GetAccessLevelRequest(userID);
+	RequestResults accessLevel = new RequestResults();
+	try {
+	    accessLevel = controller.sendRequest(request);
+	}
+	catch(SQLException e) {
+	    System.out.println(e.getMessage());
+	}
+	
+	return accessLevel.getAccessLevel();
+    }
+    
     public static Timestamp[] getRangeSchedule(String userID, Timestamp start, Timestamp end)
     {
         Request request = Request.ShiftRangeRequest(userID, start, end);
