@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.MessagesPageController">
+<AnchorPane onKeyPressed="#checkForKeypress" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.MessagesPageController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="800.0">
          <center>

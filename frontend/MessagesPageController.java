@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 /**
  * @author Warren Fehr, wwf594
  */
@@ -151,5 +153,16 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     public void initialize(URL location, ResourceBundle resources) 
     {
         
+    }
+    
+    @FXML
+    void checkForKeypress(KeyEvent event)
+    {
+	if(event.getCode() == KeyCode.ENTER) {
+	    onUpdateButtonPress();
+	}
+	else if(event.getCode() == KeyCode.BACK_SPACE) {
+	    onBackButtonPress();
+	}
     }
 }

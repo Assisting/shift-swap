@@ -264,7 +264,7 @@ public class ManagerSettingsController implements Initializable
     }
     
     @FXML
-    void checkForEnter(KeyEvent event)
+    void checkForKeypress(KeyEvent event)
     {
 	if(event.getCode() == KeyCode.ENTER) {
 	    if(setManagerTab.isSelected()) {

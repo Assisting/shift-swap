@@ -6,28 +6,22 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.NewMessagePageController">
+<AnchorPane onKeyPressed="#checkForKeypress" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.NewMessagePageController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="800.0">
          <center>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="720.0" styleClass="background-standard" BorderPane.alignment="CENTER">
                <children>
-                  <TextArea fx:id="recipientField" layoutX="97.0" layoutY="71.0" maxHeight="20.0" prefHeight="20.0" prefWidth="466.0" />
+                  <TextArea fx:id="recipientField" layoutX="97.0" layoutY="71.0" maxHeight="20.0" prefHeight="20.0" prefWidth="383.0" />
                   <Label layoutX="240.0" layoutY="14.0" styleClass="title" text="New Message">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="22.0" layoutY="74.0" styleClass="label-standard" text="Recipient" />
-                  <Label fx:id="recipientDoesntExist" layoutX="599.0" layoutY="49.0" text="Recipient doesn't exist" textFill="RED" visible="false" />
                   <TextArea fx:id="messageField" layoutX="10.0" layoutY="107.0" prefHeight="361.0" prefWidth="700.0" />
-                  <Label fx:id="characterLimit" layoutX="260.0" layoutY="533.0" text="Over message limit, must be less then 255 characters" textFill="RED" visible="false" />
                   <Button layoutX="335.0" layoutY="480.0" mnemonicParsing="false" onAction="#onSendButtonPress" styleClass="button-standard" text="Send" />
-                  <Label fx:id="successField" layoutX="330.0" layoutY="505.0" text="Message sent successfully!" textFill="#74ff00" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
+                  <Label fx:id="messageLabel" layoutX="486.0" layoutY="74.0" prefHeight="15.0" prefWidth="225.0" />
                </children>
             </AnchorPane>
          </center>
