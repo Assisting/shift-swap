@@ -1,13 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package frontend;
 
+import controller.Shift;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,16 +16,23 @@ import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  *
- * @author erik
+ * @author erik & warren
  */
 public class SwapShiftController implements Initializable
 {
-    //TODO Add back button
+    
+    private int takeIndex;
+    
+    private int giveIndex;
+    
+    private LinkedList<Shift> wantList;
+    
+    private LinkedList<Shift> giveList;
     
     @FXML
-    private ListView<?> yourShiftsList;
+    private ListView<String> yourShiftsGrid;
     @FXML
-    private ListView<?> availShiftsList;
+    private ListView<String> availShiftsGrid;
     @FXML
     private TextField daySearch;
     @FXML
@@ -75,6 +81,61 @@ public class SwapShiftController implements Initializable
 	// Query the database to find the shifts in question
 	
 	// Display these shifts in the available shifts list
+    }
+    
+    @FXML
+    void onUpdateButtonPress(ActionEvent event) 
+    {
+        updateGiveShifts();
+    }
+    
+    private void updateGiveShifts()
+    {
+        yourShiftsGrid.setItems(grabGiveShifts());
+        try
+        {
+            yourShiftsGrid.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> selectedGiveIndex(yourShiftsGrid.getSelectionModel().getSelectedIndex()));
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            /*Every time you update the list past the first, it will throw this error, as index -1.
+            *None of us still know why this is happening, but it doesn't actually affect anything.
+            *We can catch this safely without anything bad happening.
+            */
+        }
+    }
+    
+    private void selectedGiveIndex(int index)
+    {
+        giveIndex=index;
+    }
+    
+    private ObservableList<String> grabGiveShifts()
+    {
+        giveList=instance.grabSelfShifts();
+        ObservableList<String> shiftData = FXCollections.observableArrayList();
+        int i=0;
+        while(i<giveList.size())
+        {
+            String entry=giveList.get(i).toString();
+            
+            //This parses the data properly.
+            int stringCounter=0;
+            while(entry.charAt(stringCounter)!=' ')
+            {
+                stringCounter++;
+            }
+            entry=entry.substring(stringCounter);
+            
+            //This will remove one of the non-essential dates
+            entry=entry.substring(0, 17)+"-"+entry.substring(31);
+            
+            
+            shiftData.add(entry);
+            i=i+1;
+        }
+        return shiftData;
     }
     
 }

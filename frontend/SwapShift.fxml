@@ -12,9 +12,9 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background-standard" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="256.0" layoutY="14.0" styleClass="title" text="Swap Shifts" />
-                  <ListView fx:id="yourShiftsList" layoutX="56.0" layoutY="81.0" prefHeight="325.0" prefWidth="251.0" />
+                  <ListView fx:id="yourShiftsGrid" layoutX="56.0" layoutY="81.0" prefHeight="325.0" prefWidth="251.0" />
                   <Label layoutX="56.0" layoutY="58.0" styleClass="label-standard" text="Your Shifts" />
-                  <ListView fx:id="availShiftsList" layoutX="413.0" layoutY="84.0" prefHeight="325.0" prefWidth="251.0" />
+                  <ListView fx:id="availShiftsGrid" layoutX="413.0" layoutY="84.0" prefHeight="325.0" prefWidth="251.0" />
                   <Label layoutX="413.0" layoutY="58.0" styleClass="label-standard" text="Available Shifts" />
                   <Label layoutX="67.0" layoutY="425.0" text="Search by Day" />
                   <Button layoutX="331.0" layoutY="231.0" mnemonicParsing="false" onAction="#onPressSwap" styleClass="button-standard" text="Swap" />
@@ -22,6 +22,7 @@
                   <TextField fx:id="daySearch" layoutX="188.0" layoutY="420.0" />
                   <TextField fx:id="userSearch" layoutX="188.0" layoutY="452.0" />
                   <Button layoutX="413.0" layoutY="452.0" mnemonicParsing="false" onAction="#onSearchButtonPressed" styleClass="button-standard" text="Search" />
+                  <Button layoutX="495.0" layoutY="453.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" text="Update Shifts" />
                </children>
             </AnchorPane>
          </center>
