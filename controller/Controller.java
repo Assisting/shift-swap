@@ -333,6 +333,8 @@ public class Controller {
                         }
                         else
                             return null;
+                        
+                        messages.beforeFirst();
                         int i = 0;
                         while (messages.next())
                         {
