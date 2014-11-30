@@ -24,6 +24,13 @@
     -fx-font-size: 35;
 }
 
+.subtitle {
+    -fx-text-fill: #41373D;
+    -fx-font-family: 'Source Sans Pro', sans-serif;
+    -fx-font-weight: lighter;
+    -fx-font-size: 24;
+}
+
 .border {
     -fx-background-color: #975B3B;
 }
