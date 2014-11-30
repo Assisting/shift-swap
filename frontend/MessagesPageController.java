@@ -33,10 +33,10 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     */
     private View instance;
     
-    public void setApp(View application){
- 
-       
+    public void setApp(View application)
+    {
         this.instance = application;
+	updateInbox();
     }
     
     @FXML

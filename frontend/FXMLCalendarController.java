@@ -28,6 +28,8 @@ public class FXMLCalendarController extends AnchorPane implements Initializable
     
     public void setApp(View application){
         this.instance = application;
+	
+	onStuffButtonClicked(null);
     }
 
     @FXML

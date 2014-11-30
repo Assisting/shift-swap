@@ -96,7 +96,7 @@
                                  <children>
                                     <Pane layoutX="41.0" layoutY="14.0" prefHeight="310.0" prefWidth="354.0" styleClass="background-standard" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Hyperlink fx:id="addEmployeeButton" layoutX="14.0" layoutY="14.0" onAction="#onAddEmployeeButtonPress" text="Manager Settings" />
+                                          <Button fx:id="addEmployeeButton" layoutX="14.0" layoutY="40.0" mnemonicParsing="false" onAction="#onAddEmployeeButtonPress" styleClass="button-standard" text="Manager Settings" />
                                        </children>
                                     </Pane>
                                  </children>

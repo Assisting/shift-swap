@@ -53,6 +53,7 @@ public class TakePageController extends AnchorPane implements Initializable
     
     public void setApp(View application){
         this.instance = application;
+	onUpdateButtonPress();
     }
     
     @FXML
@@ -61,7 +62,8 @@ public class TakePageController extends AnchorPane implements Initializable
     }
     
     @FXML
-    void onUpdateButtonPress() {
+    void onUpdateButtonPress() 
+    {
         updateTakeShifts();
         updateGiveShifts();
     }

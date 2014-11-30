@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale;
-import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Button;
 
 /**
  * @author Warren Fehr, wwf594
@@ -64,8 +64,9 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     @FXML
     private Label day0Label;
     
+    // Technically this is now the "Manager Settings" button
     @FXML
-    private Hyperlink addEmployeeButton;
+    private Button addEmployeeButton;
   
   
     
@@ -74,14 +75,21 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
      */
     private View instance;
     
-    public void setApp(View application){
- 
-       
+    /**
+     * 1 = Worker, 2 = Manager, 3 = Owner
+     */
+    private int access;
+    
+    public void setApp(View application) 
+    {
         this.instance = application;
+	
+	onScheduleUpdateButtonPress(null);
     }
     
     @FXML
-    protected void onMonthlySchedulePress(ActionEvent event) {
+    protected void onMonthlySchedulePress(ActionEvent event) 
+    {
         instance.swapToCalendar();
     }
     
@@ -158,12 +166,14 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
     }
     
     @FXML
-    void onCheckAvailableShiftsPress(ActionEvent event) {
+    void onCheckAvailableShiftsPress(ActionEvent event) 
+    {
         instance.swapToTakeShift();
     }
     
     @FXML
-    void logOut() {
+    void logOut() 
+    {
 	instance.logOut();
     }
     
