@@ -28,12 +28,20 @@ public class Input
     static Controller controller = new Controller();
     
     /**
-     * Attempts to clean up input. Currently a do-nothing function, really.
-     * 
+     * Attempts to clean up input. Currently only replace ; and some comparisons.
+     * Future versions could include Regex to avoid all manner of SQL injection
+     * attacks, though doing so in a way that doesn't mess too much with private
+     * messages is difficult to implement elegantly.
+     * @return a cleansed string
      * @param input the string to be cleaned
      */
     public static String clean(String input) {
-	return input;
+	String returnString = input.replace(">", "more than");
+	returnString = returnString.replace("<", "less than");
+	returnString = returnString.replace("=", "equals");
+	returnString = returnString.replace(";", ":");
+	
+	return returnString;
     }
     
     /**
@@ -522,12 +530,4 @@ public class Input
              return shifts;
        }
    }
-    
-    
-    
-
-
-    	
-
-    
 }
