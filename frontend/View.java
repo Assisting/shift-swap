@@ -411,10 +411,14 @@ public class View extends Application
     protected Inbox grabInbox()
     {
         RequestResults input=Input.getEmployeeMessages(userID);
-        String messages=input.getMessages();
-        Timestamp[] sendTimes=input.getShifts();
         LinkedList<String> inbox = new LinkedList<String>();
         LinkedList<Timestamp> sendTimeBox= new LinkedList<Timestamp>();
+        if(input==null)
+        {
+            return new Inbox(sendTimeBox,inbox);
+        }
+        String messages=input.getMessages();
+        Timestamp[] sendTimes=input.getShifts();
         String partial;
         int i=0;
         int stringStart=0;

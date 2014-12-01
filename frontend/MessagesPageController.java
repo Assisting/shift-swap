@@ -334,9 +334,10 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     private ObservableList<String> grabInbox()
     {
         Inbox temp=instance.grabInbox();
+        ObservableList<String> messageData = FXCollections.observableArrayList();
+        
         sendTimes=temp.getSendTimes();
         inbox=temp.getMessages();
-        ObservableList<String> messageData = FXCollections.observableArrayList();
         int i=0;
         while(i<inbox.size())
         {
