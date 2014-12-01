@@ -278,6 +278,27 @@ public class Input
 	
 	return returnHash;
     }
+     /**
+     * Creates a request to accept or reject a trade offer.
+     * @param asker the employees name who offered the request
+     * @param accepter the employee who is accepting or rejecting.
+     * @param shifts the start times of the two shifts. 0=Asker, 1=Accepter.
+     * @param response whether they wish to accept or reject the offer.
+     */
+    
+    public static void createAcceptRequest(String asker, String accepter, Timestamp[] shifts, boolean response)
+    {
+        Request request = Request.AcceptRequest(asker,accepter,shifts,response);
+        try 
+        {
+		controller.sendRequest(request);
+	}
+        catch (SQLException e) 
+        {
+            System.out.println("createAcceptRequest bombed hard");
+            e.printStackTrace();
+	}
+    }
     
     /**
      * creates a give request for an employee and his/her shift
@@ -388,6 +409,19 @@ public class Input
         catch(SQLException exception)
         {
             System.out.println("Message couldn't be sent, error is: " + exception.getMessage());
+        }
+    }
+    
+    public static void deleteMessage(String sender, String recipient, Timestamp sendTime)
+    {
+        Request deleteRequest = Request.DeleteMessageRequest(sender, recipient, sendTime);
+        try
+        {
+            controller.sendRequest(deleteRequest);
+        }
+        catch(SQLException exception)
+        {
+            System.out.println("Message couldn't be deleted, error is: " + exception.getMessage());
         }
     }
     
