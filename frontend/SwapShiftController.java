@@ -80,8 +80,16 @@ public class SwapShiftController implements Initializable
     {
         if (takeIndex>=0 && giveIndex>=0)
         {
-            instance.sendTradeRequest(wantList.get(takeIndex),giveList.get(giveIndex));
-            instance.swapToProntPage();
+            boolean worked=instance.sendTradeRequest(wantList.get(takeIndex),giveList.get(giveIndex));
+            if(!worked)
+            {
+                userFailureLabel.setText("One of the shifts is already being offered elsewhere.");
+                userFailureLabel.setVisible(true);
+            }
+            else
+            {
+                instance.swapToProntPage();
+            }
         }
         else
         {
