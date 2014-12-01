@@ -354,7 +354,7 @@ public class Input
      * @param username employee whose messages you want to get
      * @return Array of messages 
      */
-    public static String getEmployeeMessages(String username)
+    public static RequestResults getEmployeeMessages(String username)
     {
         Request messageRequest = Request.GetMessagesRequest(username);
         RequestResults results = null;
@@ -366,7 +366,7 @@ public class Input
         {
             System.out.println("Messages couldn't be found, error is: " + exception.getMessage());
         }
-        return results.getMessages();
+        return results;
     }
     
     
