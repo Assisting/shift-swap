@@ -117,12 +117,12 @@ public class Controller {
                                 if (!manager1Approved)
                                 {
                                     String manager = transactionFields.getString("initmanagerlogin");
-                                    managerChecking.execute(Queries.newMessageQuery("Server", manager, "APPROVAL: " + transactionFields.getString("initlogin") + " wants to trade "+ giveTime + " for " + transactionFields.getString("finalshiftstart") + ". This request requires your approval"));
+                                    managerChecking.execute(Queries.newMessageQuery("Server", manager, "APPROVAL: " + transactionFields.getString("initlogin") + " wants to trade "+ giveTime + " with " + transactionFields.getString("finallogin") + "for " + transactionFields.getString("finalshiftstart") + ". This request requires your approval"));
                                 }
                                 if (!manager2Approved)
                                 {
                                     String manager = transactionFields.getString("finalmanagerlogin");
-                                    managerChecking.execute(Queries.newMessageQuery("Server", manager, "APPROVAL: " +  transactionFields.getString("finallogin") + " wants to trade "+ transactionFields.getString("finalshiftstart") + " for " + giveTime + ". This request requires your approval"));
+                                    managerChecking.execute(Queries.newMessageQuery("Server", manager, "APPROVAL: " +  transactionFields.getString("finallogin") + " wants to trade "+ transactionFields.getString("finalshiftstart") + " with " + transactionFields.getString("initlogin") + " for " + giveTime + ". This request requires your approval"));
                                 }
                             }
                             else
