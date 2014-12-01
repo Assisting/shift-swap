@@ -174,6 +174,7 @@ public class Controller {
                         Statement addShift = dbconnection.createStatement();
                         addShift.execute(Queries.insertShiftQuery(request.getSender(), request.getShifts()[0], request.getShifts()[1]));
                         addShift.close();
+			break;
                     }
                     case LOGIN:
                     {
