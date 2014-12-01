@@ -35,13 +35,48 @@ public class Input
      * @return a cleansed string
      * @param input the string to be cleaned
      */
-    public static String clean(String input) {
+    public static String clean(String input)
+    {
 	String returnString = input.replace(">", "more than");
 	returnString = returnString.replace("<", "less than");
 	returnString = returnString.replace("=", "equals");
 	returnString = returnString.replace(";", ":");
 	
 	return returnString;
+    }
+    
+    /**
+     * Attempts to clean up input.
+     * @param input the employee to be cleaned
+     * @return a cleansed employee object
+     */
+    public static Employee clean(Employee input)
+    {
+	String cleanEmail = clean(input.getEmail());
+	String cleanID = clean(input.getId());
+	String cleanFirstName = clean(input.getFirstName());
+	String cleanLastName = clean(input.getLastName());
+	
+	Employee returnEmployee = new Employee(cleanID, cleanFirstName, 
+				cleanLastName, input.getAccessLevel(),
+				input.getPassword(), cleanEmail, input.getWage());
+	
+	return returnEmployee;
+    }
+    
+    /**
+     * Attempts to clean up input.
+     * @param input the Shift you wish the clean
+     * @return a cleansed Shift object
+     */
+    public static Shift clean(Shift input)
+    {
+	String cleanID = clean(input.getEmployeeLogin());
+	
+	Shift returnShift = new Shift(cleanID, input.getShiftStartTime(),
+				input.getShiftEndTime());
+				
+	return returnShift;
     }
     
     /**
@@ -52,12 +87,12 @@ public class Input
      */
     public static boolean authenticate(String username, String password) {
 	byte[] pwHash = Input.createHash(password);
-	Request loginRequest = Request.LoginRequest(username, pwHash);
+	Request loginRequest = Request.LoginRequest(clean(username), pwHash);
 	RequestResults results = null;
         try{
             results = controller.sendRequest(loginRequest);
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
             System.out.println("LOGIN ERROR! ABORTING...");
             return false;
@@ -75,12 +110,12 @@ public class Input
     
     public static Timestamp[] getSchedule(String userID)
     {
-        Request request = Request.ShiftRequest(userID);
+        Request request = Request.ShiftRequest(clean(userID));
         RequestResults schedule = new RequestResults();
         try{
             schedule=controller.sendRequest(request);
         }
-        catch(Exception e)
+        catch(SQLException e)
         {}
         return schedule.getShifts();
     }
@@ -92,7 +127,7 @@ public class Input
      */
     public static int getEmployeeAccessLevel(String userID)
     {
-	Request request = Request.GetAccessLevelRequest(userID);
+	Request request = Request.GetAccessLevelRequest(clean(userID));
 	RequestResults accessLevel = new RequestResults();
 	try {
 	    accessLevel = controller.sendRequest(request);
@@ -107,7 +142,7 @@ public class Input
     
     public static Timestamp[] getRangeSchedule(String userID, Timestamp start, Timestamp end)
     {
-        Request request = Request.ShiftRangeRequest(userID, start, end);
+        Request request = Request.ShiftRangeRequest(clean(userID), start, end);
         RequestResults schedule = new RequestResults();
         try{
             schedule = controller.sendRequest(request);
@@ -129,7 +164,7 @@ public class Input
      */
     public static boolean isUsernameUnique(String username)
     {
-        Request validateRequest = Request.UsernameValidateRequest(username);
+        Request validateRequest = Request.UsernameValidateRequest(clean(username));
         RequestResults results = null;
         try{
             results = controller.sendRequest(validateRequest);
@@ -148,7 +183,7 @@ public class Input
      */
     public static void addNewEmployee(Employee newEmployee)
     {  
-        Request addNewEmployeeRequest = Request.CreateRequest("PLACEHOLDER", newEmployee);
+        Request addNewEmployeeRequest = Request.CreateRequest("PLACEHOLDER", clean(newEmployee));
         RequestResults results = new RequestResults();
         try
         {
@@ -167,7 +202,7 @@ public class Input
      */
     public static void changeEmployeeAccessLevel(String username, int newAccessLevel)
     {
-        Request changeAccessLevelRequest = Request.ChangeAccessLevelRequest(username, newAccessLevel);
+        Request changeAccessLevelRequest = Request.ChangeAccessLevelRequest(clean(username), newAccessLevel);
         try
         {
             controller.sendRequest(changeAccessLevelRequest);
@@ -184,7 +219,7 @@ public class Input
      */
     public static void removeEmployee(String username)
     {
-        Request removeEmployeeRequest = Request.DeleteRequest("PLACEHOLDER", username);
+        Request removeEmployeeRequest = Request.DeleteRequest("PLACEHOLDER", clean(username));
         try
         {
             controller.sendRequest(removeEmployeeRequest);
@@ -210,7 +245,9 @@ public class Input
         {
             throw new RuntimeException();
         }
-        Request modifyEmployeeRequest = Request.ModifyEmployeeInfoRequest(userToBeChanged, newFirstName, newLastName, newEmail, newAccessLevel, newWage);
+        Request modifyEmployeeRequest = Request.ModifyEmployeeInfoRequest(
+		clean(userToBeChanged), clean(newFirstName), clean(newLastName),
+		clean(newEmail), newAccessLevel, newWage);
         try
         {
             controller.sendRequest(modifyEmployeeRequest);
@@ -230,7 +267,8 @@ public class Input
     public static void changeEmployeePassword(String username, String newPassword)
     {
         byte[] newHashedPassword = Input.createHash(newPassword);
-        Request changePasswordRequest = Request.ChangePasswordRequest(username, newHashedPassword);
+        Request changePasswordRequest = Request.ChangePasswordRequest(
+		clean(username), newHashedPassword);
         try
         {
             controller.sendRequest(changePasswordRequest);
@@ -248,7 +286,8 @@ public class Input
      */
     public static void changeEmployeesManager(String employee, String newManager)
     {
-        Request changeEmployeesManagerRequest = Request.changeEmployeesManagerRequest(employee, newManager);
+        Request changeEmployeesManagerRequest = Request.changeEmployeesManagerRequest(
+		clean(employee), clean(newManager));
         try
         {
             controller.sendRequest(changeEmployeesManagerRequest);
@@ -288,7 +327,8 @@ public class Input
     
     public static void createAcceptRequest(String asker, String accepter, Timestamp[] shifts, boolean response)
     {
-        Request request = Request.AcceptRequest(asker,accepter,shifts,response);
+        Request request = Request.AcceptRequest(clean(asker),
+		clean(accepter), shifts, response);
         try 
         {
 		controller.sendRequest(request);
@@ -306,7 +346,7 @@ public class Input
      * @param shiftStartEnd an array containing the shifts Start time and shifts End time (0,1 respectively)
      */
     public static boolean createGiveRequest(String empName, Timestamp[] shiftStartEnd) {
-    	Request request = Request.GiveRequest(empName, shiftStartEnd);
+    	Request request = Request.GiveRequest(clean(empName), shiftStartEnd);
     	try 
         {
 		controller.sendRequest(request);
@@ -336,7 +376,7 @@ public class Input
     public static void createTakeRequest(String initLogin, String finalLogin, Timestamp[] finalshiftStartEnd){
     	Request request = null;
         Timestamp[] temp={null,null, finalshiftStartEnd[0],finalshiftStartEnd[1]};
-    	request = Request.TradeRequest(initLogin, finalLogin, temp);
+    	request = Request.TradeRequest(clean(initLogin), clean(finalLogin), temp);
     	try {
 			controller.sendRequest(request);
 		} catch (SQLException e) {
@@ -365,7 +405,8 @@ public class Input
      */
     public static void createTradeRequest(String initLogin, Timestamp[] shiftStartEnd, String finalLogin, Timestamp[] finalshiftStartEnd){
     	Request request = null;
-    	request = Request.TradeRequest(initLogin, finalLogin, timestampArrayMerge(shiftStartEnd, finalshiftStartEnd));
+    	request = Request.TradeRequest(clean(initLogin), clean(finalLogin),
+		timestampArrayMerge(shiftStartEnd, finalshiftStartEnd));
     	try {
 			controller.sendRequest(request);
 		} catch (SQLException e) {
@@ -385,7 +426,7 @@ public class Input
      */
     public static RequestResults getEmployeeMessages(String username)
     {
-        Request messageRequest = Request.GetMessagesRequest(username);
+        Request messageRequest = Request.GetMessagesRequest(clean(username));
         RequestResults results = null;
         try
         {
@@ -401,7 +442,8 @@ public class Input
     
     public static void sendMessage(String sender, String recipent, String message)
     {
-        Request messageRequest = Request.SendMessageRequest(sender, recipent, message);
+        Request messageRequest = Request.SendMessageRequest(clean(sender),
+		clean(recipent), clean(message));
         try
         {
             controller.sendRequest(messageRequest);
@@ -414,7 +456,8 @@ public class Input
     
     public static void deleteMessage(String sender, String recipient, Timestamp sendTime)
     {
-        Request deleteRequest = Request.DeleteMessageRequest(sender, recipient, sendTime);
+        Request deleteRequest = Request.DeleteMessageRequest(clean(sender),
+		clean(recipient), sendTime);
         try
         {
             controller.sendRequest(deleteRequest);
@@ -465,7 +508,7 @@ public class Input
      */
     public static void assignShifts(Shift shift)
     {
-         Request assignRequest = Request.assignShiftsRequest(shift);
+         Request assignRequest = Request.assignShiftsRequest(clean(shift));
          try
          {
             controller.sendRequest(assignRequest);
@@ -505,7 +548,7 @@ public class Input
      */
    public static void getWorkerInfo (String login){
 	   //TODO need request for this
-       Request getInfo = Request.GetUserInfoRequest(login);
+       Request getInfo = Request.GetUserInfoRequest(clean(login));
        try
        {
            controller.sendRequest(getInfo);
@@ -522,7 +565,8 @@ public class Input
    public static void getWorkerLogin (String firstName, String lastName)
    {
 	//TODO need request for this
-	Request getLogin = Request.GetUserLoginRequest(firstName, lastName);
+	Request getLogin = Request.GetUserLoginRequest(clean(firstName), 
+						     clean(lastName));
 	RequestResults results = new RequestResults();
 	try
 	{
@@ -538,7 +582,7 @@ public class Input
    
    public static Shift[] getShiftsOnDay (String username, Timestamp dayStart, Timestamp dayEnd)
    {
-       Request getShifts=Request.GetShiftsonDay(username, dayStart, dayEnd);
+       Request getShifts=Request.GetShiftsonDay(clean(username), dayStart, dayEnd);
        RequestResults results = new RequestResults();
        try
        {
