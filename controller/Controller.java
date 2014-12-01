@@ -441,6 +441,7 @@ public class Controller {
     private void makeTrade(ResultSet transactionFields) throws SQLException
     {
         Statement transaction = dbconnection.createStatement();
+        transaction.addBatch(Queries.deleteShiftTransactionQuery(transactionFields.getString("initlogin"), transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("finalshiftstart")));
         if (transactionFields.getString("transactiontype").equals("swap"))
         {
             transaction.addBatch(Queries.deleteShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
@@ -450,7 +451,6 @@ public class Controller {
             transaction.addBatch(Queries.deleteGiveRecordQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
         transaction.addBatch(Queries.deleteShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
         transaction.addBatch(Queries.insertShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("finalshiftstart"), transactionFields.getTimestamp("finalshiftend")));
-        transaction.addBatch(Queries.deleteShiftTransactionQuery(transactionFields.getString("initlogin"), transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("finalshiftstart")));
         transaction.executeBatch();
         transaction.close();
     }
