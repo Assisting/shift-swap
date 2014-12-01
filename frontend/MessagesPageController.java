@@ -20,9 +20,11 @@ import javafx.scene.input.KeyEvent;
  */
 public class MessagesPageController extends AnchorPane implements Initializable {
     
-    LinkedList<Timestamp> sendTimes;
+    private int selectedIndex;
+    
+    private LinkedList<Timestamp> sendTimes;
 
-    LinkedList<String> inbox;
+    private LinkedList<String> inbox;
     
     @FXML
     private TextArea messageArea;
@@ -109,6 +111,9 @@ public class MessagesPageController extends AnchorPane implements Initializable 
 
     private void populateMessage(String message)
     {
+        disableTradeButtons();
+        deleteButton.setVisible(false);
+        deleteButton.setDisable(true);
         if(message==null)
         {
             messageArea.setText("");
@@ -124,10 +129,17 @@ public class MessagesPageController extends AnchorPane implements Initializable 
                 {
                     senderField.setText(message.substring(6,i));
                     messageArea.setText(message.substring(i));
+                    selectedIndex=inboxGrid.getSelectionModel().getSelectedIndex();
+                    deleteButton.setVisible(true);
+                    deleteButton.setDisable(false);
+                    if(checkIfTradable())
+                    {
+                        enableTradeButtons();
+                    }
                     done=true;
                 }
                 i=i+1;
-        }
+            }
         }
     }
     
@@ -146,11 +158,52 @@ public class MessagesPageController extends AnchorPane implements Initializable 
         return messageData;
     }
     
-    public void updateInbox()
+    private void updateInbox()
     {
         inboxGrid.setItems(grabInbox());
         inboxGrid.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> populateMessage(newValue));
+    }
+    
+    private void enableTradeButtons()
+    {
+        acceptButton.setVisible(true);
+        acceptButton.setDisable(false);
+        rejectButton.setVisible(true);
+        rejectButton.setDisable(false);
+    }
+    
+    private void disableTradeButtons()
+    {
+        acceptButton.setVisible(false);
+        acceptButton.setDisable(true);
+        rejectButton.setVisible(false);
+        rejectButton.setDisable(true);
+    }
+    
+    private boolean checkIfTradable()
+    {
+        String checkMessage=inbox.get(selectedIndex);
+        boolean foundOpCode=false;
+        int i=0;
+        while(i<checkMessage.length() && !foundOpCode)
+        {
+            if(checkMessage.charAt(i)=='>')
+            {
+               foundOpCode=true;
+            }
+            i=i+1;
+        }
+        i=i+1;
+        if(foundOpCode)
+        {
+            if(checkMessage.charAt(i)=='T')
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     @Override
