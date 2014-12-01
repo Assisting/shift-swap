@@ -588,8 +588,20 @@ public class View extends Application
     protected boolean sendGiveRequest(Shift give)
     {
         Timestamp[] temp={give.getShiftStartTime(),give.getShiftEndTime()};
-        boolean success= Input.createGiveRequest(userID, temp);
-        return success;
+        boolean isOnList=isOnGiveList(give);
+        if(isOnGiveList(give))
+        {
+            return false;
+        }
+        else
+        {
+            return Input.createGiveRequest(userID, temp);
+        }
+    }
+    
+    protected boolean isOnGiveList(Shift shift)
+    {
+        return Input.createGiveListCheckRequest(shift);
     }
     
     private Initializable sceneTransition(String fxml) throws Exception {

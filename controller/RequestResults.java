@@ -51,7 +51,7 @@ public class RequestResults {
     public void setApproved(boolean approved) {
         this.approved = approved;
     }
-
+   
     /**
      * @return the names
      */

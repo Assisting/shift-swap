@@ -340,6 +340,23 @@ public class Input
 	}
     }
     
+    public static boolean createGiveListCheckRequest(Shift check)
+    {
+        Request request= Request.CheckGiveListRequest(check.getEmployeeLogin(), check.getShiftStartTime(), check.getShiftEndTime());
+        RequestResults results = null;
+        try
+        {
+            results=controller.sendRequest(request);
+        }
+         catch (SQLException e) 
+        {
+		System.out.println("createGiveRequest bombed hard");
+		e.printStackTrace();
+                return false;
+	}
+        return results.isApproved();
+    }
+    
     /**
      * creates a give request for an employee and his/her shift
      * @param empName the employees name
@@ -351,11 +368,6 @@ public class Input
         {
 		controller.sendRequest(request);
 	}
-        catch (PSQLException e)
-        {
-            //This means that this shift has already been given away, and can't be given away twice.
-            return false;
-        }
         catch (SQLException e) 
         {
 		System.out.println("createGiveRequest bombed hard");
