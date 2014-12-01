@@ -114,6 +114,14 @@ public class Queries {
                 + ")";
     }
     
+    static String checkInGiveQuery(String user, Timestamp start, Timestamp end)
+    {
+        return "select exists(select * from giveshifts where giverlogin = '" +
+                user + "' AND givershiftstart = '" +
+                start.toString() + "' and givershiftend = '" +
+                end.toString() + "');";
+    }
+    
     /**
      * Generate a query to delete a specific shift from the give table
      * @param giver
