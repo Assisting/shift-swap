@@ -557,11 +557,21 @@ public class View extends Application
         }
     }
     
+    protected void deleteMessage(String sender ,Timestamp sendTime)
+    {
+        Input.deleteMessage(sender,userID,sendTime);
+    }
+    
     protected void sendTradeRequest(Shift want, Shift giveaway)
     {
         Timestamp[] giveawayTime={giveaway.getShiftStartTime(),giveaway.getShiftEndTime()};
         Timestamp[] wantTime={want.getShiftStartTime(),want.getShiftEndTime()};
         Input.createTradeRequest(userID, giveawayTime, want.getEmployeeLogin(), wantTime);
+    }
+    
+    protected void sendTradeRequestResponse(String asker,Timestamp[] startTimes ,boolean acceptance)
+    {
+        Input.createAcceptRequest(asker,userID,startTimes,acceptance);
     }
     
     /**

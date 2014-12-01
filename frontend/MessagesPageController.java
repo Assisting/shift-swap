@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -19,12 +20,15 @@ import javafx.scene.input.KeyEvent;
  * @author Warren Fehr, wwf594
  */
 public class MessagesPageController extends AnchorPane implements Initializable {
-    
+     
     private int selectedIndex;
     
     private LinkedList<Timestamp> sendTimes;
 
     private LinkedList<String> inbox;
+    
+    @FXML
+    private Label cantDeleteLabel;
     
     @FXML
     private TextArea messageArea;
@@ -94,8 +98,15 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     }
 
      @FXML
-    void onAcceptButtonPress() {
-
+    void onAcceptButtonPress() 
+    {
+        if(checkIfTradable())
+        {
+            Timestamp[] startTime=parseTimeStamps();
+            instance.sendTradeRequestResponse(senderField.getText(),startTime,true);
+            updateInbox();
+            
+        }
     }
 
     @FXML
@@ -104,14 +115,65 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     }
 
     @FXML
-    void onDeleteButtonPress() {
-
+    void onDeleteButtonPress() 
+    {
+        if(checkIfTradable())
+        {
+            cantDeleteLabel.setVisible(true);
+        }
+        else
+        {
+            instance.deleteMessage(senderField.getText(),sendTimes.get(selectedIndex));
+            updateInbox();
+        }
     }
 
-
+    private Timestamp[] parseTimeStamps()
+    {
+        String sender=senderField.getText();
+        String parse=inbox.get(selectedIndex);
+        Timestamp startTime1;
+        Timestamp startTime2;
+        int startOfEntry;
+        boolean foundOpCode=false;
+        int i=0;
+        
+        //First, find our starting position.
+        while(i<parse.length() && !foundOpCode)
+        {
+            if(parse.charAt(i)=='>')
+            {
+                foundOpCode=true;
+            }
+            i=i+1;
+        }
+        i=i+sender.length()+24;//This will put us at the Timestamp we need to read in.
+        
+        //Read in first Timestamp.
+        startOfEntry=i;
+        while(parse.charAt(i)!='.')
+        {
+            i=i+1;
+        }
+        startTime1=Timestamp.valueOf(parse.substring(startOfEntry,i-1));
+        
+        i=i+7;
+        //Read in second Timestamp.
+        startOfEntry=i;
+        while(parse.charAt(i)!='.')
+        {
+            i=i+1;
+        }
+        startTime2=Timestamp.valueOf(parse.substring(startOfEntry,i-1));
+        Timestamp[] returnValue={startTime1, startTime2};
+        return returnValue;
+        
+    }
+    
     private void populateMessage(String message)
     {
         disableTradeButtons();
+        cantDeleteLabel.setVisible(false);
         deleteButton.setVisible(false);
         deleteButton.setDisable(true);
         if(message==null)
@@ -143,6 +205,8 @@ public class MessagesPageController extends AnchorPane implements Initializable 
         }
     }
     
+    
+    
     private ObservableList<String> grabInbox()
     {
         Inbox temp=instance.grabInbox();
@@ -160,6 +224,10 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     
     private void updateInbox()
     {
+        disableTradeButtons();
+        deleteButton.setVisible(false);
+        deleteButton.setDisable(true);
+        cantDeleteLabel.setVisible(false);
         inboxGrid.setItems(grabInbox());
         inboxGrid.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> populateMessage(newValue));
