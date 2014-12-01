@@ -563,11 +563,20 @@ public class View extends Application
         Input.deleteMessage(sender,userID,sendTime);
     }
     
-    protected void sendTradeRequest(Shift want, Shift giveaway)
+    protected boolean sendTradeRequest(Shift want, Shift giveaway)
     {
+        if(isOnGiveList(giveaway))
+        {
+            return false;
+        }
+        else if(isOnGiveList(want))
+        {
+            return false;
+        }
         Timestamp[] giveawayTime={giveaway.getShiftStartTime(),giveaway.getShiftEndTime()};
         Timestamp[] wantTime={want.getShiftStartTime(),want.getShiftEndTime()};
         Input.createTradeRequest(userID, giveawayTime, want.getEmployeeLogin(), wantTime);
+        return true;
     }
     
     protected void sendTradeRequestResponse(String asker,Timestamp[] startTimes ,boolean acceptance)
