@@ -1,6 +1,8 @@
 package frontend;
 
 import controller.Employee;
+import controller.Inbox;
+import controller.RequestResults;
 import controller.Shift;
 import java.io.InputStream;
 import javafx.application.Application;
@@ -405,25 +407,36 @@ public class View extends Application
      * Grabs all the messages that the current user has been sent.
      * @return A linked list holding a Linked List of Strings which represent the messages. 
      */
-    protected LinkedList<String> grabInbox()
+    protected Inbox grabInbox()
     {
-        String input=Input.getEmployeeMessages(userID);
+        RequestResults input=Input.getEmployeeMessages(userID);
+        String messages=input.getMessages();
+        Timestamp[] sendTimes=input.getShifts();
         LinkedList<String> inbox = new LinkedList<String>();
+        LinkedList<Timestamp> sendTimeBox= new LinkedList<Timestamp>();
         String partial;
         int i=0;
         int stringStart=0;
-        while(i<input.length())
+        
+        //Parse messages to fill Inbox
+        while(i<messages.length())
         {
-            if(input.charAt(i)=='\n')
+            if(messages.charAt(i)=='\n')
             {
-                partial=input.substring(stringStart, i);
+                partial=messages.substring(stringStart, i);
                 inbox.add(partial);
                 stringStart=i+1;
             }
             i=i+1;
         }
-      
-        return inbox;
+        
+        i=0;
+        while(i<sendTimes.length)
+        {
+            sendTimeBox.add(sendTimes[i]);
+            i=i+1;
+        }
+        return new Inbox(sendTimeBox,inbox);
     }
     
     /**

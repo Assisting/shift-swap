@@ -1,6 +1,8 @@
 package frontend;
 
+import controller.Inbox;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
@@ -18,7 +20,7 @@ import javafx.scene.input.KeyEvent;
  */
 public class MessagesPageController extends AnchorPane implements Initializable {
     
-
+    LinkedList<Timestamp> sendTimes;
 
     LinkedList<String> inbox;
     
@@ -131,7 +133,9 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     
     private ObservableList<String> grabInbox()
     {
-        inbox=instance.grabInbox();
+        Inbox temp=instance.grabInbox();
+        sendTimes=temp.getSendTimes();
+        inbox=temp.getMessages();
         ObservableList<String> messageData = FXCollections.observableArrayList();
         int i=0;
         while(i<inbox.size())
