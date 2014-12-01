@@ -255,6 +255,7 @@ public class Controller {
                         returnResults = new RequestResults();
                         Employee employee = new Employee(request.getSender(), results.getString("empfirstname"), results.getString("emplastname"), results.getInt("empaccesslevel"), null, results.getString("empemail"), results.getFloat("empwage"));
                         returnResults.setEmployee(employee);
+                        break;
                     }
                     case GET_USERNAME:
                     {
@@ -264,6 +265,7 @@ public class Controller {
                             return null;
                         returnResults = new RequestResults();
                         returnResults.setMessages(results.getString("emplogin"));
+                        break;
                     }
                     case SHIFT_RANGE:
                     {

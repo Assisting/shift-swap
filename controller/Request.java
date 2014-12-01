@@ -67,7 +67,7 @@ public static Request GetGivesListRequest()
     return new Request(null, null, null, RequestType.GIVELIST);
 }
 
-public static Request CeckGiveListRequest(String user, Timestamp start, Timestamp end)
+public static Request CheckGiveListRequest(String user, Timestamp start, Timestamp end)
 {
     Timestamp[] times = new Timestamp[2];
     times[0] = start;
