@@ -421,6 +421,20 @@ public class Input
     	return combinedShifts;
     }
     
+    public static void createManagerApprovalRequest(String[] requiredValues, boolean acceptance, String manager)
+    {
+        Timestamp[] shifts={Timestamp.valueOf(requiredValues[2]),Timestamp.valueOf(requiredValues[3])};
+        Request request=Request.ApproveRequest(requiredValues[0], requiredValues[1], manager, shifts, acceptance);
+        try 
+        {
+		controller.sendRequest(request);
+	} 
+        catch (SQLException e) 
+        {
+		System.out.println("createManagerApprovalRequest just got smoked");
+		e.printStackTrace();
+	}
+    }
     
     
     /** creates a trade request, the basis for give/take/trade.

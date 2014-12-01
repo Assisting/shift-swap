@@ -584,6 +584,11 @@ public class View extends Application
         Input.createAcceptRequest(asker,userID,startTimes,acceptance);
     }
     
+    protected void sendManagerApproval(String[] neededValues, boolean acceptance)
+    {
+        Input.createManagerApprovalRequest(neededValues,acceptance, userID);
+    }
+    
     /**
      * Sends a request for the logged in employee to take the given shift.
      * @param take The shift you wish to take.

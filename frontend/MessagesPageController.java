@@ -102,17 +102,43 @@ public class MessagesPageController extends AnchorPane implements Initializable 
     {
         if(checkIfTradable())
         {
-            Timestamp[] startTime=parseTimeStamps();
+            String[] neededValues=parseTimeStampsTrade();
+            Timestamp temp1=Timestamp.valueOf(neededValues[1]);
+            Timestamp temp2=Timestamp.valueOf(neededValues[2]);
+            Timestamp[] startTime={temp1,temp2};
             instance.sendTradeRequestResponse(senderField.getText(),startTime,true);
             instance.deleteMessage(senderField.getText(),sendTimes.get(selectedIndex));
-            updateInbox();
-            
+            updateInbox();   
+        }
+        else if(checkIfApprovable())
+        {
+            String[] neededValues=parseTimeStampsApproval();
+            instance.sendManagerApproval(neededValues, true);
+            instance.deleteMessage(senderField.getText(),sendTimes.get(selectedIndex));
+            updateInbox();  
         }
     }
 
     @FXML
-    void onRejectButtonPress() {
-
+    void onRejectButtonPress() 
+    {
+        if(checkIfTradable())
+        {
+            String[] neededValues=parseTimeStampsTrade();
+            Timestamp temp1=Timestamp.valueOf(neededValues[1]);
+            Timestamp temp2=Timestamp.valueOf(neededValues[2]);
+            Timestamp[] startTime={temp1,temp2};
+            instance.sendTradeRequestResponse(senderField.getText(),startTime,false);
+            instance.deleteMessage(senderField.getText(),sendTimes.get(selectedIndex));
+            updateInbox();   
+        }
+        else if(checkIfApprovable())
+        {
+            String[] neededValues=parseTimeStampsApproval();
+            instance.sendManagerApproval(neededValues, false);
+            instance.deleteMessage(senderField.getText(),sendTimes.get(selectedIndex));
+            updateInbox();  
+        }
     }
 
     @FXML
@@ -129,44 +155,137 @@ public class MessagesPageController extends AnchorPane implements Initializable 
         }
     }
 
-    private Timestamp[] parseTimeStamps()
+    private String[] parseTimeStampsTrade()
     {
-        String sender=senderField.getText();
+        String sender;
+        String recipient;
         String parse=inbox.get(selectedIndex);
-        Timestamp startTime1;
-        Timestamp startTime2;
+        String startTime1;
+        String startTime2;
         int startOfEntry;
-        boolean foundOpCode=false;
-        int i=0;
-        
-        //First, find our starting position.
-        while(i<parse.length() && !foundOpCode)
+        int i=32;
+        startOfEntry=i;
+        //Get Sender
+        while(parse.charAt(i)!=' ')
         {
-            if(parse.charAt(i)=='>')
+            i=i+1;
+        }
+        sender=parse.substring(startOfEntry,i);
+        
+        //Jump forward to timeStamp1;
+        i=i+16;
+        startOfEntry=i;
+        while(parse.charAt(i)!=' ')
+        {
+            i=i+1;
+        }
+        i=i+1;
+        //One space down....
+        while(parse.charAt(i)!='.' && parse.charAt(i) !=' ')
+        {
+            i=i+1;
+        }
+        
+        startTime1=parse.substring(startOfEntry,i);
+        if(parse.charAt(i)=='.')
+        {
+            while(parse.charAt(i)!=' ')
             {
-                foundOpCode=true;
+                i=i+1;
             }
-            i=i+1;
         }
-        i=i+sender.length()+24;//This will put us at the Timestamp we need to read in.
         
-        //Read in first Timestamp.
+        
+     
+        //Another timeStamp;
+        i=i+5;
         startOfEntry=i;
-        while(parse.charAt(i)!='.')
+        while(parse.charAt(i)!=' ')
         {
             i=i+1;
         }
-        startTime1=Timestamp.valueOf(parse.substring(startOfEntry,i-1));
-        
-        i=i+7;
-        //Read in second Timestamp.
-        startOfEntry=i;
-        while(parse.charAt(i)!='.')
+        i=i+1;
+        //One space down....
+        while(parse.charAt(i)!='.' && parse.charAt(i) !=' ')
         {
             i=i+1;
         }
-        startTime2=Timestamp.valueOf(parse.substring(startOfEntry,i-1));
-        Timestamp[] returnValue={startTime1, startTime2};
+        startTime2=parse.substring(startOfEntry,i);
+        
+        String[] returnValue = {sender,startTime1,startTime2};
+        
+        return returnValue;
+        
+        
+    }
+    
+    private String[] parseTimeStampsApproval()
+    {
+        String sender;
+        String recipient;
+        String parse=inbox.get(selectedIndex);
+        String startTime1;
+        String startTime2;
+        int startOfEntry;
+        int i=36;
+        startOfEntry=i;
+        //Get Sender
+        while(parse.charAt(i)!=' ')
+        {
+            i=i+1;
+        }
+        sender=parse.substring(startOfEntry,i);
+        
+        //Jump forward to timeStamp1;
+        i=i+16;
+        startOfEntry=i;
+        while(parse.charAt(i)!=' ')
+        {
+            i=i+1;
+        }
+        i=i+1;
+        //One space down....
+        while(parse.charAt(i)!='.' && parse.charAt(i) !=' ')
+        {
+            i=i+1;
+        }
+        
+        startTime1=parse.substring(startOfEntry,i);
+        if(parse.charAt(i)=='.')
+        {
+            while(parse.charAt(i)!=' ')
+            {
+                i=i+1;
+            }
+        }
+        
+        
+        //Next, we move to Recipient.
+        i=i+6;
+        startOfEntry=i;
+        while(parse.charAt(i)!=' ')
+        {
+            i=i+1;
+        }
+        recipient=parse.substring(startOfEntry,i);
+        
+        //Another timeStamp;
+        i=i+5;
+        startOfEntry=i;
+        while(parse.charAt(i)!=' ')
+        {
+            i=i+1;
+        }
+        i=i+1;
+        //One space down....
+        while(parse.charAt(i)!='.' && parse.charAt(i) !=' ')
+        {
+            i=i+1;
+        }
+        startTime2=parse.substring(startOfEntry,i);
+        
+        String[] returnValue = {sender,recipient,startTime1,startTime2};
+        
         return returnValue;
         
     }
@@ -196,6 +315,10 @@ public class MessagesPageController extends AnchorPane implements Initializable 
                     deleteButton.setVisible(true);
                     deleteButton.setDisable(false);
                     if(checkIfTradable())
+                    {
+                        enableTradeButtons();
+                    }
+                    else if(checkIfApprovable())
                     {
                         enableTradeButtons();
                     }
@@ -267,6 +390,31 @@ public class MessagesPageController extends AnchorPane implements Initializable 
         if(foundOpCode)
         {
             if(checkMessage.charAt(i)=='T')
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean checkIfApprovable()
+    {
+        String checkMessage=inbox.get(selectedIndex);
+        boolean foundOpCode=false;
+        int i=0;
+        while(i<checkMessage.length() && !foundOpCode)
+        {
+            if(checkMessage.charAt(i)=='>')
+            {
+               foundOpCode=true;
+            }
+            i=i+1;
+        }
+        i=i+1;
+        if(foundOpCode)
+        {
+            if(checkMessage.charAt(i)=='A')
             {
                 return true;
             }
