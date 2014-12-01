@@ -18,7 +18,7 @@ public class Request
  
     public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE, SEND_MESSAGE,
                               CREATE_USER, DELETE_USER, VALIDATE_UNIQUE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL, USER_INFO, GET_USERNAME,
-                              LOGIN, GIVELIST, GET_MESSAGES, DELETE_MESSAGE,
+                              LOGIN, GIVELIST, CHECK_GIVES, GET_MESSAGES, DELETE_MESSAGE,
                               APPROVAL_STATUS,
                               SCHEDULE, SHIFT_RANGE, SHIFTS_DAY, ADD_SHIFT, REMOVE_SHIFT }
  
@@ -65,6 +65,16 @@ public static Request LoginRequest(String username, byte[] password) {
 public static Request GetGivesListRequest()
 {
     return new Request(null, null, null, RequestType.GIVELIST);
+}
+
+public static Request CeckGiveListRequest(String user, Timestamp start, Timestamp end)
+{
+    Timestamp[] times = new Timestamp[2];
+    times[0] = start;
+    times[1] = end;
+    Message message = new Message();
+    message.setShifts(times);
+    return new Request(user, null, message, RequestType.CHECK_GIVES);
 }
 
 /**

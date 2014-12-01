@@ -314,6 +314,15 @@ public class Controller {
                         returnResults.setShifts(timePairs);
                         break;
                     }
+                    case CHECK_GIVES:
+                    {
+                        returnResults = new RequestResults();
+                        Statement giveCheck = dbconnection.createStatement();
+                        ResultSet results = giveCheck.executeQuery(Queries.checkInGiveQuery(request.getSender(), request.getShifts()[0], request.getShifts()[1]));
+                        results.next();
+                        returnResults.setApproved(results.getBoolean("exists"));
+                        break;
+                    }
                     case SEND_MESSAGE:
                     {
                         Statement sendMessage = dbconnection.createStatement();
