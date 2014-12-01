@@ -2,5 +2,7 @@
       type="topic"
       id="install">
 <title>Installation Instructions</title>
-<p>Currently, Shift Swap is not optimized to be istalled and run as a web-app. To run Shift Swap, simply run the file using:</p>
+<p>Currently, Shift Swap is not optimized to be istalled and run as a web-app. To run Shift Swap, simply run the file using: <cmd>java -jar ShiftSwap.jar</cmd></p>
+<p>If this is unsuccessful, the program can simply be run by executing the jar file using the Java 8 Runtime.</p>
+<p>If you are compiling from source, note you will need to set up a database as appropriate, and change the database connection information in <cmd>Controller.java</cmd> on line 37; the one provided is for demonstrative purposes.</p>
 </page>

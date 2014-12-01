@@ -5,5 +5,52 @@
   <link type="guide" xref="index"/>
 </info>
 <title>Manager Settings</title>
-<p>Placeholder</p>
+<p>This page gives you full access to all the most common employee management tasks. When you are logged in as a manager, it is accessible from the front page by clicking on the <cmd>Manager Settings</cmd> button.</p>
+
+
+<section id="walkthrough">
+	<title>Core Functions</title>
+	<p>With Shift Swap, you can:</p>
+	<list type="numbered">
+		<item><p>Add/Remove Employees</p></item>
+		<item><p>Promote/Demote Employees</p></item>
+		<item><p>Change Employee Information</p></item>
+		<item><p>Change Passwords</p></item>
+	</list>
+	
+	<steps>
+		<title>Add Employees</title>
+		<item><p>Click on the <cmd>Add Employee</cmd> tab.</p></item>
+		<item><p>Enter the details as necessary and press <cmd>Submit</cmd> to proceed.</p></item>
+		<item><p>You will be prompted to set the new employee's access level; typically, they will be a worker. Make your selection and then press <cmd>Submit</cmd> to proceed.</p></item>
+		<item><p>Finally, set the employee's manager. Press <cmd>Submit</cmd> to finish adding the employee.</p></item>
+	</steps>
+	
+	<steps>
+		<title>Remove Employees</title>
+		<item><p>Click on the <cmd>Remove Employee</cmd> tab.</p></item>
+		<item><p>You may search for an employee in the system by entering their first and last names, and clicking <cmd>Search</cmd>. The employee ID may also be filled in manually.</p></item>
+		<item><p>Press <cmd>Submit</cmd> to remove the employee from the Shift-Swap system.</p></item>
+	</steps>
+	
+	<steps>
+		<title>Promote/Demote Employees</title>
+		<item><p>To change the wage and/or access level of an employee, click on the <cmd>Modify Employee</cmd> tab.</p></item>
+		<item><p>You may search for an employee in the system by entering their first and last names, and clicking <cmd>Search</cmd>. The employee ID may also be filled in manually.</p></item>
+		<item><p>Once the employee ID is filled in, you may enter the other requested information, and change the wage. Press <cmd>Submit</cmd> to proceed.</p></item>
+		<item><p>You will now be asked to change the employee's access level. Make the changes required and press <cmd>Submit</cmd> to confirm the change.</p></item>
+	</steps>
+	
+	<steps>
+		<title>Change Employee Information</title>
+		<item><p>Follow the steps above in "Promote/Demote Employees" to change the employee's information as required.</p></item>
+		<item><p>To change their manager, click the <cmd>Set Manager</cmd> tab, and fill in the information as necessary.</p></item>
+	</steps>
+	
+	<steps>
+		<title>Change Password</title>
+		<item><p>To change an employee's password, click the <cmd>Set Password</cmd> tab.</p></item>
+		<item><p>Enter the employee ID. Then, enter and confirm the new password and click <cmd>Submit</cmd> to proceed.</p></item>
+	</steps>
+</section>
 </page>

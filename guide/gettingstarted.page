@@ -3,14 +3,50 @@
       id="gettingstarted">
 <info>
   <link type="guide" xref="index"/>
-  <link type="guide" xref="trades"/>
 </info>
 <title>Getting Started</title>
 <p>When you first boot up Shift Swap, you are greeted by the Log In screen. Enter the username and password provided to you by your employer.</p>
 <media type="image" src="loginscreen.png" width="450" height="326"/>
 <p>Once you've enetered your login information, press Enter to proceed. Next, you will see the main page of Shift Swap, from where all other functionality is accessed.</p>
 <media type="image" src="frontpage.png" width="450" height="326"/>
-<p>In the top half of the window, you can view your current <link xref="schedule"/> by either clicking the "Check Schedule" button to view this week's schedule, or click on "View Monthly Schedule" to see all of your currently assigned shifts for the current calendar month.</p>
+<p>In the top half of the window, you can view your current schedule for the week; to see all of your currently assigned shifts for the current calendar month, click <cmd>View Monthly Schedule</cmd>.</p>
 <p>The messaging system and trades are accessed via the lower left-hand corner.</p>
-<p>Various settings pages can be accessed via the lower right-hand corner.</p>
+<p>Various settings pages can be accessed via the lower right-hand corner; you may not see all of these depending on the level of access set by your employer. Also here is the <cmd>Help</cmd> button, a shortcut to this guide.</p>
+
+
+<section id="walkthrough">
+	<title>Walkthrough</title>
+	<p>To run the file, you will require Java 8.</p>
+	<p>You can login on the example database using the username/password combation <cmd>tmike</cmd> and <cmd>doge</cmd>. Once this is done you'll be on the front page.</p>
+	
+	<steps>
+		<title>Check Monthly Schedule</title>
+		<item><p>Click on the <cmd>View Monthly Schedule</cmd> button</p></item>
+		<item><p>The sceen should now appear like this:</p> <media type="image" src="scenario1.png" width="450" height="326"/></item>
+		<item><p>You have successfully checked your monthly schedule. To proceed, click the <cmd>Back</cmd> button in the upper left-hand corner.</p></item>
+	</steps>
+	
+	<steps>
+		<title>Trade a Shift</title>
+		<item><p>Click on the <cmd>Check Available Shifts</cmd> link.</p></item>
+		<item><p>On the left-hand side, you'll see the shifts which other people are offering. On the right hand side, you'll see the shifts you may offer to other people.</p> <media type="image" src="trades.png" width="450" height="326"/></item>
+		<item><p>Select one of the shifts in either coloumn. You can see the details of the shift in the window at the top-centre.</p></item>
+		<item><p>Click either <cmd>Give Shift</cmd> or <cmd>Take Shift</cmd>, depending on what you want to do, and what shift you've selected.</p></item>
+	</steps>
+	
+	<steps>
+		<title>Send a Message</title>
+		<item><p>From the front page, click <cmd>Check Messages</cmd></p></item>
+		<item><p>This is your inbox. If you have any messages from other employees, they will be displayed here. Click <cmd>Create New Message</cmd>.</p></item>
+		<item><p>Here, you can specify a recipient of the message, and write the message itself. Messages are limited to 255 characters.</p> <media type="image" src="hello.png" width="450" height="326"/></item>
+		<item><p>Click <cmd>Send</cmd>. The message should be sent, or if there was an error, you will be notified.</p></item>
+	</steps>
+	
+	<steps>
+		<title>Swap Shifts</title>
+		<item><p>Click <cmd>Swap Shifts</cmd>.</p></item>
+		<item><p>From this screen, you can search for a shift from a particular user, or on a particular date. Once you've entered the details, click <cmd>Search</cmd>.</p> <media type="image" src="swap.png" width="450" height="326"/></item>
+		<item><p>Now click <cmd>Swap</cmd>. Next, you must wait for the other employee to accept or decline your request; the message will appear in their inbox almost immediately. (A manager's approval may also be required)</p></item>
+	</steps>
+</section>
 </page>

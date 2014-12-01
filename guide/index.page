@@ -1,55 +1,12 @@
 <page xmlns="http://projectmallard.org/1.0/"
 	type="guide"
 	id="index">
+<info>
+  <link type="topic" xref="gettingstarted"/>
+  <link type="topic" xref="install"/>
+  <link type="topic" xref="managersettings"/>
+</info>
 <title>Shift Swap User Guide</title>
 <p>Welcome to Shift Swap, the employee communication and management tool from Agile Technologies.</p>
-<p>If you are new to Shift Swap, please check <link xref="gettingstarted"/>. Other pages currently available include a run-down of most major features, <link xref="installing"/>, and <link xref="managersettings"/>.</p>
-<section id="marker">
-	<title>For the Marker</title>
-	<p>To run the file, you will require Java 8.</p>
-	<p>You can login using the username/password combation <cmd>tmike</cmd> and <cmd>doge</cmd>. Once this is done you'll be on the front page.</p>
-	
-	<steps>
-		<title>Success Scenario 1: Check Monthly Schedule</title>
-		<item><p>Click on the <cmd>View Monthly Schedule</cmd> button</p></item>
-		<item><p>Click on the <cmd>Get Schedule</cmd> button; this will bring up your schedule for the current calendar month.</p></item>
-		<item><p>The sceen should now appear like this:</p> <media type="image" src="scenario1.png" width="450" height="326"/></item>
-		<item><p>You have successfully checked a schedule. Click <cmd>Back</cmd> to proceed.</p></item>
-	</steps>
-	
-	<steps>
-		<title>Success Scenario 2: Check Weekly Schedule</title>
-		<item><p>Click on the <cmd>Check Schedule</cmd> button; this will bring up your schedule for the next 7 days.</p></item>
-		<item><p>The sceen should now appear like this:</p> <media type="image" src="weekly.png" width="450" height="326"/></item>
-	</steps>
-	
-	<steps>
-		<title>Success Scenario 3: Add Employee</title>
-		<item><p>Click on the <cmd>Manager Settings</cmd> link.</p></item>
-		<item><p>Enter some information. It doesn't particularly matter what you put so long as you remember the Employee ID and password, and the Wage is a floating point number.</p> <media type="image" src="newemployee.png" width="450" height="326"/></item>
-		<item><p>You have now added a new employee. You can verify this by quitting the application, re-launching, and logging in with the credentials you just provided.</p></item>
-	</steps>
-	
-	<steps>
-		<title>Success Scenario 4: Send a Message</title>
-		<item><p>While still logged in to this new account, click <cmd>Check Messages</cmd></p></item>
-		<item><p>Your inbox should be empty since you are a new employee. Click <cmd>Create New Message</cmd>.</p></item>
-		<item><p>Set the recipient to your Employee ID. Enter anything you like for the message itself. Click <cmd>Send</cmd>.</p> <media type="image" src="hello.png" width="450" height="326"/></item>
-		<item><p>Now click <cmd>Back</cmd>. Then, click <cmd>Update Inbox</cmd> to verify you have received the message from yourself. Once you have verified this, click <cmd>Back</cmd> to proceed.</p></item>
-	</steps>
-	
-	<steps>
-		<title>Success Scenario 5: Take a Shift</title>
-		<item><p>Checking your weekly schedule will confirm that this new account has no upcoming shifts.</p></item>
-		<item><p>Click <cmd>Check Available Shifts</cmd>. Click <cmd>Update Available Shifts</cmd> and then select one after the date 2014-10-25. Then, click <cmd>Take Shift</cmd></p> <media type="image" src="take.png" width="450" height="326"/></item>
-		<item><p>Now click <cmd>Back</cmd>. Then, click <cmd>Check Schedule</cmd> to verify that you have successfully acquired the new shift.</p></item>
-	</steps>
-	
-	<section>
-		<title>Future Plans</title>
-		<p>In the future, we hope to add more shift-trade functionality (You can see the skeleton of the "Swap Shift" page, which will allow you to give a user one of your shifts in exchange for taking on of theirs). As you can see, there is a lot of UX work to do yet, which will be a big priority. Overall stability and security can also be improved.</p>
-		<p>For Milestone 6 we also plan on allowing this to be run as a web applet accessible by any standard web browser. This will improve not only accessibility, but also overall speed of execution.</p>
-		<p>Finally, we hope to add more features for the owner of a business running Shift Swap to fully customize the software to their business needs, using a menu to configure things like date formats, maximum hours an employee can work, etc.</p>
-	</section>
-</section>
+<p>If you are new to Shift Swap, please check the <link xref="gettingstarted#walkthrough"/> on the <link xref="gettingstarted"/> page. Other pages currently available include <link xref="install"/> and a summary of <link xref="managersettings"/>.</p>
 </page>
