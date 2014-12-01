@@ -104,6 +104,7 @@ public class MessagesPageController extends AnchorPane implements Initializable 
         {
             Timestamp[] startTime=parseTimeStamps();
             instance.sendTradeRequestResponse(senderField.getText(),startTime,true);
+            instance.deleteMessage(senderField.getText(),sendTimes.get(selectedIndex));
             updateInbox();
             
         }
