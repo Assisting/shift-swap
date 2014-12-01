@@ -88,11 +88,6 @@ public class SwapShiftController implements Initializable
             userFailureLabel.setText("Need to select a shift to give and a shift to take.");
             userFailureLabel.setVisible(true);
         }
-	// Ensure two shifts are selected, one in each box
-	
-	// Ensure the user isn't selecting an Available Shift they cannot take
-	
-	// Call to View function to switch the two shifts around
     }
 
     @FXML
