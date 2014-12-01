@@ -49,9 +49,9 @@
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                                    <children>
                                                       <TextArea fx:id="messageArea" editable="false" layoutX="189.0" layoutY="117.0" prefHeight="323.0" prefWidth="519.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                      <Button fx:id="acceptButton" disable="true" layoutX="59.0" layoutY="355.0" mnemonicParsing="false" onAction="#onAcceptButtonPress" text="Accept" visible="false" />
-                                                      <Button fx:id="rejectButton" disable="true" layoutX="196.0" layoutY="355.0" mnemonicParsing="false" onAction="#onRejectButtonPress" text="Reject" visible="false" />
-                                                      <Button fx:id="deleteButton" disable="true" layoutX="280.0" layoutY="355.0" mnemonicParsing="false" onAction="#onDeleteButtonPress" text="Delete" visible="false" />
+                                                      <Button fx:id="acceptButton" disable="true" layoutX="59.0" layoutY="355.0" mnemonicParsing="false" onAction="#onAcceptButtonPress" styleClass="button-standard" text="Accept" visible="false" />
+                                                      <Button fx:id="rejectButton" disable="true" layoutX="196.0" layoutY="355.0" mnemonicParsing="false" onAction="#onRejectButtonPress" styleClass="button-standard" text="Reject" visible="false" />
+                                                      <Button fx:id="deleteButton" disable="true" layoutX="280.0" layoutY="355.0" mnemonicParsing="false" onAction="#onDeleteButtonPress" styleClass="button-standard" text="Delete" visible="false" />
                                                       <Label fx:id="cantDeleteLabel" layoutX="146.0" layoutY="323.0" text="Can't delete message, accept or reject first." textFill="RED" visible="false" />
                                                    </children>
                                                 </AnchorPane>
