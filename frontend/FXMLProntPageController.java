@@ -221,6 +221,12 @@ public class FXMLProntPageController  extends AnchorPane implements Initializabl
 	instance.logOut();
     }
     
+    @FXML
+    void launchHelp(ActionEvent event)
+    {
+	instance.getHelp();
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {    

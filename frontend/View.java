@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.LinkedList;
+import javafx.application.HostServices;
 
 
 
@@ -667,6 +668,15 @@ public class View extends Application
     protected boolean isUserInSystem(String userID)
     {
 	return !(Input.isUsernameUnique(userID));
+    }
+    
+    /**
+     * Opens up a browser tab/window, displays the user guide.
+     */
+    protected void getHelp()
+    {
+	HostServices hostServices = getHostServices();
+	hostServices.showDocument("http://www.eriklabine.com/shift-swap/index.html");
     }
     
     /**
