@@ -106,6 +106,8 @@ public class Controller {
                         {
                             boolean manager1Approved = transactionFields.getBoolean("initmanagersign");
                             boolean manager2Approved = transactionFields.getBoolean("finaltmanagersign");
+                            String manager1 = transactionFields.getString("initmanagerlogin");
+                            String manager2 = transactionFields.getString("finalmanagerlogin");
                             if (!manager1Approved || !manager2Approved)
                             {
                                 String giveTime = "nothing";
@@ -119,7 +121,7 @@ public class Controller {
                                     String manager = transactionFields.getString("initmanagerlogin");
                                     managerChecking.execute(Queries.newMessageQuery("Server", manager, "APPROVAL: " + transactionFields.getString("initlogin") + " wants to trade "+ giveTime + " with " + transactionFields.getString("finallogin") + " for " + transactionFields.getString("finalshiftstart") + ". This request requires your approval"));
                                 }
-                                if (!manager2Approved)
+                                if (!manager2Approved && !manager1.equalsIgnoreCase(manager2))
                                 {
                                     String manager = transactionFields.getString("finalmanagerlogin");
                                     managerChecking.execute(Queries.newMessageQuery("Server", manager, "APPROVAL: " +  transactionFields.getString("finallogin") + " wants to trade "+ transactionFields.getString("finalshiftstart") + " with " + transactionFields.getString("initlogin") + " for " + giveTime + ". This request requires your approval"));
@@ -149,9 +151,10 @@ public class Controller {
                         if (request.isApproved())
                         {
                             Statement managerApprove = dbconnection.createStatement();
-                            managerApprove.executeQuery(updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover()));
+                            managerApprove.execute(updateManagerApprovalTransactionsQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1], request.getApprover()));
                             //renew data
                             transactionFields = approveRequest.executeQuery(Queries.getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
+                            transactionFields.next();
                             boolean manager1Approved = transactionFields.getBoolean("initmanagersign");
                             boolean manager2Approved = transactionFields.getBoolean("finaltmanagersign");
                             if (manager1Approved && manager2Approved)
@@ -488,16 +491,19 @@ public class Controller {
                 System.out.println("updateManagerApprovalTransactionsQuery died");
                 e.printStackTrace();
         }
-    	ResultSet results = getTrannyID.executeQuery(Queries.getTransactionID(sender, recipient, initstart, finalstart));
+    	ResultSet results = getTrannyID.executeQuery(Queries.getTransactionData(sender, recipient, initstart, finalstart));
+        results.next();
     	int transactionID = results.getInt("transactionid");  	
         String initiatorlogin = "UPDATE shifttransaction "
                 + "SET initmanagersign = TRUE "
-                + "WHERE initlogin = '" + transactionID + "' AND "
-                + "initmanagerlogin = '" + managerLoginID + "'; "
-                +"UPDATE shifttransaction "
-                + "SET finalmanagersign = TRUE "
                 + "WHERE transactionid = '" + transactionID + "' AND "
-                + "finalmanagerlogin = '" + managerLoginID + "' ";
+                + "initlogin = '" + results.getString("initlogin") + "' AND "
+                + "initmanagerlogin = '" + results.getString("initmanagerlogin") + "'; "
+                +"UPDATE shifttransaction "
+                + "SET finaltmanagersign = TRUE "
+                + "WHERE transactionid = '" + transactionID + "' AND "
+                + "finallogin = '" + results.getString("finallogin") + "' AND "
+                + "finalmanagerlogin = '" + results.getString("finalmanagerlogin") + "' ";
         return initiatorlogin;
     }
 }

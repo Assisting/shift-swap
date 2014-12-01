@@ -82,6 +82,7 @@ public class Queries {
         return ("Select * from shifttransaction WHERE "
         		+ "initlogin ='" + sender +"' AND "
         		+ "initshiftstart = '" + takeTime + "' AND "
+                        + "finallogin = '" + recipient + "' AND "
         		+ "finalshiftstart = '" + finalstart + "';");
     }
     
