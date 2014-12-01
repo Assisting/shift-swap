@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 public class Controller {
 
     private Connection dbconnection;
+    private Timestamp nullStamp = new Timestamp(0);
 
     public Controller() {
         //System.out.print("connection");
@@ -108,7 +109,7 @@ public class Controller {
                             if (!manager1Approved || !manager2Approved)
                             {
                                 String giveTime = "nothing";
-                                if (transactionFields.getTimestamp("initshiftstart") != null)
+                                if (transactionFields.getTimestamp("initshiftstart") != nullStamp)
                                 {
                                     giveTime = transactionFields.getTimestamp("initshiftstart").toString();
                                 }
