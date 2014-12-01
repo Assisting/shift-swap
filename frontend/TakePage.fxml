@@ -23,12 +23,12 @@
                      <top>
                         <Pane prefHeight="44.0" prefWidth="600.0" styleClass="background-standard" BorderPane.alignment="CENTER">
                            <children>
-                              <Label layoutX="36.0" layoutY="12.0" text="Shifts available to take">
+                              <Label layoutX="14.0" layoutY="13.0" text="Shifts available to take">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="502.0" layoutY="12.0" text="Your shifts available to give away">
+                              <Label layoutX="470.0" layoutY="13.0" text="Your shifts available to give away">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

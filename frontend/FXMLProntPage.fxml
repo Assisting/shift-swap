@@ -96,9 +96,10 @@
                                     <Pane layoutX="41.0" layoutY="14.0" prefHeight="310.0" prefWidth="354.0" styleClass="background-standard" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <Label fx:id="youAreALabel" layoutX="14.0" layoutY="14.0" styleClass="label-standard" />
-                                          <Button fx:id="addEmployeeButton" layoutX="14.0" layoutY="40.0" mnemonicParsing="false" onAction="#onAddEmployeeButtonPress" styleClass="button-standard" text="Manager Settings" />
-                                          <Button fx:id="assignShiftsButton" layoutX="15.0" layoutY="79.0" mnemonicParsing="false" onAction="#onAssignShiftsPress" styleClass="button-standard" text="Assign Shifts" />
-                                          <Button fx:id="systemSettingsButton" layoutX="15.0" layoutY="119.0" mnemonicParsing="false" onAction="#onSystemSettingsPress" styleClass="button-standard" text="System Settings" />
+                                          <Button fx:id="addEmployeeButton" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" onAction="#onAddEmployeeButtonPress" styleClass="button-standard" text="Manager Settings" />
+                                          <Button fx:id="assignShiftsButton" layoutX="15.0" layoutY="116.0" mnemonicParsing="false" onAction="#onAssignShiftsPress" styleClass="button-standard" text="Assign Shifts" />
+                                          <Button fx:id="systemSettingsButton" layoutX="15.0" layoutY="156.0" mnemonicParsing="false" onAction="#onSystemSettingsPress" styleClass="button-standard" text="System Settings" />
+                                          <Button layoutX="15.0" layoutY="37.0" mnemonicParsing="false" styleClass="button-standard" text="View Profile" />
                                        </children>
                                     </Pane>
                                  </children>

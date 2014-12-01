@@ -23,7 +23,7 @@
                   <TextField fx:id="daySearch" layoutX="188.0" layoutY="420.0" prefHeight="25.0" prefWidth="35.0" />
                   <TextField fx:id="userSearch" layoutX="188.0" layoutY="474.0" />
                   <Button layoutX="413.0" layoutY="452.0" mnemonicParsing="false" onAction="#onSearchButtonPressed" styleClass="button-standard" text="Search" />
-                  <Button layoutX="495.0" layoutY="453.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" text="Update Shifts" />
+                  <Button layoutX="495.0" layoutY="453.0" mnemonicParsing="false" onAction="#onUpdateButtonPress" styleClass="button-standard" text="Update Shifts" />
                   <TextField fx:id="monthSearch" layoutX="230.0" layoutY="420.0" prefHeight="25.0" prefWidth="35.0" />
                   <TextField fx:id="yearSearch" layoutX="272.0" layoutY="420.0" prefHeight="25.0" prefWidth="62.0" />
                   <Label layoutX="191.0" layoutY="445.0" text="Day" />

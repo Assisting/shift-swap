@@ -57,9 +57,9 @@ public class SwapShiftController implements Initializable
     private View instance;
     
     public void setApp(View application){
- 
-       
         this.instance = application;
+	
+	onUpdateButtonPress();
     }
 
     /**

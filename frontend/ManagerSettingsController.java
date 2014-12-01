@@ -89,7 +89,15 @@ public class ManagerSettingsController implements Initializable
     @FXML
     private Button removeEmployeeSubmit;
     @FXML
-    private Label setPasswordConfirmation;
+    private Label modEmpConfLabel;
+    @FXML
+    private Label addEmpConfLabel;
+    @FXML
+    private Label setAccessConfLabel;
+    @FXML
+    private Label setPassConfLabel;
+    @FXML
+    private Label setManagerConfLabel;
     
     @FXML
     private TabPane managerTabs;
@@ -200,15 +208,23 @@ public class ManagerSettingsController implements Initializable
     {
 	String proposedPassword = setPasswordNew.getText();
 	
-	if(proposedPassword == setPasswordConfirm.getText()) {
-	    setPasswordConfirmation.setText("");
-	    
-	    instance.setPassword(setPasswordID.getText(),
+	if(proposedPassword.equals(setPasswordConfirm.getText())) {
+	    boolean success = instance.setPassword(setPasswordID.getText(),
 		    proposedPassword);
+	    if(success) {
+		setPassConfLabel.setTextFill(fontColor);
+		setPassConfLabel.setText("Password set successfully");
+	    }
+	    else {
+		setPassConfLabel.setTextFill(Color.FIREBRICK);
+		setPassConfLabel.setText("Password not set; contact system admin");
+	    }
+	    
+	    
 	}
 	else {
-	    setPasswordConfirmation.setTextFill(Color.FIREBRICK);
-	    setPasswordConfirmation.setText("Passwords do not match");
+	    setPassConfLabel.setTextFill(Color.FIREBRICK);
+	    setPassConfLabel.setText("Passwords do not match");
 	}
     }
 

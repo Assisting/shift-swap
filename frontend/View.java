@@ -642,9 +642,11 @@ public class View extends Application
 	Input.changeEmployeesManager(employee, manager);
     }
     
-    protected void setPassword(String employee, String password)
+    protected boolean setPassword(String employee, String password)
     {
 	Input.changeEmployeePassword(employee, password);
+	
+	return Input.authenticate(employee, password);
     }
     
     protected void removeEmployee(String employee)

@@ -43,6 +43,7 @@
                               <Label layoutX="273.0" layoutY="224.0" styleClass="label-standard" text="Wage" />
                               <TextField fx:id="newEmpWage" layoutX="319.0" layoutY="219.0" />
                               <Button fx:id="newEmpSubmit" layoutX="425.0" layoutY="255.0" mnemonicParsing="false" onAction="#processNewEmployee" styleClass="button-standard" text="Submit" />
+                              <Label fx:id="addEmpConfLabel" layoutX="210.0" layoutY="294.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -62,6 +63,7 @@
                               <Label layoutX="273.0" layoutY="211.0" styleClass="label-standard" text="Wage" />
                               <TextField fx:id="modEmpWage" layoutX="319.0" layoutY="206.0" />
                               <Button fx:id="modEmpSubmit" layoutX="425.0" layoutY="242.0" mnemonicParsing="false" onAction="#modifyEmployee" styleClass="button-standard" text="Submit" />
+                              <Label fx:id="modEmpConfLabel" layoutX="223.0" layoutY="279.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -81,6 +83,7 @@
                               <RadioButton fx:id="modAccessManager" layoutX="398.0" layoutY="179.0" mnemonicParsing="false" text="Manager" toggleGroup="$modAccess" />
                               <RadioButton fx:id="modAccessOwner" layoutX="398.0" layoutY="206.0" mnemonicParsing="false" text="Owner" toggleGroup="$modAccess" />
                               <Button fx:id="modAccessSubmit" layoutX="462.0" layoutY="237.0" mnemonicParsing="false" onAction="#modifyAccessLevel" styleClass="button-standard" text="Submit" />
+                              <Label fx:id="setAccessConfLabel" layoutX="207.0" layoutY="283.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -94,6 +97,7 @@
                               <TextField fx:id="setManagerEmployee" layoutX="347.0" layoutY="134.0" />
                               <TextField fx:id="setManagerManager" layoutX="347.0" layoutY="165.0" />
                               <Button layoutX="453.0" layoutY="211.0" mnemonicParsing="false" onAction="#setEmployeeManager" styleClass="button-standard" text="Submit" />
+                              <Label fx:id="setManagerConfLabel" layoutX="208.0" layoutY="255.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -109,7 +113,7 @@
                               <PasswordField fx:id="setPasswordConfirm" layoutX="345.0" layoutY="192.0" />
                               <Label layoutX="202.0" layoutY="197.0" styleClass="label-standard" text="Confirm Password" />
                               <Button fx:id="setPasswordSubmit" layoutX="451.0" layoutY="240.0" mnemonicParsing="false" onAction="#changeEmployeePassword" styleClass="button-standard" text="Submit" />
-                              <Label fx:id="setPasswordConfirmation" layoutX="240.0" layoutY="233.0" textFill="FIREBRICK" />
+                              <Label fx:id="setPassConfLabel" layoutX="207.0" layoutY="280.0" />
                            </children>
                         </AnchorPane>
                      </content>
