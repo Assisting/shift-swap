@@ -73,6 +73,10 @@ public class ManagerSettingsController implements Initializable
     @FXML
     private TextField setPasswordID;
     @FXML
+    private TextField modEmpFirst;
+    @FXML
+    private TextField modEmpLast;
+    @FXML
     private PasswordField setPasswordNew;
     @FXML
     private PasswordField setPasswordConfirm;
@@ -312,6 +316,20 @@ public class ManagerSettingsController implements Initializable
 	userID = Input.getWorkerLogin(employeeFirstName, employeeLastName);
 	
 	removeEmployeeID.setText(userID);
+    }
+    
+    @FXML
+    void modEmpSearch()
+    {
+	String employeeFirstName = modEmpFirst.getText();
+	String employeeLastName = modEmpLast.getText();
+	
+	String userID = "";
+	userID = Input.getWorkerLogin(employeeFirstName, employeeLastName);
+	
+	modEmpID.setText(userID);
+	modEmpFirstName.setText(employeeFirstName);
+	modEmpLastName.setText(employeeLastName);
     }
     
     @FXML

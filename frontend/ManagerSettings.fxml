@@ -52,18 +52,23 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" styleClass="background-standard">
                            <children>
-                              <Label layoutX="228.0" layoutY="107.0" styleClass="label-standard" text="Employee ID" />
-                              <TextField fx:id="modEmpID" layoutX="319.0" layoutY="102.0" />
-                              <TextField fx:id="modEmpFirstName" layoutX="319.0" layoutY="128.0" />
-                              <Label layoutX="240.0" layoutY="133.0" styleClass="label-standard" text="First Name" />
-                              <TextField fx:id="modEmpLastName" layoutX="319.0" layoutY="154.0" />
-                              <Label layoutX="241.0" layoutY="159.0" styleClass="label-standard" text="Last Name" />
-                              <TextField fx:id="modEmpEmail" layoutX="319.0" layoutY="180.0" />
-                              <Label layoutX="271.0" layoutY="185.0" styleClass="label-standard" text="E-mail" />
-                              <Label layoutX="273.0" layoutY="211.0" styleClass="label-standard" text="Wage" />
-                              <TextField fx:id="modEmpWage" layoutX="319.0" layoutY="206.0" />
-                              <Button fx:id="modEmpSubmit" layoutX="425.0" layoutY="242.0" mnemonicParsing="false" onAction="#modifyEmployee" styleClass="button-standard" text="Submit" />
-                              <Label fx:id="modEmpConfLabel" layoutX="223.0" layoutY="279.0" />
+                              <Label layoutX="232.0" layoutY="195.0" styleClass="label-standard" text="Employee ID" />
+                              <TextField fx:id="modEmpID" layoutX="323.0" layoutY="190.0" />
+                              <TextField fx:id="modEmpFirstName" layoutX="323.0" layoutY="216.0" />
+                              <Label layoutX="244.0" layoutY="221.0" styleClass="label-standard" text="First Name" />
+                              <TextField fx:id="modEmpLastName" layoutX="323.0" layoutY="242.0" />
+                              <Label layoutX="245.0" layoutY="247.0" styleClass="label-standard" text="Last Name" />
+                              <TextField fx:id="modEmpEmail" layoutX="323.0" layoutY="268.0" />
+                              <Label layoutX="275.0" layoutY="273.0" styleClass="label-standard" text="E-mail" />
+                              <Label layoutX="277.0" layoutY="299.0" styleClass="label-standard" text="Wage" />
+                              <TextField fx:id="modEmpWage" layoutX="323.0" layoutY="294.0" />
+                              <Button fx:id="modEmpSubmit" layoutX="429.0" layoutY="330.0" mnemonicParsing="false" onAction="#modifyEmployee" styleClass="button-standard" text="Submit" />
+                              <Label fx:id="modEmpConfLabel" layoutX="226.0" layoutY="272.0" />
+                              <Label layoutX="242.0" layoutY="85.0" text="First Name" />
+                              <TextField fx:id="modEmpFirst" layoutX="322.0" layoutY="79.0" />
+                              <TextField fx:id="modEmpLast" layoutX="322.0" layoutY="105.0" />
+                              <Label layoutX="243.0" layoutY="110.0" text="Last Name" />
+                              <Button layoutX="430.0" layoutY="141.0" mnemonicParsing="false" onAction="#modEmpSearch" styleClass="button-standard" text="Search" />
                            </children>
                         </AnchorPane>
                      </content>

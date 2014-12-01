@@ -588,7 +588,7 @@ public class Input
            System.out.println("Message couldn't be sent, error is: " + exception.getMessage());
 	}
 	
-	return results.getEmployee().getId();
+	return results.getMessages();
    }
    
    public static Shift[] getShiftsOnDay (String username, Timestamp dayStart, Timestamp dayEnd)
