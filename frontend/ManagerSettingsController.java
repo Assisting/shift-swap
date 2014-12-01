@@ -154,7 +154,16 @@ public class ManagerSettingsController implements Initializable
 		newEmpLastName.getText(), newEmpPass.getText(),
 		newEmpEmail.getText(), Float.parseFloat(newEmpWage.getText()));
 	justAddedEmp = true;
+	modAccessID.setText(newEmpID.getText());
+	
 	managerTabs.getSelectionModel().select(setAccessTab);
+	
+	newEmpID.setText("");
+	newEmpFirstName.setText("");
+	newEmpLastName.setText("");
+	newEmpPass.setText("");
+	newEmpEmail.setText("");
+	newEmpWage.setText("");
     }
 
     /**
@@ -169,6 +178,15 @@ public class ManagerSettingsController implements Initializable
 		modEmpLastName.getText(),
 		modEmpEmail.getText(),
 		Float.parseFloat(modEmpWage.getText()));
+	
+	modAccessID.setText(newEmpID.getText());
+	managerTabs.getSelectionModel().select(setAccessTab);
+	
+	modEmpID.setText("");
+	modEmpFirstName.setText("");
+	modEmpLastName.setText("");
+	modEmpEmail.setText("");
+	modEmpWage.setText("");
     }
 
     @FXML
@@ -188,7 +206,13 @@ public class ManagerSettingsController implements Initializable
 	instance.changeAccessLevel(modAccessID.getText(), newAccessLevel);
 	
 	if(justAddedEmp == true) {
+	    setManagerEmployee.setText(modAccessID.getText());
 	    managerTabs.getSelectionModel().select(setManagerTab);
+	    
+	    modAccessID.setText("");
+	}
+	else {
+	    setAccessConfLabel.setText(modAccessID.getText() + " access level set");
 	}
     }
 
@@ -198,7 +222,14 @@ public class ManagerSettingsController implements Initializable
 	instance.setManager(setManagerEmployee.getText(),
 		setManagerManager.getText());
 	
+	setManagerConfLabel.setText("Changed " + setManagerEmployee.getText()
+				    + "'s manager to " + setManagerManager.getText());
+	
+	setManagerEmployee.setText("");
+	setManagerManager.setText("");
+	
 	if(justAddedEmp == true) {
+	    setManagerConfLabel.setText("New employee added");
 	    justAddedEmp = false;
 	}
     }
@@ -213,14 +244,17 @@ public class ManagerSettingsController implements Initializable
 		    proposedPassword);
 	    if(success) {
 		setPassConfLabel.setTextFill(fontColor);
-		setPassConfLabel.setText("Password set successfully");
+		setPassConfLabel.setText(setPasswordID.getText() 
+			+ "'s password set successfully");
+		
+		setPasswordNew.setText("");
+		setPasswordConfirm.setText("");
+		setPasswordID.setText("");
 	    }
 	    else {
 		setPassConfLabel.setTextFill(Color.FIREBRICK);
 		setPassConfLabel.setText("Password not set; contact system admin");
-	    }
-	    
-	    
+	    }   
 	}
 	else {
 	    setPassConfLabel.setTextFill(Color.FIREBRICK);
@@ -240,7 +274,8 @@ public class ManagerSettingsController implements Initializable
 	}
 	else {
 	    rmEmployeeConf.setTextFill(fontColor);
-	    rmEmployeeConf.setText("User successfully removed");
+	    rmEmployeeConf.setText(removeEmployeeID.getText() + " successfully removed");
+	    removeEmployeeID.setText("");
 	}
     }
     
@@ -274,7 +309,7 @@ public class ManagerSettingsController implements Initializable
 	String employeeLastName = rmEmployeeLast.getText();
 	
 	String userID = "";
-	//userID = Input.getWorkerLogin(employeeFirstName, employeeLastName);
+	userID = Input.getWorkerLogin(employeeFirstName, employeeLastName);
 	
 	removeEmployeeID.setText(userID);
     }

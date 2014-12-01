@@ -562,9 +562,8 @@ public class Input
    /** requests worker login(s) based on first and last name
     * @param firstName the first name of the employee
     * @param lastName the last name of the employee */
-   public static void getWorkerLogin (String firstName, String lastName)
+   public static String getWorkerLogin (String firstName, String lastName)
    {
-	//TODO need request for this
 	Request getLogin = Request.GetUserLoginRequest(clean(firstName), 
 						     clean(lastName));
 	RequestResults results = new RequestResults();
@@ -577,7 +576,7 @@ public class Input
            System.out.println("Message couldn't be sent, error is: " + exception.getMessage());
 	}
 	
-	
+	return results.getEmployee().getId();
    }
    
    public static Shift[] getShiftsOnDay (String username, Timestamp dayStart, Timestamp dayEnd)
