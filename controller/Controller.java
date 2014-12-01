@@ -22,11 +22,9 @@ import java.sql.Timestamp;
 public class Controller {
 
     private Connection dbconnection;
-    private Timestamp nullStamp;
 
     public Controller() {
         //System.out.print("connection");
-        nullStamp = new Timestamp(0);
         try {
                     Class.forName("org.postgresql.Driver");
             } catch (ClassNotFoundException e) {
@@ -102,6 +100,7 @@ public class Controller {
                         ResultSet transactionFields = acceptStatement.executeQuery(Queries.getTransactionData(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1]));
                         if (!transactionFields.next())
                             throw new SQLException("Data not found");
+                        
                         if (request.isApproved())
                         {
                             boolean manager1Approved = transactionFields.getBoolean("initmanagersign");
@@ -442,7 +441,7 @@ public class Controller {
     private void makeTrade(ResultSet transactionFields) throws SQLException
     {
         Statement transaction = dbconnection.createStatement();
-        if (transactionFields.getString("transactiontype").equals("TRADE"))
+        if (transactionFields.getString("transactiontype").equals("swap"))
         {
             transaction.addBatch(Queries.deleteShiftQuery(transactionFields.getString("initlogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
             transaction.addBatch(Queries.insertShiftQuery(transactionFields.getString("finallogin"), transactionFields.getTimestamp("initshiftstart"), transactionFields.getTimestamp("initshiftend")));
