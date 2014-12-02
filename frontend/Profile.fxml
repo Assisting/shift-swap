@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.ProfileController">
+   <children>
+      <BorderPane layoutX="245.0" layoutY="146.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <AnchorPane prefHeight="520.0" prefWidth="720.0" styleClass="background-standard" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="305.0" layoutY="14.0" styleClass="title" text="Profile" />
+                  <Label layoutX="252.0" layoutY="134.0" styleClass="label-standard" text="Name" />
+                  <Label layoutX="249.0" layoutY="169.0" text="E-mail" />
+                  <Label layoutX="253.0" layoutY="204.0" text="Wage" />
+                  <TextField fx:id="userIDField" layoutX="300.0" layoutY="129.0" />
+                  <TextField fx:id="emailField" layoutX="300.0" layoutY="164.0" />
+                  <TextField fx:id="wageField" layoutX="300.0" layoutY="199.0" />
+                  <Label fx:id="shiftConfLabel" layoutX="165.0" layoutY="425.0" />
+                  <CheckBox fx:id="notifyCheckbox" layoutX="300.0" layoutY="306.0" mnemonicParsing="false" text="Notify me when an employee changes a shift" visible="false" />
+               </children>
+            </AnchorPane>
+         </center>
+         <top>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="40.0" layoutY="8.0" mnemonicParsing="false" onAction="#onBackPress" styleClass="button-standard" text="Back" />
+               </children></Pane>
+         </top>
+         <left>
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="520.0" prefWidth="40.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Pane prefHeight="40.0" prefWidth="800.0" styleClass="border" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </children>
+   <stylesheets>
+        <URL value="@Primary.css" />
+   </stylesheets>
+</AnchorPane>

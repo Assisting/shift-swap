@@ -120,6 +120,17 @@ public class View extends Application
         }
     }
     
+    private void beginProfile()
+    {
+	try {
+            ProfileController profile = 
+		    (ProfileController) sceneTransition("Profile.fxml");
+            profile.setApp(instance);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     private void beginNewMessage() {
 	try {
             NewMessagePageController message = 
@@ -200,6 +211,11 @@ public class View extends Application
         beginTakeShift();
     }
     
+    protected void swapToProfile()
+    {
+	beginProfile();
+    }
+    
     protected void swapToProntPage()
     {
         beginHomescreen();
@@ -229,6 +245,42 @@ public class View extends Application
     protected LocalDate getCurrentDate()
     {
         return currentDate;
+    }
+    
+    /**
+     * Gets the email of a specified userID.
+     * @param userID the login ID for the employee
+     * @return that employee's email
+     */
+    protected String getEmail(String userID)
+    {
+	String returnEmail = Input.getWorkerInfo(userID).getEmail();
+	
+	return returnEmail;
+    }
+    
+    /**
+     * Gets the current wage of a specified userID.
+     * @param userID The login ID for the employee
+     * @return that employee's email
+     */
+    protected float getWage(String userID)
+    {
+	float returnWage = Input.getWorkerInfo(userID).getWage();
+	
+	return returnWage;
+    }
+    
+    /**
+     * Gives the current access level of a specified user ID
+     * @param userID the login ID of the employee
+     * @return that employee's access level (1-3)
+     */
+    protected int getAccessLevel(String userID)
+    {
+	int returnLevel = Input.getWorkerInfo(userID).getAccessLevel();
+	
+	return returnLevel;
     }
     
     /**

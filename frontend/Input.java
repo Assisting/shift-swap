@@ -586,17 +586,19 @@ public class Input
     /** requests the worker info given a login
      * @param login the login of the employee
      */
-   public static void getWorkerInfo (String login){
-	   //TODO need request for this
+   public static Employee getWorkerInfo (String login){
        Request getInfo = Request.GetUserInfoRequest(cleanId(login));
+       RequestResults results = new RequestResults();
        try
        {
-           controller.sendRequest(getInfo);
+           results = controller.sendRequest(getInfo);
        }
        catch(SQLException exception)
        {
            System.out.println("Message couldn't be sent, error is: " + exception.getMessage());
        }
+       
+       return results.getEmployee();
    }
    
    /** requests worker login(s) based on first and last name
