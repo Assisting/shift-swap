@@ -725,6 +725,28 @@ public class View extends Application
 	Input.changeEmployeesManager(employee, manager);
     }
     
+    /**
+     * Changes if a manager will  have to approve of their employee's shift 
+     * changes before they go through.
+     * @param userID the login of said manager
+     * @param status true if they must approve of all changes
+     */
+    protected void setManagerApprovalStatus(String userID, boolean status)
+    {
+	Input.changeApprovalStatus(userID, status);
+    }
+    
+    /**
+     * Gets the manager's currently notification preference for their
+     * employees's trades.
+     * @param userID the manager's login id
+     * @return true if they want to be notified.
+     */
+    protected boolean getManagerApprovalStatus(String userID)
+    {
+	return Input.getApprovalStatus(userID);
+    }
+    
     protected boolean setPassword(String employee, String password)
     {
 	Input.changeEmployeePassword(employee, password);

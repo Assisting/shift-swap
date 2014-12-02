@@ -567,7 +567,28 @@ public class Input
      */
     public static void changeApprovalStatus(String managerlogin, boolean wantToApprove)
     {
-        //TODO
+        Request changeStatusRequest = Request.changeManagerApprovalStatusRequest(managerlogin, wantToApprove);
+	try
+       {
+           controller.sendRequest(changeStatusRequest);
+       }
+       catch(SQLException exception)
+       {
+           System.out.println("Message couldn't be sent, error is: " + exception.getMessage());
+       }
+    }
+    
+    /**
+     * Returns the manager's currently listed notification preference for their
+     * employees's shift changes.
+     * @param managerLogin the user id of the manager
+     * @return true if they wish to approve all requests.
+     */
+    public static boolean getApprovalStatus(String managerLogin)
+    {
+	// TODO
+	
+	return false;
     }
     
     /**

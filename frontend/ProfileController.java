@@ -57,11 +57,8 @@ public class ProfileController implements Initializable
     
     private void toggleNotifications(boolean value)
     {
-	/*
-	 * This will eventually make the call to View (and thus Input) that will
-	 * toggle whether a manager is notified of changes in their employee's
-	 * shifts.
-	 */
+	String userID = instance.getLoggedInEmployee();
+	instance.setManagerApprovalStatus(userID, value);
     }
     
     private void getFields()
@@ -79,6 +76,9 @@ public class ProfileController implements Initializable
 	// If not a worker
 	if(accessLevel > 1) {
 	    notifyCheckbox.setVisible(true);
+	    
+	    boolean checked = instance.getManagerApprovalStatus(userID);
+	    notifyCheckbox.setSelected(checked);
 	}
     }
 
