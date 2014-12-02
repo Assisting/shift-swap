@@ -162,11 +162,11 @@ public class Controller {
                         }
                         else
                         {
-                            String sender = transactionFields.getString("sender");
-                            String recipient = transactionFields.getString("recipient");
+                            String sender = transactionFields.getString("initlogin");
+                            String recipient = transactionFields.getString("finallogin");
                             approveRequest.addBatch(Queries.deleteShiftTransactionQuery(request.getSender(), request.getRecipient(), request.getShifts()[0], request.getShifts()[1])); //remove record
-                            approveRequest.addBatch(Queries.newMessageQuery("Server", sender, "TRADE: trading " + request.getShifts()[0] + " was rejected by a manager")); //notifiy sender
-                            approveRequest.addBatch(Queries.newMessageQuery("Server", recipient, "TRADE: trading " + request.getShifts()[1] + " was rejected by a manager")); //notifiy recipient
+                            approveRequest.addBatch(Queries.newMessageQuery("Server", sender, "REJECT: trading " + request.getShifts()[0] + " was rejected by a manager")); //notifiy sender
+                            approveRequest.addBatch(Queries.newMessageQuery("Server", recipient, "REJECT: trading " + request.getShifts()[1] + " was rejected by a manager")); //notifiy recipient
                             approveRequest.executeBatch();
                         }
                         approveRequest.close();
