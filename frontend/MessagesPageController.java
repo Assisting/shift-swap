@@ -163,7 +163,13 @@ public class MessagesPageController extends AnchorPane implements Initializable 
         String startTime1;
         String startTime2;
         int startOfEntry;
-        int i=32;
+        int i=0;
+        while(parse.charAt(i)!='>')
+        {
+            i=i+1;
+        }
+        
+        i=i+9;
         startOfEntry=i;
         //Get Sender
         while(parse.charAt(i)!=' ')
@@ -227,7 +233,7 @@ public class MessagesPageController extends AnchorPane implements Initializable 
         String startTime1;
         String startTime2;
         int startOfEntry;
-        int i=36;
+        int i=31+instance.getLoggedInEmployee().length();
         startOfEntry=i;
         //Get Sender
         while(parse.charAt(i)!=' ')

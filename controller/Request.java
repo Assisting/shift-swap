@@ -211,8 +211,9 @@ public static Request ApproveRequest(String asker, String accepter, String appro
     Message message = new Message();
     message.setShifts(shifts);
     message.setApproved(approved);
-    message.setManager(approver);
-    return new Request(null, null, message, RequestType.APPROVE);
+    Request newRequest = new Request(asker, accepter, message, RequestType.APPROVE);
+    newRequest.setApprover(approver);
+    return newRequest;
 }
 
 /**
