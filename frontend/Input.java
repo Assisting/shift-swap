@@ -4,7 +4,8 @@
  * For use in shift-swap project; CMPT 370, University of Saskatchewan
  * 2014
  *
- * Also worked on by Warren Fehr, wwf594.
+ * Also worked on by Warren Fehr, wwf594, and Ken Slawinski kts192.
+ *
  */
 
 package frontend;
