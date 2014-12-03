@@ -4,6 +4,7 @@
 *  11118147
 *  October 2, 2014
 * Ken Slawinski also helped here, kts192
+* ANDREW MAGNUS, amm215
 */
 
 package controller;
