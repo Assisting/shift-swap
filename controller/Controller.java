@@ -35,7 +35,9 @@ public class Controller {
             }
             try
             {
-                dbconnection = DriverManager.getConnection ("jdbc:postgresql://lovett.usask.ca:5432/", "cmpt370_group13", "1truegod");
+                dbconnection = DriverManager.getConnection
+                ("jdbc:postgresql://lovett.usask.ca:5432/", "cmpt370_group13",
+                 "1truegod");
             }
             catch(SQLException sqle)
             {

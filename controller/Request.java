@@ -17,10 +17,19 @@ public class Request
 {
  
     public enum RequestType { GIVE, TRADE, ACCEPT, APPROVE, SEND_MESSAGE,
-                              CREATE_USER, DELETE_USER, VALIDATE_UNIQUE, PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE, ACCESS_UPDATE, ACCESS_LEVEL, USER_INFO, GET_USERNAME,
-                              LOGIN, GIVELIST, CHECK_GIVES, GET_MESSAGES, DELETE_MESSAGE,
+    
+                              CREATE_USER, DELETE_USER, VALIDATE_UNIQUE,
+                              PASSWORD_CHANGE, UPDATE_EMPLOYEE, MANAGER_CHANGE,
+                              ACCESS_UPDATE, ACCESS_LEVEL, USER_INFO,
+                              GET_USERNAME,
+                              
+                              LOGIN, GIVELIST, CHECK_GIVES, GET_MESSAGES,
+                              DELETE_MESSAGE,
+                              
                               APPROVAL_STATUS,
-                              SCHEDULE, SHIFT_RANGE, SHIFTS_DAY, ADD_SHIFT, REMOVE_SHIFT }
+                              
+                              SCHEDULE, SHIFT_RANGE, SHIFTS_DAY, ADD_SHIFT,
+                              REMOVE_SHIFT }
  
     final private String sender;
     private String approver;
@@ -34,7 +43,8 @@ public class Request
      * @param sender the employee id of the originator of the request
      * @param recipient the employee id of the request target, if known
      * @param message the relevant data for the request, depending on its type
-     * @param mode the type of request, indicating to the controller how message data should be parsed
+     * @param mode the type of request, indicating to the controller how message
+     * data should be parsed
      */
     public Request(String sender, String recipient, Message message, RequestType mode)
     {
@@ -172,7 +182,8 @@ public static Request GiveRequest(String sender, Timestamp[] times) {
  * create a new request to trade shifts with another employee
  * @param sender the person initiating the trade
  * @param recipient the person meant to receive the trade
- * @param shifts an array of shifts [senderStart, senderEnd, recipientStart, recipientEnd]
+ * @param shifts an array of shifts
+ *        [senderStart, senderEnd, recipientStart, recipientEnd]
  * @return 
  */
 public static Request TradeRequest(String sender, String recipient, Timestamp[] shifts) {
@@ -185,7 +196,8 @@ public static Request TradeRequest(String sender, String recipient, Timestamp[] 
  * send a message accepting or rejecting a trade request from another employee
  * @param asker the employee ID of the person who initiated the trade
  * @param accepter the employee ID of the person asked to accept the trade
- * @param shifts the shift start times of the person who started the trade, and the one accepting it
+ * @param shifts the shift start times of the person who started the trade, and
+ *        the one accepting it
  * @param accepted whether or not the trade is accepted
  * @return the request
  */
@@ -264,9 +276,12 @@ public static Request ChangePasswordRequest(String username, byte[] newPassword)
  * @param newWage -1 if not specified
  * @return 
  */
-public static Request ModifyEmployeeInfoRequest(String userToBeChanged, String newFirstName, String newLastName, String newEmail, int newAccessLevel, float newWage)
+public static Request ModifyEmployeeInfoRequest(String userToBeChanged,
+        String newFirstName, String newLastName, String newEmail,
+        int newAccessLevel, float newWage)
 {
-    Employee employee = new Employee(userToBeChanged, newFirstName, newLastName, newAccessLevel, null, newEmail, newWage);
+    Employee employee = new Employee(userToBeChanged, newFirstName,
+            newLastName, newAccessLevel, null, newEmail, newWage);
     Message message = new Message();
     message.setEmployee(employee);
     return new Request(null, null, message, RequestType.UPDATE_EMPLOYEE);
@@ -340,7 +355,8 @@ public static Request assignShiftsRequest(Shift shift)
 /**
  * Generate a request to change the manager approval status in the database
  * @param manager, login of the manager who wants to change status
- * @param wantToApprove true if the manager wants to approve and false if they do not
+ * @param wantToApprove true if the manager wants to approve and false if they
+ *        do not
  * @return Request, ready to be sent
  */
 public static Request changeManagerApprovalStatusRequest(String manager, boolean wantToApprove)

@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 /**
  * A container for the various SQL queries executed by the controller
- * @author Connor
+ * @author Ken and Andrew
  */
 public class Queries {
     

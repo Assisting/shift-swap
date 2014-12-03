@@ -23,7 +23,6 @@ public class Message {
     private String manager;
     private boolean approval;
 
-    //if (shift != null && shift.length%2 != 0) throw new IllegalArgumentException("Shift must contain an even number of elements");
     public Message(){}
     
     public void setNotification(String value) {
