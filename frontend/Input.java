@@ -27,73 +27,7 @@ public class Input
 {
     
     static Controller controller = new Controller();
-    
-    /**
-     * Attempts to clean up input. Currently only replace ; and some comparisons.
-     * Future versions could include Regex to avoid all manner of SQL injection
-     * attacks, though doing so in a way that doesn't mess too much with private
-     * messages is difficult to implement elegantly.
-     * @return a cleansed string
-     * @param input the string to be cleaned
-     */
-    public static String clean(String input)
-    {
-	String returnString = input.replace(">", "more than");
-	returnString = returnString.replace("<", "less than");
-	returnString = returnString.replace("=", "equals");
-	returnString = returnString.replace(";", ":");
-	
-	return returnString;
-    }
-    
-    /**
-     * Usernames may not contain spaces
-     * @param input the input username
-     * @return the cleaned username
-     */
-    public static String cleanId(String input)
-    {
-	String returnString = clean(input);
-	
-	returnString = returnString.replace(" ", "");
-	
-	return returnString;
-    }
-    
-    /**
-     * Attempts to clean up input.
-     * @param input the employee to be cleaned
-     * @return a cleansed employee object
-     */
-    public static Employee clean(Employee input)
-    {
-	String cleanEmail = clean(input.getEmail());
-	String cleanID = cleanId(input.getId());
-	String cleanFirstName = clean(input.getFirstName());
-	String cleanLastName = clean(input.getLastName());
-	
-	Employee returnEmployee = new Employee(cleanID, cleanFirstName, 
-				cleanLastName, input.getAccessLevel(),
-				input.getPassword(), cleanEmail, input.getWage());
-	
-	return returnEmployee;
-    }
-    
-    /**
-     * Attempts to clean up input.
-     * @param input the Shift you wish the clean
-     * @return a cleansed Shift object
-     */
-    public static Shift clean(Shift input)
-    {
-	String cleanID = cleanId(input.getEmployeeLogin());
-	
-	Shift returnShift = new Shift(cleanID, input.getShiftStartTime(),
-				input.getShiftEndTime());
-				
-	return returnShift;
-    }
-    
+     
     /**
      * This just ain't secure. Working on it.
      * @param username the username logging in
@@ -102,7 +36,7 @@ public class Input
      */
     public static boolean authenticate(String username, String password) {
 	byte[] pwHash = Input.createHash(password);
-	Request loginRequest = Request.LoginRequest(cleanId(username), pwHash);
+	Request loginRequest = Request.LoginRequest(Cleaner.cleanId(username), pwHash);
 	RequestResults results = null;
         try{
             results = controller.sendRequest(loginRequest);
@@ -125,7 +59,7 @@ public class Input
     
     public static Timestamp[] getSchedule(String userID)
     {
-        Request request = Request.ShiftRequest(cleanId(userID));
+        Request request = Request.ShiftRequest(Cleaner.cleanId(userID));
         RequestResults schedule = new RequestResults();
         try{
             schedule=controller.sendRequest(request);
@@ -142,7 +76,7 @@ public class Input
      */
     public static int getEmployeeAccessLevel(String userID)
     {
-	Request request = Request.GetAccessLevelRequest(cleanId(userID));
+	Request request = Request.GetAccessLevelRequest(Cleaner.cleanId(userID));
 	RequestResults accessLevel = new RequestResults();
 	try {
 	    accessLevel = controller.sendRequest(request);
@@ -157,7 +91,7 @@ public class Input
     
     public static Timestamp[] getRangeSchedule(String userID, Timestamp start, Timestamp end)
     {
-        Request request = Request.ShiftRangeRequest(cleanId(userID), start, end);
+        Request request = Request.ShiftRangeRequest(Cleaner.cleanId(userID), start, end);
         RequestResults schedule = new RequestResults();
         try{
             schedule = controller.sendRequest(request);
@@ -179,7 +113,7 @@ public class Input
      */
     public static boolean isUsernameUnique(String username)
     {
-        Request validateRequest = Request.UsernameValidateRequest(cleanId(username));
+        Request validateRequest = Request.UsernameValidateRequest(Cleaner.cleanId(username));
         RequestResults results = null;
         try{
             results = controller.sendRequest(validateRequest);
@@ -198,7 +132,7 @@ public class Input
      */
     public static void addNewEmployee(Employee newEmployee)
     {  
-        Request addNewEmployeeRequest = Request.CreateRequest("PLACEHOLDER", clean(newEmployee));
+        Request addNewEmployeeRequest = Request.CreateRequest("PLACEHOLDER", Cleaner.clean(newEmployee));
         RequestResults results = new RequestResults();
         try
         {
@@ -217,7 +151,7 @@ public class Input
      */
     public static void changeEmployeeAccessLevel(String username, int newAccessLevel)
     {
-        Request changeAccessLevelRequest = Request.ChangeAccessLevelRequest(cleanId(username), newAccessLevel);
+        Request changeAccessLevelRequest = Request.ChangeAccessLevelRequest(Cleaner.cleanId(username), newAccessLevel);
         try
         {
             controller.sendRequest(changeAccessLevelRequest);
@@ -234,7 +168,7 @@ public class Input
      */
     public static void removeEmployee(String username)
     {
-        Request removeEmployeeRequest = Request.DeleteRequest("PLACEHOLDER", cleanId(username));
+        Request removeEmployeeRequest = Request.DeleteRequest("PLACEHOLDER", Cleaner.cleanId(username));
         try
         {
             controller.sendRequest(removeEmployeeRequest);
@@ -261,8 +195,8 @@ public class Input
             throw new RuntimeException();
         }
         Request modifyEmployeeRequest = Request.ModifyEmployeeInfoRequest(
-		cleanId(userToBeChanged), clean(newFirstName), clean(newLastName),
-		clean(newEmail), newAccessLevel, newWage);
+		Cleaner.cleanId(userToBeChanged), Cleaner.clean(newFirstName), Cleaner.clean(newLastName),
+		Cleaner.clean(newEmail), newAccessLevel, newWage);
         try
         {
             controller.sendRequest(modifyEmployeeRequest);
@@ -283,7 +217,7 @@ public class Input
     {
         byte[] newHashedPassword = Input.createHash(newPassword);
         Request changePasswordRequest = Request.ChangePasswordRequest(
-		cleanId(username), newHashedPassword);
+		Cleaner.cleanId(username), newHashedPassword);
         try
         {
             controller.sendRequest(changePasswordRequest);
@@ -302,7 +236,7 @@ public class Input
     public static void changeEmployeesManager(String employee, String newManager)
     {
         Request changeEmployeesManagerRequest = Request.changeEmployeesManagerRequest(
-		cleanId(employee), clean(newManager));
+		Cleaner.cleanId(employee), Cleaner.clean(newManager));
         try
         {
             controller.sendRequest(changeEmployeesManagerRequest);
@@ -342,8 +276,8 @@ public class Input
     
     public static void createAcceptRequest(String asker, String accepter, Timestamp[] shifts, boolean response)
     {
-        Request request = Request.AcceptRequest(cleanId(asker),
-		cleanId(accepter), shifts, response);
+        Request request = Request.AcceptRequest(Cleaner.cleanId(asker),
+		Cleaner.cleanId(accepter), shifts, response);
         try 
         {
 		controller.sendRequest(request);
@@ -378,7 +312,7 @@ public class Input
      * @param shiftStartEnd an array containing the shifts Start time and shifts End time (0,1 respectively)
      */
     public static boolean createGiveRequest(String empName, Timestamp[] shiftStartEnd) {
-    	Request request = Request.GiveRequest(cleanId(empName), shiftStartEnd);
+    	Request request = Request.GiveRequest(Cleaner.cleanId(empName), shiftStartEnd);
     	try 
         {
 		controller.sendRequest(request);
@@ -403,7 +337,7 @@ public class Input
     public static void createTakeRequest(String initLogin, String finalLogin, Timestamp[] finalshiftStartEnd){
     	Request request = null;
         Timestamp[] temp={null,null, finalshiftStartEnd[0],finalshiftStartEnd[1]};
-    	request = Request.TradeRequest(cleanId(initLogin), cleanId(finalLogin), temp);
+    	request = Request.TradeRequest(Cleaner.cleanId(initLogin), Cleaner.cleanId(finalLogin), temp);
     	try {
 			controller.sendRequest(request);
 		} catch (SQLException e) {
@@ -446,7 +380,7 @@ public class Input
      */
     public static void createTradeRequest(String initLogin, Timestamp[] shiftStartEnd, String finalLogin, Timestamp[] finalshiftStartEnd){
     	Request request = null;
-    	request = Request.TradeRequest(cleanId(initLogin), cleanId(finalLogin),
+    	request = Request.TradeRequest(Cleaner.cleanId(initLogin), Cleaner.cleanId(finalLogin),
 		timestampArrayMerge(shiftStartEnd, finalshiftStartEnd));
     	try {
 			controller.sendRequest(request);
@@ -467,7 +401,7 @@ public class Input
      */
     public static RequestResults getEmployeeMessages(String username)
     {
-        Request messageRequest = Request.GetMessagesRequest(cleanId(username));
+        Request messageRequest = Request.GetMessagesRequest(Cleaner.cleanId(username));
         RequestResults results = null;
         try
         {
@@ -483,8 +417,8 @@ public class Input
     
     public static void sendMessage(String sender, String recipent, String message)
     {
-        Request messageRequest = Request.SendMessageRequest(cleanId(sender),
-		cleanId(recipent), clean(message));
+        Request messageRequest = Request.SendMessageRequest(Cleaner.cleanId(sender),
+		Cleaner.cleanId(recipent), Cleaner.clean(message));
         try
         {
             controller.sendRequest(messageRequest);
@@ -497,8 +431,8 @@ public class Input
     
     public static void deleteMessage(String sender, String recipient, Timestamp sendTime)
     {
-        Request deleteRequest = Request.DeleteMessageRequest(cleanId(sender),
-		cleanId(recipient), sendTime);
+        Request deleteRequest = Request.DeleteMessageRequest(Cleaner.cleanId(sender),
+		Cleaner.cleanId(recipient), sendTime);
         try
         {
             controller.sendRequest(deleteRequest);
@@ -549,7 +483,7 @@ public class Input
      */
     public static void assignShifts(Shift shift)
     {
-         Request assignRequest = Request.assignShiftsRequest(clean(shift));
+         Request assignRequest = Request.assignShiftsRequest(Cleaner.clean(shift));
          try
          {
             controller.sendRequest(assignRequest);
@@ -609,7 +543,7 @@ public class Input
      * @param login the login of the employee
      */
    public static Employee getWorkerInfo (String login){
-       Request getInfo = Request.GetUserInfoRequest(cleanId(login));
+       Request getInfo = Request.GetUserInfoRequest(Cleaner.cleanId(login));
        RequestResults results = new RequestResults();
        try
        {
@@ -628,8 +562,8 @@ public class Input
     * @param lastName the last name of the employee */
    public static String getWorkerLogin (String firstName, String lastName)
    {
-	Request getLogin = Request.GetUserLoginRequest(clean(firstName), 
-						     clean(lastName));
+	Request getLogin = Request.GetUserLoginRequest(Cleaner.clean(firstName), 
+						     Cleaner.clean(lastName));
 	RequestResults results = new RequestResults();
 	try
 	{
@@ -645,7 +579,7 @@ public class Input
    
    public static Shift[] getShiftsOnDay (String username, Timestamp dayStart, Timestamp dayEnd)
    {
-       Request getShifts=Request.GetShiftsonDay(cleanId(username), dayStart, dayEnd);
+       Request getShifts=Request.GetShiftsonDay(Cleaner.cleanId(username), dayStart, dayEnd);
        RequestResults results = new RequestResults();
        try
        {
