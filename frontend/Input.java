@@ -35,7 +35,7 @@ public class Input
      * @return true if they can log in
      */
     public static boolean authenticate(String username, String password) {
-	byte[] pwHash = Input.createHash(password);
+	byte[] pwHash = PasswordHasher.createHash(password);
 	Request loginRequest = Request.LoginRequest(Cleaner.cleanId(username), pwHash);
 	RequestResults results = null;
         try{
@@ -215,7 +215,7 @@ public class Input
      */
     public static void changeEmployeePassword(String username, String newPassword)
     {
-        byte[] newHashedPassword = Input.createHash(newPassword);
+        byte[] newHashedPassword = PasswordHasher.createHash(newPassword);
         Request changePasswordRequest = Request.ChangePasswordRequest(
 		Cleaner.cleanId(username), newHashedPassword);
         try
@@ -248,24 +248,6 @@ public class Input
     }
     
     
-    //made this function public so that adding a new employee can create a hash too
-    public static byte[] createHash(String password) {
-	byte[] returnHash = null;
-	
-	try {
-	    MessageDigest md = MessageDigest.getInstance("SHA-256");
-	    md.update(password.getBytes());
-	    returnHash = md.digest();
-	     
-	    if(returnHash == null) {
-		throw new RuntimeException("ReturnHash null in DummyController");
-	    }
-	} catch (NoSuchAlgorithmException nsae) {
-	    System.out.println("Exception: " + nsae);
-	}
-	
-	return returnHash;
-    }
      /**
      * Creates a request to accept or reject a trade offer.
      * @param asker the employees name who offered the request

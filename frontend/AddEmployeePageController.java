@@ -137,7 +137,7 @@ public class AddEmployeePageController implements Initializable {
                     break;
             }
             float wage = Float.parseFloat(startingWageText.getText());
-            byte[] password = Input.createHash(passwordText.getText());
+            byte[] password = PasswordHasher.createHash(passwordText.getText());
             Employee newEmp = new Employee(usernameText.getText(), firstNameText.getText(), lastNameText.getText(), accessLevel, password, emailText.getText(), wage);
             Input.addNewEmployee(newEmp);
             
