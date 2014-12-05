@@ -695,7 +695,7 @@ public class View extends Application
 	    String password, String email, float wage)
     {
 	Employee newEmployee = new Employee(ID, firstName, lastName, 1,
-		Input.createHash(password), email, wage);
+		PasswordHasher.createHash(password), email, wage);
 	
 	Input.addNewEmployee(newEmployee);
     }

@@ -1,6 +1,7 @@
 /** Created by 
 *
 * Ken Slawinski also helped here, kts192
+* ANDREW MAGNUS, amm215
 */
 
 package controller;
