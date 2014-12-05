@@ -283,6 +283,22 @@ public class Controller {
                         shiftRangeRequest.close();
                         break;
                     }
+		    case UPDATE_EMPLOYEE:
+		    {
+			PreparedStatement infoChange = dbconnection.prepareStatement("UPDATE employees SET empfirstname = ?, emplastname = ?, empaccesslevel = ?, empemail = ?, empwage = ?"
+                                + " WHERE emplogin = ? ");
+			Employee emp = request.getEmployee();
+			
+			infoChange.setString(1, emp.getFirstName());
+			infoChange.setString(2, emp.getLastName());
+			infoChange.setInt(3, emp.getAccessLevel());
+			infoChange.setString(4, emp.getEmail());
+			infoChange.setFloat(5, emp.getWage());
+			infoChange.setString(6, emp.getId());
+			
+			infoChange.execute();
+			infoChange.close();
+		    }
                     case PASSWORD_CHANGE:
                     {
 
